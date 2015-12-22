@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Elixir v0.10.0 released - Elixir</title>
+  <link href="http://feeds.feedburner.com/ElixirLang" rel="alternate" title="Elixir's Blog" type="application/atom+xml" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" id="font-bitter-css" href="http://fonts.googleapis.com/css?family=Bitter&amp;ver=1" type="text/css" media="screen">
+</head>
+
+<body class="">
+  <div id="container">
+    <div class="wrap">
+    <div id="header">
+      <div id="branding">
+        <h1 id="site-title">
+          <a href="/" title="Elixir" rel="Home">
+            <img class="logo" src="/images/logo/logo.png" alt="Elixir Logo" />
+          </a>
+        </h1>
+      </div>
+
+      <div id="menu-primary" class="menu-container">
+        <div class="menu">
+          <ul id="menu-primary-items">
+            <li class="menu-item home"><a class="spec" href="/">Home</a></li>
+            <li class="menu-item install"><a class="spec" href="/install.html">Install</a></li>
+            <li class="menu-item getting_started"><a class="spec" href="/getting_started/1.html">Getting Started</a></li>
+            <li class="menu-item docs"><a class="spec" href="/docs.html">Docs</a></li>
+            <li class="menu-item blog"><a class="spec" href="/blog">Blog</a></li>
+            <li class="menu-item source"><a class="spec" href="https://github.com/elixir-lang/elixir">Source</a></li>
+            <li class="menu-item packages"><a class="spec" href="http://hex.pm/">Packages</a></li>
+
+          </ul>
+        </div>
+      </div>
+
+      <div class="clear"></div>
+    </div>
+
+    <div id="main">
+
+
+<div id="content">
+  <div class="hfeed">
+  <div class="hentry post">
+    <div class="post-content">
+      <div class="sticky-header">
+        <h1>Elixir v0.10.0 released</h1>
+        
+        <div class="byline">July 13, 2013 · by José Valim . in <span class="category"><a href="/blog/categories.html#Releases">Releases</a></div>
+      </div>
+
+      <div class="entry-content">
+        <p>Elixir v0.10.0 is released with support for streams, sets and many improvements to the Mix and ExUnit applications.</p>
+
+<h2 id="streams">Streams</h2>
+
+<p>The default mechanism for working with collections in Elixir is the <code>Enum</code> module. With it, you can map over ranges, lists, sets, dictionaries and any other structure as long as it implements the <code>Enumerable</code> protocol:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="nc">Enum</span><span class="p">.</span><span class="n">map</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="k">fn</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span> <span class="k">end</span><span class="p">)</span>
+<span class="c1">#=&gt; [2,4,6]</span>
+</code></pre></div>
+<p>The <code>Enum</code> module performs eager evaluation. Consider the following example:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+  <span class="o">|&gt;</span> <span class="nc">Enum</span><span class="p">.</span><span class="n">take_while</span><span class="p">(</span><span class="k">fn</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">3</span> <span class="k">end</span><span class="p">)</span>
+  <span class="o">|&gt;</span> <span class="nc">Enum</span><span class="p">.</span><span class="n">map</span><span class="p">(</span><span class="k">fn</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span> <span class="k">end</span><span class="p">)</span>
+<span class="c1">#=&gt; [2,4]</span>
+</code></pre></div>
+<p>In the example above, we enumerate the items in list once, taking all elements that are less than 3, and then we enumerate the remaining elements again, multiplying them by two. In order to retrieve the final result, we have created one intermediate list. As we add more operations, more intermediate lists will be generated.</p>
+
+<p>This approach is simple and efficient for the majority of the cases but, when working with large collections, we can generate many, possibly large, intermediate lists affecting performance. That&#39;s one of the problems Streams solve. Let&#39;s rewrite the example above using Streams:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+  <span class="o">|&gt;</span> <span class="nc">Stream</span><span class="p">.</span><span class="n">take_while</span><span class="p">(</span><span class="k">fn</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">3</span> <span class="k">end</span><span class="p">)</span>
+  <span class="o">|&gt;</span> <span class="nc">Stream</span><span class="p">.</span><span class="n">map</span><span class="p">(</span><span class="k">fn</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span> <span class="k">end</span><span class="p">)</span>
+<span class="c1">#=&gt; #Stream.Lazy&lt;...&gt;</span>
+</code></pre></div>
+<p>Now, instead of getting the result back, we got a Stream. The list elements are yet to be enumerated! We can realize the stream  by calling any of the Enum functions, like <code>Enum.to_list/1</code>. By doing so the list will be iterated just once avoiding the intermediary representations.</p>
+
+<p>In a nutshell, Streams are composable, lazy enumerables. Streams are also useful when doing IO or expressing infinite computations. We can retrieve a file as a stream:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="nc">File</span><span class="p">.</span><span class="n">stream!</span><span class="p">(</span><span class="s2">&quot;README.md&quot;</span><span class="p">)</span>
+</code></pre></div>
+<p>In the example above, we got a stream that will enumerate the lines in the file one by one when enumerated. We could further extend the stream above, for example, by rejecting blank lines, and the file will be opened just when its results are actually needed.</p>
+
+<p>Do you need a random number generator? We got your back:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="nc">Stream</span><span class="p">.</span><span class="n">repeatedly</span><span class="p">(</span><span class="k">fn</span> <span class="p">-&gt;</span> <span class="ss">:random</span><span class="p">.</span><span class="n">uniform</span> <span class="k">end</span><span class="p">)</span> <span class="o">|&gt;</span> <span class="nc">Enum</span><span class="p">.</span><span class="n">take</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="c1">#=&gt; [0.4435846174457203, 0.7230402056221108, 0.94581636451987]</span>
+</code></pre></div>
+<p><code>Stream.repeatedly/1</code> returns an infinite stream but that&#39;s ok we just need its first three elements. You can learn more about <a href="http://elixir-lang.org/docs/stable/elixir/Stream.html">stream and related functions in <code>Stream</code> module documentation</a>.</p>
+
+<h2 id="sets">Sets</h2>
+
+<p>This release also adds <a href="http://elixir-lang.org/docs/stable/elixir/Set.html">the Sets API</a> to Elixir and a HashSet implementation. The HashSet implementation follows <a href="http://elixir-lang.org/blog/2013/01/27/elixir-v0-8-0-released/">the same design goals as the HashDict implementation</a> released at the beginning of this year, starting with a compact representation and expanding and contracting as needed.</p>
+
+<p>This feature was a contribution from <a href="https://github.com/josephwilk">Joseph Wilk</a> and he talks about its implementation and provides some benchmarks <a href="http://blog.josephwilk.net/elixir/sets-in-elixir.html">on his blog</a>.</p>
+
+<h2 id="pretty-printing">Pretty printing</h2>
+
+<p>Another addition to this release is pretty printing. The pretty printing started as an implementation of the <a href="http://homepages.inf.ed.ac.uk/wadler/papers/prettier/prettier.pdf">Wadler paper</a> by <a href="https://github.com/manpages">Jonns Mostovoys</a> which was then improved by <a href="https://github.com/brunoro">Gustavo Brunoro</a> under his Google Summer of Code project as described in <a href="http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.34.2200">Lindig&#39;s <em>Strictly Prettier</em> paper</a>.</p>
+
+<p>As soon as you upgrade to Elixir v0.10.0 and start IEx, you will get pretty printing for all data structures provided by Elixir. We have also added documentation to the <code>Inspect</code> module about <a href="http://elixir-lang.org/docs/stable/elixir/Inspect.html">adding pretty printing to your own structures</a> as well as <a href="http://elixir-lang.org/docs/stable/elixir/Inspect.Algebra.html">using the document algebra for any other kind of formatting</a>.</p>
+
+<h2 id="other-improvements">Other improvements</h2>
+
+<p>Other notable improvements are:</p>
+
+<ul>
+<li><p>We have improved Mix to be able to fetch Rebar dependencies, making integration with the existing Erlang ecossystem much easier, thanks to <a href="https://github.com/ericmj">Eric Meadows-Jonsson</a>;</p></li>
+<li><p>ExUnit now supports the trace option, enabled via <code>mix test --trace</code>, which forces tests to run sequentially and print the test names and extra information as it goes;</p></li>
+<li><p>We are also working hard on Windows support, improving its command-line tools and working towards a green test suite, thanks to <a href="https://github.com/tojans">Tom Jansens</a>;</p></li>
+<li><p>Meta-programming in Elixir was also improved by the addition of the <code>binding/0</code> and <code>binding/1</code> macros plus the additions of <code>Macro.expand_once/2</code> and <code>Macro.expand_all/2</code> to the <a href="http://elixir-lang.org/docs/stable/elixir/Macro.html"><code>Macro</code> module</a>;</p></li>
+</ul>
+
+<p>There are also improvements to typespecs, error messages, many bug fixes and some backwards incompatible changes. We have posted a detailed <a href="https://groups.google.com/forum/?fromgroups#!topic/elixir-lang-talk/ksrefrgK1eY">upgrade instructions on the mailing list</a>. For a general overview, <a href="https://github.com/elixir-lang/elixir/blob/v0.10.0/CHANGELOG.md">check out the CHANGELOG</a>.</p>
+
+<p>Give Elixir a try! You can start with our <a href="http://elixir-lang.org/getting_started/1.html">getting started guide</a>, or check out our sidebar for other learning resources.</p>
+
+      </div>
+
+      <!-- <div class="entry-meta">
+      </div> -->
+    </div>
+  </div>
+</div>
+
+</div><!-- #content -->
+
+<div id="sidebar-primary" class="sidebar">
+  <div class="widget news">
+  <h3>
+    News: <a href="/blog/2014/09/18/elixir-v1-0-0-released/">Elixir v1.0.0 released</a>
+  </h3>
+</div>
+
+<div class="widget search">
+  <form method="get" class="search-form" action="http://www.google.com/search">
+		<div>
+			<input class="search-text" type="text" name="q" placeholder="Search..." id="searchfield">
+			<input type="hidden" name="sitesearch" value="elixir-lang.org">
+			<input class="search-submit button" name="submit" type="submit" value="Search">
+		</div>
+	</form>
+</div>
+  <div class="rss-button">
+    <a href="http://feeds.feedburner.com/ElixirLang" target="_blank"><img src="/images/social/RSSButton.png" /></a>
+  </div>
+  <div class="widget categories-list">
+  <h3 class="widget-title">Blog Categories</h3>
+  <ul>
+  
+    <li><a class="spec" href="/blog/categories.html#Internals">Internals</a></li>
+  
+    <li><a class="spec" href="/blog/categories.html#Releases">Releases</a></li>
+  
+    <li><a class="spec" href="/blog/categories.html#Announcements">Announcements</a></li>
+  
+  </ul>
+</div>
+
+  <div class="widget">
+  <h3 class="widget-title">Join the Community</h3>
+  <ul>
+    <li><a class="spec" href="irc://irc.freenode.net/elixir-lang">#elixir-lang on freenode IRC</a></li>
+    <li><a class="spec" href="http://groups.google.com/group/elixir-lang-talk">elixir-talk mailing list (questions)</a></li>
+    <li><a class="spec" href="http://groups.google.com/group/elixir-lang-core">elixir-core mailing list (development)</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/elixir/issues">Issues tracker</a></li>
+    <li><a class="spec" href="http://twitter.com/elixirlang">@elixirlang on Twitter</a></li>
+  </ul>
+</div>
+
+<div class="widget">
+  <h3 class="widget-title">Important links</h3>
+  <ul>
+    <li><a class="spec" href="https://github.com/elixir-lang/elixir/wiki">Wiki with events, resources and talks organized by the community</a></li>
+    <li><a class="spec" href="http://elixir-lang.org/crash-course.html">Crash course for Erlang developers</a></li>
+  </ul>
+</div>
+
+<div class="widget">
+  <h3 class="widget-title">Learning resources</h3>
+  <ul>
+    <li class="image"><a href="http://pragprog.com/titles/elixir" title="Programming Elixir cover"><img src="http://imagery.pragprog.com/products/361/elixir_xlargebeta.jpg?1368724397" /></a></li>
+    <li class="image"><a href="http://elixirsips.com" title="ElixirSips cover"><img src="http://elixirsips.com/images/ElixirLangAd2_190x160.png" width="190" height="160" /></a></li>
+    <li class="image"><a href="http://manning.com/juric/" title="Elixir in Action"><img src="http://manning.com/juric/juric_cover150.jpg" width="190" height="238" /></a></li>
+    <li class="image"><a href="http://www.exotpbook.com/" title="The Little Elixir and OTP Guidebook"><img src="http://i.imgur.com/G6icQmt.png" width="190" height="274" /></a></li>
+    <li class="image"><a href="http://shop.oreilly.com/product/0636920030584.do" title="Introducing Elixir"><img src="http://akamaicovers.oreilly.com/images/0636920030584/rc_cat.gif" width="190" /></a></li>
+  </ul>
+</div>
+
+
+<div class="widget">
+  <h3 class="widget-title">Code editor support</h3>
+  <ul>
+    <li><a class="spec" href="https://github.com/elixir-lang/emacs-elixir">Emacs Mode</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/elixir-tmbundle">Textmate Bundle</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/vim-elixir">Vim Elixir</a></li>
+    <li><a class="spec" href="https://github.com/SteffenBauer/elixir-gtksourceview">GtkSourceView (gedit)</a></li>
+    <li><a class="spec" href="https://github.com/lucasmazza/language-elixir">Atom Package</a></li>
+  </ul>
+</div>
+
+
+<div class="widget">
+  <h3 class="widget-title">Sponsors</h3>
+  <ul>
+    <li class="image"><a href="http://plataformatec.com.br" title="Plataformatec"><img class="no-border" src="/images/logo/plataformatec.png" /></a></li>
+  </ul>
+</div>
+
+</div>
+
+      </div><!-- #main -->
+
+      <div class="clear">
+      </div>
+
+      <div id="copyright">
+        © 2012-2014 <a href="http://plataformatec.com.br/">Plataformatec</a>. All rights reserved.
+      </p>
+    </div><!-- .wrap -->
+  </div><!-- #container -->
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-8268430-6']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="/js/toc/toc.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $('.toc').toc({
+          title: '',
+          listType: 'ul',
+          showSpeed: 0,
+        });
+    });
+  </script>
+</body>
+</html>
+

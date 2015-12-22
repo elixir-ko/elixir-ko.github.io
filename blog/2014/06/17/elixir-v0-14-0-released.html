@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Elixir v0.14.0 released - Elixir</title>
+  <link href="http://feeds.feedburner.com/ElixirLang" rel="alternate" title="Elixir's Blog" type="application/atom+xml" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" id="font-bitter-css" href="http://fonts.googleapis.com/css?family=Bitter&amp;ver=1" type="text/css" media="screen">
+</head>
+
+<body class="">
+  <div id="container">
+    <div class="wrap">
+    <div id="header">
+      <div id="branding">
+        <h1 id="site-title">
+          <a href="/" title="Elixir" rel="Home">
+            <img class="logo" src="/images/logo/logo.png" alt="Elixir Logo" />
+          </a>
+        </h1>
+      </div>
+
+      <div id="menu-primary" class="menu-container">
+        <div class="menu">
+          <ul id="menu-primary-items">
+            <li class="menu-item home"><a class="spec" href="/">Home</a></li>
+            <li class="menu-item install"><a class="spec" href="/install.html">Install</a></li>
+            <li class="menu-item getting_started"><a class="spec" href="/getting_started/1.html">Getting Started</a></li>
+            <li class="menu-item docs"><a class="spec" href="/docs.html">Docs</a></li>
+            <li class="menu-item blog"><a class="spec" href="/blog">Blog</a></li>
+            <li class="menu-item source"><a class="spec" href="https://github.com/elixir-lang/elixir">Source</a></li>
+            <li class="menu-item packages"><a class="spec" href="http://hex.pm/">Packages</a></li>
+
+          </ul>
+        </div>
+      </div>
+
+      <div class="clear"></div>
+    </div>
+
+    <div id="main">
+
+
+<div id="content">
+  <div class="hfeed">
+  <div class="hentry post">
+    <div class="post-content">
+      <div class="sticky-header">
+        <h1>Elixir v0.14.0 released</h1>
+        
+        <div class="byline">June 17, 2014 · by José Valim . in <span class="category"><a href="/blog/categories.html#Releases">Releases</a></div>
+      </div>
+
+      <div class="entry-content">
+        <p>Hello everyone!</p>
+
+<p>We are glad to announce v0.14.0 has been released.</p>
+
+<p>Our previous release, <a href="/blog/2014/04/21/elixir-v0-13-0-released/">v0.13.0</a>, brought important changes to the language. Back then we have introduced a new associative data structure, called maps, and presented the concept of structs to replace Elixir records.</p>
+
+<p>With v0.14.0 we have expanded on the work started on v0.13.0, replacing records by structs and integrating OTP behaviours, applications, and configurations into Mix.</p>
+
+<h2 id="derive">@derive</h2>
+
+<p>Maps are Elixir&#39;s new associative data structure:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="p">%{</span><span class="ss">key</span><span class="p">:</span> <span class="s2">&quot;value&quot;</span><span class="p">}</span>
+</code></pre></div>
+<p>With maps, Elixir also introduced structs, that are basically raw, named maps:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">User</span> <span class="k">do</span>
+  <span class="kd">defstruct</span> <span class="ss">name</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="ss">age</span><span class="p">:</span> <span class="mi">0</span>
+<span class="k">end</span>
+
+<span class="p">%</span><span class="nc">User</span><span class="p">{</span><span class="ss">name</span><span class="p">:</span> <span class="s2">&quot;jose&quot;</span><span class="p">}</span>
+<span class="c1">#=&gt; %User{name: &quot;jose&quot;, age: 0}</span>
+</code></pre></div>
+<p>Structs allow us to provide default values for a map fields. Structs also validate, at compilation time, that all fields given during the struct construction are valid fields. The following, for example, would fail:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="p">%</span><span class="nc">User</span><span class="p">{</span><span class="ss">unknown</span><span class="p">:</span> <span class="s2">&quot;field&quot;</span><span class="p">}</span>
+<span class="c1">#=&gt; ** (CompileError) iex:2: unknown key :unknown for struct User</span>
+</code></pre></div>
+<p>We say structs are <em>raw</em> because they do not implement any of the protocols that are implemented for maps  by default. For instance, we can call <code>Enum.each/2</code> for a map, which uses the <a href="/docs/stable/elixir/Enumerable.html"><code>Enumerable</code></a> protocol:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="nc">Enum</span><span class="p">.</span><span class="n">each</span> <span class="p">%{</span><span class="ss">foo</span><span class="p">:</span> <span class="ss">:bar</span><span class="p">},</span> <span class="k">fn</span> <span class="p">{</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">}</span> <span class="p">-&gt;</span>
+  <span class="nc">IO</span><span class="p">.</span><span class="n">puts</span> <span class="s2">&quot;Got </span><span class="si">#{</span><span class="n">k</span><span class="si">}</span><span class="s2">: </span><span class="si">#{</span><span class="n">v</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">end</span>
+<span class="c1">#=&gt; Got foo: bar</span>
+</code></pre></div>
+<p>But such a call would fail for the User struct:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="nc">Enum</span><span class="p">.</span><span class="n">each</span> <span class="p">%</span><span class="nc">User</span><span class="p">{},</span> <span class="k">fn</span> <span class="p">{</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">}</span> <span class="p">-&gt;</span>
+  <span class="nc">IO</span><span class="p">.</span><span class="n">puts</span> <span class="s2">&quot;Got </span><span class="si">#{</span><span class="n">k</span><span class="si">}</span><span class="s2">: </span><span class="si">#{</span><span class="n">v</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">end</span>
+<span class="c1">#=&gt; ** (Protocol.UndefinedError) protocol Enumerable not implemented for %User{age: 0, name: &quot;&quot;}</span>
+</code></pre></div>
+<p>However, in many situations, we may want to enumerate the keys and values in a struct. Before this release, it would require us to manually implement the <code>Enumerable</code> protocol for every struct.</p>
+
+<p>Elixir v0.14.0 solves this issue by introducing <code>@derive</code> which allows us to dynamically derive implementations for structs based on the implementation for maps:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">User</span> <span class="k">do</span>
+  <span class="na">@derive</span> <span class="p">[</span><span class="nc">Enumerable</span><span class="p">]</span>
+  <span class="kd">defstruct</span> <span class="ss">name</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="ss">age</span><span class="p">:</span> <span class="mi">0</span>
+<span class="k">end</span>
+
+<span class="nc">Enum</span><span class="p">.</span><span class="n">each</span> <span class="p">%</span><span class="nc">User</span><span class="p">{</span><span class="ss">name</span><span class="p">:</span> <span class="s2">&quot;jose&quot;</span><span class="p">},</span> <span class="k">fn</span> <span class="p">{</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">}</span> <span class="p">-&gt;</span>
+  <span class="nc">IO</span><span class="p">.</span><span class="n">puts</span> <span class="s2">&quot;Got </span><span class="si">#{</span><span class="n">k</span><span class="si">}</span><span class="s2">: </span><span class="si">#{</span><span class="n">v</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="k">end</span>
+<span class="c1">#=&gt; Got __struct__: Elixir.User</span>
+<span class="c1">#=&gt; Got name: jose</span>
+<span class="c1">#=&gt; Got age: 0</span>
+</code></pre></div>
+<p>The deriving functionality can be customized by implementing <code>PROTOCOL.Map.__deriving__/3</code>. For example, a JSON protocol could define a <code>JSON.Map.__deriving__/3</code> function that derives specific implementations for every struct. Such implementations could access the struct fields and generate a JSON template at compilation time, avoiding work at runtime.</p>
+
+<h2 id="protocol-consolidation">Protocol consolidation</h2>
+
+<p>In the example above, when we called <code>Enum.each/2</code>, it invoked the <code>Enumerable</code> protocol internally, which then checks if there is an implementation available for the <code>User</code> struct. This means that dispatching a protocol incurs some overhead to check if the implementation is available or not.</p>
+
+<p>While this behaviour is useful for development, in production all implementations for all protocols are usually known up-front, so we could avoid this overhead by doing a direct dispatch. That&#39;s exactly what protocol consolidation does.</p>
+
+<p>Protocol consolidation checks all code paths in your project, looking for all protocols and all implementions. When all implementations are found it will recompile all protocols to have quick dispatch rules.</p>
+
+<p>You can invoke <code>Protocol.consolidate/2</code> to manually consolidate protocols. However, if you are inside a Mix project, you can consolidate all protocols by simply invoking <code>mix compile.protocols</code>. Type <code>mix help compile.protocols</code> in your terminal to get more information. This task should be invoked when deploying to production and we have opened issues in the Elixir buildpack as well as in the existing build tools so they automatically consolidade protocols for you.</p>
+
+<h2 id="nested-access">Nested access</h2>
+
+<p>With v0.14.0, Elixir introduced functionality to traverse deeply nested data structures. To show this functionality let&#39;s imagine we have a gaming application where users can be in different dungeons. Each dungeon may have many rooms and users can talk to each other only if they are in the same room.</p>
+
+<p>We can model the game&#39;s dungeons with a Dungeon struct:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="p">%</span><span class="nc">Dungeon</span><span class="p">{</span><span class="ss">name</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="ss">rooms</span><span class="p">:</span> <span class="p">%{}}</span>
+</code></pre></div>
+<p>The Dungeon can have many rooms and we keep them in a map, with the room id as key, and the Room struct as value:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="p">%</span><span class="nc">Room</span><span class="p">{</span><span class="ss">id</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="ss">users</span><span class="p">:</span> <span class="nc">HashDict</span><span class="p">.</span><span class="n">new</span><span class="p">}</span>
+</code></pre></div>
+<p>A room has users and since we can possibly have hundreds of them, we store them in a HashDict, with the user id as key. Finally, the user may participate from different devices, so we need to keep a set of device codes in each user:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="p">%</span><span class="nc">User</span><span class="p">{</span><span class="ss">id</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="ss">username</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="ss">device_codes</span><span class="p">:</span> <span class="nc">HashSet</span><span class="p">.</span><span class="n">new</span><span class="p">}</span>
+</code></pre></div>
+<p>The nested access functionality that ships with Elixir allows us to quickly access or update a nested value. For example, given a dungeon named <code>dungeon</code>, we can access all the device codes for a given user as follow:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="n">dungeon</span><span class="p">.</span><span class="n">rooms</span><span class="p">[</span><span class="n">room_id</span><span class="p">].</span><span class="n">users</span><span class="p">[</span><span class="n">user_id</span><span class="p">].</span><span class="n">device_codes</span>
+</code></pre></div>
+<p>With the nested access functionality, we can now update a nested path directly too. For example, if a user changes his name, we can change it directly with:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="n">put_in</span> <span class="n">dungeon</span><span class="p">.</span><span class="n">rooms</span><span class="p">[</span><span class="n">room_id</span><span class="p">].</span><span class="n">users</span><span class="p">[</span><span class="n">user_id</span><span class="p">].</span><span class="n">username</span><span class="p">,</span> <span class="s2">&quot;new username&quot;</span>
+</code></pre></div>
+<p>If the user signs out from one device, we can delete the code from that particular device:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="n">update_in</span> <span class="n">dungeon</span><span class="p">.</span><span class="n">rooms</span><span class="p">[</span><span class="n">room_id</span><span class="p">].</span><span class="n">users</span><span class="p">[</span><span class="n">user_id</span><span class="p">].</span><span class="n">device_codes</span><span class="p">,</span> <span class="o">&amp;</span><span class="nc">Set</span><span class="p">.</span><span class="n">delete</span><span class="p">(</span><span class="ni">&amp;1</span><span class="p">,</span> <span class="n">code</span><span class="p">)</span>
+</code></pre></div>
+<p><code>put_in/2</code> and <code>update_in/2</code> are macros that work as syntax sugar for the lower-level <code>put_in/3</code> and <code>update_in/3</code>, that expects the whole path to be given as a list:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="n">put_in</span> <span class="n">dungeon</span><span class="p">,</span> <span class="p">[</span><span class="ss">:rooms</span><span class="p">,</span> <span class="n">room_id</span><span class="p">,</span> <span class="ss">:users</span><span class="p">,</span> <span class="n">user_id</span><span class="p">,</span> <span class="ss">:username</span><span class="p">],</span> <span class="s2">&quot;new username&quot;</span>
+</code></pre></div>
+<p>You can read more information about nested access in <a href="/docs/stable/elixir/Access.html">the Access protocol documentation</a> and in the docs for <a href="/docs/stable/elixir/Kernel.html#get_in/2"><code>get_in/2</code></a> and friends.</p>
+
+<h2 id="mix-and-otp">Mix and OTP</h2>
+
+<p>OTP is a set of libraries that ships with Erlang. Erlang developers use OTP to build robust, fault-tolerant applications.</p>
+
+<p>In v0.14.0, Elixir closely integrates with OTP by providing modules for building <a href="/docs/stable/elixir/GenServer.html">servers</a>, <a href="/docs/stable/elixir/GenEvent.html">event managers and event handlers</a>, <a href="/docs/stable/elixir/Supervisor.html">supervisors</a> and <a href="/docs/stable/elixir/Application.html">applications</a>.</p>
+
+<p>We have also introduced the concepts of <a href="/docs/stable/elixir/Agent.html">agents</a> and the idea of <a href="/docs/stable/elixir/Task.html">tasks</a>, which can be supervised and distributed. Application configuration has been made first class in Mix, allowing developers to configure their dependencies, sometimes even using different configurations per environment (dev, test or prod by default).</p>
+
+<p>This functionality is at the core of building applications in Erlang and Elixir. For this reason we have published a new guide called <a href="/getting_started/mix_otp/1.html">Mix and OTP</a> where we build a distributed key-value store to help explore all concepts mentioned above. The guide is quite fresh, so please do submit pull requests for typos and mistakes. Feedback is also welcome!</p>
+
+<p>Note &quot;Mix and OTP&quot; is our most advanced guide so far and it expects you to have read our introductory guide. In case you haven&#39;t yet, you can <a href="/getting_started/1.html">get started here</a>.</p>
+
+<h2 id="what-39-s-next">What&#39;s next?</h2>
+
+<p>With v0.14.0 we have reached many of the milestones <a href="/blog/2014/04/21/elixir-v0-13-0-released/#toc_8">we have set in the previous release</a>. This brings us closer to Elixir v1.0.0 and only a handful of tasks are pending:</p>
+
+<ul>
+<li><p>Provide an Elixir logger that knows how to print and format Elixir exceptions and stacktraces. Work has already started on this front as Elixir already prints errors coming from the application startup nicely;</p></li>
+<li><p>Continue the work of cleaning up the <a href="/docs/stable/elixir/Kernel.html">Kernel module</a>. In v0.14.0, we added alternatives for conversion functions, like <code>integer_to_binary/1</code> to <code>Integer.to_string/1</code>, now they must be properly deprecated and removed;</p></li>
+<li><p>Support mix aliases, allowing developers to easily define Mix shortcuts for their favorite tasks;</p></li>
+<li><p>Solve all remaining <a href="https://github.com/elixir-lang/elixir/issues?state=open">open issues</a>. We have always kept the issues tracker tidy and there is little work left to solve the existing issues. Note we have also listed all <a href="https://github.com/elixir-lang/elixir/issues?labels=Note%3ABackwards+incompatible&amp;page=1&amp;state=open">upcoming backwards incompatible changes</a>. Many of those changes will actually be deprecated first and developers should be able to follow along without breaking changes in minor releases, but they are breaking changes in the sense they work in v0.14.0 but will work differently by the time v1.0.0 is released;</p></li>
+</ul>
+
+<p>That&#39;s all for now! Elixir developers can see <a href="https://github.com/elixir-lang/elixir/releases/tag/v0.14.0">a summary of all changes in v0.14.0 in the release notes</a>. In case you are new around here, you can get started with Elixir by reading <a href="/getting_started/1.html">our Getting Started guide</a>.</p>
+
+<p>We hope to see you all this July at <a href="http://elixirconf.com/">ElixirConf</a>!</p>
+
+      </div>
+
+      <!-- <div class="entry-meta">
+      </div> -->
+    </div>
+  </div>
+</div>
+
+</div><!-- #content -->
+
+<div id="sidebar-primary" class="sidebar">
+  <div class="widget news">
+  <h3>
+    News: <a href="/blog/2014/09/18/elixir-v1-0-0-released/">Elixir v1.0.0 released</a>
+  </h3>
+</div>
+
+<div class="widget search">
+  <form method="get" class="search-form" action="http://www.google.com/search">
+		<div>
+			<input class="search-text" type="text" name="q" placeholder="Search..." id="searchfield">
+			<input type="hidden" name="sitesearch" value="elixir-lang.org">
+			<input class="search-submit button" name="submit" type="submit" value="Search">
+		</div>
+	</form>
+</div>
+  <div class="rss-button">
+    <a href="http://feeds.feedburner.com/ElixirLang" target="_blank"><img src="/images/social/RSSButton.png" /></a>
+  </div>
+  <div class="widget categories-list">
+  <h3 class="widget-title">Blog Categories</h3>
+  <ul>
+  
+    <li><a class="spec" href="/blog/categories.html#Internals">Internals</a></li>
+  
+    <li><a class="spec" href="/blog/categories.html#Releases">Releases</a></li>
+  
+    <li><a class="spec" href="/blog/categories.html#Announcements">Announcements</a></li>
+  
+  </ul>
+</div>
+
+  <div class="widget">
+  <h3 class="widget-title">Join the Community</h3>
+  <ul>
+    <li><a class="spec" href="irc://irc.freenode.net/elixir-lang">#elixir-lang on freenode IRC</a></li>
+    <li><a class="spec" href="http://groups.google.com/group/elixir-lang-talk">elixir-talk mailing list (questions)</a></li>
+    <li><a class="spec" href="http://groups.google.com/group/elixir-lang-core">elixir-core mailing list (development)</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/elixir/issues">Issues tracker</a></li>
+    <li><a class="spec" href="http://twitter.com/elixirlang">@elixirlang on Twitter</a></li>
+  </ul>
+</div>
+
+<div class="widget">
+  <h3 class="widget-title">Important links</h3>
+  <ul>
+    <li><a class="spec" href="https://github.com/elixir-lang/elixir/wiki">Wiki with events, resources and talks organized by the community</a></li>
+    <li><a class="spec" href="http://elixir-lang.org/crash-course.html">Crash course for Erlang developers</a></li>
+  </ul>
+</div>
+
+<div class="widget">
+  <h3 class="widget-title">Learning resources</h3>
+  <ul>
+    <li class="image"><a href="http://pragprog.com/titles/elixir" title="Programming Elixir cover"><img src="http://imagery.pragprog.com/products/361/elixir_xlargebeta.jpg?1368724397" /></a></li>
+    <li class="image"><a href="http://elixirsips.com" title="ElixirSips cover"><img src="http://elixirsips.com/images/ElixirLangAd2_190x160.png" width="190" height="160" /></a></li>
+    <li class="image"><a href="http://manning.com/juric/" title="Elixir in Action"><img src="http://manning.com/juric/juric_cover150.jpg" width="190" height="238" /></a></li>
+    <li class="image"><a href="http://www.exotpbook.com/" title="The Little Elixir and OTP Guidebook"><img src="http://i.imgur.com/G6icQmt.png" width="190" height="274" /></a></li>
+    <li class="image"><a href="http://shop.oreilly.com/product/0636920030584.do" title="Introducing Elixir"><img src="http://akamaicovers.oreilly.com/images/0636920030584/rc_cat.gif" width="190" /></a></li>
+  </ul>
+</div>
+
+
+<div class="widget">
+  <h3 class="widget-title">Code editor support</h3>
+  <ul>
+    <li><a class="spec" href="https://github.com/elixir-lang/emacs-elixir">Emacs Mode</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/elixir-tmbundle">Textmate Bundle</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/vim-elixir">Vim Elixir</a></li>
+    <li><a class="spec" href="https://github.com/SteffenBauer/elixir-gtksourceview">GtkSourceView (gedit)</a></li>
+    <li><a class="spec" href="https://github.com/lucasmazza/language-elixir">Atom Package</a></li>
+  </ul>
+</div>
+
+
+<div class="widget">
+  <h3 class="widget-title">Sponsors</h3>
+  <ul>
+    <li class="image"><a href="http://plataformatec.com.br" title="Plataformatec"><img class="no-border" src="/images/logo/plataformatec.png" /></a></li>
+  </ul>
+</div>
+
+</div>
+
+      </div><!-- #main -->
+
+      <div class="clear">
+      </div>
+
+      <div id="copyright">
+        © 2012-2014 <a href="http://plataformatec.com.br/">Plataformatec</a>. All rights reserved.
+      </p>
+    </div><!-- .wrap -->
+  </div><!-- #container -->
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-8268430-6']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="/js/toc/toc.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $('.toc').toc({
+          title: '',
+          listType: 'ul',
+          showSpeed: 0,
+        });
+    });
+  </script>
+</body>
+</html>
+

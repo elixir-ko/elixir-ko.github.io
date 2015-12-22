@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>5 case，condそしてif - case, cond and if - Elixir</title>
+  <link href="http://feeds.feedburner.com/ElixirLang" rel="alternate" title="Elixir's Blog" type="application/atom+xml" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" id="font-bitter-css" href="http://fonts.googleapis.com/css?family=Bitter&amp;ver=1" type="text/css" media="screen">
+</head>
+
+<body class="getting_started">
+  <div id="container">
+    <div class="wrap">
+    <div id="header">
+      <div id="branding">
+        <h1 id="site-title">
+          <a href="/" title="Elixir" rel="Home">
+            <img class="logo" src="/images/logo/logo.png" alt="Elixir Logo" />
+          </a>
+        </h1>
+      </div>
+
+      <div id="menu-primary" class="menu-container">
+        <div class="menu">
+          <ul id="menu-primary-items">
+            <li class="menu-item home"><a class="spec" href="/">Home</a></li>
+            <li class="menu-item install"><a class="spec" href="/install.html">Install</a></li>
+            <li class="menu-item getting_started"><a class="spec" href="/getting_started/1.html">Getting Started</a></li>
+            <li class="menu-item docs"><a class="spec" href="/docs.html">Docs</a></li>
+            <li class="menu-item blog"><a class="spec" href="/blog">Blog</a></li>
+            <li class="menu-item source"><a class="spec" href="https://github.com/elixir-lang/elixir">Source</a></li>
+            <li class="menu-item packages"><a class="spec" href="http://hex.pm/">Packages</a></li>
+
+          </ul>
+        </div>
+      </div>
+
+      <div class="clear"></div>
+    </div>
+
+    <div id="main">
+
+
+<div id="sidebar-primary" class="sidebar">
+  <div class="widget news">
+  <h3>
+    News: <a href="/blog/2014/09/18/elixir-v1-0-0-released/">Elixir v1.0.0 released</a>
+  </h3>
+</div>
+
+<div class="widget search">
+  <form method="get" class="search-form" action="http://www.google.com/search">
+		<div>
+			<input class="search-text" type="text" name="q" placeholder="Search..." id="searchfield">
+			<input type="hidden" name="sitesearch" value="elixir-lang.org">
+			<input class="search-submit button" name="submit" type="submit" value="Search">
+		</div>
+	</form>
+</div>
+
+  <div class="widget">
+    <h3 class="widget-title">Getting Started</h3>
+    <ol>
+      <li><a class="spec" href="/getting_started/1.html">Interactive Elixir (IEx)</a></li>
+      <li><a class="spec" href="/getting_started/2.html">Basic types</a></li>
+      <li><a class="spec" href="/getting_started/3.html">Basic operators</a></li>
+      <li><a class="spec" href="/getting_started/4.html">Pattern matching</a></li>
+      <li><a class="spec" href="/getting_started/5.html">case, cond and if</a></li>
+      <li><a class="spec" href="/getting_started/6.html">Binaries, strings and char lists</a></li>
+      <li><a class="spec" href="/getting_started/7.html">Keywords, maps and dicts</a></li>
+      <li><a class="spec" href="/getting_started/8.html">Modules</a></li>
+      <li><a class="spec" href="/getting_started/9.html">Recursion</a></li>
+      <li><a class="spec" href="/getting_started/10.html">Enumerables and streams</a></li>
+      <li><a class="spec" href="/getting_started/11.html">Processes</a></li>
+      <li><a class="spec" href="/getting_started/12.html">IO</a></li>
+      <li><a class="spec" href="/getting_started/13.html">alias, require and import</a></li>
+      <li><a class="spec" href="/getting_started/14.html">Module attributes</a></li>
+      <li><a class="spec" href="/getting_started/15.html">Structs</a></li>
+      <li><a class="spec" href="/getting_started/16.html">Protocols</a></li>
+      <li><a class="spec" href="/getting_started/17.html">try, catch and rescue</a></li>
+      <li><a class="spec" href="/getting_started/18.html">Comprehensions</a></li>
+      <li><a class="spec" href="/getting_started/19.html">Sigils</a></li>
+      <li><a class="spec" href="/getting_started/20.html">Where to go next</a></li>
+    </ol>
+  </div>
+  <div class="widget">
+    <h3 class="widget-title">Mix and OTP</h3>
+    <ol>
+      <li><a class="spec" href="/getting_started/mix_otp/1.html">Introduction to Mix</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/2.html">Agent</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/3.html">GenServer</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/4.html">GenEvent</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/5.html">Supervisor and Application</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/6.html">ETS</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/7.html">Dependencies and umbrella apps</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/8.html">Task and gen_tcp</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/9.html">Docs, tests and pipelines</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/10.html">Distributed tasks and configuration</a></li>
+    </ol>
+  </div>
+  <div class="widget">
+    <h3 class="widget-title">Meta-programming in Elixir</h3>
+    <ol>
+      <li><a class="spec" href="/getting_started/meta/1.html">Quote and unquote</a></li>
+      <li><a class="spec" href="/getting_started/meta/2.html">Macros</a></li>
+      <li><a class="spec" href="/getting_started/meta/3.html">Domain Specific Languages</a></li>
+    </ol>
+  </div>
+
+  <div class="widget">
+  <h3 class="widget-title">Learning resources</h3>
+  <ul>
+    <li class="image"><a href="http://pragprog.com/titles/elixir" title="Programming Elixir cover"><img src="http://imagery.pragprog.com/products/361/elixir_xlargebeta.jpg?1368724397" /></a></li>
+    <li class="image"><a href="http://elixirsips.com" title="ElixirSips cover"><img src="http://elixirsips.com/images/ElixirLangAd2_190x160.png" width="190" height="160" /></a></li>
+    <li class="image"><a href="http://manning.com/juric/" title="Elixir in Action"><img src="http://manning.com/juric/juric_cover150.jpg" width="190" height="238" /></a></li>
+    <li class="image"><a href="http://www.exotpbook.com/" title="The Little Elixir and OTP Guidebook"><img src="http://i.imgur.com/G6icQmt.png" width="190" height="274" /></a></li>
+    <li class="image"><a href="http://shop.oreilly.com/product/0636920030584.do" title="Introducing Elixir"><img src="http://akamaicovers.oreilly.com/images/0636920030584/rc_cat.gif" width="190" /></a></li>
+  </ul>
+</div>
+
+  <div class="widget">
+  <h3 class="widget-title">Code editor support</h3>
+  <ul>
+    <li><a class="spec" href="https://github.com/elixir-lang/emacs-elixir">Emacs Mode</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/elixir-tmbundle">Textmate Bundle</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/vim-elixir">Vim Elixir</a></li>
+    <li><a class="spec" href="https://github.com/SteffenBauer/elixir-gtksourceview">GtkSourceView (gedit)</a></li>
+    <li><a class="spec" href="https://github.com/lucasmazza/language-elixir">Atom Package</a></li>
+  </ul>
+</div>
+
+  <div class="widget">
+  <h3 class="widget-title">Sponsors</h3>
+  <ul>
+    <li class="image"><a href="http://plataformatec.com.br" title="Plataformatec"><img class="no-border" src="/images/logo/plataformatec.png" /></a></li>
+  </ul>
+</div>
+</div>
+
+<div id="content">
+  <article>
+    <h1 id="5-case，condそしてif-case-cond-and-if">5 case，condそしてif - case, cond and if</h1>
+
+<p><div class="toc"></div></p>
+
+<p>この章では<code>case</code>，<code>cond</code>そして<code>if</code>といった処理制御構造について学んでいきます．</p>
+
+<p>In this chapter, we will learn about the <code>case</code>, <code>cond</code> and <code>if</code> control-flow structures.</p>
+
+<h2 id="5-1-case-case">5.1 case - case</h2>
+
+<p><code>case</code>によってある値がいずれか一つにマッチするまで複数のパターンと比較することができるようになります:</p>
+
+<p><code>case</code> allows us to compare a value against many patterns until we find a matching one:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">case</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span> <span class="k">do</span>
+<span class="gp">...&gt; </span>  <span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">}</span> <span class="p">-&gt;</span>
+<span class="gp">...&gt; </span>    <span class="s2">&quot;This clause won&#39;t match&quot;</span>
+<span class="gp">...&gt; </span>  <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span> <span class="p">-&gt;</span>
+<span class="gp">...&gt; </span>    <span class="s2">&quot;This clause will match and bind x to 2 in this clause&quot;</span>
+<span class="gp">...&gt; </span>  <span class="bp">_</span> <span class="p">-&gt;</span>
+<span class="gp">...&gt; </span>    <span class="s2">&quot;This clause would match any value&quot;</span>
+<span class="gp">...&gt; </span><span class="k">end</span>
+</code></pre></div>
+<p>もし既にある変数とパターンマッチさせたい場合，<code>^</code>を使わなければなりません:</p>
+
+<p>If you want to pattern match against an existing variable, you need to use the <code>^</code> operator:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">x</span> <span class="p">=</span> <span class="mi">1</span>
+<span class="go">1</span>
+<span class="gp">iex&gt; </span><span class="k">case</span> <span class="mi">10</span> <span class="k">do</span>
+<span class="gp">...&gt; </span>  <span class="o">^</span><span class="n">x</span> <span class="p">-&gt;</span> <span class="s2">&quot;Won&#39;t match&quot;</span>
+<span class="gp">...&gt; </span>  <span class="bp">_</span>  <span class="p">-&gt;</span> <span class="s2">&quot;Will match&quot;</span>
+<span class="gp">...&gt; </span><span class="k">end</span>
+</code></pre></div>
+<p>句では，ガード(guard)を指定することで条件を拡張することができます:</p>
+
+<p>Clauses also allow extra conditions to be specified via guards:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">case</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span> <span class="k">do</span>
+<span class="gp">...&gt; </span>  <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span> <span class="ow">when</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">-&gt;</span>
+<span class="gp">...&gt; </span>    <span class="s2">&quot;Will match&quot;</span>
+<span class="gp">...&gt; </span>  <span class="bp">_</span> <span class="p">-&gt;</span>
+<span class="gp">...&gt; </span>    <span class="s2">&quot;Won&#39;t match&quot;</span>
+<span class="gp">...&gt; </span><span class="k">end</span>
+</code></pre></div>
+<p>最初の句は<code>x</code>が正の場合にのみマッチします．</p>
+
+<p>The first clause above will only match when <code>x</code> is positive.</p>
+
+<h2 id="5-2-ガード句の中の式-expressions-in-guard-clauses">5.2 ガード句の中の式 - Expressions in guard clauses.</h2>
+
+<p>ErlangVMではガードで使える式に制限があります:</p>
+
+<p>The Erlang VM only allows a limited set of expressions in guards:</p>
+
+<ul>
+<li>比較演算子(<code>==</code>，<code>!=</code>，<code>===</code>，<code>!==</code>，<code>&gt;</code>，<code>&lt;</code>，<code>&lt;=</code>，<code>&gt;=</code>)</li>
+<li>論理演算子(<code>and</code>，<code>or</code>)と否定演算子(<code>not</code>，<code>!</code>)</li>
+<li>算術演算子(<code>+</code>，<code>-</code>，<code>*</code>，<code>/</code>)</li>
+<li>左側がリテラルの場合の<code>&lt;&gt;</code>と<code>++</code></li>
+<li><code>in</code>演算子</li>
+<li><p>以下の全ての型チェック関数:</p>
+
+<ul>
+<li><code>is_atom/1</code></li>
+<li><code>is_binary/1</code></li>
+<li><code>is_bitstring/1</code></li>
+<li><code>is_boolean/1</code></li>
+<li><code>is_float/1</code></li>
+<li><code>is_function/1</code></li>
+<li><code>is_function/2</code></li>
+<li><code>is_integer/1</code></li>
+<li><code>is_list/1</code></li>
+<li><code>is_map/1</code></li>
+<li><code>is_number/1</code></li>
+<li><code>is_pid/1</code></li>
+<li><code>is_port/1</code></li>
+<li><code>is_reference/1</code></li>
+<li><code>is_tuple/1</code></li>
+</ul></li>
+<li><p>それに加えてこれらの関数:</p>
+
+<ul>
+<li><code>abs(number)</code></li>
+<li><code>bit_size(bitstring)</code></li>
+<li><code>byte_size(bitstring)</code></li>
+<li><code>div(integer, integer)</code></li>
+<li><code>elem(tuple, n)</code></li>
+<li><code>hd(list)</code></li>
+<li><code>length(list)</code></li>
+<li><code>map_size(map)</code></li>
+<li><code>node()</code></li>
+<li><code>node(pid | ref | port)</code></li>
+<li><code>rem(integer, integer)</code></li>
+<li><code>round(number)</code></li>
+<li><code>self()</code></li>
+<li><code>tl(list)</code></li>
+<li><code>trunc(number)</code></li>
+<li><code>tuple_size(tuple)</code></li>
+</ul></li>
+<li><p>comparison operators (<code>==</code>, <code>!=</code>, <code>===</code>, <code>!==</code>, <code>&gt;</code>, <code>&lt;</code>, <code>&lt;=</code>, <code>&gt;=</code>)</p></li>
+<li><p>boolean operators (<code>and</code>, <code>or</code>) and negation operators (<code>not</code>, <code>!</code>)</p></li>
+<li><p>arithmetic operators (<code>+</code>, <code>-</code>, <code>*</code>, <code>/</code>)</p></li>
+<li><p><code>&lt;&gt;</code> and <code>++</code> as long as the left side is a literal</p></li>
+<li><p>the <code>in</code> operator</p></li>
+<li><p>all the following type check functions:</p>
+
+<ul>
+<li><code>is_atom/1</code></li>
+<li><code>is_binary/1</code></li>
+<li><code>is_bitstring/1</code></li>
+<li><code>is_boolean/1</code></li>
+<li><code>is_float/1</code></li>
+<li><code>is_function/1</code></li>
+<li><code>is_function/2</code></li>
+<li><code>is_integer/1</code></li>
+<li><code>is_list/1</code></li>
+<li><code>is_map/1</code></li>
+<li><code>is_number/1</code></li>
+<li><code>is_pid/1</code></li>
+<li><code>is_port/1</code></li>
+<li><code>is_reference/1</code></li>
+<li><code>is_tuple/1</code></li>
+</ul></li>
+<li><p>plus these functions:</p>
+
+<ul>
+<li><code>abs(number)</code></li>
+<li><code>bit_size(bitstring)</code></li>
+<li><code>byte_size(bitstring)</code></li>
+<li><code>div(integer, integer)</code></li>
+<li><code>elem(tuple, n)</code></li>
+<li><code>hd(list)</code></li>
+<li><code>length(list)</code></li>
+<li><code>map_size(map)</code></li>
+<li><code>node()</code></li>
+<li><code>node(pid | ref | port)</code></li>
+<li><code>rem(integer, integer)</code></li>
+<li><code>round(number)</code></li>
+<li><code>self()</code></li>
+<li><code>tl(list)</code></li>
+<li><code>trunc(number)</code></li>
+<li><code>tuple_size(tuple)</code></li>
+</ul></li>
+</ul>
+
+<p>ガードの中で起きたエラーは単純にガードの失敗とみなされてガードの外には影響しません:</p>
+
+<p>Keep in mind errors in guards do not leak but simply make the guard fail:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">hd</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="gr">** (ArgumentError) argument error</span>
+<span class="gr">    :erlang.hd(1)</span>
+<span class="gp">iex&gt; </span><span class="k">case</span> <span class="mi">1</span> <span class="k">do</span>
+<span class="gp">...&gt; </span>  <span class="n">x</span> <span class="ow">when</span> <span class="n">hd</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="s2">&quot;Won&#39;t match&quot;</span>
+<span class="gp">...&gt; </span>  <span class="n">x</span> <span class="p">-&gt;</span> <span class="s2">&quot;Got: </span><span class="si">#{</span><span class="n">x</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="gp">...&gt; </span><span class="k">end</span>
+<span class="go">&quot;Got 1&quot;</span>
+</code></pre></div>
+<p>もしどの句にもマッチしなければ，エラーが発生します:</p>
+
+<p>If none of the clauses match, an error is raised:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">case</span> <span class="ss">:ok</span> <span class="k">do</span>
+<span class="gp">...&gt; </span>  <span class="ss">:error</span> <span class="p">-&gt;</span> <span class="s2">&quot;Won&#39;t match&quot;</span>
+<span class="gp">...&gt; </span><span class="k">end</span>
+<span class="gr">** (CaseClauseError) no case clause matching: :ok</span>
+</code></pre></div>
+<p>匿名関数でも句やガードを複数持つことができることに注意してください:</p>
+
+<p>Note anonymous functions can also have multiple clauses and guards:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="n">iex</span><span class="o">&gt;</span> <span class="n">f</span> <span class="p">=</span> <span class="k">fn</span>
+<span class="p">...</span><span class="o">&gt;</span>   <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="ow">when</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+<span class="p">...</span><span class="o">&gt;</span>   <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="p">-&gt;</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span>
+<span class="p">...</span><span class="o">&gt;</span> <span class="k">end</span>
+<span class="c1">#Function&lt;12.71889879/2 in :erl_eval.expr/5&gt;</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">f</span><span class="p">.(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="mi">4</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">f</span><span class="p">.(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="o">-</span><span class="mi">3</span>
+</code></pre></div>
+<p>匿名関数の句では引数の数が同じでなければなりません，そうでない場合はエラーになります．</p>
+
+<p>The number of arguments in each anonymous function clause needs to be the same, otherwise an error is raised.</p>
+
+<h2 id="5-3-cond-cond">5.3 cond - cond</h2>
+
+<p><code>case</code>は異なる値に対して(1つの値を)マッチさせようとするときにはうまく使えます．しかし場合によっては最初に評価した式がtrueになるまで複数の条件をチェックしたい場合があります．そのような場合に<code>cond</code>が使えるでしょう:</p>
+
+<p><code>case</code> is useful when you need to match against different values. However, in many circumstances, we want to check different conditions and find the first one that evaluates to true. In such cases, one may use <code>cond</code>:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">cond</span> <span class="k">do</span>
+<span class="gp">...&gt; </span>  <span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">5</span> <span class="p">-&gt;</span>
+<span class="gp">...&gt; </span>    <span class="s2">&quot;This will not be true&quot;</span>
+<span class="gp">...&gt; </span>  <span class="mi">2</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">3</span> <span class="p">-&gt;</span>
+<span class="gp">...&gt; </span>    <span class="s2">&quot;Nor this&quot;</span>
+<span class="gp">...&gt; </span>  <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">2</span> <span class="p">-&gt;</span>
+<span class="gp">...&gt; </span>    <span class="s2">&quot;But this will&quot;</span>
+<span class="gp">...&gt; </span><span class="k">end</span>
+<span class="go">&quot;But this will&quot;</span>
+</code></pre></div>
+<p>これは命令型言語の<code>else if</code>句と同じです(それらより使う機会は少ないですが)．</p>
+
+<p>This is equivalent to <code>else if</code> clauses in many imperative languages (although used way less frequently here).</p>
+
+<p>もしtrueになる条件がなければ，エラーになります．そのため，条件に<code>true</code>になるものを加えて，常にマッチさせることが必要になるかもしれません:</p>
+
+<p>If none of the conditions return true, an error is raised. For this reason, it may be necessary to add a final condition, equal to <code>true</code>, which will always match:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">cond</span> <span class="k">do</span>
+<span class="gp">...&gt; </span>  <span class="mi">2</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">5</span> <span class="p">-&gt;</span>
+<span class="gp">...&gt; </span>    <span class="s2">&quot;This is never true&quot;</span>
+<span class="gp">...&gt; </span>  <span class="mi">2</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">3</span> <span class="p">-&gt;</span>
+<span class="gp">...&gt; </span>    <span class="s2">&quot;Nor this&quot;</span>
+<span class="gp">...&gt; </span>  <span class="no">true</span> <span class="p">-&gt;</span>
+<span class="gp">...&gt; </span>    <span class="s2">&quot;This is always true (equivalent to else)&quot;</span>
+<span class="gp">...&gt; </span><span class="k">end</span>
+</code></pre></div>
+<p>最後に<code>cond</code>では<code>nil</code>と<code>false</code>以外はどんな値でもtrueとして扱うことに気をつけてください:</p>
+
+<p>Finally, note <code>cond</code> considers any value besides <code>nil</code> and <code>false</code> to be true:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">cond</span> <span class="k">do</span>
+<span class="gp">...&gt; </span>  <span class="n">hd</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span> <span class="p">-&gt;</span>
+<span class="gp">...&gt; </span>    <span class="s2">&quot;1 is considered as true&quot;</span>
+<span class="gp">...&gt; </span><span class="k">end</span>
+<span class="go">&quot;1 is considered as true&quot;</span>
+</code></pre></div>
+<h2 id="5-4-ifとunless-if-and-unless">5.4 ifとunless - if and unless</h2>
+
+<p><code>case</code>や<code>cond</code>とは違い，一つだけ条件をチェックしたい場合に便利な<code>if/2</code>や<code>unless/2</code>といったマクロも提供しています．</p>
+
+<p>Besides <code>case</code> and <code>cond</code>, Elixir also provides the macros <code>if/2</code> and <code>unless/2</code> which are useful when you need to check for just one condition:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">if</span> <span class="no">true</span> <span class="k">do</span>
+<span class="gp">...&gt; </span>  <span class="s2">&quot;This works!&quot;</span>
+<span class="gp">...&gt; </span><span class="k">end</span>
+<span class="go">&quot;This works!&quot;</span>
+<span class="gp">iex&gt; </span><span class="k">unless</span> <span class="no">true</span> <span class="k">do</span>
+<span class="gp">...&gt; </span>  <span class="s2">&quot;This will never be seen&quot;</span>
+<span class="gp">...&gt; </span><span class="k">end</span>
+<span class="go">nil</span>
+</code></pre></div>
+<p>もし<code>if/2</code>に渡した条件が<code>false</code>か<code>nil</code>で返ってきた場合，<code>do/end</code>で囲まれた部分は実行されず，単に<code>nil</code>が返ります．その逆になるのが<code>unless/2</code>です．</p>
+
+<p>If the condition given to <code>if/2</code> returns <code>false</code> or <code>nil</code>, the body given between <code>do/end</code> is not executed and it simply returns <code>nil</code>. The opposite happens with <code>unless/2</code>.</p>
+
+<p>これらでは<code>else</code>ブロックも使えます:</p>
+
+<p>They also support <code>else</code> blocks:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">if</span> <span class="no">nil</span> <span class="k">do</span>
+<span class="gp">...&gt; </span>  <span class="s2">&quot;This won&#39;t be seen&quot;</span>
+<span class="gp">...&gt; </span><span class="k">else</span>
+<span class="gp">...&gt; </span>  <span class="s2">&quot;This will&quot;</span>
+<span class="gp">...&gt; </span><span class="k">end</span>
+<span class="go">&quot;This will&quot;</span>
+</code></pre></div>
+<blockquote>
+<p>メモ: この言語で<code>if/2</code>や<code>unless/2</code>がマクロとして実装されているのがおもしろい点です;これらは他の様々な言語でそうであるような特別な言語構造ではありません．<a href="/docs/stable/elixir/Kernel.html">モジュール<code>Kernel</code>のドキュメント</a>で<code>if/2</code>のドキュメントやソースを調べることができます．モジュール<code>Kernel</code>には他にも演算子<code>+/2</code>や関数<code>is_function/2</code>といったような，あなたがコードを書くときにデフォルトで自動importされて使えるようになっているものが定義されています．</p>
+
+<p>Note: An interesting note regarding <code>if/2</code> and <code>unless/2</code> is that they are implemented as macros in the language; they aren&#39;t special language constructs as they would be in many languages. You can check the documentation and the source of <code>if/2</code> in <a href="/docs/stable/elixir/Kernel.html">the <code>Kernel</code> module docs</a>. The <code>Kernel</code> module is also where operators like <code>+/2</code> and functions like <code>is_function/2</code> are defined, all automatically imported and available in your code by default.</p>
+</blockquote>
+
+<h2 id="5-5-doブロック-do-blocks">5.5 <code>do</code>ブロック - <code>do</code> blocks</h2>
+
+<p>ここまでで，私たちは4つの制御構造<code>case</code>，<code>cond</code>，<code>if</code>そして<code>unless</code>を学びました，そしてこれらは全て<code>do</code>/<code>end</code>ブロックで囲まれていました．実は<code>if</code>を以下のようにも書けます:</p>
+
+<p>At this point, we have learned four control structures: <code>case</code>, <code>cond</code>, <code>if</code> and <code>unless</code>, and they were all wrapped in <code>do</code>/<code>end</code> blocks. It happens we could also write <code>if</code> as follows:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">if</span> <span class="no">true</span><span class="p">,</span> <span class="ss">do</span><span class="p">:</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span>
+<span class="go">3</span>
+</code></pre></div>
+<p>Elixirでは，<code>do</code>/<code>end</code>ブロックは式のまとまりを簡単に<code>do:</code>へ渡すためのものです．これらは同じことを表しています:</p>
+
+<p>In Elixir, <code>do</code>/<code>end</code> blocks are a convenience for passing a group of expressions to <code>do:</code>. These are equivalent:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">if</span> <span class="no">true</span> <span class="k">do</span>
+<span class="gp">...&gt; </span>  <span class="n">a</span> <span class="p">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span>
+<span class="gp">...&gt; </span>  <span class="n">a</span> <span class="o">+</span> <span class="mi">10</span>
+<span class="gp">...&gt; </span><span class="k">end</span>
+<span class="go">13</span>
+<span class="gp">iex&gt; </span><span class="k">if</span> <span class="no">true</span><span class="p">,</span> <span class="ss">do</span><span class="p">:</span> <span class="p">(</span>
+<span class="gp">...&gt; </span>  <span class="n">a</span> <span class="p">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span>
+<span class="gp">...&gt; </span>  <span class="n">a</span> <span class="o">+</span> <span class="mi">10</span>
+<span class="gp">...&gt; </span><span class="p">)</span>
+<span class="go">13</span>
+</code></pre></div>
+<p>2番目の構文は<strong>キーワードリスト</strong>を使っていると言っています．<code>else</code>も同じ構文で渡せます:</p>
+
+<p>We say the second syntax is using <strong>keyword lists</strong>. We can pass <code>else</code> using this syntax:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">if</span> <span class="no">false</span><span class="p">,</span> <span class="ss">do</span><span class="p">:</span> <span class="ss">:this</span><span class="p">,</span> <span class="ss">else</span><span class="p">:</span> <span class="ss">:that</span>
+<span class="go">:that</span>
+</code></pre></div>
+<p><code>do</code>/<code>end</code>ブロックを使う際には一つ気をつけることがあります．ブロックは常に一番遠くの関数呼び出しに束縛されます．例えば，以下の式:</p>
+
+<p>One thing to keep in mind when using <code>do</code>/<code>end</code> blocks is they are always bound to the outermost function call. For example, the following expression:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">is_number</span> <span class="k">if</span> <span class="no">true</span> <span class="k">do</span>
+<span class="gp">...&gt; </span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span>
+<span class="gp">...&gt; </span><span class="k">end</span>
+</code></pre></div>
+<p>はこのように解釈されます:</p>
+
+<p>Would be parsed as:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">is_number</span><span class="p">(</span><span class="k">if</span> <span class="no">true</span><span class="p">)</span> <span class="k">do</span>
+<span class="gp">...&gt; </span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span>
+<span class="gp">...&gt; </span><span class="k">end</span>
+</code></pre></div>
+<p>そうするとElixirは<code>is_number/2</code>を呼び出そうとして未定義関数エラーになります．あいまいさを解消するのには明示的に括弧を追加すると良いです:</p>
+
+<p>Which leads to an undefined function error as Elixir attempts to invoke <code>is_number/2</code>. Adding explicit parentheses is enough to resolve the ambiguity:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">is_number</span><span class="p">(</span><span class="k">if</span> <span class="no">true</span> <span class="k">do</span>
+<span class="gp">...&gt; </span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span>
+<span class="gp">...&gt; </span><span class="k">end</span><span class="p">)</span>
+<span class="go">true</span>
+</code></pre></div>
+<p>キーワードリストはこの言語においてとても重要な役割を担っており，様々な関数やマクロにおいてあたりまえの存在です．後の章でこのことをもう少し詳しくみていきます．今は&quot;バイナリ，文字列そして文字リスト&quot;について話していきましょう．</p>
+
+<p>Keyword lists play an important role in the language and are quite common in many functions and macros. We will explore them a bit more in a future chapter. Now it is time to talk about &quot;Binaries, strings and char lists&quot;.</p>
+
+  </article><!-- .hfeed -->
+
+  
+  <div class="pagination loop-pagination">
+    
+      <a href="4.html" class="previous page-numbers spec">&larr; Previous</a>
+    
+      <a class="page-numbers spec" href="#container">Top</a>
+    
+      <a href="6.html" class="next page-numbers spec">Next &rarr;</a>
+    
+  </div>
+  
+</div><!-- #content -->
+
+      </div><!-- #main -->
+
+      <div class="clear">
+      </div>
+
+      <div id="copyright">
+        © 2012-2014 <a href="http://plataformatec.com.br/">Plataformatec</a>. All rights reserved.
+      </p>
+    </div><!-- .wrap -->
+  </div><!-- #container -->
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-8268430-6']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="/js/toc/toc.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $('.toc').toc({
+          title: '',
+          listType: 'ul',
+          showSpeed: 0,
+        });
+    });
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>14 モジュールのアトリビュート - Module attributes - Elixir</title>
+  <link href="http://feeds.feedburner.com/ElixirLang" rel="alternate" title="Elixir's Blog" type="application/atom+xml" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" id="font-bitter-css" href="http://fonts.googleapis.com/css?family=Bitter&amp;ver=1" type="text/css" media="screen">
+</head>
+
+<body class="getting_started">
+  <div id="container">
+    <div class="wrap">
+    <div id="header">
+      <div id="branding">
+        <h1 id="site-title">
+          <a href="/" title="Elixir" rel="Home">
+            <img class="logo" src="/images/logo/logo.png" alt="Elixir Logo" />
+          </a>
+        </h1>
+      </div>
+
+      <div id="menu-primary" class="menu-container">
+        <div class="menu">
+          <ul id="menu-primary-items">
+            <li class="menu-item home"><a class="spec" href="/">Home</a></li>
+            <li class="menu-item install"><a class="spec" href="/install.html">Install</a></li>
+            <li class="menu-item getting_started"><a class="spec" href="/getting_started/1.html">Getting Started</a></li>
+            <li class="menu-item docs"><a class="spec" href="/docs.html">Docs</a></li>
+            <li class="menu-item blog"><a class="spec" href="/blog">Blog</a></li>
+            <li class="menu-item source"><a class="spec" href="https://github.com/elixir-lang/elixir">Source</a></li>
+            <li class="menu-item packages"><a class="spec" href="http://hex.pm/">Packages</a></li>
+
+          </ul>
+        </div>
+      </div>
+
+      <div class="clear"></div>
+    </div>
+
+    <div id="main">
+
+
+<div id="sidebar-primary" class="sidebar">
+  <div class="widget news">
+  <h3>
+    News: <a href="/blog/2014/09/18/elixir-v1-0-0-released/">Elixir v1.0.0 released</a>
+  </h3>
+</div>
+
+<div class="widget search">
+  <form method="get" class="search-form" action="http://www.google.com/search">
+		<div>
+			<input class="search-text" type="text" name="q" placeholder="Search..." id="searchfield">
+			<input type="hidden" name="sitesearch" value="elixir-lang.org">
+			<input class="search-submit button" name="submit" type="submit" value="Search">
+		</div>
+	</form>
+</div>
+
+  <div class="widget">
+    <h3 class="widget-title">Getting Started</h3>
+    <ol>
+      <li><a class="spec" href="/getting_started/1.html">Interactive Elixir (IEx)</a></li>
+      <li><a class="spec" href="/getting_started/2.html">Basic types</a></li>
+      <li><a class="spec" href="/getting_started/3.html">Basic operators</a></li>
+      <li><a class="spec" href="/getting_started/4.html">Pattern matching</a></li>
+      <li><a class="spec" href="/getting_started/5.html">case, cond and if</a></li>
+      <li><a class="spec" href="/getting_started/6.html">Binaries, strings and char lists</a></li>
+      <li><a class="spec" href="/getting_started/7.html">Keywords, maps and dicts</a></li>
+      <li><a class="spec" href="/getting_started/8.html">Modules</a></li>
+      <li><a class="spec" href="/getting_started/9.html">Recursion</a></li>
+      <li><a class="spec" href="/getting_started/10.html">Enumerables and streams</a></li>
+      <li><a class="spec" href="/getting_started/11.html">Processes</a></li>
+      <li><a class="spec" href="/getting_started/12.html">IO</a></li>
+      <li><a class="spec" href="/getting_started/13.html">alias, require and import</a></li>
+      <li><a class="spec" href="/getting_started/14.html">Module attributes</a></li>
+      <li><a class="spec" href="/getting_started/15.html">Structs</a></li>
+      <li><a class="spec" href="/getting_started/16.html">Protocols</a></li>
+      <li><a class="spec" href="/getting_started/17.html">try, catch and rescue</a></li>
+      <li><a class="spec" href="/getting_started/18.html">Comprehensions</a></li>
+      <li><a class="spec" href="/getting_started/19.html">Sigils</a></li>
+      <li><a class="spec" href="/getting_started/20.html">Where to go next</a></li>
+    </ol>
+  </div>
+  <div class="widget">
+    <h3 class="widget-title">Mix and OTP</h3>
+    <ol>
+      <li><a class="spec" href="/getting_started/mix_otp/1.html">Introduction to Mix</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/2.html">Agent</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/3.html">GenServer</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/4.html">GenEvent</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/5.html">Supervisor and Application</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/6.html">ETS</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/7.html">Dependencies and umbrella apps</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/8.html">Task and gen_tcp</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/9.html">Docs, tests and pipelines</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/10.html">Distributed tasks and configuration</a></li>
+    </ol>
+  </div>
+  <div class="widget">
+    <h3 class="widget-title">Meta-programming in Elixir</h3>
+    <ol>
+      <li><a class="spec" href="/getting_started/meta/1.html">Quote and unquote</a></li>
+      <li><a class="spec" href="/getting_started/meta/2.html">Macros</a></li>
+      <li><a class="spec" href="/getting_started/meta/3.html">Domain Specific Languages</a></li>
+    </ol>
+  </div>
+
+  <div class="widget">
+  <h3 class="widget-title">Learning resources</h3>
+  <ul>
+    <li class="image"><a href="http://pragprog.com/titles/elixir" title="Programming Elixir cover"><img src="http://imagery.pragprog.com/products/361/elixir_xlargebeta.jpg?1368724397" /></a></li>
+    <li class="image"><a href="http://elixirsips.com" title="ElixirSips cover"><img src="http://elixirsips.com/images/ElixirLangAd2_190x160.png" width="190" height="160" /></a></li>
+    <li class="image"><a href="http://manning.com/juric/" title="Elixir in Action"><img src="http://manning.com/juric/juric_cover150.jpg" width="190" height="238" /></a></li>
+    <li class="image"><a href="http://www.exotpbook.com/" title="The Little Elixir and OTP Guidebook"><img src="http://i.imgur.com/G6icQmt.png" width="190" height="274" /></a></li>
+    <li class="image"><a href="http://shop.oreilly.com/product/0636920030584.do" title="Introducing Elixir"><img src="http://akamaicovers.oreilly.com/images/0636920030584/rc_cat.gif" width="190" /></a></li>
+  </ul>
+</div>
+
+  <div class="widget">
+  <h3 class="widget-title">Code editor support</h3>
+  <ul>
+    <li><a class="spec" href="https://github.com/elixir-lang/emacs-elixir">Emacs Mode</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/elixir-tmbundle">Textmate Bundle</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/vim-elixir">Vim Elixir</a></li>
+    <li><a class="spec" href="https://github.com/SteffenBauer/elixir-gtksourceview">GtkSourceView (gedit)</a></li>
+    <li><a class="spec" href="https://github.com/lucasmazza/language-elixir">Atom Package</a></li>
+  </ul>
+</div>
+
+  <div class="widget">
+  <h3 class="widget-title">Sponsors</h3>
+  <ul>
+    <li class="image"><a href="http://plataformatec.com.br" title="Plataformatec"><img class="no-border" src="/images/logo/plataformatec.png" /></a></li>
+  </ul>
+</div>
+</div>
+
+<div id="content">
+  <article>
+    <h1 id="14-モジュールのアトリビュート-module-attributes">14 モジュールのアトリビュート - Module attributes</h1>
+
+<p><div class="toc"></div></p>
+
+<p>モジュールのアトリビュートには3つの目的があります:</p>
+
+<p>Module attributes in Elixir serve three purposes:</p>
+
+<ol>
+<li>注釈をモジュールへつけます．ユーザーやVMが利用できるような情報のことが多いです</li>
+<li>定数として利用します</li>
+<li><p>コンパイルの際にモジュールの一時的な保管場所として利用します</p></li>
+<li><p>They serve to annotate the module, often with information to be used by the user or the VM.</p></li>
+<li><p>They work as constants.</p></li>
+<li><p>They work as a temporary module storage to be used during compilation.</p></li>
+</ol>
+
+<p>それぞれの場合を一つずつみていきましょう．</p>
+
+<p>Let&#39;s check each case, one by one.</p>
+
+<h2 id="14-1-注釈として-as-annotations">14.1 注釈として - As annotations</h2>
+
+<p>ElixirはモジュールアトリビュートのコンセプトをErlangから持ってきています．例えば:</p>
+
+<p>Elixir brings the concept of module attributes from Erlang. For example:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">MyServer</span> <span class="k">do</span>
+  <span class="na">@vsn</span> <span class="mi">2</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>上の例では，モジュールのバージョンアトリビュートを明示的に設定しています．<code>@vsn</code>はモジュールがアップデートされたかをErlangVMでのコード再読み込みの仕組みでチェックするのに使っています．もしバージョンを指定していなければ，モジュール関数のMD5チェックサムがバージョンへセットされます．</p>
+
+<p>In the example above, we are explicitly setting the version attribute for that module. <code>@vsn</code> is used by the code reloading mechanism in the Erlang VM to check if a module has been updated or not. If no version is specified, the version is set to the MD5 checksum of the module functions.</p>
+
+<p>エリクサーには予約済のアトリビュートが少しだけあります．(訳注:種類は)少ししかありませんが頻繁に使われています:</p>
+
+<p>Elixir has a handful of reserved attributes. Here are just a few of them, the most commonly used ones:</p>
+
+<ul>
+<li><code>@moduledoc</code> - このモジュールのドキュメントを提供します．</li>
+<li><code>@doc</code> - この印の次にある関数やマクロのドキュメントを提供します．</li>
+<li><code>@behaviour</code> - (つづりがイギリス式であることに注意してください)ユーザーが定義した振舞いなのか，OTPが定義した振舞いなのか区別します．</li>
+<li><p><code>@before_compile</code> - モジュールがコンパイルされる前に実行されるフックを提供します．コンパイル直前にモジュールへ関数を注入することができるようになります．</p></li>
+<li><p><code>@moduledoc</code> - provides documentation for the current module.</p></li>
+<li><p><code>@doc</code> - provides documentation for the function or macro that follows the attribute.</p></li>
+<li><p><code>@behaviour</code> - (notice the British spelling) used for specifying an OTP or user-defined behaviour.</p></li>
+<li><p><code>@before_compile</code> - provides a hook that will be invoked before the module is compiled. This makes it possible to inject functions inside the module exactly before compilation.</p></li>
+</ul>
+
+<p><code>@moduledoc</code>と<code>@doc</code>は最も良く使われているアトリビュートで，あなたにも沢山使ってもらえることを願っています．Elixirではドキュメントを大事にしており，ドキュメントへアクセスするための関数もたくさん提供しています．</p>
+
+<p><code>@moduledoc</code> and <code>@doc</code> are by far the most used attributes, and we expect you to use them a lot. Elixir treats documentation as first-class and provides many functions to access documentation.</p>
+
+<p>前の章で定義した<code>Math</code>モジュールに立ち返ってみましょう，ファイル<code>math.ex</code>へいくつかドキュメントを追加して保存します:</p>
+
+<p>Let&#39;s go back to the <code>Math</code> module defined in the previous chapters, add some documentation and save it to the <code>math.ex</code> file:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">Math</span> <span class="k">do</span>
+  <span class="na">@moduledoc</span> <span class="sh">&quot;&quot;&quot;</span>
+<span class="sh">  Provides math-related functions.</span>
+
+<span class="sh">  </span><span class="err">##</span><span class="sh"> Examples</span>
+
+<span class="sh">      iex&gt; Math.sum(1, 2)</span>
+<span class="sh">      3</span>
+
+<span class="sh">  &quot;&quot;&quot;</span>
+
+  <span class="na">@doc</span> <span class="sh">&quot;&quot;&quot;</span>
+<span class="sh">  Calculates the sum of two numbers.</span>
+<span class="sh">  &quot;&quot;&quot;</span>
+  <span class="kd">def</span> <span class="n">sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">),</span> <span class="ss">do</span><span class="p">:</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>Elixirでは読みやすいドキュメントを書くためヒアドキュメントでマークダウンを使うようにしています．ヒアドキュメントとは，最初と最後を3つの引用符でくくり，くくった中のテキストのフォーマットを崩さない，複数行の文字列のことです．コンパイルされたどんなモジュールでも IEx から直接ドキュメントへアクセスすることができます:</p>
+
+<p>Elixir promotes the use of markdown with heredocs to write readable documentation. Heredocs are multiline strings, they start and end with triple quotes, keeping the formatting of the inner text. We can access the documentation of any compiled module directly from IEx:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ elixirc math.ex
+$ iex
+iex&gt; h Math # Access the docs for the module Math
+...
+iex&gt; h Math.sum # Access the docs for the sum function
+...
+</code></pre></div>
+<p><a href="https://github.com/elixir-lang/ex_doc">ExDoc</a>と呼ばれているドキュメントからHTMLページを生成するためのツールも提供しています．</p>
+
+<p>We also provide a tool called <a href="https://github.com/elixir-lang/ex_doc">ExDoc</a> which is used to generate HTML pages from the documentation.</p>
+
+<p><a href="/docs/stable/elixir/Module.html">Module</a>でサポートしているアトリビュートの一覧を見ることができます．Elixirでは<a href="/docs/stable/elixir/Kernel.Typespec.html">typespecs</a>を定義するのにも以下のようなアトリビュートを使っています:</p>
+
+<p>You can take a look at the docs for <a href="/docs/stable/elixir/Module.html">Module</a> for a complete list of supported attributes. Elixir also uses attributes to define <a href="/docs/stable/elixir/Kernel.Typespec.html">typespecs</a>, via:</p>
+
+<ul>
+<li><code>@spec</code> - 関数の仕様を提供します．</li>
+<li><code>@callback</code> - behaviorのコールバック仕様を提供します．</li>
+<li><code>@type</code> - <code>@spec</code>の中で型を定義します．</li>
+<li><code>@typep</code> - <code>@spec</code>の中でプライベートな型を定義します．</li>
+<li><p><code>@opaque</code> - <code>@spec</code>の中で未確定な型を定義します．</p></li>
+<li><p><code>@spec</code> - provides a specification for a function.</p></li>
+<li><p><code>@callback</code> - provides a specification for the behaviour callback.</p></li>
+<li><p><code>@type</code> - defines a type to be used in <code>@spec</code>.</p></li>
+<li><p><code>@typep</code> - defines a private type to be used in <code>@spec</code>.</p></li>
+<li><p><code>@opaque</code> - defines an opaque type to be used in <code>@spec</code>.</p></li>
+</ul>
+
+<p>このセクションでは組み込み済のアトリビュートについて触れました．しかしそれだけではなく，アトリビュートは開発者に利用されたり，カスタムした振舞いをサポートするためライブラリで拡張されたりもします．</p>
+
+<p>This section covers built-in attributes. However, attributes can also be used by developers or extended by libraries to support custom behaviour.</p>
+
+<h2 id="14-2-定数として-as-constants">14.2 定数として - As constants</h2>
+
+<p>Elixir開発者はしばしばモジュールのアトリビュートを定数として使います:</p>
+
+<p>Elixir developers will often use module attributes to be used as constants:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">MyServer</span> <span class="k">do</span>
+  <span class="na">@initial_state</span> <span class="p">%{</span><span class="ss">host</span><span class="p">:</span> <span class="s2">&quot;147.0.0.1&quot;</span><span class="p">,</span> <span class="ss">port</span><span class="p">:</span> <span class="mi">3456</span><span class="p">}</span>
+  <span class="nc">IO</span><span class="p">.</span><span class="n">inspect</span> <span class="na">@initial_state</span>
+<span class="k">end</span>
+</code></pre></div>
+<blockquote>
+<p>メモ: Erlangとちがい，ユーザーが定義したアトリビュートはデフォルトではモジュールに保存されません．値はコンパイル時にのみ存在します．開発者は<a href="/docs/stable/elixir/Module.html#register_attribute/3"><code>Module.register_attribute/3</code></a>を呼び出すことにより，Erlangと似たような属性の振舞を設定をすることができます．</p>
+
+<p>Note: Unlike Erlang, user defined attributes are not stored in the module by default. The value exists only during compilation time. A developer can configure an attribute to behave closer to Erlang by calling <a href="/docs/stable/elixir/Module.html#register_attribute/3"><code>Module.register_attribute/3</code></a>.</p>
+</blockquote>
+
+<p>定義されていないアトリビュートへアクセスしてみるとワーニングが表示されるはずです:</p>
+
+<p>Trying to access an attribute that was not defined will print a warning:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">MyServer</span> <span class="k">do</span>
+  <span class="na">@unknown</span>
+<span class="k">end</span>
+<span class="ss">warning</span><span class="p">:</span> <span class="n">undefined</span> <span class="n">module</span> <span class="n">attribute</span> <span class="na">@unknown</span><span class="p">,</span> <span class="n">please</span> <span class="n">remove</span> <span class="n">access</span> <span class="n">to</span> <span class="na">@unknown</span> <span class="ow">or</span> <span class="n">explicitly</span> <span class="n">set</span> <span class="n">it</span> <span class="n">to</span> <span class="no">nil</span> <span class="n">before</span> <span class="n">access</span>
+</code></pre></div>
+<p>最後に，アトリビュートは関数の中でも読めます:</p>
+
+<p>Finally, attributes can also be read inside functions:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">MyServer</span> <span class="k">do</span>
+  <span class="na">@my_data</span> <span class="mi">14</span>
+  <span class="kd">def</span> <span class="n">first_data</span><span class="p">,</span> <span class="ss">do</span><span class="p">:</span> <span class="na">@my_data</span>
+  <span class="na">@my_data</span> <span class="mi">13</span>
+  <span class="kd">def</span> <span class="n">second_data</span><span class="p">,</span> <span class="ss">do</span><span class="p">:</span> <span class="na">@my_data</span>
+<span class="k">end</span>
+
+<span class="nc">MyServer</span><span class="p">.</span><span class="n">first_data</span> <span class="c1">#=&gt; 14</span>
+<span class="nc">MyServer</span><span class="p">.</span><span class="n">second_data</span> <span class="c1">#=&gt; 13</span>
+</code></pre></div>
+<p>関数の内部でアリビュートを読むときには現在のスナップショットの値を取ることに注意してください．言いかえると，値は実際に動かすときではなく，コンパイルするときに読み込まれます．これから見るように，アトリビュートによる貯蔵はモジュールをコンパイルするときに便利です．</p>
+
+<p>Notice that reading an attribute inside a function takes a snapshot of its current value. In other words, the value is read at compilation time and not at runtime. As we are going to see, this makes attributes useful to be used as storage during module compilation.</p>
+
+<h2 id="14-3-一時的な貯蔵-as-temporary-storage">14.3 一時的な貯蔵 - As temporary storage</h2>
+
+<p>Elixir organizationのプロジェクトの一つが<a href="https://github.com/elixir-lang/plug"><code>Plug</code>プロジェクト</a>で，Elixirでwebライブラリやフレームワークを構築するための共通の基盤になることを意図しています．</p>
+
+<p>One of the projects in the Elixir organization is <a href="https://github.com/elixir-lang/plug">the <code>Plug</code> project</a>, which is meant to be a common foundation for building web libraries and frameworks in Elixir.</p>
+
+<p>Plugライブラリではウェブサーバーの中で自身のプラグを定義できます．</p>
+
+<p>The Plug library also allows developers to define their own plugs which can be run in a web server:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">MyPlug</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="nc">Plug.Builder</span>
+
+  <span class="n">plug</span> <span class="ss">:set_header</span>
+  <span class="n">plug</span> <span class="ss">:send_ok</span>
+
+  <span class="kd">def</span> <span class="n">set_header</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">_opts</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">put_resp_header</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="s2">&quot;x-header&quot;</span><span class="p">,</span> <span class="s2">&quot;set&quot;</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="kd">def</span> <span class="n">send_ok</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="n">_opts</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">send</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="mi">200</span><span class="p">,</span> <span class="s2">&quot;ok&quot;</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="nc">IO</span><span class="p">.</span><span class="n">puts</span> <span class="s2">&quot;Running MyPlug with Cowboy on http://localhost:4000&quot;</span>
+<span class="nc">Plug.Adapters.Cowboy</span><span class="p">.</span><span class="n">http</span> <span class="nc">MyPlug</span><span class="p">,</span> <span class="p">[]</span>
+</code></pre></div>
+<p>上の例ではウェブリクエストが来たときに呼ばれる関数へと繋げるために<code>plug/1</code>マクロを使いました．内部的には，<code>plug/1</code>を呼ぶたび，Plugライブラリは与えられた引数を<code>@plugs</code>属性の中に貯蔵します．モジュールがコンパイルされる直前に，Plugはあらかじめ定義されているhttpリクエストを取り扱うメソッド(<code>call/2</code>)をコールバックします．そのメソッドは<code>@plugs</code>の中の全てのplugを順番に実行します．</p>
+
+<p>In the example above, we have used the <code>plug/1</code> macro to connect functions that will be invoked when there is a web request. Internally, every time you call <code>plug/1</code>, the Plug library stores the given argument in a <code>@plugs</code> attribute. Just before the module is compiled, Plug runs a callback that defines a method (<code>call/2</code>) which handles http requests. This method will run all plugs inside <code>@plugs</code> in order.</p>
+
+<p>このコードの裏側を理解するためには，マクロが必要です，そこでこのパターンはメタプログラミングガイドで再び眺めることにします．しかしここでは開発者がDSLを作るためにモジュールアトリビュートをストレージとしてどう使ったらよいか明確にすることへ焦点をあてます．</p>
+
+<p>In order to understand the underlying code, we&#39;d need macros, so we will revisit this pattern in the meta-programming guide. However the focus here is exactly on how using module attributes as storage allow developers to create DSLs.</p>
+
+<p>モジュールアトリビュートをアノテーションとストレージに利用している別の例がExUnitにあります:</p>
+
+<p>Another example comes from the ExUnit framework which uses module attributes as annotation and storage:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">MyTest</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="nc">ExUnit.Case</span>
+
+  <span class="na">@tag</span> <span class="ss">:external</span>
+  <span class="n">test</span> <span class="s2">&quot;contacts external service&quot;</span> <span class="k">do</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>ExUnitのタグはテストに注釈を付けるのに使われています．タグはテストをフィルターするのに使われています．例えば遅くて他のサービスに依存しているような外部のテストを自分のマシンで行うことを避けられます，そしてビルドシステムでは依然として有効にしておくことができます．</p>
+
+<p>Tags in ExUnit are used to annotate tests. Tags can be later used to filter tests. For example, you can avoid running external tests on your machine because they are slow and dependent on other services, while they can still be enabled in your build system.</p>
+
+<p>Elixirがどうやってメタプログラミングをサポートしているか，そしてモジュールアトリビュートがどうやってその重要な役割を担っているか，このセクションで多少でもわかるといいなと考えています．</p>
+
+<p>We hope this section shines some light on how Elixir supports meta-programming and how module attributes play an important role when doing so.</p>
+
+<p>次の章では，例外処理やsigil，内包表記などをやる前に，構造やプロトコルについて調べていくことにします．</p>
+
+<p>In the next chapters we&#39;ll explore structs and protocols before moving to exception handling and other constructs like sigils and comprehensions.</p>
+
+  </article><!-- .hfeed -->
+
+  
+  <div class="pagination loop-pagination">
+    
+      <a href="13.html" class="previous page-numbers spec">&larr; Previous</a>
+    
+      <a class="page-numbers spec" href="#container">Top</a>
+    
+      <a href="15.html" class="next page-numbers spec">Next &rarr;</a>
+    
+  </div>
+  
+</div><!-- #content -->
+
+      </div><!-- #main -->
+
+      <div class="clear">
+      </div>
+
+      <div id="copyright">
+        © 2012-2014 <a href="http://plataformatec.com.br/">Plataformatec</a>. All rights reserved.
+      </p>
+    </div><!-- .wrap -->
+  </div><!-- #container -->
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-8268430-6']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="/js/toc/toc.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $('.toc').toc({
+          title: '',
+          listType: 'ul',
+          showSpeed: 0,
+        });
+    });
+  </script>
+</body>
+</html>
+

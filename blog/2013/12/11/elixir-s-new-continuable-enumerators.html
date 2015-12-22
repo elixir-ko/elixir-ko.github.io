@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Elixir's new continuable enumerators - Elixir</title>
+  <link href="http://feeds.feedburner.com/ElixirLang" rel="alternate" title="Elixir's Blog" type="application/atom+xml" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" id="font-bitter-css" href="http://fonts.googleapis.com/css?family=Bitter&amp;ver=1" type="text/css" media="screen">
+</head>
+
+<body class="">
+  <div id="container">
+    <div class="wrap">
+    <div id="header">
+      <div id="branding">
+        <h1 id="site-title">
+          <a href="/" title="Elixir" rel="Home">
+            <img class="logo" src="/images/logo/logo.png" alt="Elixir Logo" />
+          </a>
+        </h1>
+      </div>
+
+      <div id="menu-primary" class="menu-container">
+        <div class="menu">
+          <ul id="menu-primary-items">
+            <li class="menu-item home"><a class="spec" href="/">Home</a></li>
+            <li class="menu-item install"><a class="spec" href="/install.html">Install</a></li>
+            <li class="menu-item getting_started"><a class="spec" href="/getting_started/1.html">Getting Started</a></li>
+            <li class="menu-item docs"><a class="spec" href="/docs.html">Docs</a></li>
+            <li class="menu-item blog"><a class="spec" href="/blog">Blog</a></li>
+            <li class="menu-item source"><a class="spec" href="https://github.com/elixir-lang/elixir">Source</a></li>
+            <li class="menu-item packages"><a class="spec" href="http://hex.pm/">Packages</a></li>
+
+          </ul>
+        </div>
+      </div>
+
+      <div class="clear"></div>
+    </div>
+
+    <div id="main">
+
+
+<div id="content">
+  <div class="hfeed">
+  <div class="hentry post">
+    <div class="post-content">
+      <div class="sticky-header">
+        <h1>Elixir's new continuable enumerators</h1>
+        
+        <div class="byline">December 11, 2013 · by Peter Minten . in <span class="category"><a href="/blog/categories.html#Internals">Internals</a></div>
+      </div>
+
+      <div class="entry-content">
+        <p>As you may have heard in the upcoming 0.12.0 release Elixir&#39;s enumerators gained
+some new features. In this blog post I&#39;ll explain what&#39;s new, what it enables
+and how it works.</p>
+
+<p>For those of you who use the development version of Elixir these changes are
+already available. For the exact differences in code you can look at the
+<a href="https://github.com/elixir-lang/elixir/pull/1922">relevant pull request</a>.</p>
+
+<h2 id="a-recap-of-enumerators-and-some-terminology">A recap of enumerators, and some terminology</h2>
+
+<p>The basic idea of enumerators is that you traverse some data structure or
+resource (lines from a file) by putting the thing that is traversed in control.
+That is if you&#39;re reading from a file you have a loop that reads lines from a
+file and for each line calls a function. Just calling a function isn&#39;t all that
+useful for most tasks as there&#39;d be no way to remember previous lines (ugly
+hacks aside), so some accumulator value is passed to the function and a new
+accumulator is returned by it.</p>
+
+<p>For example here&#39;s how you can count the total length of strings in a list.</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="nc">Enumerable</span><span class="p">.</span><span class="n">reduce</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">fn</span> <span class="n">x</span><span class="p">,</span> <span class="n">acc</span> <span class="p">-&gt;</span> <span class="nc">String</span><span class="p">.</span><span class="n">length</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="n">acc</span> <span class="k">end</span><span class="p">)</span>
+</code></pre></div>
+<p>Often the actual call to <code>Enumerable.reduce/3</code> is hidden inside another
+function.  Say that we want to define a <code>sum</code> function. The usual way is to
+write it like this:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">def</span> <span class="n">sum</span><span class="p">(</span><span class="n">coll</span><span class="p">)</span> <span class="k">do</span>
+  <span class="nc">Enumerable</span><span class="p">.</span><span class="n">reduce</span><span class="p">(</span><span class="n">coll</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">fn</span> <span class="n">x</span><span class="p">,</span> <span class="n">acc</span> <span class="p">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="n">acc</span> <span class="k">end</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>This could get called as <code>Enum.map(1..10, &amp;(&amp;1 * &amp;1)) |&gt; sum()</code> to get the sum of
+squares. Desugaring this means <code>sum(Enum.map(1..10, &amp;(&amp;1 * &amp;1)))</code>.</p>
+
+<p>The general pattern is this:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">def</span> <span class="n">outer_function</span><span class="p">(</span><span class="n">coll</span><span class="p">,</span> <span class="p">...)</span> <span class="k">do</span>
+  <span class="p">...</span>
+  <span class="nc">Enumerable</span><span class="p">.</span><span class="n">reduce</span><span class="p">(</span><span class="n">coll</span><span class="p">,</span> <span class="n">initial_consumer_acc</span><span class="p">,</span> <span class="n">consumer</span><span class="p">)</span>
+  <span class="p">...</span>
+<span class="k">end</span>
+
+<span class="n">something_that_returns_an_enumerable</span><span class="p">(...)</span> <span class="o">|&gt;</span> <span class="n">outer_function</span><span class="p">(...)</span>
+</code></pre></div>
+<p>You&#39;ll notice the slightly uncommon terminology of &quot;outer function&quot; and
+&quot;consumer&quot; (normally called an &quot;iteratee&quot;). That&#39;s intentional, naming an
+iteratee a consumer better reflects that it consumes values.</p>
+
+<p>Along the same lines I call the reduce function for a specific enumerable a
+producer, it produces values which are given to a consumer.</p>
+
+<p>The outer function is the function to which the enumerable is passed.
+Syntactically it looks like this is the consumer, but it&#39;s really a function
+that combines the producer and the consumer. For simple consumers (say <code>fn x,
+acc -&gt; length(x) + acc end</code>) the consumer will often be written directly in the
+source text of the outer function, but let&#39;s try to keep those concepts
+distinguished.</p>
+
+<h2 id="two-issues-with-classic-elixir-enumerators">Two issues with classic Elixir enumerators</h2>
+
+<p>Enumerators are great, but they have their limitations. One issue is that it&#39;s
+not possible to define a function that only returns at most 3 elements without
+traversing all elements or using ugly tricks such as <code>throw</code> (with a
+<code>try...catch</code> construct in the outer function). The <code>throw</code> trick is used in
+<code>Enum</code> and <code>Stream</code> to implement functions such as <code>Enum.take/2</code> and
+<code>Stream.take_while/2</code>. It works, but it&#39;s not what I&#39;d call stylish.</p>
+
+<p>A bigger problem, that doesn&#39;t have a workaround, is that there&#39;s no way to
+interleave two enumerables. That is, it&#39;s not possible to define a function that
+for two enumerables <code>A</code> and <code>B</code> returns a list <code>[A1, B1, A2, B2, A3, ...]</code>
+(where <code>A1</code> is the first element of A) without first traversing both lists and
+then interleaving the collected values. Interleaving is important because it&#39;s
+the basis of a zip function. Without interleaving you cannot implement
+<code>Stream.zip/2</code>.</p>
+
+<p>The underlying problem, in both cases, is that the producer is fully in control.
+The producer simply pushes out as many elements to the consumer as it wants and
+then says &quot;I&#39;m done&quot;. There&#39;s no way aside from <code>throw</code>/<code>raise</code> for a consumer
+to tell a producer &quot;stop producing&quot;. There is definitely no way to tell a
+producer &quot;stop for now but be prepared to continue where you left off later&quot;.</p>
+
+<h2 id="power-to-the-consumer">Power to the consumer!</h2>
+
+<p>At CodeMeshIO José Valim and Jessica Kerr sat down and discussed this problem.
+They came up with a solution inspired by a <a href="http://themonadreader.files.wordpress.com/2010/05/issue16.pdf">Monad.Reader
+article</a> (third
+article). It&#39;s an elegant extension of the old system, based on a simple idea.
+Instead of returning only an accumulator at every step (for every produced
+value) the consumer returns a combination of an accumulator and an instruction
+to the producer. Three instructions are available:</p>
+
+<ul>
+<li><code>:cont</code> - Keep producing.</li>
+<li><code>:halt</code> - Stop producing.</li>
+<li><code>:suspend</code> - Temporarily stop producing.</li>
+</ul>
+
+<p>A consumer that always returns <code>:cont</code> makes the producer behave exactly the
+same as in the old system. A consumer may return <code>:halt</code> to have the producer
+terminate earlier than it normally would.</p>
+
+<p>The real magic is in <code>:suspend</code> though. It tells a producer to return the
+accumulator and a continuation function. </p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="p">{</span> <span class="ss">:suspended</span><span class="p">,</span> <span class="n">n_</span><span class="p">,</span> <span class="n">cont</span> <span class="p">}</span> <span class="p">=</span> <span class="nc">Enumerable</span><span class="p">.</span><span class="n">reduce</span><span class="p">(</span><span class="mi">1</span><span class="p">..</span><span class="mi">5</span><span class="p">,</span> <span class="p">{</span> <span class="ss">:cont</span><span class="p">,</span> <span class="mi">0</span> <span class="p">},</span> <span class="k">fn</span> <span class="n">x</span><span class="p">,</span> <span class="n">n</span> <span class="p">-&gt;</span>
+  <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="mi">3</span> <span class="k">do</span>
+    <span class="p">{</span> <span class="ss">:suspend</span><span class="p">,</span> <span class="n">n</span> <span class="p">}</span>
+  <span class="k">else</span>
+    <span class="p">{</span> <span class="ss">:cont</span><span class="p">,</span> <span class="n">n</span> <span class="o">+</span> <span class="n">x</span> <span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span><span class="p">)</span>
+</code></pre></div>
+<p>After running this code <code>n_</code> will be <code>3</code> (1 + 2) and <code>cont</code> will be a
+function. We&#39;ll get back to <code>cont</code> in a minute but first take a look at some of
+the new elements here. The initial accumulator has an instruction as well, so
+you could suspend or halt a producer immediately, if you really want to. The
+value passed to the consumer (<code>n</code>) does not contain the instruction. The return
+value of the producer also has a symbol in it. Like with the instructions of
+consumers there are three possible values:</p>
+
+<ul>
+<li><code>:done</code> - Completed normally.</li>
+<li><code>:halted</code> - Consumer returned a <code>:halt</code> instruction.</li>
+<li><code>:suspended</code> - Consumer return a <code>:suspend</code> instruction.</li>
+</ul>
+
+<p>Together with the other values returned the possible return values from a
+producer are <code>{ :done, acc } | { :halted, acc } | { :suspended, acc,
+continuation }</code>.</p>
+
+<p>Back to the continuation. A continuation is a function that given an accumulator
+returns a new producer result. In other words it&#39;s a way to swap out the
+accumulator but keep the same producer in the same state.</p>
+
+<h2 id="implementing-interleave">Implementing <code>interleave</code></h2>
+
+<p>Using the power of suspension it is now possible to create an interleave
+function.</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">Interleave</span> <span class="k">do</span>
+  <span class="kd">def</span> <span class="n">interleave</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">step</span> <span class="p">=</span> <span class="k">fn</span> <span class="n">x</span><span class="p">,</span> <span class="n">acc</span> <span class="p">-&gt;</span> <span class="p">{</span> <span class="ss">:suspend</span><span class="p">,</span> <span class="p">[</span><span class="n">x</span><span class="p">|</span><span class="n">acc</span><span class="p">]</span> <span class="p">}</span> <span class="k">end</span>
+    <span class="n">af</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nc">Enumerable</span><span class="p">.</span><span class="n">reduce</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="ni">&amp;1</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
+    <span class="n">bf</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nc">Enumerable</span><span class="p">.</span><span class="n">reduce</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="ni">&amp;1</span><span class="p">,</span> <span class="n">step</span><span class="p">)</span>
+    <span class="n">do_interleave</span><span class="p">(</span><span class="n">af</span><span class="p">,</span> <span class="n">bf</span><span class="p">,</span> <span class="p">[])</span> <span class="o">|&gt;</span> <span class="ss">:lists</span><span class="p">.</span><span class="n">reverse</span><span class="p">()</span>
+  <span class="k">end</span>
+
+  <span class="kd">defp</span> <span class="n">do_interleave</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">acc</span><span class="p">)</span> <span class="k">do</span>
+    <span class="k">case</span> <span class="n">a</span><span class="p">.({</span> <span class="ss">:cont</span><span class="p">,</span> <span class="n">acc</span> <span class="p">})</span> <span class="k">do</span>
+      <span class="p">{</span> <span class="ss">:suspended</span><span class="p">,</span> <span class="n">acc</span><span class="p">,</span> <span class="n">a</span> <span class="p">}</span> <span class="p">-&gt;</span>
+        <span class="k">case</span> <span class="n">b</span><span class="p">.({</span> <span class="ss">:cont</span><span class="p">,</span> <span class="n">acc</span> <span class="p">})</span> <span class="k">do</span>
+          <span class="p">{</span> <span class="ss">:suspended</span><span class="p">,</span> <span class="n">acc</span><span class="p">,</span> <span class="n">b</span> <span class="p">}</span> <span class="p">-&gt;</span>
+            <span class="n">do_interleave</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">acc</span><span class="p">)</span>
+          <span class="p">{</span> <span class="ss">:halted</span><span class="p">,</span> <span class="n">acc</span> <span class="p">}</span> <span class="p">-&gt;</span>
+            <span class="n">acc</span>
+          <span class="p">{</span> <span class="ss">:done</span><span class="p">,</span> <span class="n">acc</span> <span class="p">}</span> <span class="p">-&gt;</span>
+            <span class="n">finish_interleave</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">acc</span><span class="p">)</span>
+        <span class="k">end</span>
+      <span class="p">{</span> <span class="ss">:halted</span><span class="p">,</span> <span class="n">acc</span> <span class="p">}</span> <span class="p">-&gt;</span>
+        <span class="n">acc</span>
+      <span class="p">{</span> <span class="ss">:done</span><span class="p">,</span> <span class="n">acc</span> <span class="p">}</span> <span class="p">-&gt;</span>
+        <span class="n">finish_interleave</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">acc</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="kd">defp</span> <span class="n">finish_interleave</span><span class="p">(</span><span class="n">a_or_b</span><span class="p">,</span> <span class="n">acc</span><span class="p">)</span> <span class="k">do</span>
+    <span class="k">case</span> <span class="n">a_or_b</span><span class="p">.({</span> <span class="ss">:cont</span><span class="p">,</span> <span class="n">acc</span> <span class="p">})</span> <span class="k">do</span>
+      <span class="p">{</span> <span class="ss">:suspended</span><span class="p">,</span> <span class="n">acc</span><span class="p">,</span> <span class="n">a_or_b</span> <span class="p">}</span> <span class="p">-&gt;</span>
+        <span class="n">finish_interleave</span><span class="p">(</span><span class="n">a_or_b</span><span class="p">,</span> <span class="n">acc</span><span class="p">)</span>
+      <span class="p">{</span> <span class="bp">_</span><span class="p">,</span> <span class="n">acc</span> <span class="p">}</span> <span class="p">-&gt;</span>
+        <span class="n">acc</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="nc">Interleave</span><span class="p">.</span><span class="n">interleave</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="ss">:a</span><span class="p">,</span> <span class="ss">:b</span><span class="p">,</span> <span class="ss">:c</span><span class="p">,</span> <span class="ss">:d</span><span class="p">])</span>
+<span class="c1">#=&gt; [1, :a, 2, :b, :c, :d]</span>
+</code></pre></div>
+<p>Lets go through this step by step. The main <code>interleave</code> function first
+partially applies <code>Enumerable.reduce/3</code> to get function values that work just
+like the continuations. This makes things easier for <code>do_interleave</code>.</p>
+
+<p>The <code>do_interleave</code> function first calls <code>a</code> (<code>af</code> from <code>interleave</code>) with the
+<code>step</code> function so that the available element of <code>a</code> gets added to the
+accumulator and <code>a</code> immediately suspends afterwards. Then the same is done for
+<code>b</code>. If either producer is done all the remaining elements of the other get
+added to the accumulator list.</p>
+
+<p>Note that <code>acc</code> is sometimes used to mean a tuple like <code>{ :cont, x }</code> and
+sometimes the accumulator value proper. It&#39;s a bit confusing, yes.</p>
+
+<p>This example shows that through clever combination of an outer function
+(<code>do_interleave</code>) and an inner function <code>step</code> two producers can be interleaved.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>The new system of enumerators certainly makes things a bit more complicated but
+also adds power. I suspect many interesting and &quot;interesting&quot; functions can be
+built on top of it.</p>
+
+      </div>
+
+      <!-- <div class="entry-meta">
+      </div> -->
+    </div>
+  </div>
+</div>
+
+</div><!-- #content -->
+
+<div id="sidebar-primary" class="sidebar">
+  <div class="widget news">
+  <h3>
+    News: <a href="/blog/2014/09/18/elixir-v1-0-0-released/">Elixir v1.0.0 released</a>
+  </h3>
+</div>
+
+<div class="widget search">
+  <form method="get" class="search-form" action="http://www.google.com/search">
+		<div>
+			<input class="search-text" type="text" name="q" placeholder="Search..." id="searchfield">
+			<input type="hidden" name="sitesearch" value="elixir-lang.org">
+			<input class="search-submit button" name="submit" type="submit" value="Search">
+		</div>
+	</form>
+</div>
+  <div class="rss-button">
+    <a href="http://feeds.feedburner.com/ElixirLang" target="_blank"><img src="/images/social/RSSButton.png" /></a>
+  </div>
+  <div class="widget categories-list">
+  <h3 class="widget-title">Blog Categories</h3>
+  <ul>
+  
+    <li><a class="spec" href="/blog/categories.html#Internals">Internals</a></li>
+  
+    <li><a class="spec" href="/blog/categories.html#Releases">Releases</a></li>
+  
+    <li><a class="spec" href="/blog/categories.html#Announcements">Announcements</a></li>
+  
+  </ul>
+</div>
+
+  <div class="widget">
+  <h3 class="widget-title">Join the Community</h3>
+  <ul>
+    <li><a class="spec" href="irc://irc.freenode.net/elixir-lang">#elixir-lang on freenode IRC</a></li>
+    <li><a class="spec" href="http://groups.google.com/group/elixir-lang-talk">elixir-talk mailing list (questions)</a></li>
+    <li><a class="spec" href="http://groups.google.com/group/elixir-lang-core">elixir-core mailing list (development)</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/elixir/issues">Issues tracker</a></li>
+    <li><a class="spec" href="http://twitter.com/elixirlang">@elixirlang on Twitter</a></li>
+  </ul>
+</div>
+
+<div class="widget">
+  <h3 class="widget-title">Important links</h3>
+  <ul>
+    <li><a class="spec" href="https://github.com/elixir-lang/elixir/wiki">Wiki with events, resources and talks organized by the community</a></li>
+    <li><a class="spec" href="http://elixir-lang.org/crash-course.html">Crash course for Erlang developers</a></li>
+  </ul>
+</div>
+
+<div class="widget">
+  <h3 class="widget-title">Learning resources</h3>
+  <ul>
+    <li class="image"><a href="http://pragprog.com/titles/elixir" title="Programming Elixir cover"><img src="http://imagery.pragprog.com/products/361/elixir_xlargebeta.jpg?1368724397" /></a></li>
+    <li class="image"><a href="http://elixirsips.com" title="ElixirSips cover"><img src="http://elixirsips.com/images/ElixirLangAd2_190x160.png" width="190" height="160" /></a></li>
+    <li class="image"><a href="http://manning.com/juric/" title="Elixir in Action"><img src="http://manning.com/juric/juric_cover150.jpg" width="190" height="238" /></a></li>
+    <li class="image"><a href="http://www.exotpbook.com/" title="The Little Elixir and OTP Guidebook"><img src="http://i.imgur.com/G6icQmt.png" width="190" height="274" /></a></li>
+    <li class="image"><a href="http://shop.oreilly.com/product/0636920030584.do" title="Introducing Elixir"><img src="http://akamaicovers.oreilly.com/images/0636920030584/rc_cat.gif" width="190" /></a></li>
+  </ul>
+</div>
+
+
+<div class="widget">
+  <h3 class="widget-title">Code editor support</h3>
+  <ul>
+    <li><a class="spec" href="https://github.com/elixir-lang/emacs-elixir">Emacs Mode</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/elixir-tmbundle">Textmate Bundle</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/vim-elixir">Vim Elixir</a></li>
+    <li><a class="spec" href="https://github.com/SteffenBauer/elixir-gtksourceview">GtkSourceView (gedit)</a></li>
+    <li><a class="spec" href="https://github.com/lucasmazza/language-elixir">Atom Package</a></li>
+  </ul>
+</div>
+
+
+<div class="widget">
+  <h3 class="widget-title">Sponsors</h3>
+  <ul>
+    <li class="image"><a href="http://plataformatec.com.br" title="Plataformatec"><img class="no-border" src="/images/logo/plataformatec.png" /></a></li>
+  </ul>
+</div>
+
+</div>
+
+      </div><!-- #main -->
+
+      <div class="clear">
+      </div>
+
+      <div id="copyright">
+        © 2012-2014 <a href="http://plataformatec.com.br/">Plataformatec</a>. All rights reserved.
+      </p>
+    </div><!-- .wrap -->
+  </div><!-- #container -->
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-8268430-6']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="/js/toc/toc.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $('.toc').toc({
+          title: '',
+          listType: 'ul',
+          showSpeed: 0,
+        });
+    });
+  </script>
+</body>
+</html>
+

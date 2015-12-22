@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Elixir v1.0.0 released - Elixir</title>
+  <link href="http://feeds.feedburner.com/ElixirLang" rel="alternate" title="Elixir's Blog" type="application/atom+xml" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" id="font-bitter-css" href="http://fonts.googleapis.com/css?family=Bitter&amp;ver=1" type="text/css" media="screen">
+</head>
+
+<body class="">
+  <div id="container">
+    <div class="wrap">
+    <div id="header">
+      <div id="branding">
+        <h1 id="site-title">
+          <a href="/" title="Elixir" rel="Home">
+            <img class="logo" src="/images/logo/logo.png" alt="Elixir Logo" />
+          </a>
+        </h1>
+      </div>
+
+      <div id="menu-primary" class="menu-container">
+        <div class="menu">
+          <ul id="menu-primary-items">
+            <li class="menu-item home"><a class="spec" href="/">Home</a></li>
+            <li class="menu-item install"><a class="spec" href="/install.html">Install</a></li>
+            <li class="menu-item getting_started"><a class="spec" href="/getting_started/1.html">Getting Started</a></li>
+            <li class="menu-item docs"><a class="spec" href="/docs.html">Docs</a></li>
+            <li class="menu-item blog"><a class="spec" href="/blog">Blog</a></li>
+            <li class="menu-item source"><a class="spec" href="https://github.com/elixir-lang/elixir">Source</a></li>
+            <li class="menu-item packages"><a class="spec" href="http://hex.pm/">Packages</a></li>
+
+          </ul>
+        </div>
+      </div>
+
+      <div class="clear"></div>
+    </div>
+
+    <div id="main">
+
+
+<div id="content">
+  <div class="hfeed">
+  <div class="hentry post">
+    <div class="post-content">
+      <div class="sticky-header">
+        <h1>Elixir v1.0.0 released</h1>
+        
+        <div class="byline">September 18, 2014 · by José Valim . in <span class="category"><a href="/blog/categories.html#Releases">Releases</a></div>
+      </div>
+
+      <div class="entry-content">
+        <p>Hello everyone!</p>
+
+<p>We are glad to announce Elixir v1.0.0 is finally out. It has been 8005 commits <a href="https://github.com/elixir-lang/elixir/graphs/contributors">by 189 contributors</a>, including the initial commit on <a href="https://github.com/elixir-lang/elixir/commit/337c3f2d569a42ebd5fcab6fef18c5e012f9be5b">January 9th, 2011</a>!</p>
+
+<h2 id="what-39-s-elixir">What&#39;s Elixir?</h2>
+
+<p>Elixir is a dynamic, functional language designed for building scalable and maintainable applications.</p>
+
+<p>Elixir leverages the Erlang VM, known for running low-latency, distributed and fault-tolerant systems, while also being successfully used in web development and the embedded software domain.</p>
+
+<h2 id="what-39-s-new">What&#39;s new?</h2>
+
+<p>This release is the consolidation of all the work done through the years. With v1.0.0, we have reached a stable milestone for the growth of software and projects written in Elixir.</p>
+
+<p>Elixir will follow <a href="http://semver.org">semantic versioning</a>, which means code written for Elixir v1.0.0 will continue to compile and run correctly for all versions under the v1 branch (e.g. v1.0.1, v1.1.0, v1.2.0).</p>
+
+<p>Elixir is composed of 6 applications, all under the same versioning constraints:</p>
+
+<ul>
+<li><a href="/docs/stable/elixir">Elixir</a> - the Elixir compiler, runtime and the standard library</li>
+<li><a href="/docs/stable/eex">EEx</a> - Elixir&#39;s templating library, useful for generating any kind of document dynamically</li>
+<li><a href="/docs/stable/ex_unit">ExUnit</a> - Elixir&#39;s unit test library, with support for concurrent testing, custom formatters, filters and much more</li>
+<li><a href="/docs/stable/iex">IEx</a> - Elixir&#39;s interactive shell with code reloading, auto-complete, and easy access to documentation, typespecs and more</li>
+<li><a href="/docs/stable/logger">Logger</a> - the latest addition to the group, Logger provides reliable logging and configurable backends (with syslog, file and many other backends provided by the community)</li>
+<li><a href="/docs/stable/mix">Mix</a> - Elixir&#39;s build tool that generates, compiles and tests projects as well as manages your dependencies</li>
+</ul>
+
+<p>With v1.0.0, we are providing a stable platform for the community to leverage and extend, and we are extremely excited with the projects and possibilities that are ahead of us!</p>
+
+<p>We hope the <a href="http://hex.pm">Hex package manager</a> will be the home of many of those projects and remember the whole Erlang ecosystem is also available to Elixir developers.</p>
+
+<h2 id="expectations">Expectations</h2>
+
+<p>We would like to elaborate on the expectations regarding Elixir v1.0.0. Although we expect that the vast majority of programs will remain compatible over time, it is impossible to guarantee that no future change will break any program.</p>
+
+<p>Under some unlikely circumstances, we may introduce changes that break existing code:</p>
+
+<ul>
+<li><p>Security: a security issue in the implementation may arise whose resolution requires backwards incompatible changes. We reserve the right to address such security issues.</p></li>
+<li><p>Bugs: if an application has undesired behaviour, a program that depends on the buggy behavior may break if the bug is fixed. We reserve the right to fix such bugs.</p></li>
+<li><p>Compiler front-end: improvements may be done to the compiler, introducing new warnings for ambiguous modes and providing more detailed error messages. Those can lead to compilation errors (when running with <code>--warning-as-errors</code>) or tooling failures when expecting specific messages (although one should avoid such). We reserve the right to do such improvements.</p></li>
+<li><p>Imports: new functions may be added to the Kernel module, which is auto-imported. They may collide with local functions defined in your modules. Collisions can be resolved in a backwards compatible fashion using <code>import Kernel, except: [...]</code> with a list of all functions you don&#39;t want imported from Kernel. We reserve the right to do such additions.</p></li>
+</ul>
+
+<p>Elixir binaries are guaranteed to be backwards compatible within the same branch. Code compiled with v1.0.0 shall work with Elixir v1.0.1 runtime but code compiled with Elixir v1.0.0 should be recompiled to work with Elixir v1.1.0 onwards.</p>
+
+<p>These expectations also apply to future releases under the v1 branch, except for experimental features, which will be explicitly marked as such and not provide any compatibility guarantee until they are stabilized.</p>
+
+<h2 id="learn-more">Learn more</h2>
+
+<p>You can get started with Elixir via our <a href="/getting_started/1.html">Getting Started guide</a>. There are quite some Elixir books out there too, now getting sent to the presses, quite a few can be found in the sidebar, which also includes screencasts and other resources.</p>
+
+<p>You can also learn more about Elixir by checking out <a href="http://www.confreaks.com/events/elixirconf2014">the videos from ElixirConf 2014</a>, the first (and so far the best) Elixir conference ever! You can learn more about <a href="http://www.confreaks.com/videos/4134-elixirconf2014-keynote-elixir">the language history</a>, <a href="http://www.confreaks.com/videos/4119-elixirconf2014-opening-keynote-think-different">how Elixir can change the way you code</a> or <a href="http://www.confreaks.com/videos/4131-elixirconf2014-otp-in-production-the-nitty-gritty-details-of-game-servers">even hear stories of how Elixir is being used in production</a>.</p>
+
+<p>Finally, by popular demand, we have <a href="http://www.stickermule.com/user/1070631438/stickers">released some Elixir stickers</a>, which are available with a discounted price to celebrate v1.0.0!</p>
+
+      </div>
+
+      <!-- <div class="entry-meta">
+      </div> -->
+    </div>
+  </div>
+</div>
+
+</div><!-- #content -->
+
+<div id="sidebar-primary" class="sidebar">
+  <div class="widget news">
+  <h3>
+    News: <a href="/blog/2014/09/18/elixir-v1-0-0-released/">Elixir v1.0.0 released</a>
+  </h3>
+</div>
+
+<div class="widget search">
+  <form method="get" class="search-form" action="http://www.google.com/search">
+		<div>
+			<input class="search-text" type="text" name="q" placeholder="Search..." id="searchfield">
+			<input type="hidden" name="sitesearch" value="elixir-lang.org">
+			<input class="search-submit button" name="submit" type="submit" value="Search">
+		</div>
+	</form>
+</div>
+  <div class="rss-button">
+    <a href="http://feeds.feedburner.com/ElixirLang" target="_blank"><img src="/images/social/RSSButton.png" /></a>
+  </div>
+  <div class="widget categories-list">
+  <h3 class="widget-title">Blog Categories</h3>
+  <ul>
+  
+    <li><a class="spec" href="/blog/categories.html#Internals">Internals</a></li>
+  
+    <li><a class="spec" href="/blog/categories.html#Releases">Releases</a></li>
+  
+    <li><a class="spec" href="/blog/categories.html#Announcements">Announcements</a></li>
+  
+  </ul>
+</div>
+
+  <div class="widget">
+  <h3 class="widget-title">Join the Community</h3>
+  <ul>
+    <li><a class="spec" href="irc://irc.freenode.net/elixir-lang">#elixir-lang on freenode IRC</a></li>
+    <li><a class="spec" href="http://groups.google.com/group/elixir-lang-talk">elixir-talk mailing list (questions)</a></li>
+    <li><a class="spec" href="http://groups.google.com/group/elixir-lang-core">elixir-core mailing list (development)</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/elixir/issues">Issues tracker</a></li>
+    <li><a class="spec" href="http://twitter.com/elixirlang">@elixirlang on Twitter</a></li>
+  </ul>
+</div>
+
+<div class="widget">
+  <h3 class="widget-title">Important links</h3>
+  <ul>
+    <li><a class="spec" href="https://github.com/elixir-lang/elixir/wiki">Wiki with events, resources and talks organized by the community</a></li>
+    <li><a class="spec" href="http://elixir-lang.org/crash-course.html">Crash course for Erlang developers</a></li>
+  </ul>
+</div>
+
+<div class="widget">
+  <h3 class="widget-title">Learning resources</h3>
+  <ul>
+    <li class="image"><a href="http://pragprog.com/titles/elixir" title="Programming Elixir cover"><img src="http://imagery.pragprog.com/products/361/elixir_xlargebeta.jpg?1368724397" /></a></li>
+    <li class="image"><a href="http://elixirsips.com" title="ElixirSips cover"><img src="http://elixirsips.com/images/ElixirLangAd2_190x160.png" width="190" height="160" /></a></li>
+    <li class="image"><a href="http://manning.com/juric/" title="Elixir in Action"><img src="http://manning.com/juric/juric_cover150.jpg" width="190" height="238" /></a></li>
+    <li class="image"><a href="http://www.exotpbook.com/" title="The Little Elixir and OTP Guidebook"><img src="http://i.imgur.com/G6icQmt.png" width="190" height="274" /></a></li>
+    <li class="image"><a href="http://shop.oreilly.com/product/0636920030584.do" title="Introducing Elixir"><img src="http://akamaicovers.oreilly.com/images/0636920030584/rc_cat.gif" width="190" /></a></li>
+  </ul>
+</div>
+
+
+<div class="widget">
+  <h3 class="widget-title">Code editor support</h3>
+  <ul>
+    <li><a class="spec" href="https://github.com/elixir-lang/emacs-elixir">Emacs Mode</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/elixir-tmbundle">Textmate Bundle</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/vim-elixir">Vim Elixir</a></li>
+    <li><a class="spec" href="https://github.com/SteffenBauer/elixir-gtksourceview">GtkSourceView (gedit)</a></li>
+    <li><a class="spec" href="https://github.com/lucasmazza/language-elixir">Atom Package</a></li>
+  </ul>
+</div>
+
+
+<div class="widget">
+  <h3 class="widget-title">Sponsors</h3>
+  <ul>
+    <li class="image"><a href="http://plataformatec.com.br" title="Plataformatec"><img class="no-border" src="/images/logo/plataformatec.png" /></a></li>
+  </ul>
+</div>
+
+</div>
+
+      </div><!-- #main -->
+
+      <div class="clear">
+      </div>
+
+      <div id="copyright">
+        © 2012-2014 <a href="http://plataformatec.com.br/">Plataformatec</a>. All rights reserved.
+      </p>
+    </div><!-- .wrap -->
+  </div><!-- #container -->
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-8268430-6']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="/js/toc/toc.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $('.toc').toc({
+          title: '',
+          listType: 'ul',
+          showSpeed: 0,
+        });
+    });
+  </script>
+</body>
+</html>
+

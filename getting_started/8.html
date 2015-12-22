@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>8 モジュール - Modules - Elixir</title>
+  <link href="http://feeds.feedburner.com/ElixirLang" rel="alternate" title="Elixir's Blog" type="application/atom+xml" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" id="font-bitter-css" href="http://fonts.googleapis.com/css?family=Bitter&amp;ver=1" type="text/css" media="screen">
+</head>
+
+<body class="getting_started">
+  <div id="container">
+    <div class="wrap">
+    <div id="header">
+      <div id="branding">
+        <h1 id="site-title">
+          <a href="/" title="Elixir" rel="Home">
+            <img class="logo" src="/images/logo/logo.png" alt="Elixir Logo" />
+          </a>
+        </h1>
+      </div>
+
+      <div id="menu-primary" class="menu-container">
+        <div class="menu">
+          <ul id="menu-primary-items">
+            <li class="menu-item home"><a class="spec" href="/">Home</a></li>
+            <li class="menu-item install"><a class="spec" href="/install.html">Install</a></li>
+            <li class="menu-item getting_started"><a class="spec" href="/getting_started/1.html">Getting Started</a></li>
+            <li class="menu-item docs"><a class="spec" href="/docs.html">Docs</a></li>
+            <li class="menu-item blog"><a class="spec" href="/blog">Blog</a></li>
+            <li class="menu-item source"><a class="spec" href="https://github.com/elixir-lang/elixir">Source</a></li>
+            <li class="menu-item packages"><a class="spec" href="http://hex.pm/">Packages</a></li>
+
+          </ul>
+        </div>
+      </div>
+
+      <div class="clear"></div>
+    </div>
+
+    <div id="main">
+
+
+<div id="sidebar-primary" class="sidebar">
+  <div class="widget news">
+  <h3>
+    News: <a href="/blog/2014/09/18/elixir-v1-0-0-released/">Elixir v1.0.0 released</a>
+  </h3>
+</div>
+
+<div class="widget search">
+  <form method="get" class="search-form" action="http://www.google.com/search">
+		<div>
+			<input class="search-text" type="text" name="q" placeholder="Search..." id="searchfield">
+			<input type="hidden" name="sitesearch" value="elixir-lang.org">
+			<input class="search-submit button" name="submit" type="submit" value="Search">
+		</div>
+	</form>
+</div>
+
+  <div class="widget">
+    <h3 class="widget-title">Getting Started</h3>
+    <ol>
+      <li><a class="spec" href="/getting_started/1.html">Interactive Elixir (IEx)</a></li>
+      <li><a class="spec" href="/getting_started/2.html">Basic types</a></li>
+      <li><a class="spec" href="/getting_started/3.html">Basic operators</a></li>
+      <li><a class="spec" href="/getting_started/4.html">Pattern matching</a></li>
+      <li><a class="spec" href="/getting_started/5.html">case, cond and if</a></li>
+      <li><a class="spec" href="/getting_started/6.html">Binaries, strings and char lists</a></li>
+      <li><a class="spec" href="/getting_started/7.html">Keywords, maps and dicts</a></li>
+      <li><a class="spec" href="/getting_started/8.html">Modules</a></li>
+      <li><a class="spec" href="/getting_started/9.html">Recursion</a></li>
+      <li><a class="spec" href="/getting_started/10.html">Enumerables and streams</a></li>
+      <li><a class="spec" href="/getting_started/11.html">Processes</a></li>
+      <li><a class="spec" href="/getting_started/12.html">IO</a></li>
+      <li><a class="spec" href="/getting_started/13.html">alias, require and import</a></li>
+      <li><a class="spec" href="/getting_started/14.html">Module attributes</a></li>
+      <li><a class="spec" href="/getting_started/15.html">Structs</a></li>
+      <li><a class="spec" href="/getting_started/16.html">Protocols</a></li>
+      <li><a class="spec" href="/getting_started/17.html">try, catch and rescue</a></li>
+      <li><a class="spec" href="/getting_started/18.html">Comprehensions</a></li>
+      <li><a class="spec" href="/getting_started/19.html">Sigils</a></li>
+      <li><a class="spec" href="/getting_started/20.html">Where to go next</a></li>
+    </ol>
+  </div>
+  <div class="widget">
+    <h3 class="widget-title">Mix and OTP</h3>
+    <ol>
+      <li><a class="spec" href="/getting_started/mix_otp/1.html">Introduction to Mix</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/2.html">Agent</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/3.html">GenServer</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/4.html">GenEvent</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/5.html">Supervisor and Application</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/6.html">ETS</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/7.html">Dependencies and umbrella apps</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/8.html">Task and gen_tcp</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/9.html">Docs, tests and pipelines</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/10.html">Distributed tasks and configuration</a></li>
+    </ol>
+  </div>
+  <div class="widget">
+    <h3 class="widget-title">Meta-programming in Elixir</h3>
+    <ol>
+      <li><a class="spec" href="/getting_started/meta/1.html">Quote and unquote</a></li>
+      <li><a class="spec" href="/getting_started/meta/2.html">Macros</a></li>
+      <li><a class="spec" href="/getting_started/meta/3.html">Domain Specific Languages</a></li>
+    </ol>
+  </div>
+
+  <div class="widget">
+  <h3 class="widget-title">Learning resources</h3>
+  <ul>
+    <li class="image"><a href="http://pragprog.com/titles/elixir" title="Programming Elixir cover"><img src="http://imagery.pragprog.com/products/361/elixir_xlargebeta.jpg?1368724397" /></a></li>
+    <li class="image"><a href="http://elixirsips.com" title="ElixirSips cover"><img src="http://elixirsips.com/images/ElixirLangAd2_190x160.png" width="190" height="160" /></a></li>
+    <li class="image"><a href="http://manning.com/juric/" title="Elixir in Action"><img src="http://manning.com/juric/juric_cover150.jpg" width="190" height="238" /></a></li>
+    <li class="image"><a href="http://www.exotpbook.com/" title="The Little Elixir and OTP Guidebook"><img src="http://i.imgur.com/G6icQmt.png" width="190" height="274" /></a></li>
+    <li class="image"><a href="http://shop.oreilly.com/product/0636920030584.do" title="Introducing Elixir"><img src="http://akamaicovers.oreilly.com/images/0636920030584/rc_cat.gif" width="190" /></a></li>
+  </ul>
+</div>
+
+  <div class="widget">
+  <h3 class="widget-title">Code editor support</h3>
+  <ul>
+    <li><a class="spec" href="https://github.com/elixir-lang/emacs-elixir">Emacs Mode</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/elixir-tmbundle">Textmate Bundle</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/vim-elixir">Vim Elixir</a></li>
+    <li><a class="spec" href="https://github.com/SteffenBauer/elixir-gtksourceview">GtkSourceView (gedit)</a></li>
+    <li><a class="spec" href="https://github.com/lucasmazza/language-elixir">Atom Package</a></li>
+  </ul>
+</div>
+
+  <div class="widget">
+  <h3 class="widget-title">Sponsors</h3>
+  <ul>
+    <li class="image"><a href="http://plataformatec.com.br" title="Plataformatec"><img class="no-border" src="/images/logo/plataformatec.png" /></a></li>
+  </ul>
+</div>
+</div>
+
+<div id="content">
+  <article>
+    <h1 id="8-モジュール-modules">8 モジュール - Modules</h1>
+
+<p><div class="toc"></div></p>
+
+<p>Elixirではモジュールのなかに複数の関数を入れてグループ化します．以前の章で既にいくつものモジュールを使ってきました．例えば<a href="/docs/stable/elixir/String.html"><code>String</code>モジュール</a>をこんな感じに:</p>
+
+<p>In Elixir we group several functions into modules. We&#39;ve already used many different modules in the previous chapters like <a href="/docs/stable/elixir/String.html">the <code>String</code> module</a>:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">String</span><span class="p">.</span><span class="n">length</span> <span class="s2">&quot;hello&quot;</span>
+<span class="go">5</span>
+</code></pre></div>
+<p>自分達でモジュールを作るには<code>defmodule</code>マクロを使います．そのマクロの中で<code>def</code>マクロを使って関数を定義します:</p>
+
+<p>In order to create our own modules in Elixir, we use the <code>defmodule</code> macro. We use the <code>def</code> macro to define functions in that module:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="kd">defmodule</span> <span class="nc">Math</span> <span class="k">do</span>
+<span class="gp">...&gt; </span>  <span class="kd">def</span> <span class="n">sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="k">do</span>
+<span class="gp">...&gt; </span>    <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+<span class="gp">...&gt; </span>  <span class="k">end</span>
+<span class="gp">...&gt; </span><span class="k">end</span>
+
+<span class="gp">iex&gt; </span><span class="nc">Math</span><span class="p">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="go">3</span>
+</code></pre></div>
+<p>この後の節では例がもうちょっと複雑になり，シェルから入力するにはすごく注意しなければなりません．この機会に，どうやってElixirのコードをコンパイルするか，どうやってElixirのスクリプトを実行するかを学びましょう．</p>
+
+<p>In the following sections, our examples are going to get a bit more complex, and it can be tricky to type them all in the shell. It&#39;s about time for us to learn how to compile Elixir code and also how to run Elixir scripts.</p>
+
+<h2 id="8-1-コンパイル-compilation">8.1 コンパイル - Compilation</h2>
+
+<p>モジュールをファイルへ書くことの便利さの多くは，それがコンパイルできて再利用できるところにあります．今，ファイルの名前が<code>math.ex</code>で，以下の内容が書いてあるとしましょう:</p>
+
+<p>Most of the time it is convenient to write modules into files so they can be compiled and reused. Let&#39;s assume we have a file named <code>math.ex</code> with the following contents:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">Math</span> <span class="k">do</span>
+  <span class="kd">def</span> <span class="n">sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>このファイルは<code>elixirc</code>を使ってコンパイルできます:</p>
+
+<p>This file can be compiled using <code>elixirc</code>:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ elixirc math.ex
+</code></pre></div>
+<p>こうすると，定義されたモジュールのバイトコードを含む<code>Elixir.Math.beam</code>という名前のファイルが生成されるでしょう．もう一度<code>iex</code>を開始すると，定義したモジュールが使えるようになっています(<code>iex</code>が開始したときに同じディレクトリにあるバイトコードファイルは自動的に読み込まれます):</p>
+
+<p>This will generate a file named <code>Elixir.Math.beam</code> containing the bytecode for the defined module. If we start <code>iex</code> again, our module definition will be available (provided that <code>iex</code> is started in the same directory the bytecode file is in):</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">Math</span><span class="p">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="go">3</span>
+</code></pre></div>
+<p>Elixirは通常3つのディレクトリを備えています:</p>
+
+<p>Elixir projects are usually organized into three directories:</p>
+
+<ul>
+<li>ebin - コンパイルされたバイトコードが入っています</li>
+<li>lib - Elixirのコードが入っています(たいてい<code>.ex</code>というファイルです)</li>
+<li><p>test - テストが入っています(たいてい<code>.exs</code>というファイルです)</p></li>
+<li><p>ebin - contains the compiled bytecode</p></li>
+<li><p>lib - contains elixir code (usually <code>.ex</code> files)</p></li>
+<li><p>test - contains tests (usually <code>.exs</code> files)</p></li>
+</ul>
+
+<p>実際のプロジェクトでは，<code>mix</code>というビルドツールがコンパイルと適切なパスのセッティングをうまくやってくれます．学習目的のため，Elixirではコンパイル成果物を作らずに融通がきくスクリプトモードというものを使えます．</p>
+
+<p>When working on actual projects, the build tool called <code>mix</code> will be responsible for compiling and setting up the proper paths for you. For learning purposes, Elixir also supports a scripted mode which is more flexible and does not generate any compiled artifacts.</p>
+
+<h2 id="8-2-スクリプトモード-scripted-mode">8.2 スクリプトモード - Scripted mode</h2>
+
+<p><code>.ex</code>というElixirの拡張子の他に，スクリプティング用に<code>.exs</code>というファイルも使えます．Elixirは2つのファイルを同じように扱います，違いは意図だけです．<code>.ex</code>ファイルはコンパイルされることを意図しています，一方<code>.exs</code>はコンパイル不要でスクリプティングに使われます．例えば<code>math.exs</code>と呼ばれているファイルを作ることができ:</p>
+
+<p>In addition to the Elixir file extension <code>.ex</code>, Elixir also supports <code>.exs</code> files for scripting. Elixir treats both files exactly the same way, the only difference is in intention. <code>.ex</code> files are meant to be compiled while <code>.exs</code> files are used for scripting, without the need for compilation. For instance, we can create a file called <code>math.exs</code>:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">Math</span> <span class="k">do</span>
+  <span class="kd">def</span> <span class="n">sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="nc">IO</span><span class="p">.</span><span class="n">puts</span> <span class="nc">Math</span><span class="p">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+</code></pre></div>
+<p>そしてこのように実行できます:</p>
+
+<p>And execute it as:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ elixir math.exs
+</code></pre></div>
+<p>ファイルはメモリ内でコンパイルされ，実行され，結果として3を表示します．バイトコードファイルは作られません．今後の例では，上で見たようにスクリプトファイルへコードを書いて実行することをおすすめします．</p>
+
+<p>The file will be compiled in memory and executed, printing &quot;3&quot; as the result. No bytecode file will be created. In the following examples, we recommend you write your code into script files and execute them as shown above.</p>
+
+<h2 id="8-3-名前付き関数-named-functions">8.3 名前付き関数 - Named functions</h2>
+
+<p>モジュールのなかで，<code>def/2</code>を使って関数を定義したり<code>defp/2</code>を使ってプライベート関数を定義できます．<code>def/2</code>で定義した関数は別のモジュールから呼び出せるのに対し，プライベート関数はモジュールの中だけでしか呼び出せません．</p>
+
+<p>Inside a module, we can define functions with <code>def/2</code> and private functions with <code>defp/2</code>. A function defined with <code>def/2</code> can be invoked from other modules while a private function can only be invoked locally.</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">Math</span> <span class="k">do</span>
+  <span class="kd">def</span> <span class="n">sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">do_sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="kd">defp</span> <span class="n">do_sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="nc">Math</span><span class="p">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>    <span class="c1">#=&gt; 3</span>
+<span class="nc">Math</span><span class="p">.</span><span class="n">do_sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="c1">#=&gt; ** (UndefinedFunctionError)</span>
+</code></pre></div>
+<p>関数宣言はガードと複数句に対応しています．もし関数に複数の句がある場合，Elixirはマッチする句があるまで順番に試していきます．引数が0かそうではないかをチェックする関数はこうなります:</p>
+
+<p>Function declarations also support guards and multiple clauses. If a function has several clauses, Elixir will try each clause until it finds one that matches. Here is an implementation of a function that checks if the given number is zero or not:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">Math</span> <span class="k">do</span>
+  <span class="kd">def</span> <span class="n">zero?</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">true</span>
+  <span class="k">end</span>
+
+  <span class="kd">def</span> <span class="n">zero?</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_number</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">false</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="nc">Math</span><span class="p">.</span><span class="n">zero?</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1">#=&gt; true</span>
+<span class="nc">Math</span><span class="p">.</span><span class="n">zero?</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>  <span class="c1">#=&gt; false</span>
+
+<span class="nc">Math</span><span class="p">.</span><span class="n">zero?</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
+<span class="c1">#=&gt; ** (FunctionClauseError)</span>
+</code></pre></div>
+<p>引数がどの句にもマッチしなかった場合はエラーが発生します．</p>
+
+<p>Giving an argument that does not match any of the clauses raises an error.</p>
+
+<h2 id="8-4-関数のキャプチャ-function-capturing">8.4 関数のキャプチャ - Function capturing</h2>
+
+<p>このチュートリアルのあいだ，関数を指すのに<code>name/arity</code>という記法を使ってきました．実はこの記法を名前付き関数の型として使うこともできます．<code>iex</code>を開始して上で定義した<code>math.exs</code>を動かしてみましょう:</p>
+
+<p>Throughout this tutorial, we have been using the notation <code>name/arity</code> to refer to functions. It happens that this notation can actually be used to retrieve a named function as a function type. Let&#39;s start <code>iex</code> and run the <code>math.exs</code> file defined above:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ iex math.exs
+</code></pre></div><div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">Math</span><span class="p">.</span><span class="n">zero?</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">true</span>
+<span class="gp">iex&gt; </span><span class="n">fun</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nc">Math</span><span class="p">.</span><span class="n">zero?</span><span class="o">/</span><span class="mi">1</span>
+<span class="go">&amp;Math.zero?/1</span>
+<span class="gp">iex&gt; </span><span class="n">is_function</span> <span class="n">fun</span>
+<span class="go">true</span>
+<span class="gp">iex&gt; </span><span class="n">fun</span><span class="p">.(</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">true</span>
+</code></pre></div>
+<p><code>is_function/1</code>のような，ローカルな関数やインポートされた関数はモジュールをつけなくてもキャプチャできます:</p>
+
+<p>Local or imported functions, like <code>is_function/1</code>, can be captured without the module:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="o">&amp;</span><span class="n">is_function</span><span class="o">/</span><span class="mi">1</span>
+<span class="go">&amp;:erlang.is_function/1</span>
+<span class="gp">iex&gt; </span><span class="p">(</span><span class="o">&amp;</span><span class="n">is_function</span><span class="o">/</span><span class="mi">1</span><span class="p">).(</span><span class="n">fun</span><span class="p">)</span>
+<span class="go">true</span>
+</code></pre></div>
+<p>キャプチャ構文は関数を作るときのショートカットとしても使えます:</p>
+
+<p>Note the capture syntax can also be used as a shortcut for creating functions:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">fun</span> <span class="p">=</span> <span class="o">&amp;</span><span class="p">(</span><span class="ni">&amp;1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+<span class="go">#Function&lt;6.71889879/1 in :erl_eval.expr/5&gt;</span>
+<span class="gp">iex&gt; </span><span class="n">fun</span><span class="p">.(</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">2</span>
+</code></pre></div>
+<p><code>&amp;1</code>は関数に渡された最初の引数を表します．上の<code>&amp;(&amp;1+1)</code>は<code>fn x -&gt; x + 1 end</code>と同じです．この構文は短い関数定義をするのに便利です．キャプチャ演算子<code>&amp;</code>については<a href="/docs/stable/elixir/Kernel.SpecialForms.html"><code>Kernel.SpecialForms</code>のドキュメント</a>で詳しく読むことができます．</p>
+
+<p>The <code>&amp;1</code> represents the first argument passed into the function. <code>&amp;(&amp;1+1)</code> above is exactly the same as <code>fn x -&gt; x + 1 end</code>. The syntax above is useful for short function definitions. You can read more about the capture operator <code>&amp;</code> in <a href="/docs/stable/elixir/Kernel.SpecialForms.html">the <code>Kernel.SpecialForms</code> documentation</a>.</p>
+
+<h2 id="8-5-デフォルト引数-default-arguments">8.5 デフォルト引数 - Default arguments</h2>
+
+<p>名前つき関数ではデフォルト引数も使えます:</p>
+
+<p>Named functions in Elixir also support default arguments:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">Concat</span> <span class="k">do</span>
+  <span class="kd">def</span> <span class="n">join</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">sep</span> <span class="p">\\</span> <span class="s2">&quot; &quot;</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">a</span> <span class="o">&lt;&gt;</span> <span class="n">sep</span> <span class="o">&lt;&gt;</span> <span class="n">b</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="nc">IO</span><span class="p">.</span><span class="n">puts</span> <span class="nc">Concat</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">,</span> <span class="s2">&quot;world&quot;</span><span class="p">)</span>      <span class="c1">#=&gt; Hello world</span>
+<span class="nc">IO</span><span class="p">.</span><span class="n">puts</span> <span class="nc">Concat</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">,</span> <span class="s2">&quot;world&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span> <span class="c1">#=&gt; Hello_world</span>
+</code></pre></div>
+<p>デフォルト値としてどんな式も用意しておけますが，関数定義のときには評価されません; 後で使うため単に保存します．関数が呼び出され，その関数のデフォルト値が利用されるたび，デフォルト値の式が評価されます．</p>
+
+<p>Any expression is allowed to serve as a default value, but it won&#39;t be evaluated during the function definition; it will simply be stored for later use. Every time the function is invoked and any of its default values have to be used, the expression for that default value will be evaluated:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">DefaultTest</span> <span class="k">do</span>
+  <span class="kd">def</span> <span class="n">dowork</span><span class="p">(</span><span class="n">x</span> <span class="p">\\</span> <span class="nc">IO</span><span class="p">.</span><span class="n">puts</span> <span class="s2">&quot;hello&quot;</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">x</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div><div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">DefaultTest</span><span class="p">.</span><span class="n">dowork</span> <span class="mi">123</span>
+<span class="go">123</span>
+<span class="gp">iex&gt; </span><span class="nc">DefaultTest</span><span class="p">.</span><span class="n">dowork</span>
+<span class="go">hello</span>
+<span class="go">:ok</span>
+</code></pre></div>
+<p>もしデフォルト値つきの関数に複数の句がある場合，デフォルト値を宣言する(動作内容を含めない)ヘッダ部分を分けて作っておくことをおすすめします:</p>
+
+<p>If a function with default values has multiple clauses, it is recommended to create a function head (without an actual body), just for declaring defaults:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">Concat</span> <span class="k">do</span>
+  <span class="kd">def</span> <span class="n">join</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="p">\\</span> <span class="no">nil</span><span class="p">,</span> <span class="n">sep</span> <span class="p">\\</span> <span class="s2">&quot; &quot;</span><span class="p">)</span>
+
+  <span class="kd">def</span> <span class="n">join</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">_sep</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_nil</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">a</span>
+  <span class="k">end</span>
+
+  <span class="kd">def</span> <span class="n">join</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">sep</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">a</span> <span class="o">&lt;&gt;</span> <span class="n">sep</span> <span class="o">&lt;&gt;</span> <span class="n">b</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="nc">IO</span><span class="p">.</span><span class="n">puts</span> <span class="nc">Concat</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">,</span> <span class="s2">&quot;world&quot;</span><span class="p">)</span>      <span class="c1">#=&gt; Hello world</span>
+<span class="nc">IO</span><span class="p">.</span><span class="n">puts</span> <span class="nc">Concat</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">,</span> <span class="s2">&quot;world&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span> <span class="c1">#=&gt; Hello_world</span>
+<span class="nc">IO</span><span class="p">.</span><span class="n">puts</span> <span class="nc">Concat</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">)</span>               <span class="c1">#=&gt; Hello</span>
+</code></pre></div>
+<p>もしデフォルト値を使うなら，関数定義の上書きについてだけは十分に注意しなければなりません．以下の例を考えてみましょう:</p>
+
+<p>When using default values, one must be careful to avoid overlapping function definitions. Consider the following example:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">Concat</span> <span class="k">do</span>
+  <span class="kd">def</span> <span class="n">join</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="k">do</span>
+    <span class="nc">IO</span><span class="p">.</span><span class="n">puts</span> <span class="s2">&quot;***First join&quot;</span>
+    <span class="n">a</span> <span class="o">&lt;&gt;</span> <span class="n">b</span>
+  <span class="k">end</span>
+
+  <span class="kd">def</span> <span class="n">join</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">sep</span> <span class="p">\\</span> <span class="s2">&quot; &quot;</span><span class="p">)</span> <span class="k">do</span>
+    <span class="nc">IO</span><span class="p">.</span><span class="n">puts</span> <span class="s2">&quot;***Second join&quot;</span>
+    <span class="n">a</span> <span class="o">&lt;&gt;</span> <span class="n">sep</span> <span class="o">&lt;&gt;</span> <span class="n">b</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>上のコードを&quot;concat.ex&quot;というファイル名でセーブしコンパイルすると，Elixirは以下の警告を出力するでしょう:</p>
+
+<p>If we save the code above in a file named &quot;concat.ex&quot; and compile it, Elixir will emit the following warning:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">concat.ex:7: this clause cannot match because a previous clause at line 2 always matches
+</code></pre></div>
+<p>2引数の<code>join</code>関数は常に最初の<code>join</code>定義を呼び出すことになり，一方2番目のものは3つの引数が渡されたときにしか呼び出されませんということをコンパイラが私たちへ教えてくれています:</p>
+
+<p>The compiler is telling us that invoking the <code>join</code> function with two arguments will always choose the first definition of <code>join</code> whereas the second one will only be invoked when three arguments are passed:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ iex concat.exs
+</code></pre></div><div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">Concat</span><span class="p">.</span><span class="n">join</span> <span class="s2">&quot;Hello&quot;</span><span class="p">,</span> <span class="s2">&quot;world&quot;</span>
+<span class="go">***First join</span>
+<span class="go">&quot;Helloworld&quot;</span>
+</code></pre></div><div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">Concat</span><span class="p">.</span><span class="n">join</span> <span class="s2">&quot;Hello&quot;</span><span class="p">,</span> <span class="s2">&quot;world&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span>
+<span class="go">***Second join</span>
+<span class="go">&quot;Hello_world&quot;</span>
+</code></pre></div>
+<p>モジュールの簡単な導入はおしまいです．次の章では名前つき関数を再帰に使うにはどうすればよいか学び，他のモジュールから関数を導入するのに使われるレキシカルディレクティブを調査し，モジュールの属性について話すことにします．</p>
+
+<p>This finishes our short introduction to modules. In the next chapters, we will learn how to use named functions for recursion, explore Elixir lexical directives that can be used for importing functions from other modules and discuss module attributes.</p>
+
+  </article><!-- .hfeed -->
+
+  
+  <div class="pagination loop-pagination">
+    
+      <a href="7.html" class="previous page-numbers spec">&larr; Previous</a>
+    
+      <a class="page-numbers spec" href="#container">Top</a>
+    
+      <a href="9.html" class="next page-numbers spec">Next &rarr;</a>
+    
+  </div>
+  
+</div><!-- #content -->
+
+      </div><!-- #main -->
+
+      <div class="clear">
+      </div>
+
+      <div id="copyright">
+        © 2012-2014 <a href="http://plataformatec.com.br/">Plataformatec</a>. All rights reserved.
+      </p>
+    </div><!-- .wrap -->
+  </div><!-- #container -->
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-8268430-6']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="/js/toc/toc.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $('.toc').toc({
+          title: '',
+          listType: 'ul',
+          showSpeed: 0,
+        });
+    });
+  </script>
+</body>
+</html>
+

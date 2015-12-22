@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>6 バイナリ，文字列そして文字リスト - Binaries, strings and char lists - Elixir</title>
+  <link href="http://feeds.feedburner.com/ElixirLang" rel="alternate" title="Elixir's Blog" type="application/atom+xml" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" id="font-bitter-css" href="http://fonts.googleapis.com/css?family=Bitter&amp;ver=1" type="text/css" media="screen">
+</head>
+
+<body class="getting_started">
+  <div id="container">
+    <div class="wrap">
+    <div id="header">
+      <div id="branding">
+        <h1 id="site-title">
+          <a href="/" title="Elixir" rel="Home">
+            <img class="logo" src="/images/logo/logo.png" alt="Elixir Logo" />
+          </a>
+        </h1>
+      </div>
+
+      <div id="menu-primary" class="menu-container">
+        <div class="menu">
+          <ul id="menu-primary-items">
+            <li class="menu-item home"><a class="spec" href="/">Home</a></li>
+            <li class="menu-item install"><a class="spec" href="/install.html">Install</a></li>
+            <li class="menu-item getting_started"><a class="spec" href="/getting_started/1.html">Getting Started</a></li>
+            <li class="menu-item docs"><a class="spec" href="/docs.html">Docs</a></li>
+            <li class="menu-item blog"><a class="spec" href="/blog">Blog</a></li>
+            <li class="menu-item source"><a class="spec" href="https://github.com/elixir-lang/elixir">Source</a></li>
+            <li class="menu-item packages"><a class="spec" href="http://hex.pm/">Packages</a></li>
+
+          </ul>
+        </div>
+      </div>
+
+      <div class="clear"></div>
+    </div>
+
+    <div id="main">
+
+
+<div id="sidebar-primary" class="sidebar">
+  <div class="widget news">
+  <h3>
+    News: <a href="/blog/2014/09/18/elixir-v1-0-0-released/">Elixir v1.0.0 released</a>
+  </h3>
+</div>
+
+<div class="widget search">
+  <form method="get" class="search-form" action="http://www.google.com/search">
+		<div>
+			<input class="search-text" type="text" name="q" placeholder="Search..." id="searchfield">
+			<input type="hidden" name="sitesearch" value="elixir-lang.org">
+			<input class="search-submit button" name="submit" type="submit" value="Search">
+		</div>
+	</form>
+</div>
+
+  <div class="widget">
+    <h3 class="widget-title">Getting Started</h3>
+    <ol>
+      <li><a class="spec" href="/getting_started/1.html">Interactive Elixir (IEx)</a></li>
+      <li><a class="spec" href="/getting_started/2.html">Basic types</a></li>
+      <li><a class="spec" href="/getting_started/3.html">Basic operators</a></li>
+      <li><a class="spec" href="/getting_started/4.html">Pattern matching</a></li>
+      <li><a class="spec" href="/getting_started/5.html">case, cond and if</a></li>
+      <li><a class="spec" href="/getting_started/6.html">Binaries, strings and char lists</a></li>
+      <li><a class="spec" href="/getting_started/7.html">Keywords, maps and dicts</a></li>
+      <li><a class="spec" href="/getting_started/8.html">Modules</a></li>
+      <li><a class="spec" href="/getting_started/9.html">Recursion</a></li>
+      <li><a class="spec" href="/getting_started/10.html">Enumerables and streams</a></li>
+      <li><a class="spec" href="/getting_started/11.html">Processes</a></li>
+      <li><a class="spec" href="/getting_started/12.html">IO</a></li>
+      <li><a class="spec" href="/getting_started/13.html">alias, require and import</a></li>
+      <li><a class="spec" href="/getting_started/14.html">Module attributes</a></li>
+      <li><a class="spec" href="/getting_started/15.html">Structs</a></li>
+      <li><a class="spec" href="/getting_started/16.html">Protocols</a></li>
+      <li><a class="spec" href="/getting_started/17.html">try, catch and rescue</a></li>
+      <li><a class="spec" href="/getting_started/18.html">Comprehensions</a></li>
+      <li><a class="spec" href="/getting_started/19.html">Sigils</a></li>
+      <li><a class="spec" href="/getting_started/20.html">Where to go next</a></li>
+    </ol>
+  </div>
+  <div class="widget">
+    <h3 class="widget-title">Mix and OTP</h3>
+    <ol>
+      <li><a class="spec" href="/getting_started/mix_otp/1.html">Introduction to Mix</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/2.html">Agent</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/3.html">GenServer</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/4.html">GenEvent</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/5.html">Supervisor and Application</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/6.html">ETS</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/7.html">Dependencies and umbrella apps</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/8.html">Task and gen_tcp</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/9.html">Docs, tests and pipelines</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/10.html">Distributed tasks and configuration</a></li>
+    </ol>
+  </div>
+  <div class="widget">
+    <h3 class="widget-title">Meta-programming in Elixir</h3>
+    <ol>
+      <li><a class="spec" href="/getting_started/meta/1.html">Quote and unquote</a></li>
+      <li><a class="spec" href="/getting_started/meta/2.html">Macros</a></li>
+      <li><a class="spec" href="/getting_started/meta/3.html">Domain Specific Languages</a></li>
+    </ol>
+  </div>
+
+  <div class="widget">
+  <h3 class="widget-title">Learning resources</h3>
+  <ul>
+    <li class="image"><a href="http://pragprog.com/titles/elixir" title="Programming Elixir cover"><img src="http://imagery.pragprog.com/products/361/elixir_xlargebeta.jpg?1368724397" /></a></li>
+    <li class="image"><a href="http://elixirsips.com" title="ElixirSips cover"><img src="http://elixirsips.com/images/ElixirLangAd2_190x160.png" width="190" height="160" /></a></li>
+    <li class="image"><a href="http://manning.com/juric/" title="Elixir in Action"><img src="http://manning.com/juric/juric_cover150.jpg" width="190" height="238" /></a></li>
+    <li class="image"><a href="http://www.exotpbook.com/" title="The Little Elixir and OTP Guidebook"><img src="http://i.imgur.com/G6icQmt.png" width="190" height="274" /></a></li>
+    <li class="image"><a href="http://shop.oreilly.com/product/0636920030584.do" title="Introducing Elixir"><img src="http://akamaicovers.oreilly.com/images/0636920030584/rc_cat.gif" width="190" /></a></li>
+  </ul>
+</div>
+
+  <div class="widget">
+  <h3 class="widget-title">Code editor support</h3>
+  <ul>
+    <li><a class="spec" href="https://github.com/elixir-lang/emacs-elixir">Emacs Mode</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/elixir-tmbundle">Textmate Bundle</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/vim-elixir">Vim Elixir</a></li>
+    <li><a class="spec" href="https://github.com/SteffenBauer/elixir-gtksourceview">GtkSourceView (gedit)</a></li>
+    <li><a class="spec" href="https://github.com/lucasmazza/language-elixir">Atom Package</a></li>
+  </ul>
+</div>
+
+  <div class="widget">
+  <h3 class="widget-title">Sponsors</h3>
+  <ul>
+    <li class="image"><a href="http://plataformatec.com.br" title="Plataformatec"><img class="no-border" src="/images/logo/plataformatec.png" /></a></li>
+  </ul>
+</div>
+</div>
+
+<div id="content">
+  <article>
+    <h1 id="6-バイナリ，文字列そして文字リスト-binaries-strings-and-char-lists">6 バイナリ，文字列そして文字リスト - Binaries, strings and char lists</h1>
+
+<p><div class="toc"></div></p>
+
+<p>&quot;基本的な型&quot;のなかで，文字列について学び，チェックするのに<code>is_binary/1</code>を使いました:</p>
+
+<p>In &quot;Basic types&quot;, we learned about strings and used the <code>is_binary/1</code> function for checks:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">string</span> <span class="p">=</span> <span class="s2">&quot;hello&quot;</span>
+<span class="go">&quot;hello&quot;</span>
+<span class="gp">iex&gt; </span><span class="n">is_binary</span> <span class="n">string</span>
+<span class="go">true</span>
+</code></pre></div>
+<p>この章をすすめるとバイナリとは何か，文字列とはどういう関係か，<code>&#39;このように&#39;</code>単一引用符でくくられた値はElixirではどういう意味を持つかについてわかるようになります．</p>
+
+<p>In this chapter, we will understand what binaries are, how they associate with strings, and what a single-quoted value, <code>&#39;like this&#39;</code>, means in Elixir.</p>
+
+<h2 id="6-1-utf-8とunicode-utf-8-and-unicode">6.1 UTF-8とUnicode - UTF-8 and Unicode</h2>
+
+<p>文字列はUTF-8でエンコードされたバイナリです．それが実際にどういう意味なのかわかるためには，バイトとコードポイントの違いについて知らなくてはなりません．</p>
+
+<p>A string is a UTF-8 encoded binary. In order to understand exactly what we mean by that, we need to understand the difference between bytes and code points.</p>
+
+<p>ユニコード標準では，コードポイントを私たちが知っている多くの文字へ割り当てています．例えば文字<code>a</code>は<code>97</code>というコードポイントを持っていますし，同じように文字<code>ł</code>は<code>322</code>というコードポイントを持っています．ディスクへ文字列<code>&quot;hełło&quot;</code>と書くとき，このコードポイントをバイトへ変換しなければなりません．もし1つのコードポイントを1バイトで表現するという方針だった場合<code>&quot;hełło&quot;</code>と書けません．なぜなら<code>ł</code>のコードポイントは<code>322</code>であり，1バイトでは<code>0</code>から<code>255</code>までしか表現できないからです．しかしあなたのスクリーンでは<code>&quot;hełło&quot;</code>が読めてますよね，それは<em>謎の技術</em>で表現されているためです ．それがエンコーディングというものができた理由です．</p>
+
+<p>The Unicode standard assigns code points to many of the characters we know. For example, the letter <code>a</code> has code point <code>97</code> while the letter <code>ł</code> has code point <code>322</code>. When writing the string <code>&quot;hełło&quot;</code> to disk, we need to convert this code point to bytes. If we adopted a rule that said one byte represents one code point, we wouldn&#39;t be able to write <code>&quot;hełło&quot;</code>, because it uses the code point <code>322</code> for <code>ł</code>, and one byte can only represent a number from <code>0</code> to <code>255</code>. But of course, given you can actually read <code>&quot;hełło&quot;</code> on your screen, it must be represented <em>somehow</em>. That&#39;s where encodings come in.</p>
+
+<p>バイトでコードポイントを表現する場合，どうにかエンコードしなければなりません．ElixirではデフォルトのエンコーディングとしてUTF-8エンコーディングを選びました．文字列はUTF-8でエンコードされたバイナリであるというときに意味するところは，文字列はコードポイントをある規則にのっとって表現しているバイトの集まりであり，その規則とはUTF-8エンコーディングであるということです．</p>
+
+<p>When representing code points in bytes, we need to encode them somehow. Elixir chose the UTF-8 encoding as its main and default encoding. When we say a string is a UTF-8 encoded binary, we mean a string is a bunch of bytes organized in a way to represent certain code points, as specified by the UTF-8 encoding.</p>
+
+<p>コードポイントが<code>322</code>に割り当たっている<code>ł</code>のような場合，表現するには1バイトより多くのバイトが必要です．それが文字列を<code>byte_size/1</code>で計算したときと<code>String.length/1</code>で計算したときの違いになっています:</p>
+
+<p>Since we have code points like <code>ł</code> assigned to the number <code>322</code>, we actually need more than one byte to represent it. That&#39;s why we see a difference when we calculate the <code>byte_size/1</code> of a string compared to its <code>String.length/1</code>:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">string</span> <span class="p">=</span> <span class="s2">&quot;hełło&quot;</span>
+<span class="go">&quot;hełło&quot;</span>
+<span class="gp">iex&gt; </span><span class="n">byte_size</span> <span class="n">string</span>
+<span class="go">7</span>
+<span class="gp">iex&gt; </span><span class="nc">String</span><span class="p">.</span><span class="n">length</span> <span class="n">string</span>
+<span class="go">5</span>
+</code></pre></div>
+<p>UTF-8では<code>h</code>，<code>e</code>や<code>o</code>を表現するには1バイトですみますが，<code>ł</code>を表現するには2バイト必要です．Elixirでは<code>?</code>を使うとコードポイントの値を得ることができます:</p>
+
+<p>UTF-8 requires one byte to represent the code points <code>h</code>, <code>e</code> and <code>o</code>, but two bytes to represent <code>ł</code>. In Elixir, you can get a code point&#39;s value by using <code>?</code>:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="sc">?a</span>
+<span class="go">97</span>
+<span class="gp">iex&gt; </span><span class="sc">?ł</span>
+<span class="go">322</span>
+</code></pre></div>
+<p><a href="/docs/stable/elixir/String.html"><code>String</code>モジュール</a>の関数を使うとコードポイント毎に文字を分けることもできます:</p>
+
+<p>You can also use the functions in <a href="/docs/stable/elixir/String.html">the <code>String</code> module</a> to split a string in its code points:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">String</span><span class="p">.</span><span class="n">codepoints</span><span class="p">(</span><span class="s2">&quot;hełło&quot;</span><span class="p">)</span>
+<span class="go">[&quot;h&quot;, &quot;e&quot;, &quot;ł&quot;, &quot;ł&quot;, &quot;o&quot;]</span>
+</code></pre></div>
+<p>これからElixirで文字列を扱うのに素晴しいサポートがあることがわかっていくことでしょう．ユニコード文字の操作も多数サポートしています．実際，Elixirは<a href="http://mortoray.com/2013/11/27/the-string-type-is-broken/">&quot;The string type is broken&quot;</a>の記事に挙げられている例をテストして全て合格しています．</p>
+
+<p>You will see that Elixir has excellent support for working with strings. It also supports many of the Unicode operations. In fact, Elixir passes all the tests showcased in the article <a href="http://mortoray.com/2013/11/27/the-string-type-is-broken/">&quot;The string type is broken&quot;</a>.</p>
+
+<p>ともあれ文字列はこの物語の一部にすぎません．文字列はバイナリであり，私たちは(文字列へ)関数<code>is_binary/1</code>を使いました，Elixirには文字列へ能力を与えている隠れた型がなくてはなりません．そして，やはりあります．さあバイナリについて話しましょう！</p>
+
+<p>However, strings are just part of the story. If a string is a binary, and we have used the <code>is_binary/1</code> function, Elixir must have an underlying type empowering strings. And it does. Let&#39;s talk about binaries!</p>
+
+<h2 id="6-2-バイナリ-とビット列-binaries-and-bitstrings">6.2 バイナリ(とビット列) - Binaries (and bitstrings)</h2>
+
+<p>Elixirではバイナリを<code>&lt;&lt;&gt;&gt;</code>を使って定義することができます:</p>
+
+<p>In Elixir, you can define a binary using <code>&lt;&lt;&gt;&gt;</code>:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="p">&lt;&lt;</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">&gt;&gt;</span>
+<span class="go">&lt;&lt;0, 1, 2, 3&gt;&gt;</span>
+<span class="gp">iex&gt; </span><span class="n">byte_size</span> <span class="p">&lt;&lt;</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">&gt;&gt;</span>
+<span class="go">4</span>
+</code></pre></div>
+<p>バイナリは単なるバイトの連なりです．もちろん，これらのバイトは何らかの方法で整理されています，文字列としては妥当ではないこともあります:</p>
+
+<p>A binary is just a sequence of bytes. Of course, those bytes can be organized in any way, even in a sequence that does not make them a valid string:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">String</span><span class="p">.</span><span class="n">valid?</span><span class="p">(&lt;&lt;</span><span class="mi">239</span><span class="p">,</span> <span class="mi">191</span><span class="p">,</span> <span class="mi">191</span><span class="p">&gt;&gt;)</span>
+<span class="go">false</span>
+</code></pre></div>
+<p>文字列の結合操作とは実はバイナリの結合操作です:</p>
+
+<p>The string concatenation operation is actually a binary concatenation operator:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="p">&lt;&lt;</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">&gt;&gt;</span> <span class="o">&lt;&gt;</span> <span class="p">&lt;&lt;</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">&gt;&gt;</span>
+<span class="go">&lt;&lt;0, 1, 2, 3&gt;&gt;</span>
+</code></pre></div>
+<p>ヌルバイト`<code>&lt;&lt;0&gt;&gt;</code>を結合させて文字列のバイナリ表現を見ることはElixirにおいて一般的な技法です:</p>
+
+<p>A common trick in Elixir is to concatenate the null byte <code>&lt;&lt;0&gt;&gt;</code> to a string to see its inner binary representation:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="s2">&quot;hełło&quot;</span> <span class="o">&lt;&gt;</span> <span class="p">&lt;&lt;</span><span class="mi">0</span><span class="p">&gt;&gt;</span>
+<span class="go">&lt;&lt;104, 101, 197, 130, 197, 130, 111, 0&gt;&gt;</span>
+</code></pre></div>
+<p>バイナリに書かれているそれぞれの番号は1バイトの表現なので255まであります．(複数の)バイナリは255より大きい数を保持したり，コードポイントからUTF8表現へ変換したりできます:</p>
+
+<p>Each number given to a binary is meant to represent a byte and therefore must go up to 255. Binaries allow modifiers to be given to store numbers bigger than 255 or to convert a code point to its utf8 representation:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="p">&lt;&lt;</span><span class="mi">255</span><span class="p">&gt;&gt;</span>
+<span class="go">&lt;&lt;255&gt;&gt;</span>
+<span class="gp">iex&gt; </span><span class="p">&lt;&lt;</span><span class="mi">256</span><span class="p">&gt;&gt;</span> <span class="c1"># truncated</span>
+<span class="go">&lt;&lt;0&gt;&gt;</span>
+<span class="gp">iex&gt; </span><span class="p">&lt;&lt;</span><span class="mi">256</span> <span class="p">::</span> <span class="n">size</span><span class="p">(</span><span class="mi">16</span><span class="p">)&gt;&gt;</span> <span class="c1"># use 16 bits (2 bytes) to store the number</span>
+<span class="go">&lt;&lt;1, 0&gt;&gt;</span>
+<span class="gp">iex&gt; </span><span class="p">&lt;&lt;</span><span class="mi">256</span> <span class="p">::</span> <span class="n">utf8</span><span class="p">&gt;&gt;</span> <span class="c1"># the number is a code point</span>
+<span class="go">&quot;Ā&quot;</span>
+<span class="gp">iex&gt; </span><span class="p">&lt;&lt;</span><span class="mi">256</span> <span class="p">::</span> <span class="n">utf8</span><span class="p">,</span> <span class="mi">0</span><span class="p">&gt;&gt;</span>
+<span class="go">&lt;&lt;196, 128, 0&gt;&gt;</span>
+</code></pre></div>
+<p>もしバイトが8ビットなら，1ビットを渡したらどうなるでしょうか？</p>
+
+<p>If a byte has 8 bits, what happens if we pass a size of 1 bit?</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="p">&lt;&lt;</span><span class="mi">1</span> <span class="p">::</span> <span class="n">size</span><span class="p">(</span><span class="mi">1</span><span class="p">)&gt;&gt;</span>
+<span class="go">&lt;&lt;1::size(1)&gt;&gt;</span>
+<span class="gp">iex&gt; </span><span class="p">&lt;&lt;</span><span class="mi">2</span> <span class="p">::</span> <span class="n">size</span><span class="p">(</span><span class="mi">1</span><span class="p">)&gt;&gt;</span> <span class="c1"># truncated</span>
+<span class="go">&lt;&lt;0::size(1)&gt;&gt;</span>
+<span class="gp">iex&gt; </span><span class="n">is_binary</span><span class="p">(&lt;&lt;</span> <span class="mi">1</span> <span class="p">::</span> <span class="n">size</span><span class="p">(</span><span class="mi">1</span><span class="p">)&gt;&gt;)</span>
+<span class="go">false</span>
+<span class="gp">iex&gt; </span><span class="n">is_bitstring</span><span class="p">(&lt;&lt;</span> <span class="mi">1</span> <span class="p">::</span> <span class="n">size</span><span class="p">(</span><span class="mi">1</span><span class="p">)&gt;&gt;)</span>
+<span class="go">true</span>
+<span class="gp">iex&gt; </span><span class="n">bit_size</span><span class="p">(&lt;&lt;</span> <span class="mi">1</span> <span class="p">::</span> <span class="n">size</span><span class="p">(</span><span class="mi">1</span><span class="p">)&gt;&gt;)</span>
+<span class="go">1</span>
+</code></pre></div>
+<p>値はもはやバイナリではありませんがビット列ではあります -- 単なるビットの集まり！つまりバイナリとは8で割り切れる数のビット列のことです！</p>
+
+<p>The value is no longer a binary, but a bitstring -- just a bunch of bits! So a binary is a bitstring where the number of bits is divisible by 8!</p>
+
+<p>バイナリ/ビット列にもパターンマッチできます:</p>
+
+<p>We can also pattern match on binaries / bitstrings:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="p">&lt;&lt;</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">&gt;&gt;</span> <span class="p">=</span> <span class="p">&lt;&lt;</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">&gt;&gt;</span>
+<span class="go">&lt;&lt;0, 1, 2&gt;&gt;</span>
+<span class="gp">iex&gt; </span><span class="n">x</span>
+<span class="go">2</span>
+<span class="gp">iex&gt; </span><span class="p">&lt;&lt;</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">&gt;&gt;</span> <span class="p">=</span> <span class="p">&lt;&lt;</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">&gt;&gt;</span>
+<span class="gr">** (MatchError) no match of right hand side value: &lt;&lt;0, 1, 2, 3&gt;&gt;</span>
+</code></pre></div>
+<p>バイナリの全てのエントリーはちょうど8bitずつを期待していることに注意してください．しかしバイナリ修飾子を使うことで「残り」へマッチさせることができます:</p>
+
+<p>Note each entry in the binary is expected to match exactly 8 bits. However, we can match on the rest of the binary modifier:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="p">&lt;&lt;</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x</span> <span class="p">::</span> <span class="n">binary</span><span class="p">&gt;&gt;</span> <span class="p">=</span> <span class="p">&lt;&lt;</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">&gt;&gt;</span>
+<span class="go">&lt;&lt;0, 1, 2, 3&gt;&gt;</span>
+<span class="gp">iex&gt; </span><span class="n">x</span>
+<span class="go">&lt;&lt;2, 3&gt;&gt;</span>
+</code></pre></div>
+<p>上のパターンは<code>&lt;&lt;&gt;&gt;</code>の最後がバイナリであるときにだけ動作します．文字列結合演算子<code>&lt;&gt;</code>の結果に似ていますね:</p>
+
+<p>The pattern above only works if the binary is at the end of <code>&lt;&lt;&gt;&gt;</code>. Similar results can be achieved with the string concatenation operator <code>&lt;&gt;</code>:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="s2">&quot;he&quot;</span> <span class="o">&lt;&gt;</span> <span class="n">rest</span> <span class="p">=</span> <span class="s2">&quot;hello&quot;</span>
+<span class="go">&quot;hello&quot;</span>
+<span class="gp">iex&gt; </span><span class="n">rest</span>
+<span class="go">&quot;llo&quot;</span>
+</code></pre></div>
+<p>ビット列，バイナリや文字列をめぐる旅も終わりです．文字列はUTF-8でエンコードされたバイナリのことで，バイナリは8で割り切れる数のビット列の集まりです．ここではElixirがビットとバイトを柔軟に扱える機能を提供していることをお見せしましたが，実際にはバイナリで作業する時間のうち99%はそのままバイナリとして扱い，<code>is_binary/1</code>と<code>byte_size/1</code>の関数を使うことになるでしょう.</p>
+
+<p>This finishes our tour of bitstrings, binaries and strings. A string is a UTF-8 encoded binary, and a binary is a bitstring where the number of bits is divisible by 8. Although this shows the flexibility Elixir provides to work with bits and bytes, 99% of the time you will be working with binaries and using the <code>is_binary/1</code> and <code>byte_size/1</code> functions.</p>
+
+<h2 id="6-3-文字リスト-char-lists">6.3 文字リスト - Char lists</h2>
+
+<p>文字リストは文字のリストでしかありません:</p>
+
+<p>A char list is nothing more than a list of characters:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="s1">&#39;hełło&#39;</span>
+<span class="go">[104, 101, 322, 322, 111]</span>
+<span class="gp">iex&gt; </span><span class="n">is_list</span> <span class="s1">&#39;hełło&#39;</span>
+<span class="go">true</span>
+<span class="gp">iex&gt; </span><span class="s1">&#39;hello&#39;</span>
+<span class="go">&#39;hello&#39;</span>
+</code></pre></div>
+<p>ご覧のとおり，単一引用符で囲まれた文字列はバイト列のかわりにコードポイントのリストを含んでいます(iexではASCIIの範囲より外にある文字を含んでいると，コードポイントの数字しか表示しないことに注意してください)．二重引用符で囲まれたものは文字列(つまりバイナリ)で，単一引用符で囲まれたものは文字のリスト(つまりリスト)です．</p>
+
+<p>You can see that, instead of containing bytes, a char list contains the code points of the characters between single-quotes (note that iex will only output code points if any of the chars is outside the ASCII range). So while double-quotes represent a string (i.e. a binary), single-quotes represents a char list (i.e. a list).</p>
+
+<p>実際には文字リストはほとんどErlangとのインターフェース，特にバイナリを引数に取れない古いライブラリに使われています．<code>to_string/1</code>や<code>to_char_list/1</code>関数を使うと文字リストを文字列に変換したりその逆のことができます:</p>
+
+<p>In practice, char lists are used mostly when interfacing with Erlang, in particular old libraries that do not accept binaries as arguments. You can convert a char list to a string and back by using the <code>to_string/1</code> and <code>to_char_list/1</code> functions:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">to_char_list</span> <span class="s2">&quot;hełło&quot;</span>
+<span class="go">[104, 101, 322, 322, 111]</span>
+<span class="gp">iex&gt; </span><span class="n">to_string</span> <span class="s1">&#39;hełło&#39;</span>
+<span class="go">&quot;hełło&quot;</span>
+<span class="gp">iex&gt; </span><span class="n">to_string</span> <span class="ss">:hello</span>
+<span class="go">&quot;hello&quot;</span>
+<span class="gp">iex&gt; </span><span class="n">to_string</span> <span class="mi">1</span>
+<span class="go">&quot;1&quot;</span>
+</code></pre></div>
+<p>それらの関数はポリモーフィックであることに注目してください．文字リストを文字列の変換だけではなく，整数から文字列，アトムから文字列などの変換にも使えます．</p>
+
+<p>Note that those functions are polymorphic. They not only convert char lists to strings, but also integers to strings, atoms to strings, and so on.</p>
+
+<p>バイナリ，文字列そして文字リストの話題から離れて，キーバリューデータ構造について話していくことにしましょう．</p>
+
+<p>With binaries, strings, and char lists out of the way, it is time to talk about key-value data structures.</p>
+
+  </article><!-- .hfeed -->
+
+  
+  <div class="pagination loop-pagination">
+    
+      <a href="5.html" class="previous page-numbers spec">&larr; Previous</a>
+    
+      <a class="page-numbers spec" href="#container">Top</a>
+    
+      <a href="7.html" class="next page-numbers spec">Next &rarr;</a>
+    
+  </div>
+  
+</div><!-- #content -->
+
+      </div><!-- #main -->
+
+      <div class="clear">
+      </div>
+
+      <div id="copyright">
+        © 2012-2014 <a href="http://plataformatec.com.br/">Plataformatec</a>. All rights reserved.
+      </p>
+    </div><!-- .wrap -->
+  </div><!-- #container -->
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-8268430-6']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="/js/toc/toc.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $('.toc').toc({
+          title: '',
+          listType: 'ul',
+          showSpeed: 0,
+        });
+    });
+  </script>
+</body>
+</html>
+

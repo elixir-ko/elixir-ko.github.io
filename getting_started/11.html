@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>11 プロセス - Processes - Elixir</title>
+  <link href="http://feeds.feedburner.com/ElixirLang" rel="alternate" title="Elixir's Blog" type="application/atom+xml" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" id="font-bitter-css" href="http://fonts.googleapis.com/css?family=Bitter&amp;ver=1" type="text/css" media="screen">
+</head>
+
+<body class="getting_started">
+  <div id="container">
+    <div class="wrap">
+    <div id="header">
+      <div id="branding">
+        <h1 id="site-title">
+          <a href="/" title="Elixir" rel="Home">
+            <img class="logo" src="/images/logo/logo.png" alt="Elixir Logo" />
+          </a>
+        </h1>
+      </div>
+
+      <div id="menu-primary" class="menu-container">
+        <div class="menu">
+          <ul id="menu-primary-items">
+            <li class="menu-item home"><a class="spec" href="/">Home</a></li>
+            <li class="menu-item install"><a class="spec" href="/install.html">Install</a></li>
+            <li class="menu-item getting_started"><a class="spec" href="/getting_started/1.html">Getting Started</a></li>
+            <li class="menu-item docs"><a class="spec" href="/docs.html">Docs</a></li>
+            <li class="menu-item blog"><a class="spec" href="/blog">Blog</a></li>
+            <li class="menu-item source"><a class="spec" href="https://github.com/elixir-lang/elixir">Source</a></li>
+            <li class="menu-item packages"><a class="spec" href="http://hex.pm/">Packages</a></li>
+
+          </ul>
+        </div>
+      </div>
+
+      <div class="clear"></div>
+    </div>
+
+    <div id="main">
+
+
+<div id="sidebar-primary" class="sidebar">
+  <div class="widget news">
+  <h3>
+    News: <a href="/blog/2014/09/18/elixir-v1-0-0-released/">Elixir v1.0.0 released</a>
+  </h3>
+</div>
+
+<div class="widget search">
+  <form method="get" class="search-form" action="http://www.google.com/search">
+		<div>
+			<input class="search-text" type="text" name="q" placeholder="Search..." id="searchfield">
+			<input type="hidden" name="sitesearch" value="elixir-lang.org">
+			<input class="search-submit button" name="submit" type="submit" value="Search">
+		</div>
+	</form>
+</div>
+
+  <div class="widget">
+    <h3 class="widget-title">Getting Started</h3>
+    <ol>
+      <li><a class="spec" href="/getting_started/1.html">Interactive Elixir (IEx)</a></li>
+      <li><a class="spec" href="/getting_started/2.html">Basic types</a></li>
+      <li><a class="spec" href="/getting_started/3.html">Basic operators</a></li>
+      <li><a class="spec" href="/getting_started/4.html">Pattern matching</a></li>
+      <li><a class="spec" href="/getting_started/5.html">case, cond and if</a></li>
+      <li><a class="spec" href="/getting_started/6.html">Binaries, strings and char lists</a></li>
+      <li><a class="spec" href="/getting_started/7.html">Keywords, maps and dicts</a></li>
+      <li><a class="spec" href="/getting_started/8.html">Modules</a></li>
+      <li><a class="spec" href="/getting_started/9.html">Recursion</a></li>
+      <li><a class="spec" href="/getting_started/10.html">Enumerables and streams</a></li>
+      <li><a class="spec" href="/getting_started/11.html">Processes</a></li>
+      <li><a class="spec" href="/getting_started/12.html">IO</a></li>
+      <li><a class="spec" href="/getting_started/13.html">alias, require and import</a></li>
+      <li><a class="spec" href="/getting_started/14.html">Module attributes</a></li>
+      <li><a class="spec" href="/getting_started/15.html">Structs</a></li>
+      <li><a class="spec" href="/getting_started/16.html">Protocols</a></li>
+      <li><a class="spec" href="/getting_started/17.html">try, catch and rescue</a></li>
+      <li><a class="spec" href="/getting_started/18.html">Comprehensions</a></li>
+      <li><a class="spec" href="/getting_started/19.html">Sigils</a></li>
+      <li><a class="spec" href="/getting_started/20.html">Where to go next</a></li>
+    </ol>
+  </div>
+  <div class="widget">
+    <h3 class="widget-title">Mix and OTP</h3>
+    <ol>
+      <li><a class="spec" href="/getting_started/mix_otp/1.html">Introduction to Mix</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/2.html">Agent</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/3.html">GenServer</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/4.html">GenEvent</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/5.html">Supervisor and Application</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/6.html">ETS</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/7.html">Dependencies and umbrella apps</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/8.html">Task and gen_tcp</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/9.html">Docs, tests and pipelines</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/10.html">Distributed tasks and configuration</a></li>
+    </ol>
+  </div>
+  <div class="widget">
+    <h3 class="widget-title">Meta-programming in Elixir</h3>
+    <ol>
+      <li><a class="spec" href="/getting_started/meta/1.html">Quote and unquote</a></li>
+      <li><a class="spec" href="/getting_started/meta/2.html">Macros</a></li>
+      <li><a class="spec" href="/getting_started/meta/3.html">Domain Specific Languages</a></li>
+    </ol>
+  </div>
+
+  <div class="widget">
+  <h3 class="widget-title">Learning resources</h3>
+  <ul>
+    <li class="image"><a href="http://pragprog.com/titles/elixir" title="Programming Elixir cover"><img src="http://imagery.pragprog.com/products/361/elixir_xlargebeta.jpg?1368724397" /></a></li>
+    <li class="image"><a href="http://elixirsips.com" title="ElixirSips cover"><img src="http://elixirsips.com/images/ElixirLangAd2_190x160.png" width="190" height="160" /></a></li>
+    <li class="image"><a href="http://manning.com/juric/" title="Elixir in Action"><img src="http://manning.com/juric/juric_cover150.jpg" width="190" height="238" /></a></li>
+    <li class="image"><a href="http://www.exotpbook.com/" title="The Little Elixir and OTP Guidebook"><img src="http://i.imgur.com/G6icQmt.png" width="190" height="274" /></a></li>
+    <li class="image"><a href="http://shop.oreilly.com/product/0636920030584.do" title="Introducing Elixir"><img src="http://akamaicovers.oreilly.com/images/0636920030584/rc_cat.gif" width="190" /></a></li>
+  </ul>
+</div>
+
+  <div class="widget">
+  <h3 class="widget-title">Code editor support</h3>
+  <ul>
+    <li><a class="spec" href="https://github.com/elixir-lang/emacs-elixir">Emacs Mode</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/elixir-tmbundle">Textmate Bundle</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/vim-elixir">Vim Elixir</a></li>
+    <li><a class="spec" href="https://github.com/SteffenBauer/elixir-gtksourceview">GtkSourceView (gedit)</a></li>
+    <li><a class="spec" href="https://github.com/lucasmazza/language-elixir">Atom Package</a></li>
+  </ul>
+</div>
+
+  <div class="widget">
+  <h3 class="widget-title">Sponsors</h3>
+  <ul>
+    <li class="image"><a href="http://plataformatec.com.br" title="Plataformatec"><img class="no-border" src="/images/logo/plataformatec.png" /></a></li>
+  </ul>
+</div>
+</div>
+
+<div id="content">
+  <article>
+    <h1 id="11-プロセス-processes">11 プロセス - Processes</h1>
+
+<p><div class="toc"></div></p>
+
+<p>Elixirでは全てのコードはプロセスの内部で動きます．プロセス同士は独立，並行して動き，メッセージパッシングでやり取りします．プロセスはElixirにおける並行の基本となるばかりではなく，分散や高可用なプログラムの構築にも役立ちます．</p>
+
+<p>In Elixir, all code runs inside processes. Processes are isolated from each other, run concurrent to one another and communicate via message passing. Processes are not only the basis for concurrency in Elixir, but they also provide the means for building distributed and fault-tolerant programs.</p>
+
+<p>ElixirのプロセスをOSのプロセスと混同してはいけません．プロセスは(他の多くのプログラミング言語におけるスレッドとは異なり)メモリとCPUにとって非常に軽量です．ですから，同時に動作する数千のプロセスを保持することは特別珍しいことではありません．</p>
+
+<p>Elixir&#39;s processes should not be confused with operating system processes. Processes in Elixir are extremely lightweight in terms of memory and CPU (unlike threads in many other programming languages). Because of this, it is not uncommon to have dozens of thousands of processes running simultaneously.</p>
+
+<p>この章では，私たちは新しいプロセスを生み出す方法，異なるプロセスのあいだでメッセージをうまく送ったり受けとったりする方法といった基本的な構造を学んでいきます．</p>
+
+<p>In this chapter, we will learn about the basic constructs for spawning new processes, as well as sending and receiving messages between different processes.</p>
+
+<h2 id="11-1-spawn-生み出す-spawn">11.1 spawn(生み出す) - spawn</h2>
+
+<p>新しいプロセスを生み出すための基本的な方法は，自動インポートされている関数<code>spawn/1</code>を使うことです:</p>
+
+<p>The basic mechanism for spawning new processes is with the auto-imported <code>spawn/1</code> function:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">spawn</span> <span class="k">fn</span> <span class="p">-&gt;</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span> <span class="k">end</span>
+<span class="go">#PID&lt;0.43.0&gt;</span>
+</code></pre></div>
+<p><code>spawn/1</code>は，他のプロセスで実行する関数を受けとります．</p>
+
+<p><code>spawn/1</code> takes a function which it will execute in another process.</p>
+
+<p><code>spawn/1</code>はPID(プロセス識別子)を返すことに注意してください．ここで生み出したプロセスはたぶんすぐに死にます．生み出されたプロセスは与えられた関数を実行し，関数が終わったら終了します:</p>
+
+<p>Notice <code>spawn/1</code> returns a PID (process identifier). At this point, the process you spawned is very likely dead. The spawned process will execute the given function and exit after the function is done:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">pid</span> <span class="p">=</span> <span class="n">spawn</span> <span class="k">fn</span> <span class="p">-&gt;</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span> <span class="k">end</span>
+<span class="go">#PID&lt;0.44.0&gt;</span>
+<span class="gp">iex&gt; </span><span class="nc">Process</span><span class="p">.</span><span class="n">alive?</span><span class="p">(</span><span class="n">pid</span><span class="p">)</span>
+<span class="go">false</span>
+</code></pre></div>
+<blockquote>
+<p>メモ: (手元で試すと)恐らくガイドで書いてあるのとは別のプロセス識別子になるでしょう．</p>
+
+<p>Note: you will likely get different process identifiers than the ones we are getting in this guide.</p>
+</blockquote>
+
+<p><code>self/0</code>を呼ぶことで今動いているプロセスのPIDを入手することができます:</p>
+
+<p>We can retrieve the PID of the current process by calling <code>self/0</code>:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">self</span><span class="p">()</span>
+<span class="go">#PID&lt;0.41.0&gt;</span>
+<span class="gp">iex&gt; </span><span class="nc">Process</span><span class="p">.</span><span class="n">alive?</span><span class="p">(</span><span class="n">self</span><span class="p">())</span>
+<span class="go">true</span>
+</code></pre></div>
+<p>プロセスは私たちがメッセージを送受信できるようになるとさらに面白い存在になります．</p>
+
+<p>Processes get much more interesting when we are able to send and receive messages.</p>
+
+<h2 id="11-2-送信と受信-send-and-receive">11.2 送信と受信 - send and receive</h2>
+
+<p><code>send/2</code>を使ってプロセスへメッセージを送り，<code>receive/1</code>を使って受けとることができます:</p>
+
+<p>We can send messages to a process with <code>send/2</code> and receive them with <code>receive/1</code>:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">send</span> <span class="n">self</span><span class="p">(),</span> <span class="p">{</span><span class="ss">:hello</span><span class="p">,</span> <span class="s2">&quot;world&quot;</span><span class="p">}</span>
+<span class="go">{:hello, &quot;world&quot;}</span>
+<span class="gp">iex&gt; </span><span class="k">receive</span> <span class="k">do</span>
+<span class="gp">...&gt; </span>  <span class="p">{</span><span class="ss">:hello</span><span class="p">,</span> <span class="n">msg</span><span class="p">}</span> <span class="p">-&gt;</span> <span class="n">msg</span>
+<span class="gp">...&gt; </span>  <span class="p">{</span><span class="ss">:world</span><span class="p">,</span> <span class="n">msg</span><span class="p">}</span> <span class="p">-&gt;</span> <span class="s2">&quot;won&#39;t match&quot;</span>
+<span class="gp">...&gt; </span><span class="k">end</span>
+<span class="go">&quot;world&quot;</span>
+</code></pre></div>
+<p>メッセージがプロセスから送られてくると，メッセージはプロセスのメールボックスへ保存されます．<code>receive/1</code>ブロックは与えられたパターンにマッチするいずれかのメッセージを現在のプロセスのメールボックスから探します．<code>receive/1</code>は<code>case/2</code>のように複数の句を取ることができ，句のガードとしてうまく動作します．</p>
+
+<p>When a message is sent to a process, the message is stored in the process mailbox. The <code>receive/1</code> block goes through the current process mailbox searching for a message that matches any of the given patterns. <code>receive/1</code> supports many clauses, like <code>case/2</code>, as well as guards in the clauses.</p>
+
+<p>もしパターンにマッチするメッセージがメールボックスに無ければ，現在のプロセスはマッチするメッセージがくるまで待ち続けます．タイムアウトを指定することもできます:</p>
+
+<p>If there is no message in the mailbox matching any of the patterns, the current process will wait until a matching message arrives. A timeout can also be specified:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">receive</span> <span class="k">do</span>
+<span class="gp">...&gt; </span>  <span class="p">{</span><span class="ss">:hello</span><span class="p">,</span> <span class="n">msg</span><span class="p">}</span>  <span class="p">-&gt;</span> <span class="n">msg</span>
+<span class="gp">...&gt; </span><span class="k">after</span>
+<span class="gp">...&gt; </span>  <span class="mi">1_000</span> <span class="p">-&gt;</span> <span class="s2">&quot;nothing after 1s&quot;</span>
+<span class="gp">...&gt; </span><span class="k">end</span>
+<span class="go">&quot;nothing after 1s&quot;</span>
+</code></pre></div>
+<p>既にメッセージがメールボックスにあることを期待しているならタイムアウトを0にすることもできます．</p>
+
+<p>A timeout of 0 can be given when you already expect the message to be in the mailbox.</p>
+
+<p>プロセス同士でメッセージを送りあってみましょう:</p>
+
+<p>Let&#39;s put all together and send messages between processes:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">parent</span> <span class="p">=</span> <span class="n">self</span><span class="p">()</span>
+<span class="go">#PID&lt;0.41.0&gt;</span>
+<span class="gp">iex&gt; </span><span class="n">spawn</span> <span class="k">fn</span> <span class="p">-&gt;</span> <span class="n">send</span><span class="p">(</span><span class="n">parent</span><span class="p">,</span> <span class="p">{</span><span class="ss">:hello</span><span class="p">,</span> <span class="n">self</span><span class="p">()})</span> <span class="k">end</span>
+<span class="go">#PID&lt;0.48.0&gt;</span>
+<span class="gp">iex&gt; </span><span class="k">receive</span> <span class="k">do</span>
+<span class="gp">...&gt; </span>  <span class="p">{</span><span class="ss">:hello</span><span class="p">,</span> <span class="n">pid</span><span class="p">}</span> <span class="p">-&gt;</span> <span class="s2">&quot;Got hello from </span><span class="si">#{</span><span class="n">inspect</span> <span class="n">pid</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="gp">...&gt; </span><span class="k">end</span>
+<span class="go">&quot;Got hello from #PID&lt;0.48.0&gt;&quot;</span>
+</code></pre></div>
+<p>シェルから行なう場合，<code>flush/0</code>が便利かもしれません．メールボックスにある全てのメッセージを表示し，空にします．</p>
+
+<p>While in the shell, you may find the helper <code>flush/0</code> quite useful. It flushes and prints all the messages in the mailbox.</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">send</span> <span class="n">self</span><span class="p">(),</span> <span class="ss">:hello</span>
+<span class="go">:hello</span>
+<span class="gp">iex&gt; </span><span class="n">flush</span><span class="p">()</span>
+<span class="go">:hello</span>
+<span class="go">:ok</span>
+</code></pre></div>
+<h2 id="11-3-リンク-links">11.3 リンク - Links</h2>
+
+<p>Elixirでspawnするときに一番よく使われているのは<code>spawn_link/1</code>を経由するものです．<code>spawn_link/1</code>の例を見るまえに，プロセスが失敗したときにどんなことが起こるかを見てみましょう:</p>
+
+<p>The most common form of spawning in Elixir is actually via <code>spawn_link/1</code>. Before we show an example with <code>spawn_link/1</code>, let&#39;s try to see what happens when a process fails:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">spawn</span> <span class="k">fn</span> <span class="p">-&gt;</span> <span class="k">raise</span> <span class="s2">&quot;oops&quot;</span> <span class="k">end</span>
+
+<span class="go">[error] Error in process &lt;0.58.0&gt; with exit value: ...</span>
+
+<span class="go">#PID&lt;0.58.0&gt;</span>
+</code></pre></div>
+<p>単にエラーを表示するだけで，生み出した方のプロセスは依然として動作しています．なぜならプロセス同士は独立しているためです．もし，あるプロセスでの失敗を他のプロセスへ伝播させたければリンクを使うべきです．<code>spawn_link/1</code>を使えばできます:</p>
+
+<p>It merely logged an error but the spawning process is still running. That&#39;s because processes are isolated. If we want the failure in one process to propagate to another one, we should link them. This can be done with <code>spawn_link/1</code>:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">spawn_link</span> <span class="k">fn</span> <span class="p">-&gt;</span> <span class="k">raise</span> <span class="s2">&quot;oops&quot;</span> <span class="k">end</span>
+
+<span class="gr">** (EXIT from #PID&lt;0.41.0&gt;) an exception was raised:</span>
+<span class="gr">    ** (RuntimeError) oops</span>
+<span class="gr">        :erlang.apply/2</span>
+</code></pre></div>
+<p>シェルで失敗した場合，シェルは自動的に失敗を受けとって，読みやすい形で表示してくれます．自分達のコードで実際には何が起きるのかわかりやすいように，<code>spawn_link/1</code>をファイルの中で使い，動かしてみます:</p>
+
+<p>When a failure happens in the shell, the shell automatically traps the failure and shows it nicely formatted. In order to understand what would really happen in our code, let&#39;s use <code>spawn_link/1</code> inside a file and run it:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="go"># spawn.exs</span>
+<span class="go">spawn_link fn -&gt; raise &quot;oops&quot; end</span>
+
+<span class="go">receive do</span>
+<span class="go">  :hello -&gt; &quot;let&#39;s wait until the process fails&quot;</span>
+<span class="go">end</span>
+</code></pre></div>
+<p>この場合プロセスが失敗し，リンクしているので親プロセスも落ちます．<code>Process.link/1</code>を呼べばリンクを手動で行うこともできます．プロセスがどんな機能を提供しているか知るのに<a href="/docs/stable/elixir/Process.html"><code>Process</code>モジュール</a>を眺めることをおすすめします．</p>
+
+<p>This time the process failed and brought the parent process down as they are linked. Linking can also be done manually by calling <code>Process.link/1</code>. We recommend you to take a look at <a href="/docs/stable/elixir/Process.html">the <code>Process</code> module</a> for other functionality provided by processes.</p>
+
+<p>プロセスとリンクは可用性の高いシステムを構築するのに大事な役割を担っています．Elixirのアプリケーションではしばしば，プロセスが死んでしまった際に検知し，同じ場所で新しいプロセスを動かすため，私たちが作るプロセスとスーパーバイザー(監視役)をリンクさせます．これができるのはプロセスがデフォルトでは何も共有しないためです．そしてもしプロセスが独立しているなら，プロセス内での失敗が他のプロセスをクラッシュさせたり状態を壊したりすることは絶対にありません．</p>
+
+<p>Process and links play an important role when building fault-tolerant systems. In Elixir applications, we often link our processes to supervisors which will detect when a process dies and start a new process in its place. This is only possible because processes are isolated and don&#39;t share anything by default. And if processes are isolated, there is no way a failure in a process will crash or corrupt the state of another.</p>
+
+<p>他の言語では例外は受けとったり操作することが求められますが，Elixirではスーパーバイザーがシステムを再起動してくれるであろうため，プロセスは失敗するがままでかまいません．&quot;早く失敗する&quot;はElixirでソフトウェアを書く際の一般的な指針です！</p>
+
+<p>While other languages would require us to catch/handle exceptions, in Elixir we are actually fine with letting processes fail because we expect supervisors to properly restart our systems. &quot;Failing fast&quot; is a common philosophy when writing Elixir software!</p>
+
+<p>次の章へ移る前に， Elixir で複数のプロセスの生成がよく使われる場合をみてみましょう．</p>
+
+<p>Before moving to the next chapter, let&#39;s see one of the most common use cases for creating processes in Elixir.</p>
+
+<h2 id="11-4-状態-state">11.4 状態 - State</h2>
+
+<p>このガイドでまだ状態について話していませんでした．もし状態が必要なアプリケーション，例えばアプリケーションの設定を保持したり，ファイルを解析してメモリに保持するときに，どこに保存しておけばよいのでしょうか？</p>
+
+<p>We haven&#39;t talked about state so far in this guide. If you are building an application that requires state, for example, to keep your application configuration, or you need to parse a file and keep it in memory, where would you store it?</p>
+
+<p>この質問のもっとも一般的な回答としてはプロセスです．私たちは無限ループする，状態を保持するプロセスを書くことができ，メッセージを送ったり受けたりすることができます．例えば，新しいプロセスでキーバリューストアとして動作する，<code>kv.exs</code>というファイル名のモジュールを書いてみましょう:</p>
+
+<p>Processes are the most common answer to this question. We can write processes that loop infinitely, maintain state, and send and receive messages. As an example, let&#39;s write a module that starts new processes that work as a key-value store in a file named <code>kv.exs</code>:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">KV</span> <span class="k">do</span>
+  <span class="kd">def</span> <span class="n">start_link</span> <span class="k">do</span>
+    <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">spawn_link</span><span class="p">(</span><span class="k">fn</span> <span class="p">-&gt;</span> <span class="n">loop</span><span class="p">(%{})</span> <span class="k">end</span><span class="p">)}</span>
+  <span class="k">end</span>
+
+  <span class="kd">defp</span> <span class="n">loop</span><span class="p">(</span><span class="n">map</span><span class="p">)</span> <span class="k">do</span>
+    <span class="k">receive</span> <span class="k">do</span>
+      <span class="p">{</span><span class="ss">:get</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">caller</span><span class="p">}</span> <span class="p">-&gt;</span>
+        <span class="n">send</span> <span class="n">caller</span><span class="p">,</span> <span class="nc">Map</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">map</span><span class="p">,</span> <span class="n">key</span><span class="p">)</span>
+        <span class="n">loop</span><span class="p">(</span><span class="n">map</span><span class="p">)</span>
+      <span class="p">{</span><span class="ss">:put</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">}</span> <span class="p">-&gt;</span>
+        <span class="n">loop</span><span class="p">(</span><span class="nc">Map</span><span class="p">.</span><span class="n">put</span><span class="p">(</span><span class="n">map</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">))</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>関数<code>start_link</code>は，関数<code>loop/1</code>を動かすような新しいプロセスを，最初に空のマップを渡して，単純に産み出していることに注目してください．関数<code>loop/1</code>はメッセージを待ち受け，どのメッセージにも適切な動作をします．<code>:get</code>メッセージの場合，呼び出し元へメッセージを送り返し，再び<code>loop/1</code>を呼び出し，新しいメッセージを待ちます．<code>:put</code>メッセージの場合，与えられた<code>key</code>と<code>value</code>を保存した新しいバージョンのマップで<code>loop/1</code>を呼び出します．</p>
+
+<p>Note that the <code>start_link</code> function basically spawns a new process that runs the <code>loop/1</code> function, starting with an empty map. The <code>loop/1</code> function then waits for messages and performs the appropriate action for each message. In case of a <code>:get</code> message, it sends a message back to the caller and calls <code>loop/1</code> again, to wait for a new message. While the <code>:put</code> message actually invokes <code>loop/1</code> with a new version of the map, with the given <code>key</code> and <code>value</code> stored.</p>
+
+<p><code>iex kv.exs</code>で動かして試してみましょう:</p>
+
+<p>Let&#39;s give it a try by running <code>iex kv.exs</code>:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">pid</span><span class="p">}</span> <span class="p">=</span> <span class="nc">KV</span><span class="p">.</span><span class="n">start_link</span>
+<span class="go">#PID&lt;0.62.0&gt;</span>
+<span class="gp">iex&gt; </span><span class="n">send</span> <span class="n">pid</span><span class="p">,</span> <span class="p">{</span><span class="ss">:get</span><span class="p">,</span> <span class="ss">:hello</span><span class="p">,</span> <span class="n">self</span><span class="p">()}</span>
+<span class="go">{:get, :hello, #PID&lt;0.41.0&gt;}</span>
+<span class="gp">iex&gt; </span><span class="n">flush</span>
+<span class="go">nil</span>
+</code></pre></div>
+<p>最初，マップには何もキーがありません，ですから現在のプロセスへ<code>:get</code>メッセージを送って，inboxをフラッシュさせても<code>nil</code>が返ります．<code>:put</code>メッセージを送って再び試してみましょう:</p>
+
+<p>At first, the process map has no keys, so sending a <code>:get</code> message and then flushing the current process inbox returns <code>nil</code>. Let&#39;s send a <code>:put</code> message and try it again:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">send</span> <span class="n">pid</span><span class="p">,</span> <span class="p">{</span><span class="ss">:put</span><span class="p">,</span> <span class="ss">:hello</span><span class="p">,</span> <span class="ss">:world</span><span class="p">}</span>
+<span class="go">#PID&lt;0.62.0&gt;</span>
+<span class="gp">iex&gt; </span><span class="n">send</span> <span class="n">pid</span><span class="p">,</span> <span class="p">{</span><span class="ss">:get</span><span class="p">,</span> <span class="ss">:hello</span><span class="p">,</span> <span class="n">self</span><span class="p">()}</span>
+<span class="go">{:get, :hello, #PID&lt;0.41.0&gt;}</span>
+<span class="gp">iex&gt; </span><span class="n">flush</span>
+<span class="go">:world</span>
+</code></pre></div>
+<p>どうやってプロセスが状態を保持しているか，そしてメッセージを送ることで取得や更新ができることをご覧ください．実際，<code>pid</code>を知っているどんなプロセスにも，上のようにしてメッセージを送ることができ，状態を操作することができます．</p>
+
+<p>Notice how the process is keeping a state and we can get and update this state by sending the process messages. In fact, any process that knows the <code>pid</code> above will be able to send it messages and manipulate the state.</p>
+
+<p>名前を与えて<code>pid</code>を登録もでき，そうすると名前を知る全て(のプロセス)がメッセージを送ることができます:</p>
+
+<p>It is also possible to register the <code>pid</code>, giving it a name, and allowing everyone that knows the name to send it messages:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">Process</span><span class="p">.</span><span class="n">register</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="ss">:kv</span><span class="p">)</span>
+<span class="go">true</span>
+<span class="gp">iex&gt; </span><span class="n">send</span> <span class="ss">:kv</span><span class="p">,</span> <span class="p">{</span><span class="ss">:get</span><span class="p">,</span> <span class="ss">:hello</span><span class="p">,</span> <span class="n">self</span><span class="p">()}</span>
+<span class="go">{:get, :hello, #PID&lt;0.41.0&gt;}</span>
+<span class="gp">iex&gt; </span><span class="n">flush</span>
+<span class="go">:world</span>
+</code></pre></div>
+<p>Elixirのアプリケーションにおいて，プロセスに状態を持たせ，名前の登録をすることは良くおこなわれています．しかしほとんどの場合，上のように手で実装することはなく，Elixirが提供している抽象物のどれかを使います．例えばElixirは状態を利用する<a href="/docs/stable/elixir/Agent.html">agents</a>という単純な抽象物を提供しています:</p>
+
+<p>Using processes around state and name registering are very common patterns in Elixir applications. However, most of the time, we won&#39;t implement those patterns manually as above, but by using one of the many of the abstractions that ships with Elixir. For example, Elixir provides <a href="/docs/stable/elixir/Agent.html">agents</a> which are simple abstractions around state:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">pid</span><span class="p">}</span> <span class="p">=</span> <span class="nc">Agent</span><span class="p">.</span><span class="n">start_link</span><span class="p">(</span><span class="k">fn</span> <span class="p">-&gt;</span> <span class="p">%{}</span> <span class="k">end</span><span class="p">)</span>
+<span class="go">{:ok, #PID&lt;0.72.0&gt;}</span>
+<span class="gp">iex&gt; </span><span class="nc">Agent</span><span class="p">.</span><span class="n">update</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="k">fn</span> <span class="n">map</span> <span class="p">-&gt;</span> <span class="nc">Map</span><span class="p">.</span><span class="n">put</span><span class="p">(</span><span class="n">map</span><span class="p">,</span> <span class="ss">:hello</span><span class="p">,</span> <span class="ss">:world</span><span class="p">)</span> <span class="k">end</span><span class="p">)</span>
+<span class="go">:ok</span>
+<span class="gp">iex&gt; </span><span class="nc">Agent</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="k">fn</span> <span class="n">map</span> <span class="p">-&gt;</span> <span class="nc">Map</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="n">map</span><span class="p">,</span> <span class="ss">:hello</span><span class="p">)</span> <span class="k">end</span><span class="p">)</span>
+<span class="go">:world</span>
+</code></pre></div>
+<p><code>Agent.start_link/2</code>へは<code>:name</code>オプションを渡すことができ，その場合は自動的に登録されます．Elixirは(GenServerと呼ばれている)一般的なサーバー，(GenEventと呼ばれる)一般的なイベント管理と一般的なイベント処理，タスクなど，agentと同じようにプロセスによって実現されているAPIを提供しています．スーパーバイザーの連なり(supervision tree)による，起動から終了までを全てElixirアプリケーションで構築するためのもっと詳しい内容はMixとOTPのガイドのところで行います．</p>
+
+<p>A <code>:name</code> option could also be given to <code>Agent.start_link/2</code> and it would be automatically registered. Besides agents, Elixir provides an API for building generic servers (called GenServer), generic event managers and event handlers (called GenEvent), tasks and more, all powered by processes underneath. Those, along with supervision trees, will be explored with more detail in the Mix and OTP guide which will build a complete Elixir application from start to finish.</p>
+
+<p>今はElixirのI/Oの世界への探検に向かいましょう．</p>
+
+<p>For now, let&#39;s move on and explore the world of I/O in Elixir.</p>
+
+  </article><!-- .hfeed -->
+
+  
+  <div class="pagination loop-pagination">
+    
+      <a href="10.html" class="previous page-numbers spec">&larr; Previous</a>
+    
+      <a class="page-numbers spec" href="#container">Top</a>
+    
+      <a href="12.html" class="next page-numbers spec">Next &rarr;</a>
+    
+  </div>
+  
+</div><!-- #content -->
+
+      </div><!-- #main -->
+
+      <div class="clear">
+      </div>
+
+      <div id="copyright">
+        © 2012-2014 <a href="http://plataformatec.com.br/">Plataformatec</a>. All rights reserved.
+      </p>
+    </div><!-- .wrap -->
+  </div><!-- #container -->
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-8268430-6']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="/js/toc/toc.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $('.toc').toc({
+          title: '',
+          listType: 'ul',
+          showSpeed: 0,
+        });
+    });
+  </script>
+</body>
+</html>
+

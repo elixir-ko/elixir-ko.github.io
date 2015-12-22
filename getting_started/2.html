@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>2 기본 타입 - Basic types - Elixir</title>
+  <link href="http://feeds.feedburner.com/ElixirLang" rel="alternate" title="Elixir's Blog" type="application/atom+xml" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" id="font-bitter-css" href="http://fonts.googleapis.com/css?family=Bitter&amp;ver=1" type="text/css" media="screen">
+</head>
+
+<body class="getting_started">
+  <div id="container">
+    <div class="wrap">
+    <div id="header">
+      <div id="branding">
+        <h1 id="site-title">
+          <a href="/" title="Elixir" rel="Home">
+            <img class="logo" src="/images/logo/logo.png" alt="Elixir Logo" />
+          </a>
+        </h1>
+      </div>
+
+      <div id="menu-primary" class="menu-container">
+        <div class="menu">
+          <ul id="menu-primary-items">
+            <li class="menu-item home"><a class="spec" href="/">Home</a></li>
+            <li class="menu-item install"><a class="spec" href="/install.html">Install</a></li>
+            <li class="menu-item getting_started"><a class="spec" href="/getting_started/1.html">Getting Started</a></li>
+            <li class="menu-item docs"><a class="spec" href="/docs.html">Docs</a></li>
+            <li class="menu-item blog"><a class="spec" href="/blog">Blog</a></li>
+            <li class="menu-item source"><a class="spec" href="https://github.com/elixir-lang/elixir">Source</a></li>
+            <li class="menu-item packages"><a class="spec" href="http://hex.pm/">Packages</a></li>
+
+          </ul>
+        </div>
+      </div>
+
+      <div class="clear"></div>
+    </div>
+
+    <div id="main">
+
+
+<div id="sidebar-primary" class="sidebar">
+  <div class="widget news">
+  <h3>
+    News: <a href="/blog/2014/09/18/elixir-v1-0-0-released/">Elixir v1.0.0 released</a>
+  </h3>
+</div>
+
+<div class="widget search">
+  <form method="get" class="search-form" action="http://www.google.com/search">
+		<div>
+			<input class="search-text" type="text" name="q" placeholder="Search..." id="searchfield">
+			<input type="hidden" name="sitesearch" value="elixir-lang.org">
+			<input class="search-submit button" name="submit" type="submit" value="Search">
+		</div>
+	</form>
+</div>
+
+  <div class="widget">
+    <h3 class="widget-title">Getting Started</h3>
+    <ol>
+      <li><a class="spec" href="/getting_started/1.html">Interactive Elixir (IEx)</a></li>
+      <li><a class="spec" href="/getting_started/2.html">Basic types</a></li>
+      <li><a class="spec" href="/getting_started/3.html">Basic operators</a></li>
+      <li><a class="spec" href="/getting_started/4.html">Pattern matching</a></li>
+      <li><a class="spec" href="/getting_started/5.html">case, cond and if</a></li>
+      <li><a class="spec" href="/getting_started/6.html">Binaries, strings and char lists</a></li>
+      <li><a class="spec" href="/getting_started/7.html">Keywords, maps and dicts</a></li>
+      <li><a class="spec" href="/getting_started/8.html">Modules</a></li>
+      <li><a class="spec" href="/getting_started/9.html">Recursion</a></li>
+      <li><a class="spec" href="/getting_started/10.html">Enumerables and streams</a></li>
+      <li><a class="spec" href="/getting_started/11.html">Processes</a></li>
+      <li><a class="spec" href="/getting_started/12.html">IO</a></li>
+      <li><a class="spec" href="/getting_started/13.html">alias, require and import</a></li>
+      <li><a class="spec" href="/getting_started/14.html">Module attributes</a></li>
+      <li><a class="spec" href="/getting_started/15.html">Structs</a></li>
+      <li><a class="spec" href="/getting_started/16.html">Protocols</a></li>
+      <li><a class="spec" href="/getting_started/17.html">try, catch and rescue</a></li>
+      <li><a class="spec" href="/getting_started/18.html">Comprehensions</a></li>
+      <li><a class="spec" href="/getting_started/19.html">Sigils</a></li>
+      <li><a class="spec" href="/getting_started/20.html">Where to go next</a></li>
+    </ol>
+  </div>
+  <div class="widget">
+    <h3 class="widget-title">Mix and OTP</h3>
+    <ol>
+      <li><a class="spec" href="/getting_started/mix_otp/1.html">Introduction to Mix</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/2.html">Agent</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/3.html">GenServer</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/4.html">GenEvent</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/5.html">Supervisor and Application</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/6.html">ETS</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/7.html">Dependencies and umbrella apps</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/8.html">Task and gen_tcp</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/9.html">Docs, tests and pipelines</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/10.html">Distributed tasks and configuration</a></li>
+    </ol>
+  </div>
+  <div class="widget">
+    <h3 class="widget-title">Meta-programming in Elixir</h3>
+    <ol>
+      <li><a class="spec" href="/getting_started/meta/1.html">Quote and unquote</a></li>
+      <li><a class="spec" href="/getting_started/meta/2.html">Macros</a></li>
+      <li><a class="spec" href="/getting_started/meta/3.html">Domain Specific Languages</a></li>
+    </ol>
+  </div>
+
+  <div class="widget">
+  <h3 class="widget-title">Learning resources</h3>
+  <ul>
+    <li class="image"><a href="http://pragprog.com/titles/elixir" title="Programming Elixir cover"><img src="http://imagery.pragprog.com/products/361/elixir_xlargebeta.jpg?1368724397" /></a></li>
+    <li class="image"><a href="http://elixirsips.com" title="ElixirSips cover"><img src="http://elixirsips.com/images/ElixirLangAd2_190x160.png" width="190" height="160" /></a></li>
+    <li class="image"><a href="http://manning.com/juric/" title="Elixir in Action"><img src="http://manning.com/juric/juric_cover150.jpg" width="190" height="238" /></a></li>
+    <li class="image"><a href="http://www.exotpbook.com/" title="The Little Elixir and OTP Guidebook"><img src="http://i.imgur.com/G6icQmt.png" width="190" height="274" /></a></li>
+    <li class="image"><a href="http://shop.oreilly.com/product/0636920030584.do" title="Introducing Elixir"><img src="http://akamaicovers.oreilly.com/images/0636920030584/rc_cat.gif" width="190" /></a></li>
+  </ul>
+</div>
+
+  <div class="widget">
+  <h3 class="widget-title">Code editor support</h3>
+  <ul>
+    <li><a class="spec" href="https://github.com/elixir-lang/emacs-elixir">Emacs Mode</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/elixir-tmbundle">Textmate Bundle</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/vim-elixir">Vim Elixir</a></li>
+    <li><a class="spec" href="https://github.com/SteffenBauer/elixir-gtksourceview">GtkSourceView (gedit)</a></li>
+    <li><a class="spec" href="https://github.com/lucasmazza/language-elixir">Atom Package</a></li>
+  </ul>
+</div>
+
+  <div class="widget">
+  <h3 class="widget-title">Sponsors</h3>
+  <ul>
+    <li class="image"><a href="http://plataformatec.com.br" title="Plataformatec"><img class="no-border" src="/images/logo/plataformatec.png" /></a></li>
+  </ul>
+</div>
+</div>
+
+<div id="content">
+  <article>
+    <h1 id="2-기본-타입-basic-types">2 기본 타입 - Basic types</h1>
+
+<p><div class="toc"></div></p>
+
+<p>이 장에서는 Elixir의 기본 타입 : integers, floats, booleans, atoms, strings, lists와 tuples에 대해 배웁니다. 몇 가지 기본적인 형태는 다음과 같습니다:</p>
+
+<p>In this chapter we will learn more about Elixir basic types: integers, floats, booleans, atoms, strings, lists and tuples. Some basic types are:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="mi">1</span>          <span class="c1"># integer</span>
+<span class="gp">iex&gt; </span><span class="mh">0x1F</span>       <span class="c1"># integer</span>
+<span class="gp">iex&gt; </span><span class="mf">1.0</span>        <span class="c1"># float</span>
+<span class="gp">iex&gt; </span><span class="no">true</span>       <span class="c1"># boolean</span>
+<span class="gp">iex&gt; </span><span class="ss">:atom</span>      <span class="c1"># atom / symbol</span>
+<span class="gp">iex&gt; </span><span class="s2">&quot;elixir&quot;</span>   <span class="c1"># string</span>
+<span class="gp">iex&gt; </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>  <span class="c1"># list</span>
+<span class="gp">iex&gt; </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span>  <span class="c1"># tuple</span>
+</code></pre></div>
+<h2 id="2-1-기본-연산-basic-arithmetic">2.1 기본 연산 - Basic arithmetic</h2>
+
+<p><code>iex</code>를 열고 다음 식을 입력하세요:</p>
+
+<p>Open up <code>iex</code> and type the following expressions:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span>
+<span class="go">3</span>
+<span class="gp">iex&gt; </span><span class="mi">5</span> <span class="o">*</span> <span class="mi">5</span>
+<span class="go">25</span>
+<span class="gp">iex&gt; </span><span class="mi">10</span> <span class="o">/</span> <span class="mi">2</span>
+<span class="go">5.0</span>
+</code></pre></div>
+<p><code>10 / 2</code> 가 정수 <code>5</code> 가 아닌 부동 소수점 <code>5.0</code> 을 리턴하는 것에 주의하십시요. 이것은 의도된것입니다. Elixir에서는 <code>/</code> 연산자는 항상 부동 소수점을 반환합니다. 만약 정수의 몫과 나머지가 필요한 경우 함수 <code>div</code> 과 <code>rem</code> 를 호출하면 됩니다:</p>
+
+<p>Notice that <code>10 / 2</code> returned a float <code>5.0</code> instead of an integer <code>5</code>. This is expected. In Elixir, the operator <code>/</code> always returns a float. If you want to do integer division or get the division remainder, you can invoke the <code>div</code> and <code>rem</code> functions:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">div</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="go">5</span>
+<span class="gp">iex&gt; </span><span class="n">div</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span>
+<span class="go">5</span>
+<span class="gp">iex&gt; </span><span class="n">rem</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">3</span>
+<span class="go">1</span>
+</code></pre></div>
+<p>함수를 호출하기 위해 괄호가 필요 없다는점에 유의하십시요.</p>
+
+<p>Notice that parentheses are not required in order to invoke a function.</p>
+
+<p>Elixir는 2 진수, 8 진수, 16 진수 입력을 위해 짧은표기법을 지원합니다. </p>
+
+<p>Elixir also supports shortcut notations for entering binary, octal and hexadecimal numbers:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="mb">0b1010</span>
+<span class="go">10</span>
+<span class="gp">iex&gt; </span><span class="mi">0</span><span class="n">o777</span>
+<span class="go">511</span>
+<span class="gp">iex&gt; </span><span class="mh">0x1F</span>
+<span class="go">31</span>
+</code></pre></div>
+<p>부동 소수점은 적어도 하나 이상의 숫자 뒤에 점이 필요하며 지수로 <code>e</code> 를 사용할 수 있습니다:</p>
+
+<p>Float numbers require a dot followed by at least one digit and also support <code>e</code> for the exponent number:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="mf">1.0</span>
+<span class="go">1.0</span>
+<span class="gp">iex&gt; </span><span class="mf">1.0e-10</span>
+<span class="go">1.0e-10</span>
+</code></pre></div>
+<p>Elixir 에서 부동소수점은 64비트 표시형입니다.</p>
+
+<p>Floats in Elixir are 64 bit double precision.</p>
+
+<p>주어진 부동 소수점에 가까운 정수 값을 가져 오는 함수 <code>round</code> 를 또한 부동 소수점의 정수 부분을 얻을 수있는 함수 <code>trunc</code> 를 호출 할 수 있습니다.</p>
+
+<p>You can invoke the <code>round</code> function to get the closest integer to a given float, or the <code>trunc</code> function to get the integer part of a float.</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">round</span> <span class="mf">3.58</span>
+<span class="go">4</span>
+<span class="gp">iex&gt; </span><span class="n">trunc</span> <span class="mf">3.58</span>
+<span class="go">3</span>
+</code></pre></div>
+<h2 id="2-2-불리언-booleans">2.2 불리언 - Booleans</h2>
+
+<p>Elixir는 불리언으로 <code>true</code> 와 <code>false</code> 을 사용할 수 있습니다 :</p>
+
+<p>Elixir supports <code>true</code> and <code>false</code> as booleans:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="no">true</span>
+<span class="go">true</span>
+<span class="gp">iex&gt; </span><span class="no">true</span> <span class="o">==</span> <span class="no">false</span>
+<span class="go">false</span>
+</code></pre></div>
+<p>Elixir는 변수의 형태를 조사하고 불리언 값을 반환하는 함수들을 제공하고 있습니다. 예를 들어, 함수 <code>is_boolean/1</code> 에서는 변수가 불리언인지 확인할 수 있습니다:</p>
+
+<p>Elixir provides a bunch of predicate functions to check for a value type. For example, the <code>is_boolean/1</code> function can be used to check if a value is a boolean or not:</p>
+
+<blockquote>
+<p>참고 : Elixir 에서 함수들은 이름과 인자의 개수로 표시됩니다. 즉, <code>is_boolean/1</code> 은 <code>is_boolean</code> 라는 함수이름과 하나의 인수를 가지고 있음을 나타냅니다. <code>is_boolean/2</code> 는 같은 이름이지만 인자의 개수가 다르기 때문에 다른 (존재하지 않는) 함수를 나타냅니다.</p>
+
+<p>Note: Functions in Elixir are identified by name and by number of arguments (i.e. arity). Therefore, <code>is_boolean/1</code> identifies a function named <code>is_boolean</code> that takes 1 argument. <code>is_boolean/2</code> identifies a different (nonexistent) function with the same name but different arity.</p>
+</blockquote>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">is_boolean</span><span class="p">(</span><span class="no">true</span><span class="p">)</span>
+<span class="go">true</span>
+<span class="gp">iex&gt; </span><span class="n">is_boolean</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="go">false</span>
+</code></pre></div>
+<p>만약 인수가 정수, 부동 소수점 또는 그 중 하나 인 것을 확인하고 싶다면, 각각 <code>is_integer/1</code>, <code>is_float/1</code> 또는 <code>is_number/1</code> 를 사용할 수 있습니다.</p>
+
+<p>You can also use <code>is_integer/1</code>, <code>is_float/1</code> or <code>is_number/1</code> to check, respectively, if an argument is an integer, a float or either.</p>
+
+<blockquote>
+<p>참고: 언제든지 쉘에서 <code>h</code> 를 누르면 쉘을 어떻게 사용하는지 볼 수 있습니다. <code>h</code> 는 모든 함수의 문서에 접근하는 데 사용할 수 있습니다. 예를 들어 <code>h is_integer/1</code> 로 치면 함수 <code>is_integer/1</code> 문서를 볼 수 있습니다. 연산자 및 기타 구성물에서도 똑같이 사용할 수 있습니다. <code>h ==/2</code> 를 시도하십시오.</p>
+
+<p>Note: At any moment you can type <code>h</code> in the shell to print information on how to use the shell. The <code>h</code> helper can also be used to access documentation for any function. For example, typing <code>h is_integer/1</code> is going to print the documentation for the <code>is_integer/1</code> function. It also works with operators and other constructs (try <code>h ==/2</code>).</p>
+</blockquote>
+
+<h2 id="2-3-원자형-atoms">2.3 원자형 - Atoms</h2>
+
+<p>원자형은 이름이 자신의 값을 나타내는 상수입니다. 몇몇 다른 언어에서는 이를 심볼이라고도 합니다:(역자주 : 리스프 계열 언어)</p>
+
+<p>Atoms are constants where their name is their own value. Some other languages call these symbols:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="ss">:hello</span>
+<span class="go">:hello</span>
+<span class="gp">iex&gt; </span><span class="ss">:hello</span> <span class="o">==</span> <span class="ss">:world</span>
+<span class="go">false</span>
+</code></pre></div>
+<p>사실, 불리언 <code>true</code> 와 <code>false</code> 는 원자형입니다:</p>
+
+<p>The booleans <code>true</code> and <code>false</code> are, in fact, atoms:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="no">true</span> <span class="o">==</span> <span class="ss">:true</span>
+<span class="go">true</span>
+<span class="gp">iex&gt; </span><span class="n">is_atom</span><span class="p">(</span><span class="no">false</span><span class="p">)</span>
+<span class="go">true</span>
+</code></pre></div>
+<h2 id="2-4-문자열-strings">2.4 문자열 - Strings</h2>
+
+<p>Elixir 문자열은 큰따옴표 안에 쓰고 UTF-8로 인코딩됩니다:</p>
+
+<p>Strings in Elixir are inserted between double quotes, and they are encoded in UTF-8:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="s2">&quot;hellö&quot;</span>
+<span class="go">&quot;hellö&quot;</span>
+</code></pre></div>
+<p>Elixir는 문자열 치환도 지원합니다:</p>
+
+<p>Elixir also supports string interpolation:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="s2">&quot;hellö </span><span class="si">#{</span><span class="ss">:world</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="go">&quot;hellö world&quot;</span>
+</code></pre></div>
+<p>문자열은 그 안에 개행을 가지거나 이스케이프 시퀀스를 사용하여 개행문자를 문자열 형태로 출력 할 수 있습니다.</p>
+
+<p>Strings can have line breaks in them or introduce them using escape sequences:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="s2">&quot;hello</span>
+<span class="gp">...&gt; </span><span class="s2">world&quot;</span>
+<span class="go">&quot;hello\nworld&quot;</span>
+<span class="gp">iex&gt; </span><span class="s2">&quot;hello</span><span class="se">\n</span><span class="s2">world&quot;</span>
+<span class="go">&quot;hello\nworld&quot;</span>
+</code></pre></div>
+<p><code>IO</code> 모듈의 함수 <code>IO.puts/1</code> 을 사용하여 문자열을 표시 할 수 있습니다:</p>
+
+<p>You can print a string using the <code>IO.puts/1</code> function from the <code>IO</code> module:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">IO</span><span class="p">.</span><span class="n">puts</span> <span class="s2">&quot;hello</span><span class="se">\n</span><span class="s2">world&quot;</span>
+<span class="go">hello</span>
+<span class="go">world</span>
+<span class="go">:ok</span>
+</code></pre></div>
+<p>함수 <code>IO.puts/1</code> 이 원자형 <code>:ok</code> 를 리턴하는 것에 유의하십시요.</p>
+
+<p>Notice the <code>IO.puts/1</code> function returns the atom <code>:ok</code> as result after printing.</p>
+
+<p>문자열은 Elixir 내부적으로 바이너리 형태의 바이트 시퀀스로 표현되어 있습니다:</p>
+
+<p>Strings in Elixir are represented internally by binaries which are sequences of bytes:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">is_binary</span><span class="p">(</span><span class="s2">&quot;hellö&quot;</span><span class="p">)</span>
+<span class="go">true</span>
+</code></pre></div>
+<p>문자열의 바이트수도 가져올 수 있습니다.</p>
+
+<p>We can also get the number of bytes in a string:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">byte_size</span><span class="p">(</span><span class="s2">&quot;hellö&quot;</span><span class="p">)</span>
+<span class="go">6</span>
+</code></pre></div>
+<p>이 문자열은 5자 임에도 불구하고 바이트 수는 6인 점에 유의하십시오. 이것은 문자 &quot;ö&quot;이 UTF-8에서 2 바이트를 차지하는 때문입니다. 정확한 문자의 길이를 얻으려면 함수 <code>String.length/1</code> 를 사용할 수 있습니다:</p>
+
+<p>Notice the number of bytes in that string is 6, even though it has 5 characters. That&#39;s because the character &quot;ö&quot; takes 2 bytes to be represented in UTF-8. We can get the actual length of the string, based on the number of characters, by using the <code>String.length/1</code> function:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">String</span><span class="p">.</span><span class="n">length</span><span class="p">(</span><span class="s2">&quot;hellö&quot;</span><span class="p">)</span>
+<span class="go">5</span>
+</code></pre></div>
+<p><a href="/docs/stable/elixir/String.html">String 모듈</a>은 유니 코드 표준에서 정의된 문자를 조작하는 함수들을 포함하고 있습니다:</p>
+
+<p>The <a href="/docs/stable/elixir/String.html">String module</a> contains a bunch of functions that operate on strings as defined in the Unicode standard:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">String</span><span class="p">.</span><span class="n">upcase</span><span class="p">(</span><span class="s2">&quot;hellö&quot;</span><span class="p">)</span>
+<span class="go">&quot;HELLÖ&quot;</span>
+</code></pre></div>
+<p>Elxir는<code>작은따옴표로 묶인</code> 문자열과 <code>큰따옴표로 둘러싸인</code> 문자열이 같지 않고, 다른 형태로 표현되는 것에 주의하십시오:</p>
+
+<p>Keep in mind <code>single-quoted</code> and <code>double-quoted</code> strings are not equivalent in Elixir as they are represented by different types:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="s1">&#39;hellö&#39;</span> <span class="o">==</span> <span class="s2">&quot;hellö&quot;</span>
+<span class="go">false</span>
+</code></pre></div>
+<p>유니 코드 지원이나 작은따옴표와 큰따옴표로 둘러싸인 문자열의 차이에 대해서는 &quot;Binaries, strings and char lists&quot; 장에서 좀 더 자세히 다룰것입니다.</p>
+
+<p>We will talk more about Unicode support and the difference between single and double-quoted strings in the &quot;Binaries, strings and char lists&quot; chapter.</p>
+
+<h2 id="2-5-익명함수-anonymous-functions">2.5 익명함수 - Anonymous functions</h2>
+
+<p>익명함수는 <code>fn</code> 과 <code>end</code> 안에서 정의됩니다.</p>
+
+<p>Functions are delimited by the keywords <code>fn</code> and <code>end</code>:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">add</span> <span class="p">=</span> <span class="k">fn</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="p">-&gt;</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="k">end</span>
+<span class="go">#Function&lt;12.71889879/2 in :erl_eval.expr/5&gt;</span>
+<span class="gp">iex&gt; </span><span class="n">is_function</span><span class="p">(</span><span class="n">add</span><span class="p">)</span>
+<span class="go">true</span>
+<span class="gp">iex&gt; </span><span class="n">is_function</span><span class="p">(</span><span class="n">add</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="go">true</span>
+<span class="gp">iex&gt; </span><span class="n">is_function</span><span class="p">(</span><span class="n">add</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="go">false</span>
+<span class="gp">iex&gt; </span><span class="n">add</span><span class="p">.(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="go">3</span>
+</code></pre></div>
+<p>Elixir의 함수는 &quot;일급 시민&quot;입니다. 즉, 정수나 문자열처럼 다른 함수의 인수로 넘길 수 있습니다. 예를 들어, 함수 <code>add</code> 를 인수로 <code>is_function/1</code> 에 건네 주면 <code>true</code> 가 리턴됩니다. <code>is_function/2</code> 를 호출하여 함수의 인수도 확인할 수 있습니다.</p>
+
+<p>Functions are &quot;first class citizens&quot; in Elixir meaning they can be passed as arguments to other functions just as integers and strings can. In the example, we have passed the function in the variable <code>add</code> to the <code>is_function/1</code> function which correctly returned <code>true</code>. We can also check the arity of the function by calling <code>is_function/2</code>.</p>
+
+<p>익명 함수를 실행하려면 변수와 괄호 사이에 점 (<code>.</code>) 이 필요함에도 주목하십시오.</p>
+
+<p>Note a dot (<code>.</code>) between the variable and parenthesis is required to invoke an anonymous function.</p>
+
+<p>익명 함수는 클로저입니다, 즉 함수가 정의되어있는 범위에서 보유하고있는 변수에 접근 할 수 있습니다:</p>
+
+<p>Anonymous functions are closures, and as such they can access variables that are in scope when the function is defined:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">add_two</span> <span class="p">=</span> <span class="k">fn</span> <span class="n">a</span> <span class="p">-&gt;</span> <span class="n">add</span><span class="p">.(</span><span class="n">a</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="k">end</span>
+<span class="go">#Function&lt;6.71889879/1 in :erl_eval.expr/5&gt;</span>
+<span class="gp">iex&gt; </span><span class="n">add_two</span><span class="p">.(</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">4</span>
+</code></pre></div>
+<p>함수에서 할당 된 변수는 외부 환경에 아무런 영향을 주지 않음을 명심하십시오:</p>
+
+<p>Keep in mind that a variable assigned inside a function does not affect its surrounding environment:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">x</span> <span class="p">=</span> <span class="mi">42</span>
+<span class="go">42</span>
+<span class="gp">iex&gt; </span><span class="p">(</span><span class="k">fn</span> <span class="p">-&gt;</span> <span class="n">x</span> <span class="p">=</span> <span class="mi">0</span> <span class="k">end</span><span class="p">).()</span>
+<span class="go">0</span>
+<span class="gp">iex&gt; </span><span class="n">x</span>
+<span class="go">42</span>
+</code></pre></div>
+<h2 id="2-6-연결-리스트-linked-lists">2.6 (연결) 리스트 - (Linked) Lists</h2>
+
+<p>Elixir는 대괄호를 값의 리스트를 나타내는 데 사용합니다. 값은 어떤 타입이라도 포함될수 있습니다:</p>
+
+<p>Elixir uses square brackets to specify a list of values. Values can be of any type:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="no">true</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="go">[1, 2, true, 3]</span>
+<span class="gp">iex&gt; </span><span class="n">length</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+<span class="go">3</span>
+</code></pre></div>
+<p>두 리스트는 <code>++/2</code> 와 <code>--/2</code> 연산자를 사용하여 연결하거나 뺄수 있습니다:</p>
+
+<p>Two lists can be concatenated and subtracted using the <code>++/2</code> and <code>--/2</code> operators:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span> <span class="o">++</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]</span>
+<span class="go">[1, 2, 3, 4, 5, 6]</span>
+<span class="gp">iex&gt; </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="no">true</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="no">false</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="no">true</span><span class="p">]</span> <span class="o">--</span> <span class="p">[</span><span class="no">true</span><span class="p">,</span> <span class="no">false</span><span class="p">]</span>
+<span class="go">[1, 2, 3, true]</span>
+</code></pre></div>
+<p>튜토리얼를 통해서 리스트의 head와 tail에 대해 많이 다룰 것입니다. head는 리스트의 첫 번째 요소이고 tail은 리스트의 나머지의 것입니다. 이것들은 <code>hd/1</code> 과 <code>tl/1</code> 에서 얻을 수 있습니다. 리스트를 변수에 할당하고 head와 tail을 가져와 봅시다:</p>
+
+<p>Throughout the tutorial, we will talk a lot about the head and tail of a list. The head is the first element of a list and the tail is the remainder of a list. They can be retrieved with the functions <code>hd/1</code> and <code>tl/1</code>. Let&#39;s assign a list to a variable and retrieve its head and tail:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">list</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span>
+<span class="gp">iex&gt; </span><span class="n">hd</span><span class="p">(</span><span class="n">list</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">iex&gt; </span><span class="n">tl</span><span class="p">(</span><span class="n">list</span><span class="p">)</span>
+<span class="go">[2, 3]</span>
+</code></pre></div>
+<p>빈 리스트에서 head 와 tail 을 가져오는 것은 에러입니다:</p>
+
+<p>Getting the head or the tail of an empty list is an error:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">hd</span> <span class="p">[]</span>
+<span class="gr">** (ArgumentError) argument error</span>
+</code></pre></div>
+<p>이런!</p>
+
+<p>Oops!</p>
+
+<h2 id="2-7-튜플-tuples">2.7 튜플 - Tuples</h2>
+
+<p>Elixir는 튜플을 정의하기 위해 중괄호를 사용합니다. 리스트와 마찬가지로 어떤 타입이라도 사용가능합니다:</p>
+
+<p>Elixir uses curly brackets to define tuples. Like lists, tuples can hold any value:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="s2">&quot;hello&quot;</span><span class="p">}</span>
+<span class="go">{:ok, &quot;hello&quot;}</span>
+<span class="gp">iex&gt; </span><span class="n">tuple_size</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="s2">&quot;hello&quot;</span><span class="p">}</span>
+<span class="go">2</span>
+</code></pre></div>
+<p>튜플값들은 메모리에 연속적으로 저장합니다. 즉, 인덱스를 통해 튜플값에 접근하거나 튜플 사이즈를 가져오는것이 빠른 동작이라는것을 의미합니다.(인덱스는 0부터 시작됩니다):
+Tuples store elements contiguously in memory. This means accessing a tuple element per index or getting the tuple size is a fast operation (indexes start from zero):</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">tuple</span> <span class="p">=</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="s2">&quot;hello&quot;</span><span class="p">}</span>
+<span class="go">{:ok, &quot;hello&quot;}</span>
+<span class="gp">iex&gt; </span><span class="n">elem</span><span class="p">(</span><span class="n">tuple</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="go">&quot;hello&quot;</span>
+<span class="gp">iex&gt; </span><span class="n">tuple_size</span><span class="p">(</span><span class="n">tuple</span><span class="p">)</span>
+<span class="go">2</span>
+</code></pre></div>
+<p><code>put_elem/3</code> 함수로 특정 인덱스에 값을 변경하는것 또한 가능합니다:</p>
+
+<p>It is also possible to set an element at a particular index in a tuple with <code>put_elem/3</code>:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">tuple</span> <span class="p">=</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="s2">&quot;hello&quot;</span><span class="p">}</span>
+<span class="go">{:ok, &quot;hello&quot;}</span>
+<span class="gp">iex&gt; </span><span class="n">put_elem</span><span class="p">(</span><span class="n">tuple</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;world&quot;</span><span class="p">)</span>
+<span class="go">{:ok, &quot;world&quot;}</span>
+<span class="gp">iex&gt; </span><span class="n">tuple</span>
+<span class="go">{:ok, &quot;hello&quot;}</span>
+</code></pre></div>
+<p><code>put_elem/3</code>는 새로운 튜플을 반환하는 것에 주의하십시오. Elixir 데이터 형식은 변경 불가능하기 때문에 <code>tuple</code> 변수 이름에서 유지되고있는 기존의 튜플은 변경되지 않습니다. 이렇게 변경 불가능 속성 때문에 특정코드가 내 데이터를 변경하고 있는지 걱정할 필요가 없습니다.</p>
+
+<p>Notice that <code>putt_elem/3</code> returned a new tuple. The original tuple stored in the <code>tuple</code> variable was not modified because Elixir data types are immutable. By being immutable, Elixir code is easier to reason about as you never need to worry if a particular code is mutating your data structure in place.</p>
+
+<p>이러한 변경 불가능 속성으로 인해 Elixir는 다른 엔티티(역자주: 스레드가 더이해가 쉬울듯)가 동시에 하나의 데이터 구조를 변경하려고 시도하는 것등, 병행처리하는 코드에서 자주 문제가 되는 경재 조건의 케이스를 생각하지 않아도 됩니다.</p>
+
+<p>By being immutable, Elixir also helps eliminate common cases where concurrent code has race conditions because two different entities are trying to change a data structure at the same time.</p>
+
+<h2 id="2-8-리스트-또는-튜플-lists-or-tuples">2.8 리스트 또는 튜플? - Lists or tuples?</h2>
+
+<p>리스트와 튜플의 차이는 무엇일까요?</p>
+
+<p>What is the difference between lists and tuples?</p>
+
+<p>리스트는 연결리스트로 메모리에 기록되어 있습니다. 즉, 리스트의 요소는 다음 요소의 위치를 가리키며 다음 요소는 또한 다음의 요소와 같이 리스트의 끝이 올 때까지 다음의 요소를 가리킵니다. 이러한 리스트의 페어를 <strong>cons cell</strong> 이라고 부릅니다.</p>
+
+<p>Lists are stored in memory as linked lists. This means each element in a list points to the next element, and then to the next element, until it reaches the end of a list. We call each of those pairs in a list a <strong>cons cell</strong>:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">list</span> <span class="p">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">|[</span><span class="mi">2</span><span class="p">|[</span><span class="mi">3</span><span class="p">|[]]]]</span>
+<span class="go">[1, 2, 3]</span>
+</code></pre></div>
+<p>즉, 리스트의 길이에 액세스하는 것은 선형 동작을 의미합니다: 리스트의 사이즈를 알기 위해서는 목록의 모든 요소를 순차적으로 내려 가지 않으면 안됩니다. 목록 앞에 요소를 추가하는 경우에만 목록을 신속하게 업데이트 할 수 있습니다:</p>
+
+<p>This means accessing the length of a list is a linear operation: we need to traverse the whole list in order to figure out its size. Updating a list is fast as long as we are prepending elements:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">++</span> <span class="n">list</span>
+<span class="go">[0, 1, 2, 3]</span>
+<span class="gp">iex&gt; </span><span class="n">list</span> <span class="o">++</span> <span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+<span class="go">[1, 2, 3, 4]</span>
+</code></pre></div>
+<p>첫 번째 동작은 단순히 <code>list</code> 의 나머지에 새로운 cons 를 추가하기 때문에 빠릅니다. 두 번째 동작은 리스트 전체를 재구성하고 마지막에 새로운 요소를 추가하지 않으면 안되기 때문에 느립니다.</p>
+
+<p>The first operation is fast because we are simply adding a new cons that points to the remaining of <code>list</code>. The second one is slow because we need to rebuild the whole list and add a new element to the end.</p>
+
+<p>한편, 튜플은 연속된 메모리에 저장됩니다. 즉, 튜플의 사이즈를 구하거나 인덱스를 지정하여 요소에 접근하는것은 빠릅니다. 그러나 값을 업데이트하거나 추가하는 하는것은 튜플 전체를 복사한 후 수행해야 하기 때문에 비싼 비용을 치뤄야 합니다.</p>
+
+<p>Tuples, on the other hand, are stored contiguously in memory. This means getting the tuple size or accessing an element by index is fast. However, updating or adding elements to tuples is expensive because it requires copying the whole tuple in memory.</p>
+
+<p>이러한 성능의 특징이 데이터 구조 사용에 영향을 줍니다. 튜플의 가장 일반적인 방법의 하나로써 함수에서 추가 정보를 반환하는 것입니다. 예를 들어, 함수 <code>File.read/1</code> 은 파일내용을 읽고 튜플을 리턴하는 함수입니다.</p>
+
+<p>Those performance characteristics dictate the usage of those data structures. One very common use case for tuples is to use them to return extra information from a function. For example, <code>File.read/1</code> is a function that can be used to read file contents and it returns tuples:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">File</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;path/to/existing/file&quot;</span><span class="p">)</span>
+<span class="go">{:ok, &quot;... contents ...&quot;}</span>
+<span class="gp">iex&gt; </span><span class="nc">File</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;path/to/unknown/file&quot;</span><span class="p">)</span>
+<span class="go">{:error, :enoent}</span>
+</code></pre></div>
+<p>만약 <code>File.read/1</code> 에 주어진 경로가 존재하면 튜플의 첫 번째 요소는 원자형 <code>:ok</code> 가 리턴되고 두번째에 파일내용이 리턴됩니다. 그렇지 않으면 <code>:error</code> 와 에러 내용이 튜플로 리턴됩니다.</p>
+
+<p>If the path given to <code>File.read/1</code> exists, it returns a tuple with the atom <code>:ok</code> as the first element and the file contents as the second. Otherwise, it returns a tuple with <code>:error</code> and the error description.</p>
+
+<p>대부분 Elixrt는 올바른 방법을 가이드 할것입니다. 예를 들어, <code>elem/2</code> 함수는 튜플 요소에 접근할 수 있지만 리스트에서는 유사한 함수가 없습니다.</p>
+
+<p>Most of the time, Elixir is going to guide you to do the right thing. For example, there is a <code>elem/2</code> function to access a tuple item but there is no built-in equivalent for lists:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">tuple</span> <span class="p">=</span> <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="s2">&quot;hello&quot;</span><span class="p">}</span>
+<span class="go">{:ok, &quot;hello&quot;}</span>
+<span class="gp">iex&gt; </span><span class="n">elem</span><span class="p">(</span><span class="n">tuple</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="go">&quot;hello&quot;</span>
+</code></pre></div>
+<p>데이터 구조에 있는 요소개수를 구할때, Elixir는 간단한 규칙을 따릅니다: 작업 시간이 일정하다면 <code>size</code> 라는 함수 이름을 사용하고 명시적인 계산이 필요할것 같으면 <code>length</code>를 사용합니다.</p>
+
+<p>When &quot;counting&quot; the number of elements in a data structure, Elixir also abides by a simple rule: the function should be named <code>size</code> if the operation is in constant time (i.e. the value is pre-calculated) or <code>length</code> if the operation requires explicit counting.</p>
+
+<p>예를 들어, 지금까지 수를 세는 함수를 4 개 사용했습니다: <code>byte_size / 1</code> (문자열의 바이트 수), <code>tuple_size/1</code> (튜플의 크기), <code>length/1</code> (리스트의 길이) 그리고 <code>String.length/1</code> (문자열의 길이). 거기에도 <code>byte_size</code> 는 문자열의 바이트 크기를 구한다는 가벼운 처리이었던 반면, 유니 코드 문자의 수를 조사 <code>String.length</code>는 문자열 전체에 반복 처리가 필요했습니다.</p>
+
+<p>For example, we have used 4 counting functions so far: <code>byte_size/1</code> (for the number of bytes in a string), <code>tuple_size/1</code> (for the tuple size), <code>length/1</code> (for the list length) and <code>String.length/1</code> (for the number of characters in a string). That said, we use <code>byte_size</code> to get the number of bytes in a string, which is cheap, but retrieving the number of unicode characters uses <code>String.length</code>, since the whole string needs to be iterated.</p>
+
+<p>Elixir는 데이터 형식으로 <code>Port</code>, <code>Reference</code> 와 <code>PID</code> 같은 것들도 제공합니다(물론 프로세스 간 통신에 사용합니다), 이것들에 대해서는 프로세스에 대해 얘기할 때 간단히 살펴볼것입니다. 지금은 기본 타입을 다루는 기본적인 몇 가지 연산자를 살펴 보도록합시다.</p>
+
+<p>Elixir also provides <code>Port</code>, <code>Reference</code> and <code>PID</code> as data types (usually used in process communication), and we will take a quick look at them when talking about processes. For now, let&#39;s take a look at some of the basic operators that go with our basic types.</p>
+
+  </article><!-- .hfeed -->
+
+  
+  <div class="pagination loop-pagination">
+    
+      <a href="1.html" class="previous page-numbers spec">&larr; Previous</a>
+    
+      <a class="page-numbers spec" href="#container">Top</a>
+    
+      <a href="3.html" class="next page-numbers spec">Next &rarr;</a>
+    
+  </div>
+  
+</div><!-- #content -->
+
+      </div><!-- #main -->
+
+      <div class="clear">
+      </div>
+
+      <div id="copyright">
+        © 2012-2014 <a href="http://plataformatec.com.br/">Plataformatec</a>. All rights reserved.
+      </p>
+    </div><!-- .wrap -->
+  </div><!-- #container -->
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-8268430-6']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="/js/toc/toc.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $('.toc').toc({
+          title: '',
+          listType: 'ul',
+          showSpeed: 0,
+        });
+    });
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>A peek inside Elixir's Parallel Compiler - Elixir</title>
+  <link href="http://feeds.feedburner.com/ElixirLang" rel="alternate" title="Elixir's Blog" type="application/atom+xml" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" id="font-bitter-css" href="http://fonts.googleapis.com/css?family=Bitter&amp;ver=1" type="text/css" media="screen">
+</head>
+
+<body class="">
+  <div id="container">
+    <div class="wrap">
+    <div id="header">
+      <div id="branding">
+        <h1 id="site-title">
+          <a href="/" title="Elixir" rel="Home">
+            <img class="logo" src="/images/logo/logo.png" alt="Elixir Logo" />
+          </a>
+        </h1>
+      </div>
+
+      <div id="menu-primary" class="menu-container">
+        <div class="menu">
+          <ul id="menu-primary-items">
+            <li class="menu-item home"><a class="spec" href="/">Home</a></li>
+            <li class="menu-item install"><a class="spec" href="/install.html">Install</a></li>
+            <li class="menu-item getting_started"><a class="spec" href="/getting_started/1.html">Getting Started</a></li>
+            <li class="menu-item docs"><a class="spec" href="/docs.html">Docs</a></li>
+            <li class="menu-item blog"><a class="spec" href="/blog">Blog</a></li>
+            <li class="menu-item source"><a class="spec" href="https://github.com/elixir-lang/elixir">Source</a></li>
+            <li class="menu-item packages"><a class="spec" href="http://hex.pm/">Packages</a></li>
+
+          </ul>
+        </div>
+      </div>
+
+      <div class="clear"></div>
+    </div>
+
+    <div id="main">
+
+
+<div id="content">
+  <div class="hfeed">
+  <div class="hentry post">
+    <div class="post-content">
+      <div class="sticky-header">
+        <h1>A peek inside Elixir's Parallel Compiler</h1>
+        
+        <div class="byline">April 24, 2012 · by José Valim . in <span class="category"><a href="/blog/categories.html#Internals">Internals</a></div>
+      </div>
+
+      <div class="entry-content">
+        <p>Today, a parallel compiler just landed in Elixir master. The goal of the parallel compiler is to compile files in parallel, automatically detecting dependencies between files. In this blog post, we are going to take a peek into the parallel compiler internals and learn more about Erlang and Elixir in the process.</p>
+
+<h2 id="process-based-serial-compilation">Process-based serial compilation</h2>
+
+<p>The idea of the parallel compiler is very simple: for each file we want to compile, we will spawn a new process that will be responsible for its compilation. When compilation finishes, the process is going to send a message to the main process (the one responsible for coordinating compilation) that compilation finished so a new file can be compiled.</p>
+
+<p>In Elixir, we could write this code as follows:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">def spawn_compilers([current|files], output) do
+  parent = Process.self()
+  child  = spawn_link(fn -&gt;
+    :elixir_compiler.file_to_path(current, output)
+    send parent, { :compiled, Process.self() }
+  end)
+  receive do
+    { :compiled, ^child } -&gt;
+      spawn_compilers(files, output)
+    { :EXIT, ^child, { reason, where } } -&gt;
+      :erlang.raise(:error, reason, where)
+  end
+end
+
+def spawn_compilers([], _output) do
+  :done
+end
+</code></pre></div>
+<p>In the first line, we define a function named <code>spawn_compilers</code> that receives two arguments, the first is a list of files to compile and the second is a string telling us where to write the compiled file. The first argument is represented as a list with head and tail (<code>[current|files]</code>) where the top of the list is assigned to <code>current</code> and the remaining items to <code>files</code>. If the list is empty, the first clause of <code>spawn_compilers</code> is not going to match, the clause <code>spawn_compilers([], _output)</code> defined at the end will instead.</p>
+
+<p>Inside <code>spawn_compilers</code>, we first retrieve the PID of the current process with <code>Process.self</code> (remember we are talking about Erlang processes/actors and not OS processes) and then proceed to spawn a new process to execute the given function in parallel. Spawning a new process is done with the <code>spawn_link</code> function.</p>
+
+<p>The <code>spawn_link</code> function starts a new process and automatically links the current (parent) process with the spawned (child) one, returning the child PID. By linking the process we ensure that, if the child process dies, a message will be sent to the parent process which then can act on it.</p>
+
+<p>The function given to <code>spawn_link</code> is quite straight-forward. It simply invokes an Erlang function as <code>:elixir_compiler.file_to_path</code> and then proceeds to send a message to the parent process notifying that compilation finished.</p>
+
+<p>After the child process is spawned, we invoke the <code>receive</code> macro and start waiting for messages. At this point, we are expecting two types of messages:</p>
+
+<ul>
+<li><p><code>{ :compiled, ^child }</code> - a message sent by the child informing us that compilation finished. Note that use of <code>^</code> before the variable <code>child</code> to tell Elixir to match the current value of <code>child</code> with the one received in the message. If compilation succeeds, we move forward and spawn the next child by calling <code>spawn_compilers</code> recursively;</p></li>
+<li><p><code>{ :EXIT, ^child, { reason, where } }</code> - this is the message sent by the child process in case it dies. This message is only received if the child is started via <code>spawn_link</code>. In the message, we can find the reason why it failed and the stacktrace. We then proceed to call an Erlang internal function to re-raise the error in the main process, effectively stopping compilation.</p></li>
+</ul>
+
+<p>With this code, we were able to compile each file inside a different process. However, notice that we are not yet compiling in parallel. Every time we spawn a child process, we wait until it succeeds (or fails) before moving to the next step. We are going to eventually compile files in parallel, but before we reach to this point, let&#39;s understand the problem of dependencies between files.</p>
+
+<h2 id="dependency-between-files">Dependency between files</h2>
+
+<p>Imagine that we have two files, <code>a.ex</code> and <code>b.ex</code>, with the following contents:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text"># a.ex
+defmodule A do
+  B.define
+end
+
+# b.ex
+defmodule B do
+  defmacro define do
+    quote do
+      def one, do: 1
+    end
+  end
+end
+</code></pre></div>
+<p>In order to compile <code>A</code>, we need to ensure that <code>B</code> is already compiled and loaded so we can invoke the <code>define</code> macro. This means the file <code>a.ex</code> depends on the file <code>b.ex</code>. When compiling files in parallel, we want to be able to detect such cases and automatically handle them.</p>
+
+<p>The way we are going to handle this is by pausing compilation every time a module that was not yet defined is invoked. In this case, when compiling the file <code>a.ex</code> and <code>B.define</code> is invoked, the process responsible for compiling <code>a.ex</code> is going to pause and notify our main process. The main process will then start the compilation of other files. Whenever the module <code>B</code> is compiled, the main process is going to tell the process responsible for <code>a.ex</code> to resume compilation since its dependency <code>B</code> is now available.</p>
+
+<p>In order to customize this process, we are going to take a look at Erlang&#39;s error handler.</p>
+
+<h2 id="custom-error-handler">Custom error handler</h2>
+
+<p>By default, Elixir (and Erlang) code is autoloaded. This means that, if we invoke <code>List.delete</code> and the module <code>List</code> was not loaded yet, the Erlang VM is going to look into the <code>ebin</code> directory (the directory where we put compiled files) and try to load it. This process is controlled by the <a href="http://erlang.org/doc/man/error_handler.html"><code>error_handler</code> module in Erlang</a> via two callback functions: <code>undefined_function</code> and <code>undefined_lambda</code>.</p>
+
+<p>As discussed in the previous section, we want to extend the error handler to actually stop the currently running process whenever a module is not found and resume the process only after we ensure the module is compiled. To do that, we can simply define our own error handler and ask Erlang to use it. Our custom error handler is defined as follows:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">defmodule Elixir.ErrorHandler do
+  def undefined_function(module, fun, args) do
+    ensure_loaded(module)
+    :error_handler.undefined_function(module, fun, args)
+  end
+
+  def undefined_lambda(module, fun, args) do
+    ensure_loaded(module)
+    :error_handler.undefined_lambda(module, fun, args)
+  end
+
+  defp ensure_loaded(module) do
+    case Code.ensure_loaded(module) do
+      { :module, _ } -&gt;
+        []
+      { :error, _ } -&gt;
+        parent = Process.get(:elixir_parent_compiler)
+        send parent, { :waiting, Process.self, module }
+        receive do
+          { :release, ^parent } -&gt; ensure_loaded(module)
+        end
+    end
+  end
+end
+</code></pre></div>
+<p>Our error handler defines two public functions. Both those functions are callbacks required to be implemented by the error handler. They simply call <code>ensure_loaded(module)</code> and then delegate the remaining logic to Erlang&#39;s original <code>error_handler</code>.</p>
+
+<p>The private <code>ensure_loaded</code> function calls <code>Code.ensure_loaded(module)</code> which checks if the given module is loaded and, if not, tries to load it. In case it succeeds, it returns <code>{ :module, _ }</code>, which means the module is available and we don&#39;t need to stop the current process. However, if it returns <code>{ :error, _ }</code>, it means the module cannot be found and we need to wait until it is compiled. For that, we invoke <code>Process.get(:elixir_parent_compiler)</code> to get the PID of the main process so we can notify it that we are waiting on a given module. Then we invoke the macro <code>receive</code> as a way to stop the current process until we receive a message from the parent saying new modules are available, starting the flow again.</p>
+
+<p>With our error handler code in place, the first thing we need to do is to change the function given to <code>spawn_link</code> to use the new error handler:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">spawn_link(fn -&gt;
+  Process.put(:elixir_parent_compiler, parent)
+  Process.flag(:error_handler, Elixir.ErrorHandler)
+
+  :elixir_compiler.file_to_path(current, output)
+  send parent, { :compiled, Process.self() }
+end)
+</code></pre></div>
+<p>Notice that we have two small additions. First we store the <code>:elixir_parent_compiler</code> PID in the process dictionary so we are able to read it from the error handler and then we proceed to configure a flag in our process so our new error handler is invoked whenever a module or function cannot be found.</p>
+
+<p>Second, our main process can now receive a new <code>{ :waiting, child, module }</code> message, so we need to extend it to account for those messages. Not only that, we need to control which PIDs we have spawned so we can notify them whenever a new module is compiled, forcing us to add a new argument to the <code>spawn_compilers</code> function. <code>spawn_compilers</code> would then be rewritten as follows:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">def spawn_compilers([current|files], output, stack) do
+  parent = Process.self()
+  child  = spawn_link(fn -&gt;
+    :elixir_compiler.file_to_path(current, output)
+    send parent, { :compiled, Process.self() }
+  end)
+  wait_for_messages(files, output, [child|stack])
+end
+
+# No more files and stack is empty, we are done
+def spawn_compilers([], _output, []) do
+  :done
+end
+
+# No more files and stack is not empty, wait for all messages
+def spawn_compilers([], output, stack) do
+  wait_for_messages([], output, stack)
+end
+</code></pre></div>
+<p>Notice we added an extra clause to <code>spawn_compilers</code> so we can properly handle the case where we don&#39;t have more files to spawn but we are still waiting for processes in the stack. We have also moved our <code>receive</code> logic to a new private function called <code>wait_for_messages</code>, implemented as follows:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">defp wait_for_messages(files, output, stack) do
+  receive do
+    { :compiled, child } -&gt;
+      new_stack = List.delete(stack, child)
+      Enum.each new_stack, fn(pid) -&gt;
+        send pid, { :release, Process.self }
+      end
+      spawn_compilers(files, output, new_stack)
+    { :waiting, _child, _module } -&gt;
+      spawn_compilers(files, output, stack)
+    { :EXIT, _child, { reason, where } } -&gt;
+      :erlang.raise(:error, reason, where)
+  after
+    10_000 -&gt;
+      raise &quot;dependency on unexesting module or possible deadlock&quot;
+  end
+end
+</code></pre></div>
+<p>The implementation for <code>wait_for_messages</code> is now broken into 4 clauses:</p>
+
+<ul>
+<li><p><code>{ :compiled, child }</code> - Similar as before, it is the notification a child processed finished compilation. Every time we receive such notifications, we remove the child PID from the stack and notify the remaining PIDs in the stack that new modules are available. Notice that we no longer match on a specific <code>^child</code> PID, since now we can receive messages from different children at the same time;</p></li>
+<li><p><code>{ :waiting, _child, _module }</code> - A message received every time a child process is waiting on a module to be compiled. In this scenario, all we do is spawn a new process to compile another file, ensuring compilation is never blocked;</p></li>
+<li><p><code>{ :EXIT, _child, { reason, where } }</code> - The same behavior as before, it simply raises an error if any of the child processes fail;</p></li>
+<li><p><code>after: 10_000</code> - This clause is going to be invoked whenever the main process does not receive a message for 10 seconds. This means a file depends on a module that does not exist (and therefore waits forever) or there is a cyclic dependency;</p></li>
+</ul>
+
+<p>And that&#39;s all we need to have a basic version of our parallel compilation working. Notice we start compiling only one file at a time but, as soon as we depend on other files, the number of PIDs in the stack starts to grow. If we wanted, we could modify the code to make use of a head start and compile more than one file since the beginning.</p>
+
+<p>It is important to notice that this code has room for improvements. First, every time a new module is compiled, we notify all child process that new modules are available. This is a waste of resource if we consider that the child modules tells us explicitly on which modules they are waiting on. Therefore, the code could be modified to store a mapping from each child process to the module it is waiting for so that when a new module is compiled, only the children that depend on it are notified.</p>
+
+<p>Also, if we start storing which module each process is depending on, we are able to know whenever we have a deadlock or a dependency on an nonexistent file, allowing us to get rid of the timeout.</p>
+
+<p>All those improvements and other goodies like callbacks are implemented in Elixir source code and we recommend you take a look at both the <a href="https://github.com/elixir-lang/elixir/blob/6182602f1205e2d9fc54666e0721270a27226fbc/lib/elixir/parallel_compiler.ex">Elixir.ParallelCompiler</a> and <a href="https://github.com/elixir-lang/elixir/blob/6182602f1205e2d9fc54666e0721270a27226fbc/lib/elixir/error_handler.ex">Elixir.ErrorHandler</a> modules to see all the details firsthand.</p>
+
+<p>Happy coding!</p>
+
+      </div>
+
+      <!-- <div class="entry-meta">
+      </div> -->
+    </div>
+  </div>
+</div>
+
+</div><!-- #content -->
+
+<div id="sidebar-primary" class="sidebar">
+  <div class="widget news">
+  <h3>
+    News: <a href="/blog/2014/09/18/elixir-v1-0-0-released/">Elixir v1.0.0 released</a>
+  </h3>
+</div>
+
+<div class="widget search">
+  <form method="get" class="search-form" action="http://www.google.com/search">
+		<div>
+			<input class="search-text" type="text" name="q" placeholder="Search..." id="searchfield">
+			<input type="hidden" name="sitesearch" value="elixir-lang.org">
+			<input class="search-submit button" name="submit" type="submit" value="Search">
+		</div>
+	</form>
+</div>
+  <div class="rss-button">
+    <a href="http://feeds.feedburner.com/ElixirLang" target="_blank"><img src="/images/social/RSSButton.png" /></a>
+  </div>
+  <div class="widget categories-list">
+  <h3 class="widget-title">Blog Categories</h3>
+  <ul>
+  
+    <li><a class="spec" href="/blog/categories.html#Internals">Internals</a></li>
+  
+    <li><a class="spec" href="/blog/categories.html#Releases">Releases</a></li>
+  
+    <li><a class="spec" href="/blog/categories.html#Announcements">Announcements</a></li>
+  
+  </ul>
+</div>
+
+  <div class="widget">
+  <h3 class="widget-title">Join the Community</h3>
+  <ul>
+    <li><a class="spec" href="irc://irc.freenode.net/elixir-lang">#elixir-lang on freenode IRC</a></li>
+    <li><a class="spec" href="http://groups.google.com/group/elixir-lang-talk">elixir-talk mailing list (questions)</a></li>
+    <li><a class="spec" href="http://groups.google.com/group/elixir-lang-core">elixir-core mailing list (development)</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/elixir/issues">Issues tracker</a></li>
+    <li><a class="spec" href="http://twitter.com/elixirlang">@elixirlang on Twitter</a></li>
+  </ul>
+</div>
+
+<div class="widget">
+  <h3 class="widget-title">Important links</h3>
+  <ul>
+    <li><a class="spec" href="https://github.com/elixir-lang/elixir/wiki">Wiki with events, resources and talks organized by the community</a></li>
+    <li><a class="spec" href="http://elixir-lang.org/crash-course.html">Crash course for Erlang developers</a></li>
+  </ul>
+</div>
+
+<div class="widget">
+  <h3 class="widget-title">Learning resources</h3>
+  <ul>
+    <li class="image"><a href="http://pragprog.com/titles/elixir" title="Programming Elixir cover"><img src="http://imagery.pragprog.com/products/361/elixir_xlargebeta.jpg?1368724397" /></a></li>
+    <li class="image"><a href="http://elixirsips.com" title="ElixirSips cover"><img src="http://elixirsips.com/images/ElixirLangAd2_190x160.png" width="190" height="160" /></a></li>
+    <li class="image"><a href="http://manning.com/juric/" title="Elixir in Action"><img src="http://manning.com/juric/juric_cover150.jpg" width="190" height="238" /></a></li>
+    <li class="image"><a href="http://www.exotpbook.com/" title="The Little Elixir and OTP Guidebook"><img src="http://i.imgur.com/G6icQmt.png" width="190" height="274" /></a></li>
+    <li class="image"><a href="http://shop.oreilly.com/product/0636920030584.do" title="Introducing Elixir"><img src="http://akamaicovers.oreilly.com/images/0636920030584/rc_cat.gif" width="190" /></a></li>
+  </ul>
+</div>
+
+
+<div class="widget">
+  <h3 class="widget-title">Code editor support</h3>
+  <ul>
+    <li><a class="spec" href="https://github.com/elixir-lang/emacs-elixir">Emacs Mode</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/elixir-tmbundle">Textmate Bundle</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/vim-elixir">Vim Elixir</a></li>
+    <li><a class="spec" href="https://github.com/SteffenBauer/elixir-gtksourceview">GtkSourceView (gedit)</a></li>
+    <li><a class="spec" href="https://github.com/lucasmazza/language-elixir">Atom Package</a></li>
+  </ul>
+</div>
+
+
+<div class="widget">
+  <h3 class="widget-title">Sponsors</h3>
+  <ul>
+    <li class="image"><a href="http://plataformatec.com.br" title="Plataformatec"><img class="no-border" src="/images/logo/plataformatec.png" /></a></li>
+  </ul>
+</div>
+
+</div>
+
+      </div><!-- #main -->
+
+      <div class="clear">
+      </div>
+
+      <div id="copyright">
+        © 2012-2014 <a href="http://plataformatec.com.br/">Plataformatec</a>. All rights reserved.
+      </p>
+    </div><!-- .wrap -->
+  </div><!-- #container -->
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-8268430-6']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="/js/toc/toc.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $('.toc').toc({
+          title: '',
+          listType: 'ul',
+          showSpeed: 0,
+        });
+    });
+  </script>
+</body>
+</html>
+

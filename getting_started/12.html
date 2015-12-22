@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>12 入出力 - IO - Elixir</title>
+  <link href="http://feeds.feedburner.com/ElixirLang" rel="alternate" title="Elixir's Blog" type="application/atom+xml" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" id="font-bitter-css" href="http://fonts.googleapis.com/css?family=Bitter&amp;ver=1" type="text/css" media="screen">
+</head>
+
+<body class="getting_started">
+  <div id="container">
+    <div class="wrap">
+    <div id="header">
+      <div id="branding">
+        <h1 id="site-title">
+          <a href="/" title="Elixir" rel="Home">
+            <img class="logo" src="/images/logo/logo.png" alt="Elixir Logo" />
+          </a>
+        </h1>
+      </div>
+
+      <div id="menu-primary" class="menu-container">
+        <div class="menu">
+          <ul id="menu-primary-items">
+            <li class="menu-item home"><a class="spec" href="/">Home</a></li>
+            <li class="menu-item install"><a class="spec" href="/install.html">Install</a></li>
+            <li class="menu-item getting_started"><a class="spec" href="/getting_started/1.html">Getting Started</a></li>
+            <li class="menu-item docs"><a class="spec" href="/docs.html">Docs</a></li>
+            <li class="menu-item blog"><a class="spec" href="/blog">Blog</a></li>
+            <li class="menu-item source"><a class="spec" href="https://github.com/elixir-lang/elixir">Source</a></li>
+            <li class="menu-item packages"><a class="spec" href="http://hex.pm/">Packages</a></li>
+
+          </ul>
+        </div>
+      </div>
+
+      <div class="clear"></div>
+    </div>
+
+    <div id="main">
+
+
+<div id="sidebar-primary" class="sidebar">
+  <div class="widget news">
+  <h3>
+    News: <a href="/blog/2014/09/18/elixir-v1-0-0-released/">Elixir v1.0.0 released</a>
+  </h3>
+</div>
+
+<div class="widget search">
+  <form method="get" class="search-form" action="http://www.google.com/search">
+		<div>
+			<input class="search-text" type="text" name="q" placeholder="Search..." id="searchfield">
+			<input type="hidden" name="sitesearch" value="elixir-lang.org">
+			<input class="search-submit button" name="submit" type="submit" value="Search">
+		</div>
+	</form>
+</div>
+
+  <div class="widget">
+    <h3 class="widget-title">Getting Started</h3>
+    <ol>
+      <li><a class="spec" href="/getting_started/1.html">Interactive Elixir (IEx)</a></li>
+      <li><a class="spec" href="/getting_started/2.html">Basic types</a></li>
+      <li><a class="spec" href="/getting_started/3.html">Basic operators</a></li>
+      <li><a class="spec" href="/getting_started/4.html">Pattern matching</a></li>
+      <li><a class="spec" href="/getting_started/5.html">case, cond and if</a></li>
+      <li><a class="spec" href="/getting_started/6.html">Binaries, strings and char lists</a></li>
+      <li><a class="spec" href="/getting_started/7.html">Keywords, maps and dicts</a></li>
+      <li><a class="spec" href="/getting_started/8.html">Modules</a></li>
+      <li><a class="spec" href="/getting_started/9.html">Recursion</a></li>
+      <li><a class="spec" href="/getting_started/10.html">Enumerables and streams</a></li>
+      <li><a class="spec" href="/getting_started/11.html">Processes</a></li>
+      <li><a class="spec" href="/getting_started/12.html">IO</a></li>
+      <li><a class="spec" href="/getting_started/13.html">alias, require and import</a></li>
+      <li><a class="spec" href="/getting_started/14.html">Module attributes</a></li>
+      <li><a class="spec" href="/getting_started/15.html">Structs</a></li>
+      <li><a class="spec" href="/getting_started/16.html">Protocols</a></li>
+      <li><a class="spec" href="/getting_started/17.html">try, catch and rescue</a></li>
+      <li><a class="spec" href="/getting_started/18.html">Comprehensions</a></li>
+      <li><a class="spec" href="/getting_started/19.html">Sigils</a></li>
+      <li><a class="spec" href="/getting_started/20.html">Where to go next</a></li>
+    </ol>
+  </div>
+  <div class="widget">
+    <h3 class="widget-title">Mix and OTP</h3>
+    <ol>
+      <li><a class="spec" href="/getting_started/mix_otp/1.html">Introduction to Mix</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/2.html">Agent</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/3.html">GenServer</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/4.html">GenEvent</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/5.html">Supervisor and Application</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/6.html">ETS</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/7.html">Dependencies and umbrella apps</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/8.html">Task and gen_tcp</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/9.html">Docs, tests and pipelines</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/10.html">Distributed tasks and configuration</a></li>
+    </ol>
+  </div>
+  <div class="widget">
+    <h3 class="widget-title">Meta-programming in Elixir</h3>
+    <ol>
+      <li><a class="spec" href="/getting_started/meta/1.html">Quote and unquote</a></li>
+      <li><a class="spec" href="/getting_started/meta/2.html">Macros</a></li>
+      <li><a class="spec" href="/getting_started/meta/3.html">Domain Specific Languages</a></li>
+    </ol>
+  </div>
+
+  <div class="widget">
+  <h3 class="widget-title">Learning resources</h3>
+  <ul>
+    <li class="image"><a href="http://pragprog.com/titles/elixir" title="Programming Elixir cover"><img src="http://imagery.pragprog.com/products/361/elixir_xlargebeta.jpg?1368724397" /></a></li>
+    <li class="image"><a href="http://elixirsips.com" title="ElixirSips cover"><img src="http://elixirsips.com/images/ElixirLangAd2_190x160.png" width="190" height="160" /></a></li>
+    <li class="image"><a href="http://manning.com/juric/" title="Elixir in Action"><img src="http://manning.com/juric/juric_cover150.jpg" width="190" height="238" /></a></li>
+    <li class="image"><a href="http://www.exotpbook.com/" title="The Little Elixir and OTP Guidebook"><img src="http://i.imgur.com/G6icQmt.png" width="190" height="274" /></a></li>
+    <li class="image"><a href="http://shop.oreilly.com/product/0636920030584.do" title="Introducing Elixir"><img src="http://akamaicovers.oreilly.com/images/0636920030584/rc_cat.gif" width="190" /></a></li>
+  </ul>
+</div>
+
+  <div class="widget">
+  <h3 class="widget-title">Code editor support</h3>
+  <ul>
+    <li><a class="spec" href="https://github.com/elixir-lang/emacs-elixir">Emacs Mode</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/elixir-tmbundle">Textmate Bundle</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/vim-elixir">Vim Elixir</a></li>
+    <li><a class="spec" href="https://github.com/SteffenBauer/elixir-gtksourceview">GtkSourceView (gedit)</a></li>
+    <li><a class="spec" href="https://github.com/lucasmazza/language-elixir">Atom Package</a></li>
+  </ul>
+</div>
+
+  <div class="widget">
+  <h3 class="widget-title">Sponsors</h3>
+  <ul>
+    <li class="image"><a href="http://plataformatec.com.br" title="Plataformatec"><img class="no-border" src="/images/logo/plataformatec.png" /></a></li>
+  </ul>
+</div>
+</div>
+
+<div id="content">
+  <article>
+    <h1 id="12-入出力-io">12 入出力 - IO</h1>
+
+<p><div class="toc"></div></p>
+
+<p>この章はElixirの入出力機構，および，<a href="/docs/stable/elixr/IO.html"><code>IO</code></a>，<a href="/docs/stable/elxir/File.html"><code>File</code></a>あるいは<a href="/docs/stable/elixir/Path.html"><code>Path</code></a>などの入出力機構へ関連するモジュールについての紹介をします．</p>
+
+<p>This chapter is a quick introduction to input/output mechanisms in Elixir and related modules, like <a href="/docs/stable/elixir/IO.html"><code>IO</code></a>, <a href="/docs/stable/elixir/File.html"><code>File</code></a> and <a href="/docs/stable/elixir/Path.html"><code>Path</code></a>.</p>
+
+<p>この章の(入出力の)概要はGetting Startedの前の版にもすでにありました．ですが，入出力システムはElixirとそのVMについていくつかの方針とおもしろさへ光を当てるすばらしい機会を用意していることに気がつきました．</p>
+
+<p>We had originally sketched this chapter to come much earlier in the getting started guide. However, we noticed the IO system provides a great opportunity to shed some light on some philosophies and curiosities of Elixir and the VM.</p>
+
+<h2 id="12-1-入出力モジュール-the-io-module">12.1 入出力モジュール - The IO module</h2>
+
+<p>Elixirの<code>IO</code>モジュールは標準入出力(<code>:stdio</code>)，標準エラー(<code>:stderr</code>)，ファイル，あるいは他の入出力デバイスを読み書きするための基本となる部分です．モジュールの使い方はこのようになります:</p>
+
+<p>The <code>IO</code> module in Elixir is the main mechanism for reading and writing to the standard io (<code>:stdio</code>), standard error (<code>:stderr</code>), files and other IO devices. Usage of the module is pretty straight-forward:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">IO</span><span class="p">.</span><span class="n">puts</span> <span class="s2">&quot;hello world&quot;</span>
+<span class="go">&quot;hello world&quot;</span>
+<span class="go">:ok</span>
+<span class="gp">iex&gt; </span><span class="nc">IO</span><span class="p">.</span><span class="n">gets</span> <span class="s2">&quot;yes or no? &quot;</span>
+<span class="go">yes or no? yes</span>
+<span class="go">&quot;yes\n&quot;</span>
+</code></pre></div>
+<p>デフォルトでは入出力モジュールの関数は標準入力と標準出力を利用します．引数として<code>:stderr</code>を渡すことで標準エラーデバイスへ出力することができます:</p>
+
+<p>By default, the functions in the IO module use the standard input and output. We can pass the <code>:stderr</code> as argument to write to the standard error device:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">IO</span><span class="p">.</span><span class="n">puts</span> <span class="ss">:stderr</span><span class="p">,</span> <span class="s2">&quot;hello world&quot;</span>
+<span class="go">&quot;hello world&quot;</span>
+<span class="go">:ok</span>
+</code></pre></div>
+<h2 id="12-2-ファイルモジュール-the-file-module">12.2 ファイルモジュール - The File module</h2>
+
+<p><a href="/docs/stable/elixir/File.html"><code>File</code></a>モジュールはファイルを入出力デバイスとして開くことのできる関数を持っています．デフォルトではファイルはバイナリモードで開かれます，必要があれば<code>IO</code>モジュールの<code>IO.binread/2</code>と<code>IO.binwrite/2</code>を使うこともできます:</p>
+
+<p>The <a href="/docs/stable/elixir/File.html"><code>File</code></a> module contains functions that allows us to open files as IO devices. By default, files are opened in binary mode, which requires developers to use the specific <code>IO.binread/2</code> and <code>IO.binwrite/2</code> functions from the <code>IO</code> module:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">file</span><span class="p">}</span> <span class="p">=</span> <span class="nc">File</span><span class="p">.</span><span class="n">open</span> <span class="s2">&quot;hello&quot;</span><span class="p">,</span> <span class="p">[</span><span class="ss">:write</span><span class="p">]</span>
+<span class="go">{:ok, #PID&lt;0.47.0&gt;}</span>
+<span class="gp">iex&gt; </span><span class="nc">IO</span><span class="p">.</span><span class="n">binwrite</span> <span class="n">file</span><span class="p">,</span> <span class="s2">&quot;world&quot;</span>
+<span class="go">:ok</span>
+<span class="gp">iex&gt; </span><span class="nc">File</span><span class="p">.</span><span class="n">close</span> <span class="n">file</span>
+<span class="go">:ok</span>
+<span class="gp">iex&gt; </span><span class="nc">File</span><span class="p">.</span><span class="n">read</span> <span class="s2">&quot;hello&quot;</span>
+<span class="go">{:ok, &quot;world&quot;}</span>
+</code></pre></div>
+<p>ファイルを<code>:utf8</code>エンコーディングで開くこともでき，(訳注:エンコーディングの指定は)<code>IO</code>モジュールの他の関数でも使えます．</p>
+
+<p>A file can also be opened with <code>:utf8</code> encoding which allows the remaining functions in the <code>IO</code> module to be used:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">file</span><span class="p">}</span> <span class="p">=</span> <span class="nc">File</span><span class="p">.</span><span class="n">open</span> <span class="s2">&quot;another&quot;</span><span class="p">,</span> <span class="p">[</span><span class="ss">:write</span><span class="p">,</span> <span class="ss">:utf8</span><span class="p">]</span>
+<span class="go">{:ok, #PID&lt;0.48.0&gt;}</span>
+</code></pre></div>
+<p>一方，ファイルを開いたり，読み書きする関数については，<code>File</code>モジュールがファイルシステム上で動く関数をたくさん持っています．例えば<code>File.rm/1</code>はファイルを削除するのに使え，<code>File.mkdir/1</code>はディレクトリを作り，<code>File.mkdir_p/1</code>は必ず親ディレクトリがあるようにディレクトリを(場合によっては複数)作り，<code>File.cp_r/2</code>や<code>File.rm_rf/2</code>はファイルとディレクトリのコピーと削除を再帰的に行います．</p>
+
+<p>Besides functions for opening, reading and writing files, the <code>File</code> module has many functions that work on the file system. Those functions are named after their UNIX equivalents. For example, <code>File.rm/1</code> can be used to remove files, <code>File.mkdir/1</code> to create directories, <code>File.mkdir_p/1</code> creates directories guaranteeing their parents exists and there is even <code>File.cp_r/2</code> and <code>File.rm_rf/2</code> which copy and remove files and directories recursively.</p>
+
+<p><code>File</code>モジュールの関数には2種類の慣習があることに気づくでしょう，1つは<code>!</code>(バンと読みます)つきのもので，もう1つはつかないものです．例えば&quot;hello&quot;というファイルを読むとき，上の例で<code>!</code>がつかない方を既に使いましたね．新しい例をいくつか試してみましょう:</p>
+
+<p>You will also notice that functions in the <code>File</code> module have two variants, one with <code>!</code> (bang) in its name and others without. For example, when we read the &quot;hello&quot; file above, we have used the one without <code>!</code>. Let&#39;s try some new examples:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">File</span><span class="p">.</span><span class="n">read</span> <span class="s2">&quot;hello&quot;</span>
+<span class="go">{:ok, &quot;world&quot;}</span>
+<span class="gp">iex&gt; </span><span class="nc">File</span><span class="p">.</span><span class="n">read!</span> <span class="s2">&quot;hello&quot;</span>
+<span class="go">&quot;world&quot;</span>
+<span class="gp">iex&gt; </span><span class="nc">File</span><span class="p">.</span><span class="n">read</span> <span class="s2">&quot;unknown&quot;</span>
+<span class="go">{:error, :enoent}</span>
+<span class="gp">iex&gt; </span><span class="nc">File</span><span class="p">.</span><span class="n">read!</span> <span class="s2">&quot;unknown&quot;</span>
+<span class="gr">** (File.Error) could not read file unknown: no such file or directory</span>
+</code></pre></div>
+<p>ファイルが無い場合，<code>!</code>がついたバージョンではエラーが発生していますね．つまり<code>!</code>のつかないバージョンはパターンマッチングを利用して異なる形式の結果を取り扱おうとするときに選びます．しかし，もしファイルがそこにあること期待しているなら，バンつきの方が例外のエラーメッセージがわかりやすいので便利です．つまり絶対にこう書かないでください:</p>
+
+<p>Notice that when the file does not exist, the version with <code>!</code> raises an error. That said, the version without <code>!</code> is preferred when you want to handle different outcomes with pattern matching. However, if you expect the file to be there, the bang variation is more useful as it raises a meaningful error message. That said, never write:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">body</span><span class="p">}</span> <span class="p">=</span> <span class="nc">File</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+</code></pre></div>
+<p>そのかわりにこう書いてください:</p>
+
+<p>Instead write:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="k">case</span> <span class="nc">File</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="n">file</span><span class="p">)</span> <span class="k">do</span>
+  <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">body</span><span class="p">}</span> <span class="p">-&gt;</span> <span class="c1"># handle ok</span>
+  <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="n">r</span><span class="p">}</span> <span class="p">-&gt;</span> <span class="c1"># handle error</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>あるいはこうです</p>
+
+<p>or</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="nc">File</span><span class="p">.</span><span class="n">read!</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+</code></pre></div>
+<h2 id="12-3-パスモジュール-the-path-module">12.3 パスモジュール - The Path module</h2>
+
+<p>ファイルモジュールの関数の多くは引数としてパスを期待しています．たいていの場合，これらのパスはバイナリであり<a href="/docs/stable/elixir/Path.html"><code>Path</code></a>モジュールで操作できます:</p>
+
+<p>The majority of the functions in the File module expects paths as arguments. Most commonly, those paths will be binaries and they can be manipulated with the <a href="/docs/stable/elixir/Path.html"><code>Path</code></a> module:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">Path</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;foo&quot;</span><span class="p">,</span> <span class="s2">&quot;bar&quot;</span><span class="p">)</span>
+<span class="go">&quot;foo/bar&quot;</span>
+<span class="gp">iex&gt; </span><span class="nc">Path</span><span class="p">.</span><span class="n">expand</span><span class="p">(</span><span class="s2">&quot;~/hello&quot;</span><span class="p">)</span>
+<span class="go">&quot;/Users/jose/hello&quot;</span>
+</code></pre></div>
+<p>ここまでで，ファイルシステムを使った入出力の主なモジュールについてやりました．次に，なじみの少ない，進んだ入出力の話題について話していきましょう．このセクションはElixirのコードを書く必要がありません，ですから気軽に飛ばしてしまってもよいです，ただ，VMで入出力システムがどのように実装されているかの概要や，その他VMのおもしろい点についてお伝えします．</p>
+
+<p>With this we have covered the main modules for doing IO and interacting with the file system. Next we will discuss some curiosities and advanced topics regarding IO. Those sections are not necessary to write Elixir code, so feel free to skip them, but they do provide an overview of how the IO system is implemented in the VM and other curiosities.</p>
+
+<h2 id="12-4-プロセスとグループリーダー-processes-and-group-leaders">12.4 プロセスとグループリーダー - Processes and group leaders</h2>
+
+<p><code>File.open/2</code>がPIDを含んだタプルを返すことを覚えているかもしれません:</p>
+
+<p>You may have noticed that <code>File.open/2</code> returned a tuple containing a PID:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">file</span><span class="p">}</span> <span class="p">=</span> <span class="nc">File</span><span class="p">.</span><span class="n">open</span> <span class="s2">&quot;hello&quot;</span><span class="p">,</span> <span class="p">[</span><span class="ss">:write</span><span class="p">]</span>
+<span class="go">{:ok, #PID&lt;0.47.0&gt;}</span>
+</code></pre></div>
+<p>これは入出力モジュールがプロセスの中で実際に動いているためです．<code>IO.write(pid, binary)</code>と書くと，入出力モジュールはメッセージをやりたい操作と共にプロセスへ送ります．自身のプロセスを使ってみたときに何が起こるかみてみましょう:</p>
+
+<p>That&#39;s because the IO module actually works with processes. When you say <code>IO.write(pid, binary)</code>, the IO module will send a message to the process with the desired operation. Let&#39;s see what happens if we use our own process:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">pid</span> <span class="p">=</span> <span class="n">spawn</span> <span class="k">fn</span> <span class="p">-&gt;</span>
+<span class="gp">...&gt; </span> <span class="k">receive</span> <span class="ss">do</span><span class="p">:</span> <span class="p">(</span><span class="n">msg</span> <span class="p">-&gt;</span> <span class="nc">IO</span><span class="p">.</span><span class="n">inspect</span> <span class="n">msg</span><span class="p">)</span>
+<span class="gp">...&gt; </span><span class="k">end</span>
+<span class="go">#PID&lt;0.57.0&gt;</span>
+<span class="gp">iex&gt; </span><span class="nc">IO</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="s2">&quot;hello&quot;</span><span class="p">)</span>
+<span class="go">{:io_request, #PID&lt;0.41.0&gt;, #PID&lt;0.57.0&gt;, {:put_chars, :unicode, &quot;hello&quot;}}</span>
+<span class="gr">** (ErlangError) erlang error: :terminated</span>
+</code></pre></div>
+<p><code>IO.write/2</code>のあと，入出力モジュールへ表示したい内容が送られているのがわかります．次に，入出力モジュールが何か結果を期待した時点で失敗しています．なぜなら(入出力デバイスを)供給していないためです．</p>
+
+<p>After <code>IO.write/2</code>, we can see the request sent by the IO module printed, which then fails since the IO module expected some kind of result that we did not supply.</p>
+
+<p><a href="/docs/stable/elixir/StringIO.html"><code>StringIO</code></a>モジュールは文字列で入出力デバイスのメッセージを実装したものを提供します:</p>
+
+<p>The <a href="/docs/stable/elixir/StringIO.html"><code>StringIO</code></a> module provides an implementation of the IO device messages on top of a string:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">pid</span><span class="p">}</span> <span class="p">=</span> <span class="nc">StringIO</span><span class="p">.</span><span class="n">open</span><span class="p">(</span><span class="s2">&quot;hello&quot;</span><span class="p">)</span>
+<span class="go">{:ok, #PID&lt;0.43.0&gt;}</span>
+<span class="gp">iex&gt; </span><span class="nc">IO</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="n">pid</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="go">&quot;he&quot;</span>
+</code></pre></div>
+<p>入出力デバイスとプロセスをモデル化することで，Erlang VMは同じネットワークの異なるノード間でファイルプロセスを交換し，どちらのノードであってもファイルを読み書きできます．全ての入出力デバイスで，どのプロセスにも1つだけグループリーダーと呼ばれる特別なものがあります．</p>
+
+<p>By modelling IO devices with processes, the Erlang VM allows different nodes in the same network to exchange file processes to read/write files in between nodes. Of all IO devices, there is one that is special to each process, called group leader.</p>
+
+<p><code>:stdio</code>と書いた場合，実際にはメッセージをグループリーダーへ送っています．グループリーダーはSTDIOファイルディスクリプタへと書きこみます:</p>
+
+<p>When you write to <code>:stdio</code>, you are actually sending a message to the group leader, which writes to STDIO file descriptor:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">IO</span><span class="p">.</span><span class="n">puts</span> <span class="ss">:stdio</span><span class="p">,</span> <span class="s2">&quot;hello&quot;</span>
+<span class="go">hello</span>
+<span class="go">:ok</span>
+<span class="gp">iex&gt; </span><span class="nc">IO</span><span class="p">.</span><span class="n">puts</span> <span class="nc">Process</span><span class="p">.</span><span class="n">group_leader</span><span class="p">,</span> <span class="s2">&quot;hello&quot;</span>
+<span class="go">hello</span>
+<span class="go">:ok</span>
+</code></pre></div>
+<p>グループリーダーはプロセス毎に設定でき，異なる状況で利用されます．例えばリモート端末でコードを実行する際，リモートノードで表示されたメッセージはリダイレクトされ，リクエストするきっかけになった端末で表示されることを保証します．</p>
+
+<p>The group leader can be configured per process and is used in different situations. For example, when executing code in a remote terminal, it guarantees messages in a remote node are redirected and printed in the terminal that triggered the request.</p>
+
+<h2 id="12-5-iodataとchardata-iodata-and-chardata">12.5 <code>iodata</code>と<code>chardata</code> - <code>iodata</code> and <code>chardata</code></h2>
+
+<p>上でみた全ての例ではファイルへの書き込みにバイナリ/文字列を利用していました．この章のタイトルは&quot;Binaries, strings and char lists&quot;です，以前に，文字列が単なるバイトである一方文字リストはコードポイントのリストであると言いました．</p>
+
+<p>In all examples above, we have used binaries/strings when writing to files. In the chapter &quot;Binaries, strings and char lists&quot;, we mentioned how strings are simply bytes while char lists are lists with code points.</p>
+
+<p><code>IO</code>と<code>File</code>の関数は引数としてリストも取れます．それだけではなく，数値とバイナリが混在したリストのリストも取れます:</p>
+
+<p>The functions in <code>IO</code> and <code>File</code> also allow lists to be given as arguments. Not only that, they also allow a mixed list of lists, integers and binaries to be given:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">IO</span><span class="p">.</span><span class="n">puts</span> <span class="s1">&#39;hello world&#39;</span>
+<span class="go">hello world</span>
+<span class="go">:ok</span>
+<span class="gp">iex&gt; </span><span class="nc">IO</span><span class="p">.</span><span class="n">puts</span> <span class="p">[</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="sc">?</span><span class="se">\s</span><span class="p">,</span> <span class="s2">&quot;world&quot;</span><span class="p">]</span>
+<span class="go">hello world</span>
+<span class="go">:ok</span>
+</code></pre></div>
+<p>しかし，これには少し気をつけないといけません．リストは，IOデバイスのエンコーディングの依存を利用して，バイトのかたまり，あるいは文字のかたまりで表現されます．もしファイルがエンコーディングなしで開かれたら，ファイルはrawモードを期待しており，<code>IO</code>モジュールの関数は必ず<code>bin*</code>ではじまるものが使われます．それらの関数は引数として<code>iodata</code>を期待しています，つまりバイト及びバイナリからなるリストが渡されることを期待しているということです．</p>
+
+<p>However, this requires some attention. A list may represent either a bunch of bytes or a bunch of characters and which one to use depends on the encoding of the IO device. If the file is opened without encoding, the file is expected to be in raw mode, and the functions in the <code>IO</code> module starting with <code>bin*</code> must be used. Those functions expect an <code>iodata</code> as argument, i.e. it expects a list of integers representing bytes and binaries to be given.</p>
+
+<p>一方で<code>:stdio</code>と<code>:utf8</code>のエンコーディングを指定して開いたファイルは<code>IO</code>モジュールの残り(訳注<code>bin*</code>ではじまらない？)関数で動き，引数として<code>char_data</code>を期待します，つまり文字と文字列からなるリストが渡されることを期待しているということです．</p>
+
+<p>On the other hand, <code>:stdio</code> and files opened with <code>:utf8</code> encoding work with the remaining functions in the <code>IO</code> module and those expect a <code>char_data</code> as argument, i.e. they expect a list of characters or strings to be given.</p>
+
+<p>とはいえこれはちょっとした違いにすぎず．リストをそれらの関数へ渡そうと意図している場合にだけ詳しく検討すればよいです．バイナリは既にバイト表現されているので，常にrawで扱うことができます．</p>
+
+<p>Although this is a subtle difference, you only need to worry about those details if you intend to pass lists to those functions. Binaries are already represented by the underlying bytes and as such their representation is always raw.</p>
+
+<p>これで入出力デバイスと入出力に関連した機能をざっと見終わりました．<a href="/docs/stable/elixir/IO.html"><code>IO</code></a>，<a href="/docs/stable/elixir/File.html"><code>File</code></a>，<a href="/docs/stable/elixir/Path.html"><code>Path</code></a>と<a href="/docs/stable/elixir/StringIO.html"><code>StringIO</code></a>というElixirのモジュールについてや，どのようにVMが入出力の機構をうまく使うか，どのように入出力の操作に(charとioの)データを利用するかについて学びました．</p>
+
+<p>This finishes our tour of IO devices and IO related functionality. We have learned about four Elixir modules, <a href="/docs/stable/elixir/IO.html"><code>IO</code></a>, <a href="/docs/stable/elixir/File.html"><code>File</code></a>, <a href="/docs/stable/elixir/Path.html"><code>Path</code></a> and <a href="/docs/stable/elixir/StringIO.html"><code>StringIO</code></a>, as well as how the VM uses processes for the underlying IO mechanisms and how to use (char and io) data for IO operations.</p>
+
+  </article><!-- .hfeed -->
+
+  
+  <div class="pagination loop-pagination">
+    
+      <a href="11.html" class="previous page-numbers spec">&larr; Previous</a>
+    
+      <a class="page-numbers spec" href="#container">Top</a>
+    
+      <a href="13.html" class="next page-numbers spec">Next &rarr;</a>
+    
+  </div>
+  
+</div><!-- #content -->
+
+      </div><!-- #main -->
+
+      <div class="clear">
+      </div>
+
+      <div id="copyright">
+        © 2012-2014 <a href="http://plataformatec.com.br/">Plataformatec</a>. All rights reserved.
+      </p>
+    </div><!-- .wrap -->
+  </div><!-- #container -->
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-8268430-6']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="/js/toc/toc.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $('.toc').toc({
+          title: '',
+          listType: 'ul',
+          showSpeed: 0,
+        });
+    });
+  </script>
+</body>
+</html>
+

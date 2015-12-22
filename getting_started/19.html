@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>19 シギル(印) - Sigils - Elixir</title>
+  <link href="http://feeds.feedburner.com/ElixirLang" rel="alternate" title="Elixir's Blog" type="application/atom+xml" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" id="font-bitter-css" href="http://fonts.googleapis.com/css?family=Bitter&amp;ver=1" type="text/css" media="screen">
+</head>
+
+<body class="getting_started">
+  <div id="container">
+    <div class="wrap">
+    <div id="header">
+      <div id="branding">
+        <h1 id="site-title">
+          <a href="/" title="Elixir" rel="Home">
+            <img class="logo" src="/images/logo/logo.png" alt="Elixir Logo" />
+          </a>
+        </h1>
+      </div>
+
+      <div id="menu-primary" class="menu-container">
+        <div class="menu">
+          <ul id="menu-primary-items">
+            <li class="menu-item home"><a class="spec" href="/">Home</a></li>
+            <li class="menu-item install"><a class="spec" href="/install.html">Install</a></li>
+            <li class="menu-item getting_started"><a class="spec" href="/getting_started/1.html">Getting Started</a></li>
+            <li class="menu-item docs"><a class="spec" href="/docs.html">Docs</a></li>
+            <li class="menu-item blog"><a class="spec" href="/blog">Blog</a></li>
+            <li class="menu-item source"><a class="spec" href="https://github.com/elixir-lang/elixir">Source</a></li>
+            <li class="menu-item packages"><a class="spec" href="http://hex.pm/">Packages</a></li>
+
+          </ul>
+        </div>
+      </div>
+
+      <div class="clear"></div>
+    </div>
+
+    <div id="main">
+
+
+<div id="sidebar-primary" class="sidebar">
+  <div class="widget news">
+  <h3>
+    News: <a href="/blog/2014/09/18/elixir-v1-0-0-released/">Elixir v1.0.0 released</a>
+  </h3>
+</div>
+
+<div class="widget search">
+  <form method="get" class="search-form" action="http://www.google.com/search">
+		<div>
+			<input class="search-text" type="text" name="q" placeholder="Search..." id="searchfield">
+			<input type="hidden" name="sitesearch" value="elixir-lang.org">
+			<input class="search-submit button" name="submit" type="submit" value="Search">
+		</div>
+	</form>
+</div>
+
+  <div class="widget">
+    <h3 class="widget-title">Getting Started</h3>
+    <ol>
+      <li><a class="spec" href="/getting_started/1.html">Interactive Elixir (IEx)</a></li>
+      <li><a class="spec" href="/getting_started/2.html">Basic types</a></li>
+      <li><a class="spec" href="/getting_started/3.html">Basic operators</a></li>
+      <li><a class="spec" href="/getting_started/4.html">Pattern matching</a></li>
+      <li><a class="spec" href="/getting_started/5.html">case, cond and if</a></li>
+      <li><a class="spec" href="/getting_started/6.html">Binaries, strings and char lists</a></li>
+      <li><a class="spec" href="/getting_started/7.html">Keywords, maps and dicts</a></li>
+      <li><a class="spec" href="/getting_started/8.html">Modules</a></li>
+      <li><a class="spec" href="/getting_started/9.html">Recursion</a></li>
+      <li><a class="spec" href="/getting_started/10.html">Enumerables and streams</a></li>
+      <li><a class="spec" href="/getting_started/11.html">Processes</a></li>
+      <li><a class="spec" href="/getting_started/12.html">IO</a></li>
+      <li><a class="spec" href="/getting_started/13.html">alias, require and import</a></li>
+      <li><a class="spec" href="/getting_started/14.html">Module attributes</a></li>
+      <li><a class="spec" href="/getting_started/15.html">Structs</a></li>
+      <li><a class="spec" href="/getting_started/16.html">Protocols</a></li>
+      <li><a class="spec" href="/getting_started/17.html">try, catch and rescue</a></li>
+      <li><a class="spec" href="/getting_started/18.html">Comprehensions</a></li>
+      <li><a class="spec" href="/getting_started/19.html">Sigils</a></li>
+      <li><a class="spec" href="/getting_started/20.html">Where to go next</a></li>
+    </ol>
+  </div>
+  <div class="widget">
+    <h3 class="widget-title">Mix and OTP</h3>
+    <ol>
+      <li><a class="spec" href="/getting_started/mix_otp/1.html">Introduction to Mix</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/2.html">Agent</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/3.html">GenServer</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/4.html">GenEvent</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/5.html">Supervisor and Application</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/6.html">ETS</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/7.html">Dependencies and umbrella apps</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/8.html">Task and gen_tcp</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/9.html">Docs, tests and pipelines</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/10.html">Distributed tasks and configuration</a></li>
+    </ol>
+  </div>
+  <div class="widget">
+    <h3 class="widget-title">Meta-programming in Elixir</h3>
+    <ol>
+      <li><a class="spec" href="/getting_started/meta/1.html">Quote and unquote</a></li>
+      <li><a class="spec" href="/getting_started/meta/2.html">Macros</a></li>
+      <li><a class="spec" href="/getting_started/meta/3.html">Domain Specific Languages</a></li>
+    </ol>
+  </div>
+
+  <div class="widget">
+  <h3 class="widget-title">Learning resources</h3>
+  <ul>
+    <li class="image"><a href="http://pragprog.com/titles/elixir" title="Programming Elixir cover"><img src="http://imagery.pragprog.com/products/361/elixir_xlargebeta.jpg?1368724397" /></a></li>
+    <li class="image"><a href="http://elixirsips.com" title="ElixirSips cover"><img src="http://elixirsips.com/images/ElixirLangAd2_190x160.png" width="190" height="160" /></a></li>
+    <li class="image"><a href="http://manning.com/juric/" title="Elixir in Action"><img src="http://manning.com/juric/juric_cover150.jpg" width="190" height="238" /></a></li>
+    <li class="image"><a href="http://www.exotpbook.com/" title="The Little Elixir and OTP Guidebook"><img src="http://i.imgur.com/G6icQmt.png" width="190" height="274" /></a></li>
+    <li class="image"><a href="http://shop.oreilly.com/product/0636920030584.do" title="Introducing Elixir"><img src="http://akamaicovers.oreilly.com/images/0636920030584/rc_cat.gif" width="190" /></a></li>
+  </ul>
+</div>
+
+  <div class="widget">
+  <h3 class="widget-title">Code editor support</h3>
+  <ul>
+    <li><a class="spec" href="https://github.com/elixir-lang/emacs-elixir">Emacs Mode</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/elixir-tmbundle">Textmate Bundle</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/vim-elixir">Vim Elixir</a></li>
+    <li><a class="spec" href="https://github.com/SteffenBauer/elixir-gtksourceview">GtkSourceView (gedit)</a></li>
+    <li><a class="spec" href="https://github.com/lucasmazza/language-elixir">Atom Package</a></li>
+  </ul>
+</div>
+
+  <div class="widget">
+  <h3 class="widget-title">Sponsors</h3>
+  <ul>
+    <li class="image"><a href="http://plataformatec.com.br" title="Plataformatec"><img class="no-border" src="/images/logo/plataformatec.png" /></a></li>
+  </ul>
+</div>
+</div>
+
+<div id="content">
+  <article>
+    <h1 id="19-シギル-印-sigils">19 シギル(印) - Sigils</h1>
+
+<p><div class="toc"></div></p>
+
+<p>ダブルクォートでくくられた文字列とシングルクォートでくくられた文字のリストをElixirが提供していることはすでに学びましたね．しかしこれはこの言語の文字表現の構造を表面的にカバーしただけです．他の構造物，例えばアトムは，<code>:atom</code>という表現で作られます．</p>
+
+<p>We have already learned Elixir provides double-quoted strings and single-quoted char lists. However, this only covers the surface of structures that have textual representation in the language. Atoms are, for example, another structure which are mostly created via the <code>:atom</code> representation.</p>
+
+<p>Elixirの目標の一つに拡張性があります: 開発者は目的のドメインに応じて言語を拡張できるべきです．コンピューターサイエンスでは言語のコアとなる部分だけで対処するのは不可能なほど沢山の広い領域を扱います．そこで，最善の策として言語を拡張できるように作りました，開発者や企業やコミュニティは関わっているドメインに応じて言語を拡張できます．</p>
+
+<p>One of Elixir&#39;s goals is extensibility: developers should be able to extend the language to particular domains. Computer science has become such a wide field that it is impossible for a language to tackle many fields as part of its core. Our best bet is to rather make the language extensible, so developers, companies and communities can extend the language to their relevant domains.</p>
+
+<p>この章では，言語によって提供されている機能で，文字表現として動作するシギルについて調べていきます．</p>
+
+<p>In the chapter, we are going to explore sigils, which are one of the mechanisms provided by the language for working with textual representations.</p>
+
+<h2 id="19-1-正規表現-regular-expressions">19.1 正規表現 - Regular expressions</h2>
+
+<p>シギルは波(<code>~</code>)文字から始まり次に文字，その次にセパレータと続きます．Elixirで一番よく使われているシギルは<a href="https://en.wikipedia.org/wiki/Regular_Expressions">正規表現</a>のための<code>~r</code>です:</p>
+
+<p>Sigils start with the tilde (<code>~</code>) character which is followed by a letter and then a separator. The most common sigil in Elixir is <code>~r</code> for <a href="https://en.wikipedia.org/wiki/Regular_Expressions">regular expressions</a>:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="go"># A regular expression that returns true if the text has foo or bar</span>
+<span class="gp">iex&gt; </span><span class="n">regex</span> <span class="p">=</span> <span class="sx">~r/foo|bar/</span>
+<span class="go">~r/foo|bar/</span>
+<span class="gp">iex&gt; </span><span class="s2">&quot;foo&quot;</span> <span class="o">=~</span> <span class="n">regex</span>
+<span class="go">true</span>
+<span class="gp">iex&gt; </span><span class="s2">&quot;bat&quot;</span> <span class="o">=~</span> <span class="n">regex</span>
+<span class="go">false</span>
+</code></pre></div>
+<p>Elixirは<a href="http://www.pcre.org/">PCRE</a>ライブラリで実装されているPerl互換正規表現(regexes)を提供しています．正規表現はモディファイヤもサポートしています．例えば<code>i</code>モディファイヤを使うと正規表現の大小文字を区別しません:</p>
+
+<p>Elixir provides Perl-compatible regular expressions (regexes), as implemented by the <a href="http://www.pcre.org/">PCRE</a> library. Regexes also support modifiers. For example, the <code>i</code> modifier makes a regular expression case insensitive:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="s2">&quot;HELLO&quot;</span> <span class="o">=~</span> <span class="sx">~r/hello/</span>
+<span class="go">false</span>
+<span class="gp">iex&gt; </span><span class="s2">&quot;HELLO&quot;</span> <span class="o">=~</span> <span class="sx">~r/hello/i</span>
+<span class="go">true</span>
+</code></pre></div>
+<p>正規表現でサポートしている他のモディファイアや演算子については<a href="/docs/stable/elixir/Regex.html"><code>Regex</code>モジュール</a>を見てください．</p>
+
+<p>Check out the <a href="/docs/stable/elixir/Regex.html"><code>Regex</code> module</a> for more information on other modifiers and the supported operations with regular expressions.</p>
+
+<p>ここまで，正規表現の全ての例では<code>/</code>を区切りとして使っていました．しかしシギルでは8つの別のセパレータをサポートしています:</p>
+
+<p>So far, all examples have used <code>/</code> to delimit a regular expression. However sigils support 8 different separators:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">~r/hello/
+~r|hello|
+~r&quot;hello&quot;
+~r&#39;hello&#39;
+~r(hello)
+~r[hello]
+~r{hello}
+~r&lt;hello&gt;
+</code></pre></div>
+<p>異なる演算子をサポートした理由は異なるシギルで便利に使えるようにするためです．例えば，正規表現を区切るのに括弧を使うと正規表現の中にある括弧と混じってしまい混乱を招きます．しかし次の章で見るように，括弧は他のシギルにおいては便利です．</p>
+
+<p>The reasoning in supporting different operators is that different separators can be more convenient to different sigils. For example, using parentheses for regular expressions may be a confusing choice as they can get mixed with the parentheses inside the regex. However, parentheses can be handy for other sigils, as we will see in the next section.</p>
+
+<h2 id="19-2-文字列，文字リストして語句のシギル-strings-char-lists-and-words-sigils">19.2 文字列，文字リストして語句のシギル - Strings, char lists and words sigils</h2>
+
+<p>正規表現に加えて，Elixirはその他に3つのシギルを提供しています．</p>
+
+<p>Besides regular expressions, Elixir ships with three other sigils.</p>
+
+<p><code>~s</code>シギルは文字列を生成するのに使われ，ダブルクォートするのに似ています:</p>
+
+<p>The <code>~s</code> sigil is used to generate strings, similar to double quotes:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="sx">~s(this is a string with &quot;quotes&quot;)</span>
+<span class="go">&quot;this is a string with \&quot;quotes\&quot;&quot;</span>
+</code></pre></div>
+<p><code>~c</code>シギルは文字リストを生成するのに使われます:</p>
+
+<p>While <code>~c</code> is used to generate char lists:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="sx">~c(this is a string with &quot;quotes&quot;)</span>
+<span class="go">&#39;this is a string with &quot;quotes&quot;&#39;</span>
+</code></pre></div>
+<p><code>~w</code>シギルはスペースで区切られた語句からリストを生成するのに使われます:</p>
+
+<p>The <code>~w</code> sigil is used to generate a list of words separated by white space:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="sx">~w(foo bar bat)</span>
+<span class="go">[&quot;foo&quot;, &quot;bar&quot;, &quot;bat&quot;]</span>
+</code></pre></div>
+<p><code>~w</code>シギルは結果のフォーマットを選ぶのに<code>c</code>，<code>s</code>や<code>a</code>モディファイア(それぞれ文字リスト<code>char list</code>，文字列<code>s</code>，アトム<code>a</code>に対応)を受けつけます:</p>
+
+<p>The <code>~w</code> sigil also accepts the <code>c</code>, <code>s</code> and <code>a</code> modifiers (for char lists, strings and atoms, respectively) to choose the format of the result:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="sx">~w(foo bar bat)a</span>
+<span class="go">[:foo, :bar, :bat]</span>
+</code></pre></div>
+<p>小文字でのシギルに加えて，Elixirは大文字のシギルにも対応しています．<code>~s</code>と<code>~S</code>どちらも文字列を返し，はじめのものはエスケープコードや文字列の挿入ができ，二番目のものはできません:</p>
+
+<p>Besides lowercase sigils, Elixir supports uppercase sigils. While both <code>~s</code> and <code>~S</code> will return strings, the first one allows escape codes and interpolation while the second does not:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="n">iex</span><span class="o">&gt;</span> <span class="sx">~s(String with escape codes \x26 interpolation)</span>
+<span class="s2">&quot;String with escape codes &amp; interpolation&quot;</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="sx">~S(String without escape codes and without #{interpolation})</span>
+<span class="s2">&quot;String without escape codes and without \#{interpolation}&quot;</span>
+</code></pre></div>
+<p>以下のエスケープコードは文字列と文字リストで使うことができます:</p>
+
+<p>The following escape codes can be used in strings and char lists:</p>
+
+<ul>
+<li><code>\&quot;</code> – ダブルクォート</li>
+<li><code>\&#39;</code> – シングルクォート</li>
+<li><code>\\</code> – バックスラッシュ</li>
+<li><code>\a</code> – ベル/アラート</li>
+<li><code>\b</code> – バックスペース</li>
+<li><code>\d</code> - 削除</li>
+<li><code>\e</code> - エスケープ</li>
+<li><code>\f</code> - フォームフィード</li>
+<li><code>\n</code> – 新しいライン</li>
+<li><code>\r</code> – キャリッジリターン</li>
+<li><code>\s</code> – スペース</li>
+<li><code>\t</code> – タブ</li>
+<li><code>\v</code> – 垂直タブ</li>
+<li><code>\DDD</code>, <code>\DD</code>, <code>\D</code> - 8進数での文字表現 DDD, DD か D (例: <code>\377</code>)</li>
+<li><code>\xDD</code> - 16進数での文字表現 DD (例: <code>\x13</code>)</li>
+<li><p><code>\x{D...}</code> - 1から複数桁の16進数での文字表現 (例: <code>\x{abc13}</code>)</p></li>
+<li><p><code>\&quot;</code> – double quote</p></li>
+<li><p><code>\&#39;</code> – single quote</p></li>
+<li><p><code>\\</code> – single backslash</p></li>
+<li><p><code>\a</code> – bell/alert</p></li>
+<li><p><code>\b</code> – backspace</p></li>
+<li><p><code>\d</code> - delete</p></li>
+<li><p><code>\e</code> - escape</p></li>
+<li><p><code>\f</code> - form feed</p></li>
+<li><p><code>\n</code> – newline</p></li>
+<li><p><code>\r</code> – carriage return</p></li>
+<li><p><code>\s</code> – space</p></li>
+<li><p><code>\t</code> – tab</p></li>
+<li><p><code>\v</code> – vertical tab</p></li>
+<li><p><code>\DDD</code>, <code>\DD</code>, <code>\D</code> - character with octal representation DDD, DD or D (example: <code>\377</code>)</p></li>
+<li><p><code>\xDD</code> - character with hexadecimal representation DD (example: <code>\x13</code>)</p></li>
+<li><p><code>\x{D...}</code> - character with hexadecimal representation with one or more hexadecimal digits (example: <code>\x{abc13}</code>)</p></li>
+</ul>
+
+<p>シギルは3つ連続したダブル/シングルクォートで区切られたヒアドキュメントにも対応しています:</p>
+
+<p>Sigils also support heredocs, which is when triple double- or single-quotes are used as separators:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="sx">~s</span><span class="sh">&quot;&quot;&quot;</span>
+<span class="gp">...&gt; </span><span class="sh">this is</span>
+<span class="gp">...&gt; </span><span class="sh">a heredoc string</span>
+<span class="gp">...&gt; </span><span class="sh">&quot;&quot;&quot;</span>
+</code></pre></div>
+<p>ドキュメントを書くときにシギルのヒアドキュメントが良く使われます．例えばドキュメントの中でエスケープ文字を書きたい場合，いくつかの文字で二重にエスケープが必要になるためミスしやすいです．</p>
+
+<p>The most common case for heredoc sigils is when writing documentation. For example, if you need to write escape characters in your documentation, it can become error prone as we would need to double-escape some characters:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="na">@doc</span> <span class="sh">&quot;&quot;&quot;</span>
+<span class="sh">Converts double-quotes to single-quotes.</span>
+
+<span class="err">##</span><span class="sh"> Examples</span>
+
+<span class="sh">    iex&gt; convert(&quot;\\\&quot;foo\\\&quot;&quot;)</span>
+<span class="sh">    &quot;&#39;foo&#39;&quot;</span>
+
+<span class="sh">&quot;&quot;&quot;</span>
+<span class="kd">def</span> <span class="n">convert</span><span class="p">(...)</span>
+</code></pre></div>
+<p>しかし<code>~S</code>を使えば，問題を完全に避けられます:</p>
+
+<p>By using using <code>~S</code>, we can avoid this problem altogether:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="na">@doc</span> <span class="sx">~S</span><span class="sh">&quot;&quot;&quot;</span>
+<span class="sh">Converts double-quotes to single-quotes.</span>
+
+<span class="sh">## Examples</span>
+
+<span class="sh">    iex&gt; convert(&quot;\&quot;foo\&quot;&quot;)</span>
+<span class="sh">    &quot;&#39;foo&#39;&quot;</span>
+
+<span class="sh">&quot;&quot;&quot;</span>
+<span class="kd">def</span> <span class="n">convert</span><span class="p">(...)</span>
+</code></pre></div>
+<h2 id="19-3-カスタムシギル-custom-sigils">19.3 カスタムシギル - Custom sigils</h2>
+
+<p>この章の最初に示唆したように，Elixirでのシギルは拡張可能です．実際，シギル<code>~r/foo/i</code>は関数<code>sigil_r</code>を2つの引数と共に呼び出しているのと同じことをしています:</p>
+
+<p>As hinted at the beginning of this chapter, sigils in Elixir are extensible. In fact, the sigil <code>~r/foo/i</code> is equivalent to calling the <code>sigil_r</code> function with two arguments:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">sigil_r</span><span class="p">(&lt;&lt;</span><span class="s2">&quot;foo&quot;</span><span class="p">&gt;&gt;,</span> <span class="s1">&#39;i&#39;</span><span class="p">)</span>
+<span class="go">~r&quot;foo&quot;i</span>
+</code></pre></div>
+<p>つまり，<code>~r</code>シギルについてのドキュメントは関数<code>sigil_r</code>を通じてアクセスすることができます:</p>
+
+<p>That said, we can access the documentation for the <code>~r</code> sigil via the <code>sigil_r</code> function:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">h</span> <span class="n">sigil_r</span>
+<span class="go">...</span>
+</code></pre></div>
+<p>自分達のシギルを特定の関数を実装することで用意できます．例えば数値が返る<code>~i(13)</code>シギルを実装してみましょう:</p>
+
+<p>We can also provide our own sigils by simply implementing the proper function. For example, let&#39;s implement the <code>~i(13)</code> sigil that returns an integer:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="kd">defmodule</span> <span class="nc">MySigils</span> <span class="k">do</span>
+<span class="gp">...&gt; </span>  <span class="kd">def</span> <span class="n">sigil_i</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="p">[]),</span> <span class="ss">do</span><span class="p">:</span> <span class="nc">String</span><span class="p">.</span><span class="n">to_integer</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+<span class="gp">...&gt; </span><span class="k">end</span>
+<span class="gp">iex&gt; </span><span class="kn">import</span> <span class="nc">MySigils</span>
+<span class="gp">iex&gt; </span><span class="sx">~i(13)</span>
+<span class="go">13</span>
+</code></pre></div>
+<p>シギルはマクロの助けを借りてコンパイル時に使われることもできます．例えばElixirの正規表現はソースコードのコンパル時に効率のよい形へとコンパイルされます，そうすると動作時にそのステップを省略できます．もしこの内容に興味があるなら，マクロについてもっと知り，<code>Kernel</code>モジュールでシギルがどうやって実装されているか調べてみることをおすすめします．</p>
+
+<p>Sigils can also be used to do compile-time work with the help of macros. For example, regular expressions in Elixir are compiled into efficient representation during compilation of the source code, therefore skipping this step at runtime. If you have interest in the subject, we recommend you to learn more about macros and check how those sigils are implemented in the <code>Kernel</code> module.</p>
+
+  </article><!-- .hfeed -->
+
+  
+  <div class="pagination loop-pagination">
+    
+      <a href="18.html" class="previous page-numbers spec">&larr; Previous</a>
+    
+      <a class="page-numbers spec" href="#container">Top</a>
+    
+      <a href="20.html" class="next page-numbers spec">Next &rarr;</a>
+    
+  </div>
+  
+</div><!-- #content -->
+
+      </div><!-- #main -->
+
+      <div class="clear">
+      </div>
+
+      <div id="copyright">
+        © 2012-2014 <a href="http://plataformatec.com.br/">Plataformatec</a>. All rights reserved.
+      </p>
+    </div><!-- .wrap -->
+  </div><!-- #container -->
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-8268430-6']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="/js/toc/toc.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $('.toc').toc({
+          title: '',
+          listType: 'ul',
+          showSpeed: 0,
+        });
+    });
+  </script>
+</body>
+</html>
+

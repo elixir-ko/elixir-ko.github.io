@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Elixir v0.15.0 released - Elixir</title>
+  <link href="http://feeds.feedburner.com/ElixirLang" rel="alternate" title="Elixir's Blog" type="application/atom+xml" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" id="font-bitter-css" href="http://fonts.googleapis.com/css?family=Bitter&amp;ver=1" type="text/css" media="screen">
+</head>
+
+<body class="">
+  <div id="container">
+    <div class="wrap">
+    <div id="header">
+      <div id="branding">
+        <h1 id="site-title">
+          <a href="/" title="Elixir" rel="Home">
+            <img class="logo" src="/images/logo/logo.png" alt="Elixir Logo" />
+          </a>
+        </h1>
+      </div>
+
+      <div id="menu-primary" class="menu-container">
+        <div class="menu">
+          <ul id="menu-primary-items">
+            <li class="menu-item home"><a class="spec" href="/">Home</a></li>
+            <li class="menu-item install"><a class="spec" href="/install.html">Install</a></li>
+            <li class="menu-item getting_started"><a class="spec" href="/getting_started/1.html">Getting Started</a></li>
+            <li class="menu-item docs"><a class="spec" href="/docs.html">Docs</a></li>
+            <li class="menu-item blog"><a class="spec" href="/blog">Blog</a></li>
+            <li class="menu-item source"><a class="spec" href="https://github.com/elixir-lang/elixir">Source</a></li>
+            <li class="menu-item packages"><a class="spec" href="http://hex.pm/">Packages</a></li>
+
+          </ul>
+        </div>
+      </div>
+
+      <div class="clear"></div>
+    </div>
+
+    <div id="main">
+
+
+<div id="content">
+  <div class="hfeed">
+  <div class="hentry post">
+    <div class="post-content">
+      <div class="sticky-header">
+        <h1>Elixir v0.15.0 released</h1>
+        
+        <div class="byline">August 07, 2014 · by José Valim . in <span class="category"><a href="/blog/categories.html#Releases">Releases</a></div>
+      </div>
+
+      <div class="entry-content">
+        <p>Hello everyone!</p>
+
+<p>We are glad to announce v0.15.0 has been released. We have spent the last 2 months tidying up the existing APIs, ensuring consistency, improving performance and more. As a result, v0.15.0 is the last minor branch before Elixir v1.0.0!</p>
+
+<p>There are also no more planned deprecations nor backward incompatible changes which means it is extremely likely that code that runs on v0.15.0 will run exactly the same on Elixir v1.0.0.</p>
+
+<p>If you are interested in the specific details for this release, <a href="https://github.com/elixir-lang/elixir/blob/v0.15.0/CHANGELOG.md">please check our CHANGELOG</a>. In this post, we will focus on three new features in this release: Logger, Mix aliases, the fresh Elixir Web Installer for Windows, and share some exciting news at the end!</p>
+
+<h2 id="logger">Logger</h2>
+
+<p>Elixir now ships with a new application called logger. This application provides <a href="http://elixir-lang.org/docs/master/logger/Logger.html">the Logger module</a>, which is the main API developers will use for logging:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kn">require</span> <span class="nc">Logger</span>
+<span class="nc">Logger</span><span class="p">.</span><span class="n">debug</span> <span class="s2">&quot;hello&quot;</span>
+</code></pre></div>
+<p>By default, the code above will log the following message to your console:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">10:27:39.083 [debug] hello
+</code></pre></div>
+<p>Logger provides multiple backends to where messages are logged. For now Elixir ships only with a console backend but there are developers already working on file (with support to external log rotation) and <a href="http://en.wikipedia.org/wiki/Syslog">syslog</a> backends.</p>
+
+<p>When we started Logger, the main objective was to translate Erlang messages into Elixir, so terms are formatted in Elixir syntax. Before this release, the following code</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="nc">Task</span><span class="p">.</span><span class="n">async</span> <span class="k">fn</span> <span class="p">-&gt;</span> <span class="k">raise</span> <span class="s2">&quot;oops&quot;</span> <span class="k">end</span>
+</code></pre></div>
+<p>logged the following report:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">=ERROR REPORT==== 7-Aug-2014::10:35:59 ===
+** Task &lt;0.59.0&gt; terminating
+** Started from &lt;0.53.0&gt;
+** When function  == #Fun&lt;erl_eval.20.90072148&gt;
+**      arguments == []
+** Reason for termination ==
+** {#{&#39;__exception__&#39; =&gt; true,&#39;__struct__&#39; =&gt; &#39;Elixir.RuntimeError&#39;,message =&gt; &lt;&lt;&quot;oops&quot;&gt;&gt;},
+    [{&#39;Elixir.Task.Supervised&#39;,do_apply,2,
+                               [{file,&quot;lib/task/supervised.ex&quot;},{line,70}]},
+     {&#39;Elixir.Task.Supervised&#39;,async,3,
+                               [{file,&quot;lib/task/supervised.ex&quot;},{line,15}]},
+     {proc_lib,init_p_do_apply,3,[{file,&quot;proc_lib.erl&quot;},{line,239}]}]}
+</code></pre></div>
+<p>Now, with Logger, we get this report:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">10:37:22.457 [error] Task #PID&lt;0.72.0&gt; started from #PID&lt;0.60.0&gt; terminating
+Function: #Function&lt;20.90072148/0 in :erl_eval.expr/5&gt;
+    Args: []
+** (exit) an exception was raised:
+    ** (RuntimeError) oops
+        (elixir) lib/task/supervised.ex:70: Task.Supervised.do_apply/2
+        (elixir) lib/task/supervised.ex:15: Task.Supervised.async/3
+        (stdlib) proc_lib.erl:239: :proc_lib.init_p_do_apply/3
+</code></pre></div>
+<p>As soon as we started working on Logger, we realized we could go further than simply translating Erlang messages and provide a fully featured logger library. At this moment, Logger also supports:</p>
+
+<ul>
+<li>4 log levels: debug, info, warn and error</li>
+<li>Custom formatting: you can specify a format string that tells exactly how messages should be logged. The default string is: &quot;$time $metadata[$level] $message\n&quot; but <a href="http://elixir-lang.org/docs/master/logger/Logger.Formatter.html">many attributes are supported</a></li>
+<li>Custom translators: so you can translate log messages coming from any Erlang application into Elixir syntax</li>
+<li>Metadata: metadata allows developers to store information in the current process that will be available to all logged messages. For example, a web application can generate a <code>request_id</code>, store it as metadata, and all messages logged during that request will be properly identified with <code>request_id=...</code> in the log</li>
+</ul>
+
+<p>We have also relied a lot on the <a href="http://www.youtube.com/watch?v=8BNpOHFvg_Q">research and work done by Andrew Thompson and the folks at Basho behind Lager</a> to ensure our logger is performant and robust. On this front, Logger</p>
+
+<ul>
+<li>alternates between sync and async modes when logging messages to keep it performant when required but also apply back-pressure when under stress</li>
+<li>formats and truncates messages on the client to avoid clogging the backends</li>
+<li>provide a highwater mark around Erlang&#39;s error_logger to avoid it from overflowing</li>
+</ul>
+
+<p>We are looking forward to everyone&#39;s feedback on using Logger more and more in production.</p>
+
+<h2 id="mix-aliases">Mix aliases</h2>
+
+<p>Mix is Elixir&#39;s build tool. Mix knows how to manage your dependencies, compile &amp; test your projects and much more. We have designed Mix, since day one, to be extensible. Developers were always able to define new tasks by simply defining a module:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">Mix.Tasks.Hello</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="nc">Mix.Task</span>
+
+  <span class="kd">def</span> <span class="n">run</span><span class="p">(</span><span class="bp">_</span><span class="p">)</span> <span class="k">do</span>
+    <span class="nc">IO</span><span class="p">.</span><span class="n">puts</span> <span class="s2">&quot;Hello world&quot;</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>The task above can now be invoked as <code>mix hello</code>.</p>
+
+<p>Defining custom Mix tasks is useful for projects and libraries that want to better integrate with the standard development workflow for Elixir. However, it is a bit verbose for creating one-off tasks or tasks to be used only locally in a given project.</p>
+
+<p>Furthermore, so far Mix did not allow developers to extend existing tasks. For example, imagine you want to perform some extra work when <code>mix clean</code> is invoked. Up to this release, it was not possible.</p>
+
+<p>Mix aliases solve both problems by providing a simple API for defining and overriding aliases. All projects that use Mix contain a <code>mix.exs</code> file with the project configuration. In order to define an alias, you just need to add a new key to your project configuration:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">MyProject</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="nc">Mix.Project</span>
+
+  <span class="kd">def</span> <span class="n">project</span> <span class="k">do</span>
+    <span class="p">[</span><span class="ss">app</span><span class="p">:</span> <span class="ss">:my_project</span><span class="p">,</span>
+     <span class="ss">aliases</span><span class="p">:</span> <span class="n">aliases</span><span class="p">]</span>
+  <span class="k">end</span>
+
+  <span class="kd">defp</span> <span class="n">aliases</span> <span class="k">do</span>
+    <span class="p">[</span><span class="ss">c</span><span class="p">:</span> <span class="s2">&quot;compile&quot;</span><span class="p">,</span>
+     <span class="ss">hello</span><span class="p">:</span> <span class="o">&amp;</span><span class="n">print_hello</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span>
+     <span class="ss">clean</span><span class="p">:</span> <span class="p">[</span><span class="s2">&quot;clean&quot;</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">clean_vendor</span><span class="o">/</span><span class="mi">1</span><span class="p">]]</span>
+  <span class="k">end</span>
+
+  <span class="kd">defp</span> <span class="n">print_hello</span><span class="p">(</span><span class="bp">_</span><span class="p">),</span>  <span class="ss">do</span><span class="p">:</span> <span class="nc">IO</span><span class="p">.</span><span class="n">puts</span> <span class="s2">&quot;Hello world&quot;</span>
+  <span class="kd">defp</span> <span class="n">clean_vendor</span><span class="p">(</span><span class="bp">_</span><span class="p">),</span> <span class="ss">do</span><span class="p">:</span> <span class="nc">File</span><span class="p">.</span><span class="n">rm_rf!</span><span class="p">(</span><span class="s2">&quot;vendor&quot;</span><span class="p">)</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>In the project above, we have defined three aliases:</p>
+
+<ol>
+<li><code>mix c</code> - is now a shortcut to <code>mix compile</code></li>
+<li><code>mix hello</code> - is equivalent to the <code>Mix.Tasks.Hello</code> we have defined earlier, although now it is more easily defined as an alias</li>
+<li><code>mix clean</code> - extends the existing <code>clean</code> task to ensure we invoke <code>clean_vendor/1</code> afterwards</li>
+</ol>
+
+<p>In other words, aliases can be three different structures:</p>
+
+<ol>
+<li>A string containing the task and arguments to be invoked</li>
+<li>An anonymous function (that is invoked passing the task arguments)</li>
+<li>A list containing strings or anonymous functions</li>
+</ol>
+
+<p>You can find more information about aliases by reading the <a href="http://elixir-lang.org/docs/master/mix/">Mix documentation</a> (there is a section about Aliases around the middle).</p>
+
+<p>We also would like to thank <a href="https://github.com/raynes">Anthony Grimes</a> for the support and <a href="https://github.com/technomancy">Phil Halgelberg</a> for <a href="https://github.com/technomancy/leiningen">the work on Lein</a> which Mix borrows a lot from.</p>
+
+<h2 id="elixir-web-installer-for-windows">Elixir Web Installer for Windows</h2>
+
+<p>At the beginning of this summer, <a href="http://github.com/chyndman">Chris Hyndman</a> joined us as a Google Summer of Code student to help us improve the Elixir story on Windows. Chris has been essential in:</p>
+
+<ul>
+<li>Guaranteeing our test suite is green on Windows, fixing many bugs in the process;</li>
+<li><a href="https://github.com/elixir-lang/elixir/wiki/Windows">Documenting how to compile Elixir from source on Windows</a></li>
+<li>Ensuring important projects like our <a href="https://github.com/devinus/markdown/pull/7">C markdown processor</a> compiles on Windows</li>
+</ul>
+
+<p>Chris has also built an <a href="https://github.com/elixir-lang/elixir-windows-setup">Elixir Web Installer for Windows</a>. The web installer checks all available Elixir versions and allows you to pick which one to install. It will also fetch and install Erlang in your machine in case it has not been installed yet.</p>
+
+<p>If you want to give Elixir and the Web Installer a try, you can <a href="http://s3.hex.pm/elixir-websetup.exe">download the current version here</a>. And, if <a href="https://chocolatey.org/">Chocolatey</a> is your thing, remember you can also install Elixir on Windows by running <code>cinst elixir</code>.</p>
+
+<h2 id="welcome-alexei">Welcome Alexei!</h2>
+
+<p>With v0.15.0, we also would like to welcome <a href="https://github.com/alco">Alexei</a> to the team of Elixir Maintainers! Alexei was one of the first to actively participate in the Elixir community and he has done an excellent job in guaranteeing quality throughout it, be it in the code, documentation, wiki or website.</p>
+
+<p>Alexei is also interested in how we can extend our tooling to the Erlang ecosystem as a whole, bringing Mix and Hex (our package manager) to more developers as well as adding tasks that are specific to Erlang projects.</p>
+
+<h2 id="what-39-s-next">What&#39;s next?</h2>
+
+<p>We are very close to launch Elixir v1.0.0! All planned features are already in Elixir&#39;s codebase and at the moment there are only <a href="https://github.com/elixir-lang/elixir/issues?q=is%3Aopen+is%3Aissue+milestone%3Av1.0">four open issues in our tracker tagged with the v1.0 milestone</a>.</p>
+
+<p>Our estimated date for the first release candidate for Elixir v1.0.0 is August 30th. This means there is no better time to learn Elixir than now! If you haven&#39;t started yet, you can get started with Elixir by reading <a href="/getting_started/1.html">our Getting Started guide</a> or by checking one of the many &quot;Learning Resources&quot; on the sidebar.</p>
+
+      </div>
+
+      <!-- <div class="entry-meta">
+      </div> -->
+    </div>
+  </div>
+</div>
+
+</div><!-- #content -->
+
+<div id="sidebar-primary" class="sidebar">
+  <div class="widget news">
+  <h3>
+    News: <a href="/blog/2014/09/18/elixir-v1-0-0-released/">Elixir v1.0.0 released</a>
+  </h3>
+</div>
+
+<div class="widget search">
+  <form method="get" class="search-form" action="http://www.google.com/search">
+		<div>
+			<input class="search-text" type="text" name="q" placeholder="Search..." id="searchfield">
+			<input type="hidden" name="sitesearch" value="elixir-lang.org">
+			<input class="search-submit button" name="submit" type="submit" value="Search">
+		</div>
+	</form>
+</div>
+  <div class="rss-button">
+    <a href="http://feeds.feedburner.com/ElixirLang" target="_blank"><img src="/images/social/RSSButton.png" /></a>
+  </div>
+  <div class="widget categories-list">
+  <h3 class="widget-title">Blog Categories</h3>
+  <ul>
+  
+    <li><a class="spec" href="/blog/categories.html#Internals">Internals</a></li>
+  
+    <li><a class="spec" href="/blog/categories.html#Releases">Releases</a></li>
+  
+    <li><a class="spec" href="/blog/categories.html#Announcements">Announcements</a></li>
+  
+  </ul>
+</div>
+
+  <div class="widget">
+  <h3 class="widget-title">Join the Community</h3>
+  <ul>
+    <li><a class="spec" href="irc://irc.freenode.net/elixir-lang">#elixir-lang on freenode IRC</a></li>
+    <li><a class="spec" href="http://groups.google.com/group/elixir-lang-talk">elixir-talk mailing list (questions)</a></li>
+    <li><a class="spec" href="http://groups.google.com/group/elixir-lang-core">elixir-core mailing list (development)</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/elixir/issues">Issues tracker</a></li>
+    <li><a class="spec" href="http://twitter.com/elixirlang">@elixirlang on Twitter</a></li>
+  </ul>
+</div>
+
+<div class="widget">
+  <h3 class="widget-title">Important links</h3>
+  <ul>
+    <li><a class="spec" href="https://github.com/elixir-lang/elixir/wiki">Wiki with events, resources and talks organized by the community</a></li>
+    <li><a class="spec" href="http://elixir-lang.org/crash-course.html">Crash course for Erlang developers</a></li>
+  </ul>
+</div>
+
+<div class="widget">
+  <h3 class="widget-title">Learning resources</h3>
+  <ul>
+    <li class="image"><a href="http://pragprog.com/titles/elixir" title="Programming Elixir cover"><img src="http://imagery.pragprog.com/products/361/elixir_xlargebeta.jpg?1368724397" /></a></li>
+    <li class="image"><a href="http://elixirsips.com" title="ElixirSips cover"><img src="http://elixirsips.com/images/ElixirLangAd2_190x160.png" width="190" height="160" /></a></li>
+    <li class="image"><a href="http://manning.com/juric/" title="Elixir in Action"><img src="http://manning.com/juric/juric_cover150.jpg" width="190" height="238" /></a></li>
+    <li class="image"><a href="http://www.exotpbook.com/" title="The Little Elixir and OTP Guidebook"><img src="http://i.imgur.com/G6icQmt.png" width="190" height="274" /></a></li>
+    <li class="image"><a href="http://shop.oreilly.com/product/0636920030584.do" title="Introducing Elixir"><img src="http://akamaicovers.oreilly.com/images/0636920030584/rc_cat.gif" width="190" /></a></li>
+  </ul>
+</div>
+
+
+<div class="widget">
+  <h3 class="widget-title">Code editor support</h3>
+  <ul>
+    <li><a class="spec" href="https://github.com/elixir-lang/emacs-elixir">Emacs Mode</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/elixir-tmbundle">Textmate Bundle</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/vim-elixir">Vim Elixir</a></li>
+    <li><a class="spec" href="https://github.com/SteffenBauer/elixir-gtksourceview">GtkSourceView (gedit)</a></li>
+    <li><a class="spec" href="https://github.com/lucasmazza/language-elixir">Atom Package</a></li>
+  </ul>
+</div>
+
+
+<div class="widget">
+  <h3 class="widget-title">Sponsors</h3>
+  <ul>
+    <li class="image"><a href="http://plataformatec.com.br" title="Plataformatec"><img class="no-border" src="/images/logo/plataformatec.png" /></a></li>
+  </ul>
+</div>
+
+</div>
+
+      </div><!-- #main -->
+
+      <div class="clear">
+      </div>
+
+      <div id="copyright">
+        © 2012-2014 <a href="http://plataformatec.com.br/">Plataformatec</a>. All rights reserved.
+      </p>
+    </div><!-- .wrap -->
+  </div><!-- #container -->
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-8268430-6']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="/js/toc/toc.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $('.toc').toc({
+          title: '',
+          listType: 'ul',
+          showSpeed: 0,
+        });
+    });
+  </script>
+</body>
+</html>
+

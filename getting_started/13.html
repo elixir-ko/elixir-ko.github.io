@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>13 alias，requireとimpot - alias, require and import - Elixir</title>
+  <link href="http://feeds.feedburner.com/ElixirLang" rel="alternate" title="Elixir's Blog" type="application/atom+xml" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" id="font-bitter-css" href="http://fonts.googleapis.com/css?family=Bitter&amp;ver=1" type="text/css" media="screen">
+</head>
+
+<body class="getting_started">
+  <div id="container">
+    <div class="wrap">
+    <div id="header">
+      <div id="branding">
+        <h1 id="site-title">
+          <a href="/" title="Elixir" rel="Home">
+            <img class="logo" src="/images/logo/logo.png" alt="Elixir Logo" />
+          </a>
+        </h1>
+      </div>
+
+      <div id="menu-primary" class="menu-container">
+        <div class="menu">
+          <ul id="menu-primary-items">
+            <li class="menu-item home"><a class="spec" href="/">Home</a></li>
+            <li class="menu-item install"><a class="spec" href="/install.html">Install</a></li>
+            <li class="menu-item getting_started"><a class="spec" href="/getting_started/1.html">Getting Started</a></li>
+            <li class="menu-item docs"><a class="spec" href="/docs.html">Docs</a></li>
+            <li class="menu-item blog"><a class="spec" href="/blog">Blog</a></li>
+            <li class="menu-item source"><a class="spec" href="https://github.com/elixir-lang/elixir">Source</a></li>
+            <li class="menu-item packages"><a class="spec" href="http://hex.pm/">Packages</a></li>
+
+          </ul>
+        </div>
+      </div>
+
+      <div class="clear"></div>
+    </div>
+
+    <div id="main">
+
+
+<div id="sidebar-primary" class="sidebar">
+  <div class="widget news">
+  <h3>
+    News: <a href="/blog/2014/09/18/elixir-v1-0-0-released/">Elixir v1.0.0 released</a>
+  </h3>
+</div>
+
+<div class="widget search">
+  <form method="get" class="search-form" action="http://www.google.com/search">
+		<div>
+			<input class="search-text" type="text" name="q" placeholder="Search..." id="searchfield">
+			<input type="hidden" name="sitesearch" value="elixir-lang.org">
+			<input class="search-submit button" name="submit" type="submit" value="Search">
+		</div>
+	</form>
+</div>
+
+  <div class="widget">
+    <h3 class="widget-title">Getting Started</h3>
+    <ol>
+      <li><a class="spec" href="/getting_started/1.html">Interactive Elixir (IEx)</a></li>
+      <li><a class="spec" href="/getting_started/2.html">Basic types</a></li>
+      <li><a class="spec" href="/getting_started/3.html">Basic operators</a></li>
+      <li><a class="spec" href="/getting_started/4.html">Pattern matching</a></li>
+      <li><a class="spec" href="/getting_started/5.html">case, cond and if</a></li>
+      <li><a class="spec" href="/getting_started/6.html">Binaries, strings and char lists</a></li>
+      <li><a class="spec" href="/getting_started/7.html">Keywords, maps and dicts</a></li>
+      <li><a class="spec" href="/getting_started/8.html">Modules</a></li>
+      <li><a class="spec" href="/getting_started/9.html">Recursion</a></li>
+      <li><a class="spec" href="/getting_started/10.html">Enumerables and streams</a></li>
+      <li><a class="spec" href="/getting_started/11.html">Processes</a></li>
+      <li><a class="spec" href="/getting_started/12.html">IO</a></li>
+      <li><a class="spec" href="/getting_started/13.html">alias, require and import</a></li>
+      <li><a class="spec" href="/getting_started/14.html">Module attributes</a></li>
+      <li><a class="spec" href="/getting_started/15.html">Structs</a></li>
+      <li><a class="spec" href="/getting_started/16.html">Protocols</a></li>
+      <li><a class="spec" href="/getting_started/17.html">try, catch and rescue</a></li>
+      <li><a class="spec" href="/getting_started/18.html">Comprehensions</a></li>
+      <li><a class="spec" href="/getting_started/19.html">Sigils</a></li>
+      <li><a class="spec" href="/getting_started/20.html">Where to go next</a></li>
+    </ol>
+  </div>
+  <div class="widget">
+    <h3 class="widget-title">Mix and OTP</h3>
+    <ol>
+      <li><a class="spec" href="/getting_started/mix_otp/1.html">Introduction to Mix</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/2.html">Agent</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/3.html">GenServer</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/4.html">GenEvent</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/5.html">Supervisor and Application</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/6.html">ETS</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/7.html">Dependencies and umbrella apps</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/8.html">Task and gen_tcp</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/9.html">Docs, tests and pipelines</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/10.html">Distributed tasks and configuration</a></li>
+    </ol>
+  </div>
+  <div class="widget">
+    <h3 class="widget-title">Meta-programming in Elixir</h3>
+    <ol>
+      <li><a class="spec" href="/getting_started/meta/1.html">Quote and unquote</a></li>
+      <li><a class="spec" href="/getting_started/meta/2.html">Macros</a></li>
+      <li><a class="spec" href="/getting_started/meta/3.html">Domain Specific Languages</a></li>
+    </ol>
+  </div>
+
+  <div class="widget">
+  <h3 class="widget-title">Learning resources</h3>
+  <ul>
+    <li class="image"><a href="http://pragprog.com/titles/elixir" title="Programming Elixir cover"><img src="http://imagery.pragprog.com/products/361/elixir_xlargebeta.jpg?1368724397" /></a></li>
+    <li class="image"><a href="http://elixirsips.com" title="ElixirSips cover"><img src="http://elixirsips.com/images/ElixirLangAd2_190x160.png" width="190" height="160" /></a></li>
+    <li class="image"><a href="http://manning.com/juric/" title="Elixir in Action"><img src="http://manning.com/juric/juric_cover150.jpg" width="190" height="238" /></a></li>
+    <li class="image"><a href="http://www.exotpbook.com/" title="The Little Elixir and OTP Guidebook"><img src="http://i.imgur.com/G6icQmt.png" width="190" height="274" /></a></li>
+    <li class="image"><a href="http://shop.oreilly.com/product/0636920030584.do" title="Introducing Elixir"><img src="http://akamaicovers.oreilly.com/images/0636920030584/rc_cat.gif" width="190" /></a></li>
+  </ul>
+</div>
+
+  <div class="widget">
+  <h3 class="widget-title">Code editor support</h3>
+  <ul>
+    <li><a class="spec" href="https://github.com/elixir-lang/emacs-elixir">Emacs Mode</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/elixir-tmbundle">Textmate Bundle</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/vim-elixir">Vim Elixir</a></li>
+    <li><a class="spec" href="https://github.com/SteffenBauer/elixir-gtksourceview">GtkSourceView (gedit)</a></li>
+    <li><a class="spec" href="https://github.com/lucasmazza/language-elixir">Atom Package</a></li>
+  </ul>
+</div>
+
+  <div class="widget">
+  <h3 class="widget-title">Sponsors</h3>
+  <ul>
+    <li class="image"><a href="http://plataformatec.com.br" title="Plataformatec"><img class="no-border" src="/images/logo/plataformatec.png" /></a></li>
+  </ul>
+</div>
+</div>
+
+<div id="content">
+  <article>
+    <h1 id="13-alias，requireとimpot-alias-require-and-import">13 alias，requireとimpot - alias, require and import</h1>
+
+<p><div class="toc"></div></p>
+
+<p>ソフトウェアの再利用を行いやすくするために，Elixirは3つのディレクティブを用意しています．これから見ていくように，<em>レキシカルスコープ</em>を持っているのでディレクティブと呼ばれています．</p>
+
+<p>In order to facilitate software reuse, Elixir provides three directives. As we are going to see below, they are called directives because they have <strong>lexical scope</strong>.</p>
+
+<h2 id="13-1-alias-alias">13.1 alias - alias</h2>
+
+<p><code>alias</code>によって，与えられたモジュールの名前へ別名をつけることができます．<code>Math</code>モジュールが数学に特化した操作のため，特別なリストの実装を使うことを想像してみてください:</p>
+
+<p><code>alias</code> allows you to set up aliases for any given module name. Imagine our <code>Math</code> module uses a special list implementation for doing math specific operations:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">Math</span> <span class="k">do</span>
+  <span class="kn">alias</span> <span class="nc">Math.List</span><span class="p">,</span> <span class="ss">as</span><span class="p">:</span> <span class="nc">List</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>ここから，どんな<code>List</code>の参照でも自動的に<code>Math.List</code>へと展開されます．オリジナルの<code>List</code>へアクセスしたい場合，<code>Elixir</code>からモジュールへとアクセスできます．</p>
+
+<p>From now on, any reference to <code>List</code> will automatically expand to <code>Math.List</code>. In case one wants to access the original <code>List</code>, it can be done by accessing the module via <code>Elixir</code>:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="nc">List</span><span class="p">.</span><span class="n">flatten</span>             <span class="c1">#=&gt; uses Math.List.flatten</span>
+<span class="nc">Elixir.List</span><span class="p">.</span><span class="n">flatten</span>      <span class="c1">#=&gt; uses List.flatten</span>
+<span class="nc">Elixir.Math.List</span><span class="p">.</span><span class="n">flatten</span> <span class="c1">#=&gt; uses Math.List.flatten</span>
+</code></pre></div>
+<blockquote>
+<p>メモ: Elixirの中で定義されている全てのモジュールはElixir名前空間の中に定義されています．しかし，利便性のため，参照するときには&quot;Elixir.&quot;を省略することができます．</p>
+
+<p>Note: All modules defined in Elixir are defined inside a main Elixir namespace. However, for convenience, you can omit &quot;Elixir.&quot; when referencing them.</p>
+</blockquote>
+
+<p>Aliasはショートカットを定義するのに良く使われます．実際，<code>:as</code>オプションをつけないで<code>alias</code>を呼ぶと，モジュール名の最後の部分を自動的に設定します．例えば:</p>
+
+<p>Aliases are frequently used to define shortcuts. In fact, calling <code>alias</code> without an <code>:as</code> option sets the alias automatically to the last part of the module name, for example:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kn">alias</span> <span class="nc">Math.List</span>
+</code></pre></div>
+<p>は以下と同じです:</p>
+
+<p>Is the same as:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kn">alias</span> <span class="nc">Math.List</span><span class="p">,</span> <span class="ss">as</span><span class="p">:</span> <span class="nc">List</span>
+</code></pre></div>
+<p><code>alias</code>は<strong>lexically scoped</strong>であることに注意してください，特定の関数の中で別名をセットすることもできます:</p>
+
+<p>Note that <code>alias</code> is <strong>lexically scoped</strong>, which allows you to set aliases inside specific functions:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">Math</span> <span class="k">do</span>
+  <span class="kd">def</span> <span class="n">plus</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="k">do</span>
+    <span class="kn">alias</span> <span class="nc">Math.List</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
+
+  <span class="kd">def</span> <span class="n">minus</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="k">do</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>上の例のように，<code>alias</code>を関数<code>plus/2</code>の中で呼び出しても，別名は関数<code>plus/2</code>の内部でのみ有効で，<code>minus/2</code>へは全く影響しません．</p>
+
+<p>In the example above, since we are invoking <code>alias</code> inside the function <code>plus/2</code>, the alias will just be valid inside the function <code>plus/2</code>. <code>minus/2</code> won&#39;t be affected at all.</p>
+
+<h2 id="13-2-require-require">13.2 require - require</h2>
+
+<p>Elixirはメタプログラミング(コードを生成するコードを書く)のためのメカニズムとしてマクロを用意しています．</p>
+
+<p>Elixir provides macros as a mechanism for meta-programming (writing code that generates code).</p>
+
+<p>マクロとはコンパイル時に実行して展開されるコード片のことです．つまり，マクロを使うために，コンパイル時にそのモジュールと実装が用意されている保証が必要になります．<code>require</code>ディレクティブを使うとそのようにできます:</p>
+
+<p>Macros are chunks of code that are executed and expanded at compilation time. This means, in order to use a macro, we need to guarantee its module and implementation are available during compilation. This is done with the <code>require</code> directive:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">Integer</span><span class="p">.</span><span class="n">is_odd</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="gr">** (CompileError) iex:1: you must require Integer before invoking the macro Integer.is_odd/1</span>
+<span class="gp">iex&gt; </span><span class="kn">require</span> <span class="nc">Integer</span>
+<span class="go">nil</span>
+<span class="gp">iex&gt; </span><span class="nc">Integer</span><span class="p">.</span><span class="n">is_odd</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="go">true</span>
+</code></pre></div>
+<p>Elixirでは<code>Integer.is_odd?/1</code>はマクロとして定義されているのでガードとして利用できます．つまり<code>Integer.is_odd?/1</code>を実行するためには，まず<code>Integer</code>モジュールが必要です．</p>
+
+<p>In Elixir, <code>Integer.is_odd/1</code> is defined as a macro so it can be used as guards. This means that, in order to invoke <code>Integer.is_odd/1</code>, we need to first require the <code>Integer</code> module.</p>
+
+<p>一般的に，そのモジュールにあるマクロを使おうとする場合以外では，利用前にモジュールが必要とされることはありません，ロードされていないマクロを呼び出そうとした場合はエラーになります．<code>alias</code>ディレクティブと同じように，<code>require</code>もレキシカルスコープであることに着目してください．マクロについては後の章でまた詳しく話します．</p>
+
+<p>In general a module does not need to be required before usage, except if we want to use the macros available in that module. An attempt to call a macro that was not loaded will raise an error. Note that like the <code>alias</code> directive, <code>require</code> is also lexically scoped. We will talk more about macros in a later chapter.</p>
+
+<h2 id="13-3-import-import">13.3 import - import</h2>
+
+<p>他のモジュールの関数かマクロへ修飾名をつけず簡単にアクセスしたいときに<code>import</code>を使います．例えば<code>List</code>の<code>duplicate</code>関数を何回も使いたい場合，単にインポートできます:</p>
+
+<p>We use <code>import</code> whenever we want to easily access functions or macros from other modules without using the qualified name. For instance, if we want to use the <code>duplicate</code> function from <code>List</code> several times, we can simply import it:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="kn">import</span> <span class="nc">List</span><span class="p">,</span> <span class="ss">only</span><span class="p">:</span> <span class="p">[</span><span class="ss">duplicate</span><span class="p">:</span> <span class="mi">2</span><span class="p">]</span>
+<span class="go">nil</span>
+<span class="gp">iex&gt; </span><span class="n">duplicate</span> <span class="ss">:ok</span><span class="p">,</span> <span class="mi">3</span>
+<span class="go">[:ok, :ok, :ok]</span>
+</code></pre></div>
+<p>このケースでは，<code>List</code>から関数<code>duplicate</code>(引数が2のもの)だけをインポートしています．<code>:only</code>は省略可能ですが，つけることが推奨されています．<code>:except</code>もオプションとして与えることができます．</p>
+
+<p>In this case, we are importing only the function <code>duplicate</code> (with arity 2) from <code>List</code>. Although <code>:only</code> is optional, its usage is recommended. <code>:except</code> could also be given as an option.</p>
+
+<p><code>import</code>では<code>:only</code>へ<code>:macros</code>と<code>:functions</code>を渡すこともできます．例えば全てのマクロをインポートしたい場合はこのように書けます:</p>
+
+<p><code>import</code> also supports <code>:macros</code> and <code>:functions</code> to be given to <code>:only</code>. For example, to import all macros, one could write:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kn">import</span> <span class="nc">Integer</span><span class="p">,</span> <span class="ss">only</span><span class="p">:</span> <span class="ss">:macros</span>
+</code></pre></div>
+<p>あるいは全ての関数をインポートしてい場合はこのように書けます:</p>
+
+<p>Or to import all functions, you could write:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kn">import</span> <span class="nc">Integer</span><span class="p">,</span> <span class="ss">only</span><span class="p">:</span> <span class="ss">:functions</span>
+</code></pre></div>
+<p><code>import</code>もまた<strong>lexically scoped</strong>であることに注意してください，これは特定の関数の中で特定のマクロをインポートできることを意味しています．</p>
+
+<p>Note that <code>import</code> is also <strong>lexically scoped</strong>, this means we can import specific macros inside specific functions:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">Math</span> <span class="k">do</span>
+  <span class="kd">def</span> <span class="n">some_function</span> <span class="k">do</span>
+    <span class="kn">import</span> <span class="nc">List</span><span class="p">,</span> <span class="ss">only</span><span class="p">:</span> <span class="p">[</span><span class="ss">duplicate</span><span class="p">:</span> <span class="mi">2</span><span class="p">]</span>
+    <span class="c1"># call duplicate</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>上の例ではインポートされた<code>List.duplicate/2</code>は特定の関数内からしか見えません．<code>duplicate/2</code>はそのモジュールの他のどの関数からも(もちろん他のモジュールからも)使えません．</p>
+
+<p>In the example above, the imported <code>List.duplicate/2</code> is only visible within that specific function. <code>duplicate/2</code> won&#39;t be available in any other function in that module (or any other module for that matter).</p>
+
+<p>モジュールをimportすると自動的にrequireすることに注意してください．</p>
+
+<p>Note that importing a module automatically requires it.</p>
+
+<h2 id="13-4-alias-aliases">13.4 Alias - Aliases</h2>
+
+<p>ここでもしかしたらElixirのエイリアスとは実際には何で，どのように表現されているのか？ということが気になってきたかもしれません．</p>
+
+<p>At this point, you may be wondering, what exactly an Elixir alias is and how it is represented?</p>
+
+<p>Elixirのエイリアスは(<code>String</code>，<code>Keyword</code>などのような)大文字始まりの識別子でコンパイル時にatomへと変換されます．例えば<code>String</code>エイリアスはデフォルトではatom<code>:&quot;Elixir.String&quot;</code>へと変換されます:</p>
+
+<p>An alias in Elixir is a capitalized identifier (like <code>String</code>, <code>Keyword</code>, etc) which is converted to an atom during compilation. For instance, the <code>String</code> alias translates by default to the atom <code>:&quot;Elixir.String&quot;</code>:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">is_atom</span><span class="p">(</span><span class="nc">String</span><span class="p">)</span>
+<span class="go">true</span>
+<span class="gp">iex&gt; </span><span class="n">to_string</span><span class="p">(</span><span class="nc">String</span><span class="p">)</span>
+<span class="go">&quot;Elixir.String&quot;</span>
+<span class="gp">iex&gt; </span><span class="ss">:&quot;Elixir.String&quot;</span>
+<span class="go">String</span>
+</code></pre></div>
+<p><code>alias/2</code>ディレクティブを使うことで，単にエイリアスを何へと変換するかだけを変えています．</p>
+
+<p>By using the <code>alias/2</code> directive, we are simply changing what an alias translates to.</p>
+
+<p>詳しく書くと，Erlang VMの中では(つまりElixirでも)モジュールがatomで表現されているのでエイリアスがうまく動きます．例えばErlangのモジュールを使うときのメカニズムはこうです:</p>
+
+<p>Aliases work as described because in the Erlang VM (and consequently Elixir), modules are represented by atoms. For example, that&#39;s the mechanism we use to call Erlang modules:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="ss">:lists</span><span class="p">.</span><span class="n">flatten</span><span class="p">([</span><span class="mi">1</span><span class="p">,[</span><span class="mi">2</span><span class="p">],</span><span class="mi">3</span><span class="p">])</span>
+<span class="go">[1, 2, 3]</span>
+</code></pre></div>
+<p>これがモジュールの内部で与えられた関数を動的に呼び出すことができるメカニズムです:</p>
+
+<p>This is also the mechanism that allows us to dynamically call a given function in a module:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">mod</span> <span class="p">=</span> <span class="ss">:lists</span>
+<span class="go">:lists</span>
+<span class="gp">iex&gt; </span><span class="n">mod</span><span class="p">.</span><span class="n">flatten</span><span class="p">([</span><span class="mi">1</span><span class="p">,[</span><span class="mi">2</span><span class="p">],</span><span class="mi">3</span><span class="p">])</span>
+<span class="go">[1,2,3]</span>
+</code></pre></div>
+<p>言いかえると，<code>:lists</code>というアトムにある関数<code>flatten</code>を単に呼び出しているだけです．</p>
+
+<p>In other words, we are simply calling the function <code>flatten</code> on the atom <code>:lists</code>.</p>
+
+<h2 id="13-5-ネスト-nesting">13.5 ネスト - Nesting</h2>
+
+<p>ここでエイリアスについて話してきました，Elixirでのネストがどのように動作するかについても話しましょう．以下の例で考えてみます:</p>
+
+<p>Now that we have talked about aliases, we can talk about nesting and how it works in Elixir. Consider the following example:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">Foo</span> <span class="k">do</span>
+  <span class="kd">defmodule</span> <span class="nc">Bar</span> <span class="k">do</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>この例は<code>Foo</code>と<code>Foo.Bar</code>という2つのモジュールを定義しています． 後者，<code>Foo</code>の中の<code>Bar</code>は(<code>Foo</code>と)同じレキシカルスコープの中にいます．もし開発者が後で<code>Bar</code>を他のファイルへと移動したら，参照するためには，フルネーム(<code>Foo.Bar</code>)か上で話していたような<code>alias</code>デイレクティブを使ってセットすることが必要になります．</p>
+
+<p>The example above will define two modules <code>Foo</code> and <code>Foo.Bar</code>. The second can be accessed as <code>Bar</code> inside <code>Foo</code> as long as they are in the same lexical scope. If later the developer decides to move <code>Bar</code> to another file, it will need to be referenced by its full name (<code>Foo.Bar</code>) or an alias needs to be set using the <code>alias</code> directive discussed above.</p>
+
+<p>言いかえると上のコードは以下と同じです:</p>
+
+<p>In other words, the code above is exactly the same as:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">Elixir.Foo</span> <span class="k">do</span>
+  <span class="kd">defmodule</span> <span class="nc">Elixir.Foo.Bar</span> <span class="k">do</span>
+  <span class="k">end</span>
+  <span class="kn">alias</span> <span class="nc">Elixir.Foo.Bar</span><span class="p">,</span> <span class="ss">as</span><span class="p">:</span> <span class="nc">Bar</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>後の章で見るように，エイリアスはマクロにおいてのとても重要な役割，健全性の保証を担います．Elixirのモジュールについてはほとんど見て回りました．最後にモジュールの属性について見ていきましょう．</p>
+
+<p>As we will see in later chapters, aliases also play a crucial role in macros, to guarantee they are hygienic. With this we are almost finishing our tour about Elixir modules, the last topic to cover is module attributes.</p>
+
+  </article><!-- .hfeed -->
+
+  
+  <div class="pagination loop-pagination">
+    
+      <a href="12.html" class="previous page-numbers spec">&larr; Previous</a>
+    
+      <a class="page-numbers spec" href="#container">Top</a>
+    
+      <a href="14.html" class="next page-numbers spec">Next &rarr;</a>
+    
+  </div>
+  
+</div><!-- #content -->
+
+      </div><!-- #main -->
+
+      <div class="clear">
+      </div>
+
+      <div id="copyright">
+        © 2012-2014 <a href="http://plataformatec.com.br/">Plataformatec</a>. All rights reserved.
+      </p>
+    </div><!-- .wrap -->
+  </div><!-- #container -->
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-8268430-6']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="/js/toc/toc.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $('.toc').toc({
+          title: '',
+          listType: 'ul',
+          showSpeed: 0,
+        });
+    });
+  </script>
+</body>
+</html>
+

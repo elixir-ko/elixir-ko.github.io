@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Erlang/Elixir Syntax: A Crash Course - Elixir</title>
+  <link href="http://feeds.feedburner.com/ElixirLang" rel="alternate" title="Elixir's Blog" type="application/atom+xml" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" id="font-bitter-css" href="http://fonts.googleapis.com/css?family=Bitter&amp;ver=1" type="text/css" media="screen">
+</head>
+
+<body class="home">
+  <div id="container">
+    <div class="wrap">
+    <div id="header">
+      <div id="branding">
+        <h1 id="site-title">
+          <a href="/" title="Elixir" rel="Home">
+            <img class="logo" src="/images/logo/logo.png" alt="Elixir Logo" />
+          </a>
+        </h1>
+      </div>
+
+      <div id="menu-primary" class="menu-container">
+        <div class="menu">
+          <ul id="menu-primary-items">
+            <li class="menu-item home"><a class="spec" href="/">Home</a></li>
+            <li class="menu-item install"><a class="spec" href="/install.html">Install</a></li>
+            <li class="menu-item getting_started"><a class="spec" href="/getting_started/1.html">Getting Started</a></li>
+            <li class="menu-item docs"><a class="spec" href="/docs.html">Docs</a></li>
+            <li class="menu-item blog"><a class="spec" href="/blog">Blog</a></li>
+            <li class="menu-item source"><a class="spec" href="https://github.com/elixir-lang/elixir">Source</a></li>
+            <li class="menu-item packages"><a class="spec" href="http://hex.pm/">Packages</a></li>
+
+          </ul>
+        </div>
+      </div>
+
+      <div class="clear"></div>
+    </div>
+
+    <div id="main">
+
+
+<div id="content">
+  <h1 id="erlang-elixir-syntax-a-crash-course">Erlang/Elixir Syntax: A Crash Course</h1>
+
+<p>This is a quick introduction to the Elixir syntax for Erlang developers and vice-versa. It is the absolute minimum amount of knowledge you need in order to understand Elixir/Erlang code, support interoperability, read the docs, sample code, etc.</p>
+
+<p>This page is divided into sections:</p>
+
+<ol>
+<li><a href="#running_code">Running Code</a></li>
+<li><a href="#notable_differences">Notable Differences</a></li>
+<li><a href="#data_types">Data Types</a></li>
+<li><a href="#modules">Modules</a></li>
+<li><a href="#function_syntax">Function Syntax</a></li>
+<li><a href="#control_flow">Control Flow</a></li>
+<li><a href="#interop">Adding Elixir to existing Erlang programs</a></li>
+<li><a href="#further_reading">Further reading</a></li>
+</ol>
+
+<div id="running_code"></div>
+
+<h2 id="1-running-code">1 Running Code</h2>
+
+<h3 id="erlang">Erlang</h3>
+
+<p>The fastest way to run some code is to launch the Erlang shell -- <code>erl</code>. Many code snippets on this page can be pasted directly into the shell. However, when you want to define a named function, Erlang expects it to be inside of a module, and modules have to be compiled. Here&#39;s a skeleton for a module:</p>
+<div class="highlight"><pre><code class="language-erlang" data-lang="erlang"><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">module_name</span><span class="p">).</span>  <span class="c">% you may use some other name</span>
+<span class="p">-</span><span class="ni">compile</span><span class="p">(</span><span class="n">export_all</span><span class="p">).</span>
+
+<span class="nf">hello</span><span class="p">()</span> <span class="o">-&gt;</span>
+  <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">&quot;</span><span class="si">~s~n</span><span class="s">&quot;</span><span class="p">,</span> <span class="p">[</span><span class="s">&quot;Hello world!&quot;</span><span class="p">]).</span>
+</code></pre></div>
+<p>Add your functions to it, save it to disk, run <code>erl</code> from the same directory and execute the <code>compile</code> command:</p>
+<div class="highlight"><pre><code class="language-erlang" data-lang="erlang"><span class="nv">Eshell</span> <span class="nv">V5</span><span class="p">.</span><span class="mi">9</span>  <span class="p">(</span><span class="n">abort</span> <span class="n">with</span> <span class="err">^</span><span class="nv">G</span><span class="p">)</span>
+<span class="mi">1</span><span class="o">&gt;</span> <span class="n">c</span><span class="p">(</span><span class="n">module_name</span><span class="p">).</span>
+<span class="n">ok</span>
+<span class="mi">1</span><span class="o">&gt;</span> <span class="nn">module_name</span><span class="p">:</span><span class="nf">hello</span><span class="p">().</span>
+<span class="nv">Hello</span> <span class="n">world</span><span class="o">!</span>
+<span class="n">ok</span>
+</code></pre></div>
+<p>You may keep the shell running while you&#39;re editing the file. Just don&#39;t forget to execute <code>c(module_name)</code> to load the latest changes. Note that the filename has to be the same as the one declared in the <code>-module()</code> directive, plus an extension <code>.erl</code>.</p>
+
+<h3 id="elixir">Elixir</h3>
+
+<p>Elixir too has an interactive shell called <code>iex</code>. Compiling Elixir code can be done with <code>elixirc</code> (which is similar to Erlang&#39;s <code>erlc</code>). Elixir also provides an executable named <code>elixir</code> to run Elixir code. The module defined above can be written in Elixir as:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="c1"># module_name.ex</span>
+<span class="kd">defmodule</span> <span class="nc">ModuleName</span> <span class="k">do</span>
+  <span class="kd">def</span> <span class="n">hello</span> <span class="k">do</span>
+    <span class="nc">IO</span><span class="p">.</span><span class="n">puts</span> <span class="s2">&quot;Hello World&quot;</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>And compiled from <code>iex</code>:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="go">Interactive Elixir</span>
+<span class="gp">iex&gt; </span><span class="n">c</span><span class="p">(</span><span class="s2">&quot;module_name.ex&quot;</span><span class="p">)</span>
+<span class="go">[ModuleName]</span>
+<span class="gp">iex&gt; </span><span class="nc">ModuleName</span><span class="p">.</span><span class="n">hello</span>
+<span class="go">Hello world!</span>
+<span class="go">:ok</span>
+</code></pre></div>
+<p>However notice that in Elixir you don&#39;t need to create a file only to create a new module, Elixir modules can be defined directly in the shell:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">MyModule</span> <span class="k">do</span>
+  <span class="kd">def</span> <span class="n">hello</span> <span class="k">do</span>
+    <span class="nc">IO</span><span class="p">.</span><span class="n">puts</span> <span class="s2">&quot;Another Hello&quot;</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<div id="notable_differences"></div>
+
+<h2 id="2-notable-differences">2 Notable Differences</h2>
+
+<p>This section goes over some of the syntactic differences between the two languages.</p>
+
+<h3 id="operator-names">Operator Names</h3>
+
+<p>Some operators are spelled differently.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">| Erlang         | Elixir         | Meaning                                 |
+-----------------------------------------------------------------------------
+| and            | NOT AVAILABLE  | Logical &#39;and&#39;, evaluates both arguments |
+| andalso        | and            | Logical &#39;and&#39;, short-circuits           |
+| or             | NOT AVAILABLE  | Logical &#39;or&#39;, evaluates both arguments  |
+| orelse         | or             | Logical &#39;or&#39;, short-circuits            |
+| =:=            | ===            | A match operator                        |
+| =/=            | !==            | A negative match                        |
+| /=             | !=             | Not equals                              |
+| =&lt;             | &lt;=             | Less than or equals                     |
+</code></pre></div>
+<h3 id="delimiters">Delimiters</h3>
+
+<p>Erlang expressions are terminated with a dot <code>.</code> and comma <code>,</code> is used to evaluates multiple expressions within one context (in a function definition, for instance). In Elixir, expressions are delimited by a line break or a semicolon <code>;</code>.</p>
+
+<p><strong>Erlang</strong></p>
+<div class="highlight"><pre><code class="language-erlang" data-lang="erlang"><span class="nv">X</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="nv">Y</span> <span class="o">=</span> <span class="mi">3</span><span class="p">.</span>
+<span class="nv">X</span> <span class="o">+</span> <span class="nv">Y</span><span class="p">.</span>
+</code></pre></div>
+<p><strong>Elixir</strong></p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="n">x</span> <span class="p">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">y</span> <span class="p">=</span> <span class="mi">3</span>
+<span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
+</code></pre></div>
+<h3 id="variable-names">Variable Names</h3>
+
+<p>Variables in Erlang can only be assigned once. The Erlang shell provides a special command <code>f</code> that allows you to erase the binding of a variable or all variables at once.</p>
+
+<p>Elixir allows you to assign to a variable more than once. If you want to match against the value of a previously assigned variable, you should use <code>^</code>:</p>
+
+<p><strong>Erlang</strong></p>
+<div class="highlight"><pre><code class="language-erlang" data-lang="erlang"><span class="nv">Eshell</span> <span class="nv">V5</span><span class="p">.</span><span class="mi">9</span>  <span class="p">(</span><span class="n">abort</span> <span class="n">with</span> <span class="err">^</span><span class="nv">G</span><span class="p">)</span>
+<span class="mi">1</span><span class="o">&gt;</span> <span class="nv">X</span> <span class="o">=</span> <span class="mi">10</span><span class="p">.</span>
+<span class="mi">10</span>
+<span class="mi">2</span><span class="o">&gt;</span> <span class="nv">X</span> <span class="o">=</span> <span class="nv">X</span> <span class="o">+</span> <span class="mi">1</span><span class="p">.</span>
+<span class="o">**</span> <span class="n">exception</span> <span class="nn">error</span><span class="p">:</span> <span class="n">no</span> <span class="n">match</span> <span class="k">of</span> <span class="n">right</span> <span class="n">hand</span> <span class="n">side</span> <span class="n">value</span> <span class="mi">11</span>
+<span class="mi">3</span><span class="o">&gt;</span> <span class="nv">X1</span> <span class="o">=</span> <span class="nv">X</span> <span class="o">+</span> <span class="mi">1</span><span class="p">.</span>
+<span class="mi">11</span>
+<span class="mi">4</span><span class="o">&gt;</span> <span class="n">f</span><span class="p">(</span><span class="nv">X</span><span class="p">).</span>
+<span class="n">ok</span>
+<span class="mi">5</span><span class="o">&gt;</span> <span class="nv">X</span> <span class="o">=</span> <span class="nv">X1</span> <span class="o">*</span> <span class="nv">X1</span><span class="p">.</span>
+<span class="mi">121</span>
+<span class="mi">6</span><span class="o">&gt;</span> <span class="n">f</span><span class="p">().</span>
+<span class="n">ok</span>
+<span class="mi">7</span><span class="o">&gt;</span> <span class="nv">X</span><span class="p">.</span>
+<span class="o">*</span> <span class="mi">1</span><span class="p">:</span> <span class="n">variable</span> <span class="n">&#39;X&#39;</span> <span class="n">is</span> <span class="n">unbound</span>
+<span class="mi">8</span><span class="o">&gt;</span> <span class="nv">X1</span><span class="p">.</span>
+<span class="o">*</span> <span class="mi">1</span><span class="p">:</span> <span class="n">variable</span> <span class="n">&#39;X1&#39;</span> <span class="n">is</span> <span class="n">unbound</span>
+</code></pre></div>
+<p><strong>Elixir</strong></p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="n">iex</span><span class="o">&gt;</span> <span class="n">a</span> <span class="p">=</span> <span class="mi">1</span>
+<span class="mi">1</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="n">a</span> <span class="p">=</span> <span class="mi">2</span>
+<span class="mi">2</span>
+<span class="n">iex</span><span class="o">&gt;</span> <span class="o">^</span><span class="n">a</span> <span class="p">=</span> <span class="mi">3</span>
+<span class="o">**</span> <span class="p">(</span><span class="nc">MatchError</span><span class="p">)</span> <span class="n">no</span> <span class="n">match</span> <span class="n">of</span> <span class="n">right</span> <span class="n">hand</span> <span class="n">side</span> <span class="ss">value</span><span class="p">:</span> <span class="mi">3</span>
+</code></pre></div>
+<h3 id="calling-functions">Calling Functions</h3>
+
+<p>Elixir allows you to omit parentheses in function calls, Erlang does not.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">| Erlang            | Elixir         |
+--------------------------------------
+| some_function().  | some_function  |
+| sum(A, B)         | sum a, b       |
+</code></pre></div>
+<p>Invoking a function from a module uses different syntax. In Erlang, you would write</p>
+<div class="highlight"><pre><code class="language-erlang" data-lang="erlang"><span class="nn">orddict</span><span class="p">:</span><span class="nf">new</span><span class="p">().</span>
+</code></pre></div>
+<p>to invoke the <code>new</code> function from the <code>orddict</code> module. In Elixir, use the dot <code>.</code> in place of the colon <code>:</code></p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="nc">Kernel</span><span class="p">.</span><span class="n">self</span>
+</code></pre></div>
+<p><strong>Note</strong>. Since Erlang modules are represented by atoms, you may invoke Erlang functions in Elixir as follows:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="ss">:lists</span><span class="p">.</span><span class="n">sort</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+</code></pre></div>
+<p>All of the Erlang built-ins reside in the <code>:erlang</code> module.</p>
+
+<div id="data_types"></div>
+
+<h2 id="3-data-types">3 Data Types</h2>
+
+<p>Erlang and Elixir have the same data types for the most part, but there are a number of differences.</p>
+
+<h3 id="atoms">Atoms</h3>
+
+<p>In Erlang, an <code>atom</code> is any identifier that starts with a lowercase letter, e.g. <code>ok</code>, <code>tuple</code>, <code>donut</code>. Identifiers that start with a capital letters are always treated as variable names. Elixir, on the other hand, uses the former for naming variables, and the latter are treated as atom aliases. Atoms in Elixir always start with a colon <code>:</code>.</p>
+
+<p><strong>Erlang</strong></p>
+<div class="highlight"><pre><code class="language-erlang" data-lang="erlang"><span class="n">im_an_atom</span><span class="p">.</span>
+<span class="n">me_too</span><span class="p">.</span>
+
+<span class="nv">Im_a_var</span><span class="p">.</span>
+<span class="nv">X</span> <span class="o">=</span> <span class="mi">10</span><span class="p">.</span>
+</code></pre></div>
+<p><strong>Elixir</strong></p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="ss">:im_an_atom</span>
+<span class="ss">:me_too</span>
+
+<span class="n">im_a_var</span>
+<span class="n">x</span> <span class="p">=</span> <span class="mi">10</span>
+
+<span class="nc">Module</span>  <span class="c1"># this is called an atom alias; it expands to :&#39;Elixir.Module&#39;</span>
+</code></pre></div>
+<p>It is also possible to create atoms that start with a character other than a lowercase letter. The syntax is different between the two languages:</p>
+
+<p><strong>Erlang</strong></p>
+<div class="highlight"><pre><code class="language-erlang" data-lang="erlang"><span class="nb">is_atom</span><span class="p">(</span><span class="n">ok</span><span class="p">).</span>                <span class="c">%=&gt; true</span>
+<span class="nb">is_atom</span><span class="p">(</span><span class="n">&#39;0_ok&#39;</span><span class="p">).</span>            <span class="c">%=&gt; true</span>
+<span class="nb">is_atom</span><span class="p">(</span><span class="n">&#39;Multiple words&#39;</span><span class="p">).</span>  <span class="c">%=&gt; true</span>
+<span class="nb">is_atom</span><span class="p">(</span><span class="err">&#39;&#39;</span><span class="p">).</span>                <span class="c">%=&gt; true</span>
+</code></pre></div>
+<p><strong>Elixir</strong></p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="n">is_atom</span> <span class="ss">:ok</span>                 <span class="c1">#=&gt; true</span>
+<span class="n">is_atom</span> <span class="ss">:&#39;ok&#39;</span>               <span class="c1">#=&gt; true</span>
+<span class="n">is_atom</span> <span class="ss">:&quot;Multiple words&quot;</span>   <span class="c1">#=&gt; true</span>
+</code></pre></div>
+<h3 id="tuples">Tuples</h3>
+
+<p>The syntax for tuples is the same in both languages, but the APIs are different. Elixir attempts to normalize Erlang libraries in a way that:</p>
+
+<ol>
+<li>The <code>subject</code> of the function is always the first argument.</li>
+<li>All data structures functions employ zero-based access.</li>
+</ol>
+
+<p>That said, Elixir does not import the default <code>element</code> and <code>setelement</code> functions, but instead provides <code>elem</code> and <code>put_elem</code>:</p>
+
+<p><strong>Erlang</strong></p>
+<div class="highlight"><pre><code class="language-erlang" data-lang="erlang"><span class="nb">element</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">{</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="p">})</span>       <span class="c">%=&gt; a</span>
+<span class="nb">setelement</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="p">{</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="p">},</span> <span class="n">d</span><span class="p">)</span> <span class="c">%=&gt; { d, b, c }</span>
+</code></pre></div>
+<p><strong>Elixir</strong></p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="n">elem</span><span class="p">({</span> <span class="ss">:a</span><span class="p">,</span> <span class="ss">:b</span><span class="p">,</span> <span class="ss">:c</span> <span class="p">},</span> <span class="mi">0</span><span class="p">)</span>        <span class="c1">#=&gt; :a</span>
+<span class="n">put_elem</span><span class="p">({</span> <span class="ss">:a</span><span class="p">,</span> <span class="ss">:b</span><span class="p">,</span> <span class="ss">:c</span> <span class="p">},</span> <span class="mi">0</span><span class="p">,</span> <span class="ss">:d</span><span class="p">)</span> <span class="c1">#=&gt; { :d, :b, :c }</span>
+</code></pre></div>
+<h3 id="lists-and-binaries">Lists and Binaries</h3>
+
+<p>Elixir has a shortcut syntax for binaries:</p>
+
+<p><strong>Erlang</strong></p>
+<div class="highlight"><pre><code class="language-erlang" data-lang="erlang"><span class="nb">is_list</span><span class="p">(</span><span class="n">&#39;Hello&#39;</span><span class="p">).</span>        <span class="c">%=&gt; false</span>
+<span class="nb">is_list</span><span class="p">(</span><span class="s">&quot;Hello&quot;</span><span class="p">).</span>        <span class="c">%=&gt; true</span>
+<span class="nb">is_binary</span><span class="p">(</span><span class="o">&lt;&lt;</span><span class="s">&quot;Hello&quot;</span><span class="o">&gt;&gt;</span><span class="p">).</span>  <span class="c">%=&gt; true</span>
+</code></pre></div>
+<p><strong>Elixir</strong></p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="n">is_list</span> <span class="s1">&#39;Hello&#39;</span>          <span class="c1">#=&gt; true</span>
+<span class="n">is_binary</span> <span class="s2">&quot;Hello&quot;</span>        <span class="c1">#=&gt; true</span>
+<span class="n">is_binary</span> <span class="p">&lt;&lt;</span><span class="s2">&quot;Hello&quot;</span><span class="p">&gt;&gt;</span>    <span class="c1">#=&gt; true</span>
+<span class="p">&lt;&lt;</span><span class="s2">&quot;Hello&quot;</span><span class="p">&gt;&gt;</span> <span class="o">===</span> <span class="s2">&quot;Hello&quot;</span>  <span class="c1">#=&gt; true</span>
+</code></pre></div>
+<p>In Elixir, the word <strong>string</strong> means a utf-8 binary and there is a <code>String</code> module that works on such data. Elixir also expects your source files to be utf-8 encoded. On the other hand, <strong>string</strong> in Erlang refers to char lists and there is a <code>:string</code> module, that&#39;s not utf-8 aware and works mostly with char lists.</p>
+
+<p>Elixir also supports multiline strings (also called heredocs):</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="n">is_binary</span> <span class="sh">&quot;&quot;&quot;</span>
+<span class="sh">This is a binary</span>
+<span class="sh">spanning several</span>
+<span class="sh">lines.</span>
+<span class="sh">&quot;&quot;&quot;</span>
+<span class="c1">#=&gt; true</span>
+</code></pre></div>
+<h3 id="keyword-list">Keyword list</h3>
+
+<p>Elixir offers a literal syntax for creating a list of two-item tuples where the first item in the tuple is an atom and calls them keyword lists:</p>
+
+<p><strong>Erlang</strong></p>
+<div class="highlight"><pre><code class="language-erlang" data-lang="erlang"><span class="p">[{</span><span class="n">another_key</span><span class="p">,</span><span class="mi">20</span><span class="p">},{</span><span class="n">key</span><span class="p">,</span><span class="mi">10</span><span class="p">}]</span>
+</code></pre></div>
+<p><strong>Elixir</strong></p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="n">kw</span> <span class="p">=</span> <span class="p">[</span><span class="ss">another_key</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="ss">key</span><span class="p">:</span> <span class="mi">10</span><span class="p">]</span>
+<span class="n">kw</span><span class="p">[</span><span class="ss">:another_key</span><span class="p">]</span> <span class="c1">#=&gt; 20</span>
+</code></pre></div>
+<h3 id="maps">Maps</h3>
+
+<p>Erlang R17 introduced maps, a key-value store, with no ordering. Keys and values can be any term. Creating, updating and matching maps in both languages is shown below:</p>
+
+<p><strong>Erlang</strong></p>
+<div class="highlight"><pre><code class="language-erlang" data-lang="erlang"><span class="nv">Map</span> <span class="o">=</span> <span class="err">#</span><span class="p">{</span><span class="n">key</span> <span class="o">=&gt;</span> <span class="mi">0</span><span class="p">}</span>
+<span class="nv">Updated</span> <span class="o">=</span> <span class="nv">Map</span><span class="err">#</span><span class="p">{</span><span class="n">key</span> <span class="p">:</span><span class="o">=</span> <span class="mi">1</span><span class="p">}</span>
+<span class="err">#</span><span class="p">{</span><span class="n">key</span> <span class="p">:</span><span class="o">=</span> <span class="nv">Value</span><span class="p">}</span> <span class="o">=</span> <span class="nv">Updated</span>
+<span class="nv">Value</span> <span class="o">=:=</span> <span class="mi">1</span>
+</code></pre></div>
+<p><strong>Elixir</strong></p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="n">map</span> <span class="p">=</span> <span class="p">%{</span><span class="ss">:key</span> <span class="p">=&gt;</span> <span class="mi">0</span><span class="p">}</span>
+<span class="n">map</span> <span class="p">=</span> <span class="p">%{</span><span class="n">map</span> <span class="p">|</span> <span class="ss">:key</span> <span class="p">=&gt;</span> <span class="mi">1</span><span class="p">}</span>
+<span class="p">%{</span><span class="ss">:key</span> <span class="p">=&gt;</span> <span class="n">value</span><span class="p">}</span> <span class="p">=</span> <span class="n">map</span>
+<span class="n">value</span> <span class="o">===</span> <span class="mi">1</span>
+</code></pre></div>
+<p>If the keys are all atoms, Elixir allows developers to use <code>key: 0</code> for defining the map as well as using <code>.key</code> for accessing fields:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="n">map</span> <span class="p">=</span> <span class="p">%{</span><span class="ss">key</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+<span class="n">map</span> <span class="p">=</span> <span class="p">%{</span><span class="n">map</span> <span class="p">|</span> <span class="ss">key</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
+<span class="n">map</span><span class="p">.</span><span class="n">key</span> <span class="o">===</span> <span class="mi">1</span>
+</code></pre></div>
+<h3 id="regular-expressions">Regular expressions</h3>
+
+<p>Elixir supports a literal syntax for regular expressions. Such syntax allows regexes to be compiled at compilation time instead of runtime and does not require you to double escape special regex characters:</p>
+
+<p><strong>Erlang</strong></p>
+<div class="highlight"><pre><code class="language-erlang" data-lang="erlang"><span class="p">{</span> <span class="n">ok</span><span class="p">,</span> <span class="nv">Pattern</span> <span class="p">}</span> <span class="o">=</span> <span class="nn">re</span><span class="p">:</span><span class="nf">compile</span><span class="p">(</span><span class="s">&quot;abc</span><span class="se">\\</span><span class="s">s&quot;</span><span class="p">).</span>
+<span class="nn">re</span><span class="p">:</span><span class="nf">run</span><span class="p">(</span><span class="s">&quot;abc &quot;</span><span class="p">,</span> <span class="nv">Pattern</span><span class="p">).</span>
+<span class="c">%=&gt; { match, [&quot;abc &quot;] }</span>
+</code></pre></div>
+<p><strong>Elixir</strong></p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="nc">Regex</span><span class="p">.</span><span class="n">run</span> <span class="sx">~r/abc</span><span class="se">\s</span><span class="sx">/</span><span class="p">,</span> <span class="s2">&quot;abc &quot;</span>
+<span class="c1">#=&gt; [&quot;abc &quot;]</span>
+</code></pre></div>
+<p>Regexes are also supported in heredocs, which is convenient when defining multiline regexes:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="n">is_regex</span> <span class="sx">~r</span><span class="sh">&quot;&quot;&quot;</span>
+<span class="sh">This is a regex</span>
+<span class="sh">spanning several</span>
+<span class="sh">lines.</span>
+<span class="sh">&quot;&quot;&quot;</span>
+</code></pre></div>
+<div id="modules"></div>
+
+<h2 id="4-modules">4 Modules</h2>
+
+<p>Each Erlang module lives in its own file which has the following structure:</p>
+<div class="highlight"><pre><code class="language-erlang" data-lang="erlang"><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">hello_module</span><span class="p">).</span>
+<span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">some_fun</span><span class="o">/</span><span class="mi">0</span><span class="p">,</span> <span class="n">some_fun</span><span class="o">/</span><span class="mi">1</span><span class="p">]).</span>
+
+<span class="c">% A &quot;Hello world&quot; function</span>
+<span class="nf">some_fun</span><span class="p">()</span> <span class="o">-&gt;</span>
+  <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="n">&#39;~s~n&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">&#39;Hello world!&#39;</span><span class="p">]).</span>
+
+<span class="c">% This one works only with lists</span>
+<span class="nf">some_fun</span><span class="p">(</span><span class="nv">List</span><span class="p">)</span> <span class="k">when</span> <span class="nb">is_list</span><span class="p">(</span><span class="nv">List</span><span class="p">)</span> <span class="o">-&gt;</span>
+  <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="n">&#39;~s~n&#39;</span><span class="p">,</span> <span class="nv">List</span><span class="p">).</span>
+
+<span class="c">% Non-exported functions are private</span>
+<span class="nf">priv</span><span class="p">()</span> <span class="o">-&gt;</span>
+  <span class="n">secret_info</span><span class="p">.</span>
+</code></pre></div>
+<p>Here we create a module named <code>hello_module</code>. In it we define three functions, the first two are made available for other modules to call via the <code>export</code> directive at the top. It contains a list of functions, each of which is written in the format <code>&lt;function name&gt;/&lt;arity&gt;</code>. Arity stands for the number of arguments.</p>
+
+<p>An Elixir equivalent to the Erlang above:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">HelloModule</span> <span class="k">do</span>
+  <span class="c1"># A &quot;Hello world&quot; function</span>
+  <span class="kd">def</span> <span class="n">some_fun</span> <span class="k">do</span>
+    <span class="nc">IO</span><span class="p">.</span><span class="n">puts</span> <span class="s2">&quot;Hello world!&quot;</span>
+  <span class="k">end</span>
+
+  <span class="c1"># This one works only with lists</span>
+  <span class="kd">def</span> <span class="n">some_fun</span><span class="p">(</span><span class="n">list</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_list</span><span class="p">(</span><span class="n">list</span><span class="p">)</span> <span class="k">do</span>
+    <span class="nc">IO</span><span class="p">.</span><span class="n">inspect</span> <span class="n">list</span>
+  <span class="k">end</span>
+
+  <span class="c1"># A private function</span>
+  <span class="kd">defp</span> <span class="n">priv</span> <span class="k">do</span>
+    <span class="ss">:secret_info</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>In Elixir, it is also possible to have multiple modules in one file, as well as nested modules:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">HelloModule</span> <span class="k">do</span>
+  <span class="kd">defmodule</span> <span class="nc">Utils</span> <span class="k">do</span>
+    <span class="kd">def</span> <span class="n">util</span> <span class="k">do</span>
+      <span class="nc">IO</span><span class="p">.</span><span class="n">puts</span> <span class="s2">&quot;Utilize&quot;</span>
+    <span class="k">end</span>
+
+    <span class="kd">defp</span> <span class="n">priv</span> <span class="k">do</span>
+      <span class="ss">:cant_touch_this</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="kd">def</span> <span class="n">dummy</span> <span class="k">do</span>
+    <span class="ss">:ok</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="kd">defmodule</span> <span class="nc">ByeModule</span> <span class="k">do</span>
+<span class="k">end</span>
+
+<span class="nc">HelloModule</span><span class="p">.</span><span class="n">dummy</span>
+<span class="c1">#=&gt; :ok</span>
+
+<span class="nc">HelloModule.Utils</span><span class="p">.</span><span class="n">util</span>
+<span class="c1">#=&gt; &quot;Utilize&quot;</span>
+
+<span class="nc">HelloModule.Utils</span><span class="p">.</span><span class="n">priv</span>
+<span class="c1">#=&gt; ** (UndefinedFunctionError) undefined function: HelloModule.Utils.priv/0</span>
+</code></pre></div>
+<div id="function_syntax"></div>
+
+<h2 id="5-function-syntax">5 Function Syntax</h2>
+
+<p><a href="http://learnyousomeerlang.com/syntax-in-functions">This chapter</a> from the Erlang book provides a detailed description of pattern matching and function syntax in Erlang. Here, I&#39;m briefly covering the main points and provide sample code both in Erlang and Elixir.</p>
+
+<h3 id="pattern-matching">Pattern Matching</h3>
+
+<p>Pattern matching in Elixir is based on Erlang&#39;s implementation and in general is very similar:</p>
+
+<p><strong>Erlang</strong></p>
+<div class="highlight"><pre><code class="language-erlang" data-lang="erlang"><span class="nf">loop_through</span><span class="p">([</span><span class="nv">H</span><span class="p">|</span><span class="nv">T</span><span class="p">])</span> <span class="o">-&gt;</span>
+  <span class="nn">io</span><span class="p">:</span><span class="n">format</span> <span class="n">&#39;~p~n&#39;</span><span class="p">,</span> <span class="p">[</span><span class="nv">H</span><span class="p">],</span>
+  <span class="n">loop_through</span><span class="p">(</span><span class="nv">T</span><span class="p">);</span>
+
+<span class="nf">loop_through</span><span class="p">([])</span> <span class="o">-&gt;</span>
+  <span class="n">ok</span><span class="p">.</span>
+</code></pre></div>
+<p><strong>Elixir</strong></p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">def</span> <span class="n">loop_through</span><span class="p">([</span><span class="n">h</span><span class="p">|</span><span class="n">t</span><span class="p">])</span> <span class="k">do</span>
+  <span class="nc">IO</span><span class="p">.</span><span class="n">inspect</span> <span class="n">h</span>
+  <span class="n">loop_through</span> <span class="n">t</span>
+<span class="k">end</span>
+
+<span class="kd">def</span> <span class="n">loop_through</span><span class="p">([])</span> <span class="k">do</span>
+  <span class="ss">:ok</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>When defining a function with the same name multiple times, each such definition is called a <strong>clause</strong>. In Erlang, clauses always go side by side and are separated by a semicolon <code>;</code>. The last clause is terminated by a dot <code>.</code>.</p>
+
+<p>Elixir doesn&#39;t require punctuation to separate clauses, but they must be grouped together.</p>
+
+<h3 id="identifying-functions">Identifying functions</h3>
+
+<p>In both Erlang and Elixir, a function is not identified only by its name, but by its name and arity. In both examples below, we are defining four different functions (all named <code>sum</code>, but with different arity):</p>
+
+<p><strong>Erlang</strong></p>
+<div class="highlight"><pre><code class="language-erlang" data-lang="erlang"><span class="nf">sum</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="mi">0</span><span class="p">;</span>
+<span class="nf">sum</span><span class="p">(</span><span class="nv">A</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nv">A</span><span class="p">;</span>
+<span class="nf">sum</span><span class="p">(</span><span class="nv">A</span><span class="p">,</span> <span class="nv">B</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nv">A</span> <span class="o">+</span> <span class="nv">B</span><span class="p">;</span>
+<span class="nf">sum</span><span class="p">(</span><span class="nv">A</span><span class="p">,</span> <span class="nv">B</span><span class="p">,</span> <span class="nv">C</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nv">A</span> <span class="o">+</span> <span class="nv">B</span> <span class="o">+</span> <span class="nv">C</span><span class="p">.</span>
+</code></pre></div>
+<p><strong>Elixir</strong></p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">def</span> <span class="n">sum</span><span class="p">,</span> <span class="ss">do</span><span class="p">:</span> <span class="mi">0</span>
+<span class="kd">def</span> <span class="n">sum</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="ss">do</span><span class="p">:</span> <span class="n">a</span>
+<span class="kd">def</span> <span class="n">sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">),</span> <span class="ss">do</span><span class="p">:</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+<span class="kd">def</span> <span class="n">sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">),</span> <span class="ss">do</span><span class="p">:</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="o">+</span> <span class="n">c</span>
+</code></pre></div>
+<p>Guard expressions provide a concise way to define functions that accept a limited set of values based on some condition.</p>
+
+<p><strong>Erlang</strong></p>
+<div class="highlight"><pre><code class="language-erlang" data-lang="erlang"><span class="nf">sum</span><span class="p">(</span><span class="nv">A</span><span class="p">,</span> <span class="nv">B</span><span class="p">)</span> <span class="k">when</span> <span class="nb">is_integer</span><span class="p">(</span><span class="nv">A</span><span class="p">),</span> <span class="nb">is_integer</span><span class="p">(</span><span class="nv">B</span><span class="p">)</span> <span class="o">-&gt;</span>
+  <span class="nv">A</span> <span class="o">+</span> <span class="nv">B</span><span class="p">;</span>
+
+<span class="nf">sum</span><span class="p">(</span><span class="nv">A</span><span class="p">,</span> <span class="nv">B</span><span class="p">)</span> <span class="k">when</span> <span class="nb">is_list</span><span class="p">(</span><span class="nv">A</span><span class="p">),</span> <span class="nb">is_list</span><span class="p">(</span><span class="nv">B</span><span class="p">)</span> <span class="o">-&gt;</span>
+  <span class="nv">A</span> <span class="o">++</span> <span class="nv">B</span><span class="p">;</span>
+
+<span class="nf">sum</span><span class="p">(</span><span class="nv">A</span><span class="p">,</span> <span class="nv">B</span><span class="p">)</span> <span class="k">when</span> <span class="nb">is_binary</span><span class="p">(</span><span class="nv">A</span><span class="p">),</span> <span class="nb">is_binary</span><span class="p">(</span><span class="nv">B</span><span class="p">)</span> <span class="o">-&gt;</span>
+  <span class="o">&lt;&lt;</span><span class="nv">A</span><span class="o">/</span><span class="n">binary</span><span class="p">,</span>  <span class="nv">B</span><span class="o">/</span><span class="n">binary</span><span class="o">&gt;&gt;</span><span class="p">.</span>
+
+<span class="nf">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">).</span>
+<span class="c">%=&gt; 3</span>
+
+<span class="nf">sum</span><span class="p">([</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">]).</span>
+<span class="c">%=&gt; [1,2]</span>
+
+<span class="nf">sum</span><span class="p">(</span><span class="s">&quot;a&quot;</span><span class="p">,</span> <span class="s">&quot;b&quot;</span><span class="p">).</span>
+<span class="c">%=&gt; &quot;ab&quot;</span>
+</code></pre></div>
+<p><strong>Elixir</strong></p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">def</span> <span class="n">sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_integer</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="ow">and</span> <span class="n">is_integer</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+<span class="k">end</span>
+
+<span class="kd">def</span> <span class="n">sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_list</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="ow">and</span> <span class="n">is_list</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">a</span> <span class="o">++</span> <span class="n">b</span>
+<span class="k">end</span>
+
+<span class="kd">def</span> <span class="n">sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="ow">when</span> <span class="n">is_binary</span><span class="p">(</span><span class="n">a</span><span class="p">)</span> <span class="ow">and</span> <span class="n">is_binary</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">a</span> <span class="o">&lt;&gt;</span> <span class="n">b</span>
+<span class="k">end</span>
+
+<span class="n">sum</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span>
+<span class="c1">#=&gt; 3</span>
+
+<span class="n">sum</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="c1">#=&gt; [1,2]</span>
+
+<span class="n">sum</span> <span class="s2">&quot;a&quot;</span><span class="p">,</span> <span class="s2">&quot;b&quot;</span>
+<span class="c1">#=&gt; &quot;ab&quot;</span>
+</code></pre></div>
+<p>In addition, Elixir allows for default values for arguments, whereas Erlang does not.</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">def</span> <span class="n">mul_by</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">n</span> <span class="p">\\</span> <span class="mi">2</span><span class="p">)</span> <span class="k">do</span>
+  <span class="n">x</span> <span class="o">*</span> <span class="n">n</span>
+<span class="k">end</span>
+
+<span class="n">mul_by</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span> <span class="c1">#=&gt; 12</span>
+<span class="n">mul_by</span> <span class="mi">4</span>    <span class="c1">#=&gt; 8</span>
+</code></pre></div>
+<h3 id="anonymous-functions">Anonymous Functions</h3>
+
+<p>Anonymous functions are defined in the following way:</p>
+
+<p><strong>Erlang</strong></p>
+<div class="highlight"><pre><code class="language-erlang" data-lang="erlang"><span class="nv">Sum</span> <span class="o">=</span> <span class="k">fun</span><span class="p">(</span><span class="nv">A</span><span class="p">,</span> <span class="nv">B</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nv">A</span> <span class="o">+</span> <span class="nv">B</span> <span class="k">end</span><span class="p">.</span>
+<span class="nv">Sum</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">).</span>
+<span class="c">%=&gt; 7</span>
+
+<span class="nv">Square</span> <span class="o">=</span> <span class="k">fun</span><span class="p">(</span><span class="nv">X</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nv">X</span> <span class="o">*</span> <span class="nv">X</span> <span class="k">end</span><span class="p">.</span>
+<span class="nn">lists</span><span class="p">:</span><span class="nf">map</span><span class="p">(</span><span class="nv">Square</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]).</span>
+<span class="c">%=&gt; [1, 4, 9, 16]</span>
+</code></pre></div>
+<p><strong>Elixir</strong></p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="n">sum</span> <span class="p">=</span> <span class="k">fn</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span> <span class="k">end</span>
+<span class="n">sum</span><span class="p">.(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="c1">#=&gt; 7</span>
+
+<span class="n">square</span> <span class="p">=</span> <span class="k">fn</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span> <span class="k">end</span>
+<span class="nc">Enum</span><span class="p">.</span><span class="n">map</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="n">square</span>
+<span class="c1">#=&gt; [1, 4, 9, 16]</span>
+</code></pre></div>
+<p>It is possible to use pattern matching when defining anonymous functions, too.</p>
+
+<p><strong>Erlang</strong></p>
+<div class="highlight"><pre><code class="language-erlang" data-lang="erlang"><span class="nv">F</span> <span class="o">=</span> <span class="k">fun</span><span class="p">(</span><span class="nv">Tuple</span> <span class="o">=</span> <span class="p">{</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">})</span> <span class="o">-&gt;</span>
+        <span class="nn">io</span><span class="p">:</span><span class="nf">format</span><span class="p">(</span><span class="s">&quot;All your </span><span class="si">~p</span><span class="s"> are belong to us</span><span class="si">~n</span><span class="s">&quot;</span><span class="p">,</span> <span class="p">[</span><span class="nv">Tuple</span><span class="p">]);</span>
+        <span class="p">([])</span> <span class="o">-&gt;</span>
+        <span class="s">&quot;Empty&quot;</span>
+    <span class="k">end</span><span class="p">.</span>
+
+<span class="nv">F</span><span class="p">([]).</span>
+<span class="c">%=&gt; &quot;Empty&quot;</span>
+
+<span class="nv">F</span><span class="p">({</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">}).</span>
+<span class="c">%=&gt; &quot;All your {a,b} are belong to us&quot;</span>
+</code></pre></div>
+<p><strong>Elixir</strong></p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="n">f</span> <span class="p">=</span> <span class="k">fn</span>
+      <span class="p">{</span><span class="ss">:a</span><span class="p">,</span> <span class="ss">:b</span><span class="p">}</span> <span class="p">=</span> <span class="n">tuple</span> <span class="p">-&gt;</span>
+        <span class="nc">IO</span><span class="p">.</span><span class="n">puts</span> <span class="s2">&quot;All your </span><span class="si">#{</span><span class="n">inspect</span> <span class="n">tuple</span><span class="si">}</span><span class="s2"> are belong to us&quot;</span>
+      <span class="p">[]</span> <span class="p">-&gt;</span>
+        <span class="s2">&quot;Empty&quot;</span>
+    <span class="k">end</span>
+
+<span class="n">f</span><span class="p">.([])</span>
+<span class="c1">#=&gt; &quot;Empty&quot;</span>
+
+<span class="n">f</span><span class="p">.({</span><span class="ss">:a</span><span class="p">,</span> <span class="ss">:b</span><span class="p">})</span>
+<span class="c1">#=&gt; &quot;All your {:a,:b} are belong to us&quot;</span>
+</code></pre></div>
+<h3 id="first-class-functions">First-Class Functions</h3>
+
+<p>Anonymous functions are first-class values, so they can be passed as arguments to other functions and also can serve as a return value. There is a special syntax to allow named functions be treated in the same manner.</p>
+
+<p><strong>Erlang</strong></p>
+<div class="highlight"><pre><code class="language-erlang" data-lang="erlang"><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">math</span><span class="p">).</span>
+<span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">square</span><span class="o">/</span><span class="mi">1</span><span class="p">]).</span>
+
+<span class="nf">square</span><span class="p">(</span><span class="nv">X</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nv">X</span> <span class="o">*</span> <span class="nv">X</span><span class="p">.</span>
+
+<span class="nn">lists</span><span class="p">:</span><span class="nf">map</span><span class="p">(</span><span class="k">fun</span> <span class="nn">math</span><span class="p">:</span><span class="n">square</span><span class="o">/</span><span class="mi">1</span><span class="p">,</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]).</span>
+<span class="c">%=&gt; [1, 4, 9]</span>
+</code></pre></div>
+<p><strong>Elixir</strong></p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">Math</span> <span class="k">do</span>
+  <span class="kd">def</span> <span class="n">square</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">x</span> <span class="o">*</span> <span class="n">x</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="nc">Enum</span><span class="p">.</span><span class="n">map</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="o">&amp;</span><span class="nc">Math</span><span class="p">.</span><span class="n">square</span><span class="o">/</span><span class="mi">1</span>
+<span class="c1">#=&gt; [1, 4, 9]</span>
+</code></pre></div>
+<h3 id="partials-in-elixir">Partials in Elixir</h3>
+
+<p>Elixir supports partial application of functions which can be used to define anonymous functions in a concise way:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="nc">Enum</span><span class="p">.</span><span class="n">map</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="o">&amp;</span><span class="p">(</span><span class="ni">&amp;1</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span>
+<span class="c1">#=&gt; [2, 4, 6, 8]</span>
+
+<span class="nc">List</span><span class="p">.</span><span class="n">foldl</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="ni">&amp;1</span> <span class="o">+</span> <span class="ni">&amp;2</span><span class="p">)</span>
+<span class="c1">#=&gt; 10</span>
+</code></pre></div>
+<p>Partials also allow us to pass named functions as arguments.</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">Math</span> <span class="k">do</span>
+  <span class="kd">def</span> <span class="n">square</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">x</span> <span class="o">*</span> <span class="n">x</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="nc">Enum</span><span class="p">.</span><span class="n">map</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="o">&amp;</span><span class="nc">Math</span><span class="p">.</span><span class="n">square</span><span class="o">/</span><span class="mi">1</span>
+
+<span class="c1">#=&gt; [1, 4, 9]</span>
+</code></pre></div>
+<div id="control_flow"></div>
+
+<h2 id="6-control-flow">6 Control Flow</h2>
+
+<p>The constructs <code>if</code> and <code>case</code> are actually expressions in both Erlang and Elixir, but may be used for control flow as in imperative languages.</p>
+
+<h3 id="case">Case</h3>
+
+<p>The <code>case</code> construct provides control flow based purely on pattern matching.</p>
+
+<p><strong>Erlang</strong></p>
+<div class="highlight"><pre><code class="language-erlang" data-lang="erlang"><span class="k">case</span> <span class="p">{</span> <span class="nv">X</span><span class="p">,</span> <span class="nv">Y</span> <span class="p">}</span> <span class="k">of</span>
+  <span class="p">{</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="p">}</span> <span class="o">-&gt;</span> <span class="n">ok</span><span class="p">;</span>
+  <span class="p">{</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span> <span class="p">}</span> <span class="o">-&gt;</span> <span class="n">good</span><span class="p">;</span>
+  <span class="nv">Else</span> <span class="o">-&gt;</span> <span class="nv">Else</span>
+<span class="k">end</span>
+</code></pre></div>
+<p><strong>Elixir</strong></p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="k">case</span> <span class="p">{</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="p">}</span> <span class="k">do</span>
+  <span class="p">{</span> <span class="ss">:a</span><span class="p">,</span> <span class="ss">:b</span> <span class="p">}</span> <span class="p">-&gt;</span> <span class="ss">:ok</span>
+  <span class="p">{</span> <span class="ss">:b</span><span class="p">,</span> <span class="ss">:c</span> <span class="p">}</span> <span class="p">-&gt;</span> <span class="ss">:good</span>
+  <span class="n">other</span> <span class="p">-&gt;</span> <span class="n">other</span>
+<span class="k">end</span>
+</code></pre></div>
+<h3 id="if">If</h3>
+
+<p><strong>Erlang</strong></p>
+<div class="highlight"><pre><code class="language-erlang" data-lang="erlang"><span class="nv">Test_fun</span> <span class="o">=</span> <span class="k">fun</span> <span class="p">(</span><span class="nv">X</span><span class="p">)</span> <span class="o">-&gt;</span>
+  <span class="k">if</span> <span class="nv">X</span> <span class="o">&gt;</span> <span class="mi">10</span> <span class="o">-&gt;</span>
+       <span class="n">greater_than_ten</span><span class="p">;</span>
+     <span class="nv">X</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">,</span> <span class="nv">X</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">-&gt;</span>
+       <span class="n">less_than_ten_positive</span><span class="p">;</span>
+     <span class="nv">X</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">;</span> <span class="nv">X</span> <span class="o">=:=</span> <span class="mi">0</span> <span class="o">-&gt;</span>
+       <span class="n">zero_or_negative</span><span class="p">;</span>
+     <span class="n">true</span> <span class="o">-&gt;</span>
+       <span class="n">exactly_ten</span>
+  <span class="k">end</span>
+<span class="k">end</span><span class="p">.</span>
+
+<span class="nv">Test_fun</span><span class="p">(</span><span class="mi">11</span><span class="p">).</span>
+<span class="c">%=&gt; greater_than_ten</span>
+
+<span class="nv">Test_fun</span><span class="p">(</span><span class="o">-</span><span class="mi">2</span><span class="p">).</span>
+<span class="c">%=&gt; zero_or_negative</span>
+
+<span class="nv">Test_fun</span><span class="p">(</span><span class="mi">10</span><span class="p">).</span>
+<span class="c">%=&gt; exactly_ten</span>
+</code></pre></div>
+<p><strong>Elixir</strong></p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="n">test_fun</span> <span class="p">=</span> <span class="k">fn</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">-&gt;</span>
+  <span class="k">cond</span> <span class="k">do</span>
+    <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">10</span> <span class="p">-&gt;</span>
+      <span class="ss">:greater_than_ten</span>
+    <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">10</span> <span class="ow">and</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">-&gt;</span>
+      <span class="ss">:less_than_ten_positive</span>
+    <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">x</span> <span class="o">===</span> <span class="mi">0</span> <span class="p">-&gt;</span>
+      <span class="ss">:zero_or_negative</span>
+    <span class="no">true</span> <span class="p">-&gt;</span>
+      <span class="ss">:exactly_ten</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">test_fun</span><span class="p">.(</span><span class="mi">44</span><span class="p">)</span>
+<span class="c1">#=&gt; :greater_than_ten</span>
+
+<span class="n">test_fun</span><span class="p">.(</span><span class="mi">0</span><span class="p">)</span>
+<span class="c1">#=&gt; :zero_or_negative</span>
+
+<span class="n">test_fun</span><span class="p">.(</span><span class="mi">10</span><span class="p">)</span>
+<span class="c1">#=&gt; :exactly_ten</span>
+</code></pre></div>
+<p>There are two important differences between Elixir&#39;s <code>cond</code> and Erlang&#39;s <code>if</code>:</p>
+
+<p>1) <code>cond</code> allows any expression on the left side while Erlang allows only guard clauses;</p>
+
+<p>2) <code>cond</code> uses Elixir&#39;s concepts of truthy and falsy values (everything is truthy except <code>nil</code> and <code>false</code>), Erlang&#39;s <code>if</code> expects strictly a boolean;</p>
+
+<p>Elixir also provides an <code>if</code> function that resembles more imperative languages and is useful when you need to check if one clause is true or false:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="k">if</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">10</span> <span class="k">do</span>
+  <span class="ss">:greater_than_ten</span>
+<span class="k">else</span>
+  <span class="ss">:not_greater_than_ten</span>
+<span class="k">end</span>
+</code></pre></div>
+<h3 id="sending-and-receiving-messages">Sending and Receiving Messages</h3>
+
+<p>The syntax for sending and receiving differs only slightly between Erlang and Elixir.</p>
+
+<p><strong>Erlang</strong></p>
+<div class="highlight"><pre><code class="language-erlang" data-lang="erlang"><span class="nv">Pid</span> <span class="o">=</span> <span class="n">self</span><span class="p">().</span>
+
+<span class="nv">Pid</span> <span class="o">!</span> <span class="p">{</span> <span class="n">hello</span> <span class="p">}.</span>
+
+<span class="k">receive</span>
+  <span class="p">{</span> <span class="n">hello</span> <span class="p">}</span> <span class="o">-&gt;</span> <span class="n">ok</span><span class="p">;</span>
+  <span class="nv">Other</span> <span class="o">-&gt;</span> <span class="nv">Other</span>
+<span class="k">after</span>
+  <span class="mi">10</span> <span class="o">-&gt;</span> <span class="n">timeout</span>
+<span class="k">end</span><span class="p">.</span>
+</code></pre></div>
+<p><strong>Elixir</strong></p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="n">pid</span> <span class="p">=</span> <span class="nc">Kernel</span><span class="p">.</span><span class="n">self</span>
+
+<span class="n">send</span> <span class="n">pid</span><span class="p">,</span> <span class="p">{</span> <span class="ss">:hello</span> <span class="p">}</span>
+
+<span class="k">receive</span> <span class="k">do</span>
+  <span class="p">{</span> <span class="ss">:hello</span> <span class="p">}</span> <span class="p">-&gt;</span> <span class="ss">:ok</span>
+  <span class="n">other</span> <span class="p">-&gt;</span> <span class="n">other</span>
+<span class="k">after</span>
+  <span class="mi">10</span> <span class="p">-&gt;</span> <span class="ss">:timeout</span>
+<span class="k">end</span>
+</code></pre></div>
+<div id="interop"></div>
+
+<h2 id="7-adding-elixir-to-existing-erlang-programs">7 Adding Elixir to existing Erlang programs</h2>
+
+<p>Elixir compiles into BEAM byte code (via Erlang Abstract Format). This means that Elixir code can be called from Erlang and vice versa, without the need to write any bindings. All Elixir modules start with the <code>Elixir.</code> prefix followed by the regular Elixir name. For example, here is how to use the utf-8 aware <code>String</code> downcase from Elixir in Erlang:</p>
+<div class="highlight"><pre><code class="language-erlang" data-lang="erlang"><span class="p">-</span><span class="ni">module</span><span class="p">(</span><span class="n">bstring</span><span class="p">).</span>
+<span class="p">-</span><span class="ni">export</span><span class="p">([</span><span class="n">downcase</span><span class="o">/</span><span class="mi">1</span><span class="p">]).</span>
+
+<span class="nf">downcase</span><span class="p">(</span><span class="nv">Bin</span><span class="p">)</span> <span class="o">-&gt;</span>
+  <span class="nn">&#39;Elixir.String&#39;</span><span class="p">:</span><span class="nf">downcase</span><span class="p">(</span><span class="nv">Bin</span><span class="p">).</span>
+</code></pre></div>
+<h3 id="rebar-integration">Rebar integration</h3>
+
+<p>If you are using rebar, you should be able to include Elixir git repository as a dependency:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">https://github.com/elixir-lang/elixir.git
+</code></pre></div>
+<p>Elixir is structured similar to Erlang&#39;s OTP. It is divided into applications that are placed inside the <code>lib</code> directory, as seen in its <a href="https://github.com/elixir-lang/elixir">source code repository</a>. Since rebar does not recognize such structure, we need to explicitly add to our <code>rebar.config</code> which Elixir apps we want to use, for example:</p>
+<div class="highlight"><pre><code class="language-erlang" data-lang="erlang"><span class="p">{</span><span class="n">lib_dirs</span><span class="p">,</span> <span class="p">[</span>
+  <span class="s">&quot;deps/elixir/lib&quot;</span>
+<span class="p">]}.</span>
+</code></pre></div>
+<p>This should be enough to invoke Elixir functions straight from your Erlang code. If you are also going to write Elixir code, you can <a href="https://github.com/yrashk/rebar_elixir_plugin">install Elixir&#39;s rebar plugin for automatic compilation</a>.</p>
+
+<h3 id="manual-integration">Manual integration</h3>
+
+<p>If you are not using rebar, the easiest approach to use Elixir in your existing Erlang software is to install Elixir using one of the different ways specified in the <a href="http://elixir-lang.org/getting_started/1.html">Getting Started guide</a> and add the <code>lib</code> directory in your checkout to <code>ERL_LIBS</code>.</p>
+
+<div id="further_reading"></div>
+
+<h2 id="8-further-reading">8 Further Reading</h2>
+
+<p>Erlang&#39;s official documentation site has a nice <a href="http://www.erlang.org/doc/programming_examples/users_guide.html">collection</a> of programming examples. It can be a good exercise to translate them into Elixir. <a href="http://schemecookbook.org/Erlang/TOC">Erlang cookbook</a> offers even more useful code examples.</p>
+
+<p>Elixir also provides a <a href="http://elixir-lang.org/getting_started/1.html">Getting Started Guide</a> and has <a href="http://elixir-lang.org/docs.html">documentation available online</a>.</p>
+
+</div><!-- #content -->
+
+<div id="sidebar-primary" class="sidebar">
+  <div class="widget news">
+  <h3>
+    News: <a href="/blog/2014/09/18/elixir-v1-0-0-released/">Elixir v1.0.0 released</a>
+  </h3>
+</div>
+
+<div class="widget search">
+  <form method="get" class="search-form" action="http://www.google.com/search">
+		<div>
+			<input class="search-text" type="text" name="q" placeholder="Search..." id="searchfield">
+			<input type="hidden" name="sitesearch" value="elixir-lang.org">
+			<input class="search-submit button" name="submit" type="submit" value="Search">
+		</div>
+	</form>
+</div>
+  <div class="widget">
+  <h3 class="widget-title">Join the Community</h3>
+  <ul>
+    <li><a class="spec" href="irc://irc.freenode.net/elixir-lang">#elixir-lang on freenode IRC</a></li>
+    <li><a class="spec" href="http://groups.google.com/group/elixir-lang-talk">elixir-talk mailing list (questions)</a></li>
+    <li><a class="spec" href="http://groups.google.com/group/elixir-lang-core">elixir-core mailing list (development)</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/elixir/issues">Issues tracker</a></li>
+    <li><a class="spec" href="http://twitter.com/elixirlang">@elixirlang on Twitter</a></li>
+  </ul>
+</div>
+
+<div class="widget">
+  <h3 class="widget-title">Important links</h3>
+  <ul>
+    <li><a class="spec" href="https://github.com/elixir-lang/elixir/wiki">Wiki with events, resources and talks organized by the community</a></li>
+    <li><a class="spec" href="http://elixir-lang.org/crash-course.html">Crash course for Erlang developers</a></li>
+  </ul>
+</div>
+
+<div class="widget">
+  <h3 class="widget-title">Learning resources</h3>
+  <ul>
+    <li class="image"><a href="http://pragprog.com/titles/elixir" title="Programming Elixir cover"><img src="http://imagery.pragprog.com/products/361/elixir_xlargebeta.jpg?1368724397" /></a></li>
+    <li class="image"><a href="http://elixirsips.com" title="ElixirSips cover"><img src="http://elixirsips.com/images/ElixirLangAd2_190x160.png" width="190" height="160" /></a></li>
+    <li class="image"><a href="http://manning.com/juric/" title="Elixir in Action"><img src="http://manning.com/juric/juric_cover150.jpg" width="190" height="238" /></a></li>
+    <li class="image"><a href="http://www.exotpbook.com/" title="The Little Elixir and OTP Guidebook"><img src="http://i.imgur.com/G6icQmt.png" width="190" height="274" /></a></li>
+    <li class="image"><a href="http://shop.oreilly.com/product/0636920030584.do" title="Introducing Elixir"><img src="http://akamaicovers.oreilly.com/images/0636920030584/rc_cat.gif" width="190" /></a></li>
+  </ul>
+</div>
+
+
+<div class="widget">
+  <h3 class="widget-title">Code editor support</h3>
+  <ul>
+    <li><a class="spec" href="https://github.com/elixir-lang/emacs-elixir">Emacs Mode</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/elixir-tmbundle">Textmate Bundle</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/vim-elixir">Vim Elixir</a></li>
+    <li><a class="spec" href="https://github.com/SteffenBauer/elixir-gtksourceview">GtkSourceView (gedit)</a></li>
+    <li><a class="spec" href="https://github.com/lucasmazza/language-elixir">Atom Package</a></li>
+  </ul>
+</div>
+
+
+<div class="widget">
+  <h3 class="widget-title">Sponsors</h3>
+  <ul>
+    <li class="image"><a href="http://plataformatec.com.br" title="Plataformatec"><img class="no-border" src="/images/logo/plataformatec.png" /></a></li>
+  </ul>
+</div>
+
+</div>
+
+      </div><!-- #main -->
+
+      <div class="clear">
+      </div>
+
+      <div id="copyright">
+        © 2012-2014 <a href="http://plataformatec.com.br/">Plataformatec</a>. All rights reserved.
+      </p>
+    </div><!-- .wrap -->
+  </div><!-- #container -->
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-8268430-6']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="/js/toc/toc.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $('.toc').toc({
+          title: '',
+          listType: 'ul',
+          showSpeed: 0,
+        });
+    });
+  </script>
+</body>
+</html>
+

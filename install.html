@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Installing Elixir - Elixir</title>
+  <link href="http://feeds.feedburner.com/ElixirLang" rel="alternate" title="Elixir's Blog" type="application/atom+xml" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" id="font-bitter-css" href="http://fonts.googleapis.com/css?family=Bitter&amp;ver=1" type="text/css" media="screen">
+</head>
+
+<body class="install">
+  <div id="container">
+    <div class="wrap">
+    <div id="header">
+      <div id="branding">
+        <h1 id="site-title">
+          <a href="/" title="Elixir" rel="Home">
+            <img class="logo" src="/images/logo/logo.png" alt="Elixir Logo" />
+          </a>
+        </h1>
+      </div>
+
+      <div id="menu-primary" class="menu-container">
+        <div class="menu">
+          <ul id="menu-primary-items">
+            <li class="menu-item home"><a class="spec" href="/">Home</a></li>
+            <li class="menu-item install"><a class="spec" href="/install.html">Install</a></li>
+            <li class="menu-item getting_started"><a class="spec" href="/getting_started/1.html">Getting Started</a></li>
+            <li class="menu-item docs"><a class="spec" href="/docs.html">Docs</a></li>
+            <li class="menu-item blog"><a class="spec" href="/blog">Blog</a></li>
+            <li class="menu-item source"><a class="spec" href="https://github.com/elixir-lang/elixir">Source</a></li>
+            <li class="menu-item packages"><a class="spec" href="http://hex.pm/">Packages</a></li>
+
+          </ul>
+        </div>
+      </div>
+
+      <div class="clear"></div>
+    </div>
+
+    <div id="main">
+
+
+<div id="content">
+  <h2 id="installing-elixir">Installing Elixir</h2>
+
+<p>The quickest way to install Elixir is through a distribution or using one of the available installers. If not available, then we recommend the precompiled packages or compiling from source.</p>
+
+<h3 id="1-distributions">1 Distributions</h3>
+
+<p>Choose your operating system and tool.</p>
+
+<h4 id="mac-os-x">Mac OS X</h4>
+
+<ul>
+<li>Homebrew
+
+<ul>
+<li>Update your homebrew to latest: <code>brew update</code></li>
+<li>Run: <code>brew install elixir</code></li>
+</ul></li>
+<li>Macports
+
+<ul>
+<li>Run: <code>sudo port install elixir</code></li>
+</ul></li>
+</ul>
+
+<h4 id="unix-and-unix-like">Unix (and Unix-like)</h4>
+
+<ul>
+<li>Fedora 17+ and Fedora Rawhide
+
+<ul>
+<li>Run: <code>sudo yum -y install elixir</code></li>
+</ul></li>
+<li>Arch Linux (on AUR)
+
+<ul>
+<li>Run: <code>yaourt -S elixir</code></li>
+</ul></li>
+<li>openSUSE (and SLES 11 SP3+)
+
+<ul>
+<li>Add Erlang devel repo: <code>zypper ar -f obs://devel:languages:erlang/ erlang</code></li>
+<li>Run: <code>zypper in elixir</code></li>
+</ul></li>
+<li>Gentoo
+
+<ul>
+<li>Run: <code>emerge --ask dev-lang/elixir</code></li>
+</ul></li>
+<li>FreeBSD
+
+<ul>
+<li>From ports: <code>cd /usr/ports/lang/elixir &amp;&amp; make install clean</code></li>
+<li>From pkg: <code>pkg install elixir</code></li>
+</ul></li>
+<li>Ubuntu 12.04 and 14.04 / Debian 7
+
+<ul>
+<li>Add Erlang Solutions repo: <code>wget http://packages.erlang-solutions.com/erlang-solutions_1.0_all.deb &amp;&amp; sudo dpkg -i erlang-solutions_1.0_all.deb</code></li>
+<li>Run: <code>sudo apt-get update</code></li>
+<li>Run: <code>sudo apt-get install elixir</code></li>
+</ul></li>
+</ul>
+
+<h4 id="windows">Windows</h4>
+
+<ul>
+<li>Web installer
+
+<ul>
+<li><a href="http://s3.hex.pm/elixir-websetup.exe">Download the installer</a></li>
+<li>Click next, next, ..., finish</li>
+</ul></li>
+<li>Chocolatey
+
+<ul>
+<li><code>cinst elixir</code></li>
+</ul></li>
+</ul>
+
+<p>Those distributions will likely install Erlang automatically for you too. In case they don&#39;t, check the <a href="/install.html#4-installing-erlang">Installing Erlang</a> section below.</p>
+
+<h3 id="2-precompiled-package">2 Precompiled package</h3>
+
+<p>Elixir provides a precompiled package for every release. First <a href="/install.html#4-installing-erlang">install Erlang</a> and then download and unzip the <a href="https://github.com/elixir-lang/elixir/releases/">Precompiled.zip file for the latest release</a>.</p>
+
+<p>Once the release is unpacked, you are ready to run the <code>elixir</code> and <code>iex</code> commands from the <code>bin</code> directory. It is recommended that you add Elixir&#39;s <code>bin</code> path to your PATH environment variable to ease development.</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ export PATH=&quot;$PATH:/path/to/elixir/bin&quot;
+</code></pre></div>
+<h3 id="3-compiling-from-source-unix-and-mingw">3 Compiling from source (Unix and MinGW)</h3>
+
+<p>You can download and compile Elixir in few steps. The first one is to <a href="/install.html#4-installing-erlang">install Erlang</a>.</p>
+
+<p>Next you should download the <a href="https://github.com/elixir-lang/elixir/releases/">latest release</a>, unpack it and then run <code>make</code> inside the unpacked directory (note: if you are running on Windows, <a href="https://github.com/elixir-lang/elixir/wiki/Windows">read this page on setting up your environment for compiling Elixir</a>).</p>
+
+<p>After compiling, you are ready to run the <code>elixir</code> and <code>iex</code> commands from the <code>bin</code> directory. It is recommended that you add Elixir&#39;s <code>bin</code> path to your <a href="http://en.wikipedia.org/wiki/Environment_variable">PATH</a> environment variable to ease development:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ export PATH=&quot;$PATH:/path/to/elixir/bin&quot;
+</code></pre></div>
+<p>In case you are feeling a bit more adventurous, you can also compile from master:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ git clone https://github.com/elixir-lang/elixir.git
+$ cd elixir
+$ make clean test
+</code></pre></div>
+<p>If the tests pass, you are ready to go. Otherwise, feel free to open an issue <a href="https://github.com/elixir-lang/elixir">in the issues tracker on Github</a>.</p>
+
+<h3 id="4-installing-erlang">4 Installing Erlang</h3>
+
+<p>The only prerequisite for Elixir is Erlang, version 17.0 or later, which can be easily installed with <a href="https://www.erlang-solutions.com/downloads/download-erlang-otp">Precompiled packages</a>. In case you want to install it directly from source, it can be found on <a href="http://www.erlang.org/download.html">the Erlang website</a> or by following the excellent tutorial available in the <a href="http://docs.basho.com/riak/1.3.0/tutorials/installation/Installing-Erlang/">Riak documentation</a>.</p>
+
+<p>For Windows developers, we recommend the precompiled packages. Those on a Unix platform can probably get Erlang installed via one of the many package distribution tools.</p>
+
+<p>After Erlang is installed, you should be able to open up the command line (or command prompt) and check the Erlang version by typing <code>erl</code>. You will see some information as follows:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">Erlang/OTP 17 (erts-6) [64-bit] [smp:2:2] [async-threads:0] [hipe] [kernel-poll:false]
+</code></pre></div>
+<p>Notice that depending on how you installed Erlang, Erlang binaries won&#39;t be available in your PATH. Be sure to have Erlang binaries in your <a href="http://en.wikipedia.org/wiki/Environment_variable">PATH</a>, otherwise Elixir won&#39;t work!</p>
+
+</div><!-- #content -->
+
+<div id="sidebar-primary" class="sidebar">
+  <div class="widget news">
+  <h3>
+    News: <a href="/blog/2014/09/18/elixir-v1-0-0-released/">Elixir v1.0.0 released</a>
+  </h3>
+</div>
+
+<div class="widget search">
+  <form method="get" class="search-form" action="http://www.google.com/search">
+		<div>
+			<input class="search-text" type="text" name="q" placeholder="Search..." id="searchfield">
+			<input type="hidden" name="sitesearch" value="elixir-lang.org">
+			<input class="search-submit button" name="submit" type="submit" value="Search">
+		</div>
+	</form>
+</div>
+  <div class="widget">
+  <h3 class="widget-title">Join the Community</h3>
+  <ul>
+    <li><a class="spec" href="irc://irc.freenode.net/elixir-lang">#elixir-lang on freenode IRC</a></li>
+    <li><a class="spec" href="http://groups.google.com/group/elixir-lang-talk">elixir-talk mailing list (questions)</a></li>
+    <li><a class="spec" href="http://groups.google.com/group/elixir-lang-core">elixir-core mailing list (development)</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/elixir/issues">Issues tracker</a></li>
+    <li><a class="spec" href="http://twitter.com/elixirlang">@elixirlang on Twitter</a></li>
+  </ul>
+</div>
+
+<div class="widget">
+  <h3 class="widget-title">Important links</h3>
+  <ul>
+    <li><a class="spec" href="https://github.com/elixir-lang/elixir/wiki">Wiki with events, resources and talks organized by the community</a></li>
+    <li><a class="spec" href="http://elixir-lang.org/crash-course.html">Crash course for Erlang developers</a></li>
+  </ul>
+</div>
+
+<div class="widget">
+  <h3 class="widget-title">Learning resources</h3>
+  <ul>
+    <li class="image"><a href="http://pragprog.com/titles/elixir" title="Programming Elixir cover"><img src="http://imagery.pragprog.com/products/361/elixir_xlargebeta.jpg?1368724397" /></a></li>
+    <li class="image"><a href="http://elixirsips.com" title="ElixirSips cover"><img src="http://elixirsips.com/images/ElixirLangAd2_190x160.png" width="190" height="160" /></a></li>
+    <li class="image"><a href="http://manning.com/juric/" title="Elixir in Action"><img src="http://manning.com/juric/juric_cover150.jpg" width="190" height="238" /></a></li>
+    <li class="image"><a href="http://www.exotpbook.com/" title="The Little Elixir and OTP Guidebook"><img src="http://i.imgur.com/G6icQmt.png" width="190" height="274" /></a></li>
+    <li class="image"><a href="http://shop.oreilly.com/product/0636920030584.do" title="Introducing Elixir"><img src="http://akamaicovers.oreilly.com/images/0636920030584/rc_cat.gif" width="190" /></a></li>
+  </ul>
+</div>
+
+
+<div class="widget">
+  <h3 class="widget-title">Code editor support</h3>
+  <ul>
+    <li><a class="spec" href="https://github.com/elixir-lang/emacs-elixir">Emacs Mode</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/elixir-tmbundle">Textmate Bundle</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/vim-elixir">Vim Elixir</a></li>
+    <li><a class="spec" href="https://github.com/SteffenBauer/elixir-gtksourceview">GtkSourceView (gedit)</a></li>
+    <li><a class="spec" href="https://github.com/lucasmazza/language-elixir">Atom Package</a></li>
+  </ul>
+</div>
+
+
+<div class="widget">
+  <h3 class="widget-title">Sponsors</h3>
+  <ul>
+    <li class="image"><a href="http://plataformatec.com.br" title="Plataformatec"><img class="no-border" src="/images/logo/plataformatec.png" /></a></li>
+  </ul>
+</div>
+
+</div>
+
+      </div><!-- #main -->
+
+      <div class="clear">
+      </div>
+
+      <div id="copyright">
+        © 2012-2014 <a href="http://plataformatec.com.br/">Plataformatec</a>. All rights reserved.
+      </p>
+    </div><!-- .wrap -->
+  </div><!-- #container -->
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-8268430-6']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="/js/toc/toc.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $('.toc').toc({
+          title: '',
+          listType: 'ul',
+          showSpeed: 0,
+        });
+    });
+  </script>
+</body>
+</html>
+

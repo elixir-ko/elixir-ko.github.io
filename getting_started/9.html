@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>9 再帰 - Recursion - Elixir</title>
+  <link href="http://feeds.feedburner.com/ElixirLang" rel="alternate" title="Elixir's Blog" type="application/atom+xml" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" id="font-bitter-css" href="http://fonts.googleapis.com/css?family=Bitter&amp;ver=1" type="text/css" media="screen">
+</head>
+
+<body class="getting_started">
+  <div id="container">
+    <div class="wrap">
+    <div id="header">
+      <div id="branding">
+        <h1 id="site-title">
+          <a href="/" title="Elixir" rel="Home">
+            <img class="logo" src="/images/logo/logo.png" alt="Elixir Logo" />
+          </a>
+        </h1>
+      </div>
+
+      <div id="menu-primary" class="menu-container">
+        <div class="menu">
+          <ul id="menu-primary-items">
+            <li class="menu-item home"><a class="spec" href="/">Home</a></li>
+            <li class="menu-item install"><a class="spec" href="/install.html">Install</a></li>
+            <li class="menu-item getting_started"><a class="spec" href="/getting_started/1.html">Getting Started</a></li>
+            <li class="menu-item docs"><a class="spec" href="/docs.html">Docs</a></li>
+            <li class="menu-item blog"><a class="spec" href="/blog">Blog</a></li>
+            <li class="menu-item source"><a class="spec" href="https://github.com/elixir-lang/elixir">Source</a></li>
+            <li class="menu-item packages"><a class="spec" href="http://hex.pm/">Packages</a></li>
+
+          </ul>
+        </div>
+      </div>
+
+      <div class="clear"></div>
+    </div>
+
+    <div id="main">
+
+
+<div id="sidebar-primary" class="sidebar">
+  <div class="widget news">
+  <h3>
+    News: <a href="/blog/2014/09/18/elixir-v1-0-0-released/">Elixir v1.0.0 released</a>
+  </h3>
+</div>
+
+<div class="widget search">
+  <form method="get" class="search-form" action="http://www.google.com/search">
+		<div>
+			<input class="search-text" type="text" name="q" placeholder="Search..." id="searchfield">
+			<input type="hidden" name="sitesearch" value="elixir-lang.org">
+			<input class="search-submit button" name="submit" type="submit" value="Search">
+		</div>
+	</form>
+</div>
+
+  <div class="widget">
+    <h3 class="widget-title">Getting Started</h3>
+    <ol>
+      <li><a class="spec" href="/getting_started/1.html">Interactive Elixir (IEx)</a></li>
+      <li><a class="spec" href="/getting_started/2.html">Basic types</a></li>
+      <li><a class="spec" href="/getting_started/3.html">Basic operators</a></li>
+      <li><a class="spec" href="/getting_started/4.html">Pattern matching</a></li>
+      <li><a class="spec" href="/getting_started/5.html">case, cond and if</a></li>
+      <li><a class="spec" href="/getting_started/6.html">Binaries, strings and char lists</a></li>
+      <li><a class="spec" href="/getting_started/7.html">Keywords, maps and dicts</a></li>
+      <li><a class="spec" href="/getting_started/8.html">Modules</a></li>
+      <li><a class="spec" href="/getting_started/9.html">Recursion</a></li>
+      <li><a class="spec" href="/getting_started/10.html">Enumerables and streams</a></li>
+      <li><a class="spec" href="/getting_started/11.html">Processes</a></li>
+      <li><a class="spec" href="/getting_started/12.html">IO</a></li>
+      <li><a class="spec" href="/getting_started/13.html">alias, require and import</a></li>
+      <li><a class="spec" href="/getting_started/14.html">Module attributes</a></li>
+      <li><a class="spec" href="/getting_started/15.html">Structs</a></li>
+      <li><a class="spec" href="/getting_started/16.html">Protocols</a></li>
+      <li><a class="spec" href="/getting_started/17.html">try, catch and rescue</a></li>
+      <li><a class="spec" href="/getting_started/18.html">Comprehensions</a></li>
+      <li><a class="spec" href="/getting_started/19.html">Sigils</a></li>
+      <li><a class="spec" href="/getting_started/20.html">Where to go next</a></li>
+    </ol>
+  </div>
+  <div class="widget">
+    <h3 class="widget-title">Mix and OTP</h3>
+    <ol>
+      <li><a class="spec" href="/getting_started/mix_otp/1.html">Introduction to Mix</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/2.html">Agent</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/3.html">GenServer</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/4.html">GenEvent</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/5.html">Supervisor and Application</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/6.html">ETS</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/7.html">Dependencies and umbrella apps</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/8.html">Task and gen_tcp</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/9.html">Docs, tests and pipelines</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/10.html">Distributed tasks and configuration</a></li>
+    </ol>
+  </div>
+  <div class="widget">
+    <h3 class="widget-title">Meta-programming in Elixir</h3>
+    <ol>
+      <li><a class="spec" href="/getting_started/meta/1.html">Quote and unquote</a></li>
+      <li><a class="spec" href="/getting_started/meta/2.html">Macros</a></li>
+      <li><a class="spec" href="/getting_started/meta/3.html">Domain Specific Languages</a></li>
+    </ol>
+  </div>
+
+  <div class="widget">
+  <h3 class="widget-title">Learning resources</h3>
+  <ul>
+    <li class="image"><a href="http://pragprog.com/titles/elixir" title="Programming Elixir cover"><img src="http://imagery.pragprog.com/products/361/elixir_xlargebeta.jpg?1368724397" /></a></li>
+    <li class="image"><a href="http://elixirsips.com" title="ElixirSips cover"><img src="http://elixirsips.com/images/ElixirLangAd2_190x160.png" width="190" height="160" /></a></li>
+    <li class="image"><a href="http://manning.com/juric/" title="Elixir in Action"><img src="http://manning.com/juric/juric_cover150.jpg" width="190" height="238" /></a></li>
+    <li class="image"><a href="http://www.exotpbook.com/" title="The Little Elixir and OTP Guidebook"><img src="http://i.imgur.com/G6icQmt.png" width="190" height="274" /></a></li>
+    <li class="image"><a href="http://shop.oreilly.com/product/0636920030584.do" title="Introducing Elixir"><img src="http://akamaicovers.oreilly.com/images/0636920030584/rc_cat.gif" width="190" /></a></li>
+  </ul>
+</div>
+
+  <div class="widget">
+  <h3 class="widget-title">Code editor support</h3>
+  <ul>
+    <li><a class="spec" href="https://github.com/elixir-lang/emacs-elixir">Emacs Mode</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/elixir-tmbundle">Textmate Bundle</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/vim-elixir">Vim Elixir</a></li>
+    <li><a class="spec" href="https://github.com/SteffenBauer/elixir-gtksourceview">GtkSourceView (gedit)</a></li>
+    <li><a class="spec" href="https://github.com/lucasmazza/language-elixir">Atom Package</a></li>
+  </ul>
+</div>
+
+  <div class="widget">
+  <h3 class="widget-title">Sponsors</h3>
+  <ul>
+    <li class="image"><a href="http://plataformatec.com.br" title="Plataformatec"><img class="no-border" src="/images/logo/plataformatec.png" /></a></li>
+  </ul>
+</div>
+</div>
+
+<div id="content">
+  <article>
+    <h1 id="9-再帰-recursion">9 再帰 - Recursion</h1>
+
+<p><div class="toc"></div></p>
+
+<p>イミュータブル(不変)という性質を持つため，Elixir(や関数型言語)でのループは従来の手続き型言語とは異なる書き方をします．例えば，手続き型ではこんな感じで書くでしょう:</p>
+
+<p>Due to immutability, loops in Elixir (and in functional programming languages) are written differently from conventional imperative languages. For example, in an imperative language, one would write:</p>
+<div class="highlight"><pre><code class="language-c" data-lang="c"><span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">array</span><span class="p">.</span><span class="n">length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>上の例では配列と補助変数<code>i</code>を変化させています．Elixirではこうできません．そのかわり関数型言語は再帰に頼ります: 関数は再帰的に呼び出され，停止の条件になるまで，動作し続けます．任意の回数文字を出力する以下の例を考えてみましょう:</p>
+
+<p>In the example above, we are mutating the array and the helper variable <code>i</code>. That&#39;s not possible in Elixir. Instead, functional languages rely on recursion: a function is called recursively until a condition is reached that stops the recursive action from continuing. Consider the example below that prints a string an arbitrary amount of times:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">Recursion</span> <span class="k">do</span>
+  <span class="kd">def</span> <span class="n">print_multiple_times</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="ow">when</span> <span class="n">n</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="k">do</span>
+    <span class="nc">IO</span><span class="p">.</span><span class="n">puts</span> <span class="n">msg</span>
+  <span class="k">end</span>
+
+  <span class="kd">def</span> <span class="n">print_multiple_times</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span> <span class="k">do</span>
+    <span class="nc">IO</span><span class="p">.</span><span class="n">puts</span> <span class="n">msg</span>
+    <span class="n">print_multiple_times</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="nc">Recursion</span><span class="p">.</span><span class="n">print_multiple_times</span><span class="p">(</span><span class="s2">&quot;Hello!&quot;</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="c1"># Hello!</span>
+<span class="c1"># Hello!</span>
+<span class="c1"># Hello!</span>
+</code></pre></div>
+<p>caseと似たように，関数は複数の句を持つことができます．関数へ渡した引数が句のパターンとマッチし，ガードが<code>true</code>と評価される，特定の1つの句が実行されます．</p>
+
+<p>Similar to case, a function may have many clauses. A particular clause is executed when the arguments passed to the function match the clause&#39;s argument patterns and its guard evaluates to <code>true</code>.</p>
+
+<p>上の<code>print_multiple_times/2</code>が最初に呼ばれたとき，引数<code>n</code>は<code>3</code>になっています．</p>
+
+<p>Above when <code>print_multiple_times/2</code> is initially called, the argument <code>n</code> is equal to <code>3</code>.</p>
+
+<p>最初の句は<code>n</code>が<code>1</code>と同じか小さいときにこの定義を使ってくださいというガードを持っています．そうではないため，Elixirは次の句の定義へと移ります．</p>
+
+<p>The first clause has a guard which says use this definition if and only if <code>n</code> is less than or equal to <code>1</code>. Since this is not the case, Elixir proceeds to the next clause&#39;s definition.</p>
+
+<p>2番目の定義はパターンにマッチし，ガードもありませんので，これが実行されます．最初に<code>msg</code>を表示し，次に2番目の引数へ<code>n-1</code>(<code>2</code>)を渡して自分自身を呼び出します．そうすると<code>msg</code>が表示され，再び<code>print_multiple_times/2</code>が呼び出されます．このとき2番目の引数は<code>1</code>になります．</p>
+
+<p>The second definition matches the pattern and has no guard so it will be executed. It first prints our <code>msg</code> and then calls itself passing <code>n - 1</code> (<code>2</code>) as the second argument. Our <code>msg</code> is printed and <code>print_multiple_times/2</code> is called again this time with the second argument set to <code>1</code>.</p>
+
+<p><code>n</code>が<code>1</code>になったことにより，<code>print_multiple_times/2</code>にある1番目の定義のガードが真と評価されるので，この定義を実行します．<code>msg</code>が表示され，あとは何もすることが残っていません．</p>
+
+<p>Because <code>n</code> is now set to <code>1</code>, the guard to our first definition of <code>print_multiple_times/2</code> evaluates to true, and we execute this particular definition. The <code>msg</code> is printed, and there is nothing left to execute.</p>
+
+<p>引数の2番目へどんな数を渡されても，1番目の定義(&quot;ベースケース&quot;と呼ばれています)，あるいはベースケースへ確実に1歩近づくような2番目の定義，のどちらかが呼ばれる<code>print_multiple_times/2</code>を定義しました．</p>
+
+<p>We defined <code>print_multiple_times/2</code> so that no matter what number is passed as the second argument it either triggers our first definition (known as a &quot;base case&quot;) or it triggers our second definition which will ensure that we get exactly 1 step closer to our base case.</p>
+
+<p>リストにある数の合計を求めるときに再帰の力をどう使えるか見てみましょう:</p>
+
+<p>Let&#39;s now see how we can use the power of recursion to sum a list of numbers:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">Math</span> <span class="k">do</span>
+  <span class="kd">def</span> <span class="n">sum_list</span><span class="p">([</span><span class="n">head</span><span class="p">|</span><span class="n">tail</span><span class="p">],</span> <span class="n">accumulator</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">sum_list</span><span class="p">(</span><span class="n">tail</span><span class="p">,</span> <span class="n">head</span> <span class="o">+</span> <span class="n">accumulator</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="kd">def</span> <span class="n">sum_list</span><span class="p">([],</span> <span class="n">accumulator</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">accumulator</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="nc">Math</span><span class="p">.</span><span class="n">sum_list</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span> <span class="c1">#=&gt; 6</span>
+</code></pre></div>
+<p><code>sum_list</code>へ引数としてリスト<code>[1,2,3]</code>と初期値<code>0</code>を渡して呼び出しています．パターンマッチングのルールと一致するものが見つかるまで，それぞれの句へマッチを試みていきます．この場合だとリスト<code>[1,2,3]</code>は<code>[head|tail]</code>へマッチし，<code>head = 1</code>と<code>tail = [2,3]</code>，<code>accumulator</code>は<code>0</code>へと割り当てられます．</p>
+
+<p>We invoke <code>sum_list</code> with a list <code>[1,2,3]</code> and the initial value <code>0</code> as arguments. We will try each clause until we find one that matches according to the pattern matching rules. In this case, the list <code>[1,2,3]</code> matches against <code>[head|tail]</code> which assigns <code>head = 1</code> and <code>tail = [2,3]</code> while <code>accumulator</code> is set to <code>0</code>.</p>
+
+<p>次にリストの先端(head)とアキュムレーターを足し(<code>head + accumulator</code>)，リストの残り(tail)を1番目の引数として渡して<code>sum_list</code>を再帰的に呼び出します．リストの残りは再び<code>[head|tail]</code>へマッチし，リストが空になるまで以下のように続きます:</p>
+
+<p>Then, we add the head of the list to the accumulator <code>head + accumulator</code> and call <code>sum_list</code> again, recursively, passing the tail of the list as its first argument. The tail will once again match <code>[head|tail]</code> until the list is empty, as seen below:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="n">sum_list</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="mi">0</span>
+<span class="n">sum_list</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="mi">1</span>
+<span class="n">sum_list</span> <span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="mi">3</span>
+<span class="n">sum_list</span> <span class="p">[],</span> <span class="mi">6</span>
+</code></pre></div>
+<p>リストが空になると，最後の句にマッチし最終結果の<code>6</code>が返ります．</p>
+
+<p>When the list is empty, it will match the final clause which returns the final result of <code>6</code>.</p>
+
+<p>このリストをとって一つの値へ&quot;減らしていく(reducing)&quot;という手法は&quot;reduce&quot;アルゴリズムと呼ばれており，関数型プログラミングの中心をなしています．</p>
+
+<p>The process of taking a list and &quot;reducing&quot; it down to one value is known as a &quot;reduce&quot; algorithm and is central to functional programming.</p>
+
+<p>もしリストの全ての値を2倍にしたければ何をすればよいでしょう？</p>
+
+<p>What if we instead want to double all of the values in our list?</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">Math</span> <span class="k">do</span>
+  <span class="kd">def</span> <span class="n">double_each</span><span class="p">([</span><span class="n">head</span><span class="p">|</span><span class="n">tail</span><span class="p">])</span> <span class="k">do</span>
+    <span class="p">[</span><span class="n">head</span> <span class="o">*</span> <span class="mi">2</span><span class="p">|</span> <span class="n">double_each</span><span class="p">(</span><span class="n">tail</span><span class="p">)]</span>
+  <span class="k">end</span>
+
+  <span class="kd">def</span> <span class="n">double_each</span><span class="p">([])</span> <span class="k">do</span>
+    <span class="p">[]</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="nc">Math</span><span class="p">.</span><span class="n">double_each</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span> <span class="c1">#=&gt; [2, 4, 6]</span>
+</code></pre></div>
+<p>リストを再帰的にたどり，全ての要素を2倍にし，新しいリストを返しています．この，リストをとって&quot;写しとる(mapping)&quot;手法は&quot;map&quot;アルゴリズムと呼ばれています．</p>
+
+<p>Here we have used recursion to traverse a list doubling each element and returning a new list. The process of taking a list and &quot;mapping&quot; over it is known as a &quot;map&quot; algorithm.</p>
+
+<p>再帰と末尾呼び出し最適化はElixirの重要な部分で，ループを作るのによく利用されています．しかしElixirでプログラミングしているときにリストの操作に上でやったような再帰を使うことはほとんどないでしょう．</p>
+
+<p>Recursion and tail call optimization are an important part of Elixir and are commonly used to create loops. However, when programming Elixir you will rarely use recursion as above to manipulate lists.</p>
+
+<p>次の章で学ぶ<a href="/docs/stable/elixir/Enum.html"><code>Enum</code>モジュール</a>は既にリストを扱うのに便利な様々なものを提供しています．例えば上の例は次のように書けてしまいます:</p>
+
+<p>The <a href="/docs/stable/elixir/Enum.html"><code>Enum</code> module</a>, which we are going to study in the next chapter, already provides many conveniences for working with lists. For instance, the examples above could be written as:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">Enum</span><span class="p">.</span><span class="n">reduce</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="k">fn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">acc</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="n">acc</span> <span class="k">end</span><span class="p">)</span>
+<span class="go">6</span>
+<span class="gp">iex&gt; </span><span class="nc">Enum</span><span class="p">.</span><span class="n">map</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="k">fn</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span> <span class="k">end</span><span class="p">)</span>
+<span class="go">[2, 4, 6]</span>
+</code></pre></div>
+<p>あるいはキャプチャー構文を使えばこのように:</p>
+
+<p>Or, using the capture syntax:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">Enum</span><span class="p">.</span><span class="n">reduce</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="o">&amp;+/</span><span class="mi">2</span><span class="p">)</span>
+<span class="go">6</span>
+<span class="gp">iex&gt; </span><span class="nc">Enum</span><span class="p">.</span><span class="n">map</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="o">&amp;</span><span class="p">(</span><span class="ni">&amp;1</span> <span class="o">*</span> <span class="mi">2</span><span class="p">))</span>
+<span class="go">[2, 4, 6]</span>
+</code></pre></div>
+<p>それではEnumerableとStreamについてもっと詳しくみていきましょう．</p>
+
+<p>So let&#39;s take a deeper look at Enumerables and Streams.</p>
+
+  </article><!-- .hfeed -->
+
+  
+  <div class="pagination loop-pagination">
+    
+      <a href="8.html" class="previous page-numbers spec">&larr; Previous</a>
+    
+      <a class="page-numbers spec" href="#container">Top</a>
+    
+      <a href="10.html" class="next page-numbers spec">Next &rarr;</a>
+    
+  </div>
+  
+</div><!-- #content -->
+
+      </div><!-- #main -->
+
+      <div class="clear">
+      </div>
+
+      <div id="copyright">
+        © 2012-2014 <a href="http://plataformatec.com.br/">Plataformatec</a>. All rights reserved.
+      </p>
+    </div><!-- .wrap -->
+  </div><!-- #container -->
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-8268430-6']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="/js/toc/toc.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $('.toc').toc({
+          title: '',
+          listType: 'ul',
+          showSpeed: 0,
+        });
+    });
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>1 Introduction to Mix - Elixir</title>
+  <link href="http://feeds.feedburner.com/ElixirLang" rel="alternate" title="Elixir's Blog" type="application/atom+xml" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" id="font-bitter-css" href="http://fonts.googleapis.com/css?family=Bitter&amp;ver=1" type="text/css" media="screen">
+</head>
+
+<body class="getting_started">
+  <div id="container">
+    <div class="wrap">
+    <div id="header">
+      <div id="branding">
+        <h1 id="site-title">
+          <a href="/" title="Elixir" rel="Home">
+            <img class="logo" src="/images/logo/logo.png" alt="Elixir Logo" />
+          </a>
+        </h1>
+      </div>
+
+      <div id="menu-primary" class="menu-container">
+        <div class="menu">
+          <ul id="menu-primary-items">
+            <li class="menu-item home"><a class="spec" href="/">Home</a></li>
+            <li class="menu-item install"><a class="spec" href="/install.html">Install</a></li>
+            <li class="menu-item getting_started"><a class="spec" href="/getting_started/1.html">Getting Started</a></li>
+            <li class="menu-item docs"><a class="spec" href="/docs.html">Docs</a></li>
+            <li class="menu-item blog"><a class="spec" href="/blog">Blog</a></li>
+            <li class="menu-item source"><a class="spec" href="https://github.com/elixir-lang/elixir">Source</a></li>
+            <li class="menu-item packages"><a class="spec" href="http://hex.pm/">Packages</a></li>
+
+          </ul>
+        </div>
+      </div>
+
+      <div class="clear"></div>
+    </div>
+
+    <div id="main">
+
+
+<div id="sidebar-primary" class="sidebar">
+  <div class="widget news">
+  <h3>
+    News: <a href="/blog/2014/09/18/elixir-v1-0-0-released/">Elixir v1.0.0 released</a>
+  </h3>
+</div>
+
+<div class="widget search">
+  <form method="get" class="search-form" action="http://www.google.com/search">
+		<div>
+			<input class="search-text" type="text" name="q" placeholder="Search..." id="searchfield">
+			<input type="hidden" name="sitesearch" value="elixir-lang.org">
+			<input class="search-submit button" name="submit" type="submit" value="Search">
+		</div>
+	</form>
+</div>
+
+  <div class="widget">
+    <h3 class="widget-title">Getting Started</h3>
+    <ol>
+      <li><a class="spec" href="/getting_started/1.html">Interactive Elixir (IEx)</a></li>
+      <li><a class="spec" href="/getting_started/2.html">Basic types</a></li>
+      <li><a class="spec" href="/getting_started/3.html">Basic operators</a></li>
+      <li><a class="spec" href="/getting_started/4.html">Pattern matching</a></li>
+      <li><a class="spec" href="/getting_started/5.html">case, cond and if</a></li>
+      <li><a class="spec" href="/getting_started/6.html">Binaries, strings and char lists</a></li>
+      <li><a class="spec" href="/getting_started/7.html">Keywords, maps and dicts</a></li>
+      <li><a class="spec" href="/getting_started/8.html">Modules</a></li>
+      <li><a class="spec" href="/getting_started/9.html">Recursion</a></li>
+      <li><a class="spec" href="/getting_started/10.html">Enumerables and streams</a></li>
+      <li><a class="spec" href="/getting_started/11.html">Processes</a></li>
+      <li><a class="spec" href="/getting_started/12.html">IO</a></li>
+      <li><a class="spec" href="/getting_started/13.html">alias, require and import</a></li>
+      <li><a class="spec" href="/getting_started/14.html">Module attributes</a></li>
+      <li><a class="spec" href="/getting_started/15.html">Structs</a></li>
+      <li><a class="spec" href="/getting_started/16.html">Protocols</a></li>
+      <li><a class="spec" href="/getting_started/17.html">try, catch and rescue</a></li>
+      <li><a class="spec" href="/getting_started/18.html">Comprehensions</a></li>
+      <li><a class="spec" href="/getting_started/19.html">Sigils</a></li>
+      <li><a class="spec" href="/getting_started/20.html">Where to go next</a></li>
+    </ol>
+  </div>
+  <div class="widget">
+    <h3 class="widget-title">Mix and OTP</h3>
+    <ol>
+      <li><a class="spec" href="/getting_started/mix_otp/1.html">Introduction to Mix</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/2.html">Agent</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/3.html">GenServer</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/4.html">GenEvent</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/5.html">Supervisor and Application</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/6.html">ETS</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/7.html">Dependencies and umbrella apps</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/8.html">Task and gen_tcp</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/9.html">Docs, tests and pipelines</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/10.html">Distributed tasks and configuration</a></li>
+    </ol>
+  </div>
+  <div class="widget">
+    <h3 class="widget-title">Meta-programming in Elixir</h3>
+    <ol>
+      <li><a class="spec" href="/getting_started/meta/1.html">Quote and unquote</a></li>
+      <li><a class="spec" href="/getting_started/meta/2.html">Macros</a></li>
+      <li><a class="spec" href="/getting_started/meta/3.html">Domain Specific Languages</a></li>
+    </ol>
+  </div>
+
+  <div class="widget">
+  <h3 class="widget-title">Learning resources</h3>
+  <ul>
+    <li class="image"><a href="http://pragprog.com/titles/elixir" title="Programming Elixir cover"><img src="http://imagery.pragprog.com/products/361/elixir_xlargebeta.jpg?1368724397" /></a></li>
+    <li class="image"><a href="http://elixirsips.com" title="ElixirSips cover"><img src="http://elixirsips.com/images/ElixirLangAd2_190x160.png" width="190" height="160" /></a></li>
+    <li class="image"><a href="http://manning.com/juric/" title="Elixir in Action"><img src="http://manning.com/juric/juric_cover150.jpg" width="190" height="238" /></a></li>
+    <li class="image"><a href="http://www.exotpbook.com/" title="The Little Elixir and OTP Guidebook"><img src="http://i.imgur.com/G6icQmt.png" width="190" height="274" /></a></li>
+    <li class="image"><a href="http://shop.oreilly.com/product/0636920030584.do" title="Introducing Elixir"><img src="http://akamaicovers.oreilly.com/images/0636920030584/rc_cat.gif" width="190" /></a></li>
+  </ul>
+</div>
+
+  <div class="widget">
+  <h3 class="widget-title">Code editor support</h3>
+  <ul>
+    <li><a class="spec" href="https://github.com/elixir-lang/emacs-elixir">Emacs Mode</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/elixir-tmbundle">Textmate Bundle</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/vim-elixir">Vim Elixir</a></li>
+    <li><a class="spec" href="https://github.com/SteffenBauer/elixir-gtksourceview">GtkSourceView (gedit)</a></li>
+    <li><a class="spec" href="https://github.com/lucasmazza/language-elixir">Atom Package</a></li>
+  </ul>
+</div>
+
+  <div class="widget">
+  <h3 class="widget-title">Sponsors</h3>
+  <ul>
+    <li class="image"><a href="http://plataformatec.com.br" title="Plataformatec"><img class="no-border" src="/images/logo/plataformatec.png" /></a></li>
+  </ul>
+</div>
+</div>
+
+<div id="content">
+  <article>
+    <h1 id="1-introduction-to-mix">1 Introduction to Mix</h1>
+
+<p><div class="toc"></div></p>
+
+<p>この章では、スーパーバイザーの連なり(supervision tree)のことや、設定、テストなどを含んだ完璧なElixirのアプリケーションを作る方法について学びます。</p>
+
+<p>In this guide, we will learn how to build a complete Elixir application, with its own supervision tree, configuration, tests and more.</p>
+
+<p>アプリケーションは分散型キーバリューストアとして動作します。私たちはこれからキーと値のペアのバケット(単位)と複数のノードにまたがる分散型のバケットを管理します。また、次のようなリクエストを同時に送るノードを複数接続するためのシンプルなクライアントも作成していきます。</p>
+
+<p>The application works as a distributed key-value store. We are going to organize key-value pairs into buckets and distribute those buckets across multiple nodes. We will also build a simple client that allows us to connect to any of those nodes and send requests such as:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">CREATE shopping
+OK
+
+PUT shopping milk 1
+OK
+
+PUT shopping eggs 3
+OK
+
+GET shopping milk
+1
+OK
+
+DELETE shopping eggs
+OK
+</code></pre></div>
+<p>このようなキーバリューアプリケーションを作るのに必要な3つのツールを紹介します。</p>
+
+<p>In order to build our key-value application, we are going to use three main tools:</p>
+
+<ul>
+<li><p>OTPはErlangのライブラリ集です。Erlangの開発者はOTPを使うことで強力で、障害の起きにくいアプリケーションを開発できます。この章ではOTPをElixirで扱ったり、スーパーバイザーの連なりやイベントマネージャーなどを扱います。</p></li>
+<li><p>OTP is a set of libraries that ships with Erlang. Erlang developers use OTP to build robust, fault-tolerant applications. In this chapter we will explore how many aspects from OTP integrate with Elixir, including supervision trees, event managers and more;</p></li>
+<li><p>MixはElixirにおける作成、コンパイル、アプリケーションのテスト、依存関係の管理を扱うためのビルドツールです。</p></li>
+<li><p>Mix is a build tool that ships with Elixir that provides tasks for creating, compiling, testing your application, managing its dependencies and much more;</p></li>
+<li><p>ExUnitはElixirをもとに書かれたテスト駆動フレームワークです。</p></li>
+<li><p>ExUnit is a test-unit based framework that ships with Elixir;</p></li>
+</ul>
+
+<p>この章では、まずMixを使って最初のプロジェクトを作り進めながら、MixやExUnitとOTPとの違いについて扱います。</p>
+
+<p>In this chapter, we will create our first project using Mix and explore different features in OTP, Mix and ExUnit as we go.</p>
+
+<blockquote>
+<p>注意: この章はElixirのバージョンv0.15.0以降が必要です。Elixirのバージョンを調べるコマンドは<code>elixir -v</code>で、もし詳しい説明が必要であれば、<a href="/getting_started/1.html">getting startedの最初の章</a>を読んでください。</p>
+
+<p>もし何か質問やこのガイドへの改善案があれば，それぞれ<a href="https://groups.google.com/d/forum/elixir-lang-talk">メーリングリスト</a>か<a href="http://github.com/elixir-lang/elixir-lang.github.com/issues">イシュートラッカー</a>へお知らせください．あなたのインプットはとても大切で，私たちがこのガイドを読みやすいように担保し，最新の状態を保つのに役立ちます．</p>
+
+<p>Note: this guide requires Elixir v0.15.0 or later. You can check your Elixir version with <code>elixir -v</code> and install a more recent version if required by following the steps described in <a href="/getting_started/1.html">the first chapter of the Getting Started guide</a>.</p>
+
+<p>If you have any questions or improvements to the guide, please let us know in <a href="https://groups.google.com/d/forum/elixir-lang-talk">our mailing list</a> or <a href="http://github.com/elixir-lang/elixir-lang.github.com/issues">issues tracker</a> respectively. Your input is really important to help us guarantee the guides are accessible and up to date!</p>
+</blockquote>
+
+<h2 id="1-1-最初のプロジェクト-our-first-project">1.1 最初のプロジェクト - Our first project</h2>
+
+<p>Elixirをインストールしたら、まず<code>elixir</code>に<code>elixirc</code>と<code>iex</code>の実行ファイルに加えて、Elixirの実行ファイルである<code>mix</code>を使えるようになります。</p>
+
+<p>When you install Elixir, besides getting the <code>elixir</code>, <code>elixirc</code> and <code>iex</code> executables, you also get an executable Elixir script named <code>mix</code>.</p>
+
+<p>まずは最初のプロジェクトを<code>mix new</code>をコマンドラインから実行してみましょう。プロジェクト名を引数に渡して(今回は<code>kv</code>)、そのままであればメインのモジュールは通常<code>Kv</code>というように処理されてしまうので、今回は大文字で<code>KV</code>であることをmixに伝えましょう。</p>
+
+<p>Let&#39;s create our first project by invoking <code>mix new</code> from the command line. We&#39;ll pass the project name as argument (<code>kv</code>, in this case), and tell mix that our main module should be the all-uppercase <code>KV</code>, instead of the default, which would have been <code>Kv</code>:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ mix new kv --module KV
+</code></pre></div>
+<p>Mixは<code>kv</code>といういくつかのファイルを含んだディレクトリを作成します。</p>
+
+<p>Mix will create a directory named <code>kv</code> with a few files in it:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">* creating README.md
+* creating .gitignore
+* creating mix.exs
+* creating config
+* creating config/config.exs
+* creating lib
+* creating lib/kv.ex
+* creating test
+* creating test/test_helper.exs
+* creating test/kv_test.exs
+</code></pre></div>
+<p>生成されたファイルを見てみましょう。</p>
+
+<p>Let&#39;s take a brief look at those generated files.</p>
+
+<blockquote>
+<p>注意: MixはElixirの実行形式のひとつです。<code>mix</code>を実行するのにElixirの実行形式をPATHに含めなければなりません。あるいは、Elixirに直接スクリプトの引数を与えてください。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ bin/elixir bin/mix new kv --module KV
+</code></pre></div>
+<p>注意: -Sオプションを指定することで、直接スクリプトを実行することができます。</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ bin/elixir -S mix new kv --module KV
+</code></pre></div>
+<p>-Sオプションを使うと、ElixirはPATHとスクリプトを探し出し、どこでも実行できるようにしてくれます。</p>
+
+<p>Note: Mix is an Elixir executable. This means that in order to run <code>mix</code>, you need to have elixir&#39;s executable in your PATH. If not, you can run it by passing the script as argument to elixir:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ bin/elixir bin/mix new kv --module KV
+</code></pre></div>
+<p>Note that you can also execute any script in your PATH from Elixir via the -S option:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ bin/elixir -S mix new kv --module KV
+</code></pre></div>
+<p>When using -S, elixir finds the script wherever it is in your PATH and executes it.</p>
+</blockquote>
+
+<h2 id="1-2-プロジェクトのコンパイル-project-compilation">1.2 プロジェクトのコンパイル - Project compilation</h2>
+
+<p><code>mix.exs</code>というファイルは新しいプロジェクトを生成した時に作成され、主な用途はプロジェクトの設定です。さっそく見てみましょう(コメント行は削除しています)。</p>
+
+<p>A file named <code>mix.exs</code> was generated inside our new project and its main responsibility is to configure our project. Let&#39;s take a look at it (comments removed):</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">KV.Mixfile</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="nc">Mix.Project</span>
+
+  <span class="kd">def</span> <span class="n">project</span> <span class="k">do</span>
+    <span class="p">[</span><span class="ss">app</span><span class="p">:</span> <span class="ss">:kv</span><span class="p">,</span>
+     <span class="ss">version</span><span class="p">:</span> <span class="s2">&quot;0.0.1&quot;</span><span class="p">,</span>
+     <span class="ss">deps</span><span class="p">:</span> <span class="n">deps</span><span class="p">]</span>
+  <span class="k">end</span>
+
+  <span class="kd">def</span> <span class="n">application</span> <span class="k">do</span>
+    <span class="p">[</span><span class="ss">applications</span><span class="p">:</span> <span class="p">[</span><span class="ss">:logger</span><span class="p">]]</span>
+  <span class="k">end</span>
+
+  <span class="kd">defp</span> <span class="n">deps</span> <span class="k">do</span>
+    <span class="p">[]</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p><code>mix.exs</code>の定義はプロジェクト名やバージョンといったプロジェクトの設定を返すための<code>project</code>と、アプリケーションによってそのまま生成された<code>application</code>によるふたつの公開関数です。</p>
+
+<p>Our <code>mix.exs</code> defines two public functions: <code>project</code>, which returns project configuration like the project name and version, and <code>application</code>, which is used to generate an application file.</p>
+
+<p>どちらも<code>deps</code>という非公開の関数を含んでいて、<code>project</code>が要求されると依存関係を定義します。本来は<code>deps</code>を別々のものとして定義する必要はありませんが、プロジェクトの設定を小さくするのに役立っています。</p>
+
+<p>There is also a private function named <code>deps</code>, which is invoked from the <code>project</code> function, that defines our project dependencies. Defining <code>deps</code> as a separate function is not required, but it helps keep the project configuration tidy.</p>
+
+<p>Mixは単純なモジュールの定義を含んだ<code>lib/kv.ex</code>というファイルを生成します。</p>
+
+<p>Mix also generates a file at <code>lib/kv.ex</code> with a simple module definition:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">KV</span> <span class="k">do</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>プロジェクトをそのままコンパイルするのに十分です。</p>
+
+<p>This structure is enough to compile our project:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ mix compile
+</code></pre></div>
+<p>これらは、</p>
+
+<p>Will generate:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">Compiled lib/kv.ex
+Generated kv.app
+</code></pre></div>
+<p><code>lib/kv.ex</code>というファイルが<code>kv.app</code>というファイルをコンパイルしました。この<code>.app</code>というファイルは<code>application/0</code>という情報が定義された<code>mix.exs</code>から生成されています。詳細な<code>mix.exs</code>の設定についての機能は後々触れます。</p>
+
+<p>Notice the <code>lib/kv.ex</code> file was compiled and <code>kv.app</code> file was generated. This <code>.app</code> file is generated with the information from the <code>application/0</code> function in the <code>mix.exs</code> file. We will further explore <code>mix.exs</code> configuration features in future chapters.</p>
+
+<p>一度プロジェクトがコンパイルされると、プロジェクト内で<code>iex</code>を実行させることができます。</p>
+
+<p>Once the project is compiled, you can start an <code>iex</code> session inside the project by running:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ iex -S mix
+</code></pre></div>
+<h2 id="1-3-テストの実行-running-tests">1.3 テストの実行 - Running tests</h2>
+
+<p>Mixはプロジェクトをテストするために必要なファイルを自動で用意します。Mixは通常<code>lib</code>ディレクトリのファイルごとにそれぞれ対応する、<code>test</code>というディレクトリの<code>&lt;ファイル名&gt;_test.exs</code>に沿って実行されます。この規則により、すでに<code>test/kv_test.exs</code>と<code>lib/kv.ex</code>というファイルが見つかるはずです。しかし、これらはまだうまく結びついていません。</p>
+
+<p>Mix also generated the appropriate structure for running our project tests. Mix projects usually follow the convention of having a <code>&lt;filename&gt;_test.exs</code> file in the <code>test</code> directory for each file in the <code>lib</code> directory. For this reason, we can already find a <code>test/kv_test.exs</code> corresponding to our <code>lib/kv.ex</code> file. It doesn&#39;t do much at this point:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">KVTest</span> <span class="k">do</span>
+  <span class="kn">use</span> <span class="nc">ExUnit.Case</span>
+
+  <span class="n">test</span> <span class="s2">&quot;the truth&quot;</span> <span class="k">do</span>
+    <span class="n">assert</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">2</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div>
+<p>重要なポイントがふたつあります。</p>
+
+<p>It is important to note a couple things:</p>
+
+<ol>
+<li><p>テストが書かれたファイルはElixirのファイル(<code>.exs</code>)なので、テストを実行するたびにファイルをコンパイルする必要がありません。</p></li>
+<li><p>the test file is an Elixir script file (<code>.exs</code>). This is convenient because we don&#39;t need to compile test files before running them;</p></li>
+<li><p><a href="/docs/stable/ex_unit/ExUnit.Case.html"><code>ExUnit.Case</code></a>をテストのAPIに組み込んだり、<code>test/2</code>という単純なマクロを定義するために<code>KVTest</code>と呼ばれるテストモジュールを定義しました。</p></li>
+<li><p>we define a test module named <code>KVTest</code>, use <a href="/docs/stable/ex_unit/ExUnit.Case.html"><code>ExUnit.Case</code></a> to inject the testing API and define a simple test using the <code>test/2</code> macro;</p></li>
+</ol>
+
+<p>Mixは<code>test/test_helper.exs</code>という素早くテストフレームワークのセットアップさせるファイルも生成しています。</p>
+
+<p>Mix also generated a file named <code>test/test_helper.exs</code> which is responsible for setting up the test framework:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="nc">ExUnit</span><span class="p">.</span><span class="n">start</span>
+</code></pre></div>
+<p>このファイルは毎回テストを実行するごとに自動的にMixに呼び出されます。テストの実行は<code>mix test</code>です。</p>
+
+<p>This file will be automatically required by Mix every time before we run our tests. We can run tests with <code>mix test</code>:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">Compiled lib/kv.ex
+Generated kv.app
+.
+
+Finished in 0.04 seconds (0.04s on load, 0.00s on tests)
+1 tests, 0 failures
+
+Randomized with seed 540224
+</code></pre></div>
+<p><code>mix test</code>を実行すると、Mixはソースファイルをコンパイルして、アプリケーションを生成し直してくれます。これはMixが次の章で説明する複数の環境を使い分けているからです。</p>
+
+<p>Notice that by running <code>mix test</code>, Mix has compiled the source files and generated the application file once again. This happens because Mix supports multiple environments, which we will explore in the next section.</p>
+
+<p>そのうえ、ExUnitはテストの結果を成功はピリオドで表示して、ランダムな値をシードに表示していることがわかります。目的にあわせてテストに失敗して、何が起こるか確かめましょう。</p>
+
+<p>Furthermore, you can see that ExUnit prints a dot for each successful test and automatically randomizes tests too. Let&#39;s make the test fail on purpose and see what happens.</p>
+
+<p><code>test/kv_test.exs</code>のアサーションを書き換えてください。</p>
+
+<p>Change the assertion in <code>test/kv_test.exs</code> to the following:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="n">assert</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">==</span> <span class="mi">3</span>
+</code></pre></div>
+<p><code>mix test</code>を再び実行します(二回目以降はコンパイルされません)</p>
+
+<p>Now run <code>mix test</code> again (notice this time there was no compilation):</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">1) test the truth (KVTest)
+   test/kv_test.exs:4
+   Assertion with == failed
+   code: 1 + 1 == 3
+   lhs:  2
+   rhs:  3
+   stacktrace:
+     test/kv_test.exs:5
+
+Finished in 0.05 seconds (0.05s on load, 0.00s on tests)
+1 tests, 1 failures
+</code></pre></div>
+<p>アサーションの失敗ごとにExUnitは詳細な結果と、テストケースの名前と左手側(lfs)に失敗した値と右手側(rfs)に<code>==</code>オペレーターを表示しています。</p>
+
+<p>For each failure, ExUnit prints a detailed report, containing the test name with the test case, the code that failed and the values for the left-hand side (lhs) and right-hand side (rhs) of the <code>==</code> operator.</p>
+
+<p>2行目の失敗は、テストそのもののファイル名で、テストがどこに定義されているかを示しています。もし、2行目をそのままコピーして、<code>mix text</code>のあとにペーストすると、Mixは直接そのテストの箇所を部分的に実行します。</p>
+
+<p>In the second line of the failure, right below the test name, there is the location the test was defined. If you copy the test location in the second line, containing the file and line, and paste it in-front of <code>mix test</code>, Mix will load and run just that particular test:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ mix test test/kv_test.exs:4
+</code></pre></div>
+<p>このショートカットはプロジェクトの開発を進めるにあたり、該当箇所のテストだけを実行しながら修正することができるのでとても便利です。</p>
+
+<p>This shortcut will be extremely useful as we build our project, allowing us to quickly iterate by running just a specific test.</p>
+
+<p>最後に、スタックトレースは与えられたテストの情報をもとに、ソースの失敗部分を部分的に実行し、失敗した原因を関連づけます。</p>
+
+<p>Finally, the stacktrace relates to the failure itself, giving information about the test and often the place the failure was generated from within the source files.</p>
+
+<h2 id="1-4-環境-environments">1.4 環境 - Environments</h2>
+
+<p>Mixには&quot;環境&quot;という概念があります。これは開発者が特定の状況に応じた拡張を可能にします。標準では、Mixは3つの環境が存在しています。</p>
+
+<p>Mix supports the concept of &quot;environments&quot;. They allow a developer to customize compilation and other options for specific scenarios. By default, Mix understands three environments:</p>
+
+<ul>
+<li><code>:dev</code> - Mixが標準で実行するタスク(例: <code>compile</code>)</li>
+<li><code>:test</code> - <code>mix test</code>で使われる</li>
+<li><p><code>:prod</code> - プロダクションに一度だけ実行される</p></li>
+<li><p><code>:dev</code> - the one in which mix tasks (like <code>compile</code>) run by default</p></li>
+<li><p><code>:test</code> - used by <code>mix test</code></p></li>
+<li><p><code>:prod</code> - the one you will use to put your project in production</p></li>
+</ul>
+
+<blockquote>
+<p>注意: プロジェクトにそれぞれの環境に対して依存するライブラリを加える場合、これらは自動で引き継がれることはありません。ただし、<code>:prod</code>は環境の設定を引き継ぎます。</p>
+
+<p>Note: If you add dependencies to your project, they will not inherit your project&#39;s environment, but instead run with their <code>:prod</code> environment settings!</p>
+</blockquote>
+
+<p>標準で、これらの3つの環境はすべて同じ設定で動作します。環境ごとの個別設定を行う必要がある場合は<a href="/docs/stable/mix/Mix.html#env/1"><code>Mix.env</code>の機能</a>を参考に、<code>mix.exs</code>がそれぞれの環境をatomで返します。</p>
+
+<p>By default, these environments behave the same and all configuration we have seen so far will affect all three environments. Customization per environment can be done by accessing <a href="/docs/stable/mix/Mix.html#env/1">the <code>Mix.env</code> function</a> in your <code>mix.exs</code> file, which returns the current environment as an atom:</p>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">def</span> <span class="n">project</span> <span class="k">do</span>
+  <span class="p">[</span><span class="ss">deps_path</span><span class="p">:</span> <span class="n">deps_path</span><span class="p">(</span><span class="nc">Mix</span><span class="p">.</span><span class="n">env</span><span class="p">)]</span>
+<span class="k">end</span>
+
+<span class="kd">defp</span> <span class="n">deps_path</span><span class="p">(</span><span class="ss">:prod</span><span class="p">),</span> <span class="ss">do</span><span class="p">:</span> <span class="s2">&quot;prod_deps&quot;</span>
+<span class="kd">defp</span> <span class="n">deps_path</span><span class="p">(</span><span class="bp">_</span><span class="p">),</span> <span class="ss">do</span><span class="p">:</span> <span class="s2">&quot;deps&quot;</span>
+</code></pre></div>
+<p>Mixは標準で<code>:dev</code>、テストのタスクを実行するための<code>:test</code>を使用します。環境は<code>MIX_ENV</code>の環境変数をもとに変更できます。</p>
+
+<p>Mix will default to the <code>:dev</code> environment, except for the <code>test</code> task that will default to the <code>:test</code> environment. The environment can be changed via the <code>MIX_ENV</code> environment variable:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ MIX_ENV=prod mix compile
+</code></pre></div>
+<h2 id="1-5-詳細-exploring">1.5 詳細 - Exploring</h2>
+
+<p>プロジェクトの開発に詳細なMixの情報が必要であれば、いつでもヘルプタスクを開いて、実行可能なすべてのタスクのリストを取得することができます。</p>
+
+<p>There is much more to Mix, and we will continue to explore it as we build our project. A <a href="http://elixir-lang.org/docs/stable/mix">general overview is available on the Mix documentation</a>.</p>
+
+<p>Keep in mind that you can always invoke the help task to list all available tasks:</p>
+<div class="highlight"><pre><code class="language-text" data-lang="text">$ mix help
+</code></pre></div>
+<p>そして、タスクごとの詳細な内容を知るには<code>mix help タスク名</code>を実行します。</p>
+
+<p>You can get further information about a particular task by invoking <code>mix help TASK</code>.</p>
+
+<p>さあ、コードを書きましょう！</p>
+
+<p>Let&#39;s write some code!</p>
+
+  </article><!-- .hfeed -->
+
+  
+  <div class="pagination loop-pagination">
+    
+      <a class="page-numbers spec" href="#container">Top</a>
+    
+      <a href="2.html" class="next page-numbers spec">Next &rarr;</a>
+    
+  </div>
+  
+</div><!-- #content -->
+
+      </div><!-- #main -->
+
+      <div class="clear">
+      </div>
+
+      <div id="copyright">
+        © 2012-2014 <a href="http://plataformatec.com.br/">Plataformatec</a>. All rights reserved.
+      </p>
+    </div><!-- .wrap -->
+  </div><!-- #container -->
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-8268430-6']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="/js/toc/toc.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $('.toc').toc({
+          title: '',
+          listType: 'ul',
+          showSpeed: 0,
+        });
+    });
+  </script>
+</body>
+</html>
+

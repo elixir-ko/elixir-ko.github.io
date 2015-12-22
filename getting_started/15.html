@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>15 構造体 - Structs - Elixir</title>
+  <link href="http://feeds.feedburner.com/ElixirLang" rel="alternate" title="Elixir's Blog" type="application/atom+xml" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" id="font-bitter-css" href="http://fonts.googleapis.com/css?family=Bitter&amp;ver=1" type="text/css" media="screen">
+</head>
+
+<body class="getting_started">
+  <div id="container">
+    <div class="wrap">
+    <div id="header">
+      <div id="branding">
+        <h1 id="site-title">
+          <a href="/" title="Elixir" rel="Home">
+            <img class="logo" src="/images/logo/logo.png" alt="Elixir Logo" />
+          </a>
+        </h1>
+      </div>
+
+      <div id="menu-primary" class="menu-container">
+        <div class="menu">
+          <ul id="menu-primary-items">
+            <li class="menu-item home"><a class="spec" href="/">Home</a></li>
+            <li class="menu-item install"><a class="spec" href="/install.html">Install</a></li>
+            <li class="menu-item getting_started"><a class="spec" href="/getting_started/1.html">Getting Started</a></li>
+            <li class="menu-item docs"><a class="spec" href="/docs.html">Docs</a></li>
+            <li class="menu-item blog"><a class="spec" href="/blog">Blog</a></li>
+            <li class="menu-item source"><a class="spec" href="https://github.com/elixir-lang/elixir">Source</a></li>
+            <li class="menu-item packages"><a class="spec" href="http://hex.pm/">Packages</a></li>
+
+          </ul>
+        </div>
+      </div>
+
+      <div class="clear"></div>
+    </div>
+
+    <div id="main">
+
+
+<div id="sidebar-primary" class="sidebar">
+  <div class="widget news">
+  <h3>
+    News: <a href="/blog/2014/09/18/elixir-v1-0-0-released/">Elixir v1.0.0 released</a>
+  </h3>
+</div>
+
+<div class="widget search">
+  <form method="get" class="search-form" action="http://www.google.com/search">
+		<div>
+			<input class="search-text" type="text" name="q" placeholder="Search..." id="searchfield">
+			<input type="hidden" name="sitesearch" value="elixir-lang.org">
+			<input class="search-submit button" name="submit" type="submit" value="Search">
+		</div>
+	</form>
+</div>
+
+  <div class="widget">
+    <h3 class="widget-title">Getting Started</h3>
+    <ol>
+      <li><a class="spec" href="/getting_started/1.html">Interactive Elixir (IEx)</a></li>
+      <li><a class="spec" href="/getting_started/2.html">Basic types</a></li>
+      <li><a class="spec" href="/getting_started/3.html">Basic operators</a></li>
+      <li><a class="spec" href="/getting_started/4.html">Pattern matching</a></li>
+      <li><a class="spec" href="/getting_started/5.html">case, cond and if</a></li>
+      <li><a class="spec" href="/getting_started/6.html">Binaries, strings and char lists</a></li>
+      <li><a class="spec" href="/getting_started/7.html">Keywords, maps and dicts</a></li>
+      <li><a class="spec" href="/getting_started/8.html">Modules</a></li>
+      <li><a class="spec" href="/getting_started/9.html">Recursion</a></li>
+      <li><a class="spec" href="/getting_started/10.html">Enumerables and streams</a></li>
+      <li><a class="spec" href="/getting_started/11.html">Processes</a></li>
+      <li><a class="spec" href="/getting_started/12.html">IO</a></li>
+      <li><a class="spec" href="/getting_started/13.html">alias, require and import</a></li>
+      <li><a class="spec" href="/getting_started/14.html">Module attributes</a></li>
+      <li><a class="spec" href="/getting_started/15.html">Structs</a></li>
+      <li><a class="spec" href="/getting_started/16.html">Protocols</a></li>
+      <li><a class="spec" href="/getting_started/17.html">try, catch and rescue</a></li>
+      <li><a class="spec" href="/getting_started/18.html">Comprehensions</a></li>
+      <li><a class="spec" href="/getting_started/19.html">Sigils</a></li>
+      <li><a class="spec" href="/getting_started/20.html">Where to go next</a></li>
+    </ol>
+  </div>
+  <div class="widget">
+    <h3 class="widget-title">Mix and OTP</h3>
+    <ol>
+      <li><a class="spec" href="/getting_started/mix_otp/1.html">Introduction to Mix</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/2.html">Agent</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/3.html">GenServer</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/4.html">GenEvent</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/5.html">Supervisor and Application</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/6.html">ETS</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/7.html">Dependencies and umbrella apps</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/8.html">Task and gen_tcp</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/9.html">Docs, tests and pipelines</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/10.html">Distributed tasks and configuration</a></li>
+    </ol>
+  </div>
+  <div class="widget">
+    <h3 class="widget-title">Meta-programming in Elixir</h3>
+    <ol>
+      <li><a class="spec" href="/getting_started/meta/1.html">Quote and unquote</a></li>
+      <li><a class="spec" href="/getting_started/meta/2.html">Macros</a></li>
+      <li><a class="spec" href="/getting_started/meta/3.html">Domain Specific Languages</a></li>
+    </ol>
+  </div>
+
+  <div class="widget">
+  <h3 class="widget-title">Learning resources</h3>
+  <ul>
+    <li class="image"><a href="http://pragprog.com/titles/elixir" title="Programming Elixir cover"><img src="http://imagery.pragprog.com/products/361/elixir_xlargebeta.jpg?1368724397" /></a></li>
+    <li class="image"><a href="http://elixirsips.com" title="ElixirSips cover"><img src="http://elixirsips.com/images/ElixirLangAd2_190x160.png" width="190" height="160" /></a></li>
+    <li class="image"><a href="http://manning.com/juric/" title="Elixir in Action"><img src="http://manning.com/juric/juric_cover150.jpg" width="190" height="238" /></a></li>
+    <li class="image"><a href="http://www.exotpbook.com/" title="The Little Elixir and OTP Guidebook"><img src="http://i.imgur.com/G6icQmt.png" width="190" height="274" /></a></li>
+    <li class="image"><a href="http://shop.oreilly.com/product/0636920030584.do" title="Introducing Elixir"><img src="http://akamaicovers.oreilly.com/images/0636920030584/rc_cat.gif" width="190" /></a></li>
+  </ul>
+</div>
+
+  <div class="widget">
+  <h3 class="widget-title">Code editor support</h3>
+  <ul>
+    <li><a class="spec" href="https://github.com/elixir-lang/emacs-elixir">Emacs Mode</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/elixir-tmbundle">Textmate Bundle</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/vim-elixir">Vim Elixir</a></li>
+    <li><a class="spec" href="https://github.com/SteffenBauer/elixir-gtksourceview">GtkSourceView (gedit)</a></li>
+    <li><a class="spec" href="https://github.com/lucasmazza/language-elixir">Atom Package</a></li>
+  </ul>
+</div>
+
+  <div class="widget">
+  <h3 class="widget-title">Sponsors</h3>
+  <ul>
+    <li class="image"><a href="http://plataformatec.com.br" title="Plataformatec"><img class="no-border" src="/images/logo/plataformatec.png" /></a></li>
+  </ul>
+</div>
+</div>
+
+<div id="content">
+  <article>
+    <h1 id="15-構造体-structs">15 構造体 - Structs</h1>
+
+<p><div class="toc"></div></p>
+
+<p>以前の章でマップについて学びました:</p>
+
+<p>In earlier chapters, we learned about maps:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">map</span> <span class="p">=</span> <span class="p">%{</span><span class="ss">a</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="ss">b</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
+<span class="go">%{a: 1, b: 2}</span>
+<span class="gp">iex&gt; </span><span class="n">map</span><span class="p">[</span><span class="ss">:a</span><span class="p">]</span>
+<span class="go">1</span>
+<span class="gp">iex&gt; </span><span class="p">%{</span><span class="n">map</span> <span class="p">|</span> <span class="ss">a</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
+<span class="go">%{a: 3, b: 2}</span>
+</code></pre></div>
+<p>構造体は，初期値，コンパイル時の保証および多態をElixirへもたらす，マップを利用した拡張です．</p>
+
+<p>Structs are extensions on top of maps that bring default values, compile-time guarantees and polymorphism into Elixir.</p>
+
+<p>構造体を定義するには，モジュールの中で単に<code>defstruct/1</code>を呼びます:</p>
+
+<p>To define a struct, we just need to call <code>defstruct/1</code> inside a module:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="kd">defmodule</span> <span class="nc">User</span> <span class="k">do</span>
+<span class="gp">...&gt; </span>  <span class="kd">defstruct</span> <span class="ss">name</span><span class="p">:</span> <span class="s2">&quot;john&quot;</span><span class="p">,</span> <span class="ss">age</span><span class="p">:</span> <span class="mi">27</span>
+<span class="gp">...&gt; </span><span class="k">end</span>
+<span class="go">{:module, User,</span>
+<span class="go"> &lt;&lt;70, 79, 82, ...&gt;&gt;, {:__struct__, 0}}</span>
+</code></pre></div>
+<p>すると<code>%User{}</code>構文を使って構造体の&quot;インスタンス&quot;が作れるようになります:</p>
+
+<p>We can now create &quot;instances&quot; of this struct by using the <code>%User{}</code> syntax:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="p">%</span><span class="nc">User</span><span class="p">{}</span>
+<span class="go">%User{age: 27, name: &quot;john&quot;}</span>
+<span class="gp">iex&gt; </span><span class="p">%</span><span class="nc">User</span><span class="p">{</span><span class="ss">name</span><span class="p">:</span> <span class="s2">&quot;meg&quot;</span><span class="p">}</span>
+<span class="go">%User{age: 27, name: &quot;meg&quot;}</span>
+<span class="gp">iex&gt; </span><span class="n">is_map</span><span class="p">(%</span><span class="nc">User</span><span class="p">{})</span>
+<span class="go">true</span>
+</code></pre></div>
+<p>構造体は，用意しているフィールドが存在することをコンパイル時に保証します．</p>
+
+<p>Structs give compile-time guarantees that the provided fields exist in the struct:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="p">%</span><span class="nc">User</span><span class="p">{</span><span class="ss">oops</span><span class="p">:</span> <span class="ss">:field</span><span class="p">}</span>
+<span class="gr">** (CompileError) iex:3: unknown key :oops for struct User</span>
+</code></pre></div>
+<p>マップについて話したとき，既にあるマップのフィールドに対してアクセスやアップデートをできることを示しました．同じことを構造体にもやってみましょう:</p>
+
+<p>When discussing maps, we demonstrated how we can access and update existing fields of a map. The same applies to structs:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">john</span> <span class="p">=</span> <span class="p">%</span><span class="nc">User</span><span class="p">{}</span>
+<span class="go">%User{age: 27, name: &quot;john&quot;}</span>
+<span class="gp">iex&gt; </span><span class="n">john</span><span class="p">.</span><span class="n">name</span>
+<span class="go">&quot;john&quot;</span>
+<span class="gp">iex&gt; </span><span class="n">meg</span> <span class="p">=</span> <span class="p">%{</span><span class="n">john</span> <span class="p">|</span> <span class="ss">name</span><span class="p">:</span> <span class="s2">&quot;meg&quot;</span><span class="p">}</span>
+<span class="go">%User{age: 27, name: &quot;meg&quot;}</span>
+<span class="gp">iex&gt; </span><span class="p">%{</span><span class="n">meg</span> <span class="p">|</span> <span class="ss">oops</span><span class="p">:</span> <span class="ss">:field</span><span class="p">}</span>
+<span class="gr">** (ArgumentError) argument error</span>
+</code></pre></div>
+<p>アップデートの構文を使うと，VMはマップ/構造体へ新しいキーが何も追加されないことを認識し，マップがメモリ内で構造を共有できるようにします．上の例だと，<code>john</code>と<code>meg</code>はどちらも同じキーを共有しています．</p>
+
+<p>By using the update syntax, the VM is aware no new keys will be added to the map/struct, allowing the maps to share their structure in memory. In the example above, both <code>john</code> and <code>meg</code> share the same key structure in memory.</p>
+
+<p>構造体はパターンマッチングでもよく用いられ，構造体の型が同じであることを保証します:</p>
+
+<p>Structs can also be used in pattern matching and they guarantee the structs are of the same type:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="p">%</span><span class="nc">User</span><span class="p">{</span><span class="ss">name</span><span class="p">:</span> <span class="n">name</span><span class="p">}</span> <span class="p">=</span> <span class="n">john</span>
+<span class="go">%User{age: 27, name: &quot;john&quot;}</span>
+<span class="gp">iex&gt; </span><span class="n">name</span>
+<span class="go">&quot;john&quot;</span>
+<span class="gp">iex&gt; </span><span class="p">%</span><span class="nc">User</span><span class="p">{}</span> <span class="p">=</span> <span class="p">%{}</span>
+<span class="gr">** (MatchError) no match of right hand side value: %{}</span>
+</code></pre></div>
+<p>マッチングが動作するのは構造体がマップの中に<code>__struct__</code>というフィールドを保存しているからです:</p>
+
+<p>Matching works because structs store a field named <code>__struct__</code> inside the map:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">john</span><span class="p">.</span><span class="n">__struct__</span>
+<span class="go">User</span>
+</code></pre></div>
+<p>全体として，構造体は単にデフォルトのフィールドがあるだけの剥き出しのマップです．剥き出しのマップと言ったところに注目してください．マップは構造体のために何のプロトコルも実装していません．例えば構造体を列挙するようなアクセスはできません:</p>
+
+<p>Overall, a struct is just a bare map with default fields. Notice we say it is a bare map because none of the protocols implemented for maps are available for structs. For example, you can&#39;t enumerate nor access a struct:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">user</span> <span class="p">=</span> <span class="p">%</span><span class="nc">User</span><span class="p">{}</span>
+<span class="go">%User{age: 27, name: &quot;john&quot;}</span>
+<span class="gp">iex&gt; </span><span class="n">user</span><span class="p">[</span><span class="ss">:name</span><span class="p">]</span>
+<span class="gr">** (Protocol.UndefinedError) protocol Access not implemented for %User{age: 27, name: &quot;john&quot;}</span>
+</code></pre></div>
+<p>構造体ディクショナリでもないので，<code>Dict</code>モジュールからも使えません:</p>
+
+<p>A struct also is not a dictionary and therefore can&#39;t be used with the <code>Dict</code> module:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">Dict</span><span class="p">.</span><span class="n">get</span><span class="p">(%</span><span class="nc">User</span><span class="p">{},</span> <span class="ss">:name</span><span class="p">)</span>
+<span class="gr">** (ArgumentError) unsupported dict: %User{name: &quot;john&quot;, age: 27}</span>
+</code></pre></div>
+<p>Since structs are just maps, they will work with the <code>Map</code> module:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">Map</span><span class="p">.</span><span class="n">put</span><span class="p">(%</span><span class="nc">User</span><span class="p">{},</span> <span class="ss">:name</span><span class="p">,</span> <span class="s2">&quot;kurt&quot;</span><span class="p">)</span>
+<span class="go">%User{age: 27, name: &quot;kurt&quot;}</span>
+<span class="gp">iex&gt; </span><span class="nc">Map</span><span class="p">.</span><span class="n">merge</span><span class="p">(%</span><span class="nc">User</span><span class="p">{</span><span class="ss">age</span><span class="p">:</span> <span class="mi">27</span><span class="p">},</span> <span class="p">%</span><span class="nc">User</span><span class="p">{</span><span class="ss">name</span><span class="p">:</span> <span class="s2">&quot;takashi&quot;</span><span class="p">})</span>
+<span class="go">%User{age: 27, name: &quot;takashi&quot;}</span>
+</code></pre></div>
+<p>次の章でどうやって構造体がプロトコルを使ってやりとりするか見ていきます．</p>
+
+<p>We will cover how structs interacts with protocols in the next chapter.</p>
+
+  </article><!-- .hfeed -->
+
+  
+  <div class="pagination loop-pagination">
+    
+      <a href="14.html" class="previous page-numbers spec">&larr; Previous</a>
+    
+      <a class="page-numbers spec" href="#container">Top</a>
+    
+      <a href="16.html" class="next page-numbers spec">Next &rarr;</a>
+    
+  </div>
+  
+</div><!-- #content -->
+
+      </div><!-- #main -->
+
+      <div class="clear">
+      </div>
+
+      <div id="copyright">
+        © 2012-2014 <a href="http://plataformatec.com.br/">Plataformatec</a>. All rights reserved.
+      </p>
+    </div><!-- .wrap -->
+  </div><!-- #container -->
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-8268430-6']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="/js/toc/toc.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $('.toc').toc({
+          title: '',
+          listType: 'ul',
+          showSpeed: 0,
+        });
+    });
+  </script>
+</body>
+</html>
+

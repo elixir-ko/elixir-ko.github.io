@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>17 トライ，キャッチとレスキュー - try, catch and rescue - Elixir</title>
+  <link href="http://feeds.feedburner.com/ElixirLang" rel="alternate" title="Elixir's Blog" type="application/atom+xml" />
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="/css/syntax.css">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" id="font-bitter-css" href="http://fonts.googleapis.com/css?family=Bitter&amp;ver=1" type="text/css" media="screen">
+</head>
+
+<body class="getting_started">
+  <div id="container">
+    <div class="wrap">
+    <div id="header">
+      <div id="branding">
+        <h1 id="site-title">
+          <a href="/" title="Elixir" rel="Home">
+            <img class="logo" src="/images/logo/logo.png" alt="Elixir Logo" />
+          </a>
+        </h1>
+      </div>
+
+      <div id="menu-primary" class="menu-container">
+        <div class="menu">
+          <ul id="menu-primary-items">
+            <li class="menu-item home"><a class="spec" href="/">Home</a></li>
+            <li class="menu-item install"><a class="spec" href="/install.html">Install</a></li>
+            <li class="menu-item getting_started"><a class="spec" href="/getting_started/1.html">Getting Started</a></li>
+            <li class="menu-item docs"><a class="spec" href="/docs.html">Docs</a></li>
+            <li class="menu-item blog"><a class="spec" href="/blog">Blog</a></li>
+            <li class="menu-item source"><a class="spec" href="https://github.com/elixir-lang/elixir">Source</a></li>
+            <li class="menu-item packages"><a class="spec" href="http://hex.pm/">Packages</a></li>
+
+          </ul>
+        </div>
+      </div>
+
+      <div class="clear"></div>
+    </div>
+
+    <div id="main">
+
+
+<div id="sidebar-primary" class="sidebar">
+  <div class="widget news">
+  <h3>
+    News: <a href="/blog/2014/09/18/elixir-v1-0-0-released/">Elixir v1.0.0 released</a>
+  </h3>
+</div>
+
+<div class="widget search">
+  <form method="get" class="search-form" action="http://www.google.com/search">
+		<div>
+			<input class="search-text" type="text" name="q" placeholder="Search..." id="searchfield">
+			<input type="hidden" name="sitesearch" value="elixir-lang.org">
+			<input class="search-submit button" name="submit" type="submit" value="Search">
+		</div>
+	</form>
+</div>
+
+  <div class="widget">
+    <h3 class="widget-title">Getting Started</h3>
+    <ol>
+      <li><a class="spec" href="/getting_started/1.html">Interactive Elixir (IEx)</a></li>
+      <li><a class="spec" href="/getting_started/2.html">Basic types</a></li>
+      <li><a class="spec" href="/getting_started/3.html">Basic operators</a></li>
+      <li><a class="spec" href="/getting_started/4.html">Pattern matching</a></li>
+      <li><a class="spec" href="/getting_started/5.html">case, cond and if</a></li>
+      <li><a class="spec" href="/getting_started/6.html">Binaries, strings and char lists</a></li>
+      <li><a class="spec" href="/getting_started/7.html">Keywords, maps and dicts</a></li>
+      <li><a class="spec" href="/getting_started/8.html">Modules</a></li>
+      <li><a class="spec" href="/getting_started/9.html">Recursion</a></li>
+      <li><a class="spec" href="/getting_started/10.html">Enumerables and streams</a></li>
+      <li><a class="spec" href="/getting_started/11.html">Processes</a></li>
+      <li><a class="spec" href="/getting_started/12.html">IO</a></li>
+      <li><a class="spec" href="/getting_started/13.html">alias, require and import</a></li>
+      <li><a class="spec" href="/getting_started/14.html">Module attributes</a></li>
+      <li><a class="spec" href="/getting_started/15.html">Structs</a></li>
+      <li><a class="spec" href="/getting_started/16.html">Protocols</a></li>
+      <li><a class="spec" href="/getting_started/17.html">try, catch and rescue</a></li>
+      <li><a class="spec" href="/getting_started/18.html">Comprehensions</a></li>
+      <li><a class="spec" href="/getting_started/19.html">Sigils</a></li>
+      <li><a class="spec" href="/getting_started/20.html">Where to go next</a></li>
+    </ol>
+  </div>
+  <div class="widget">
+    <h3 class="widget-title">Mix and OTP</h3>
+    <ol>
+      <li><a class="spec" href="/getting_started/mix_otp/1.html">Introduction to Mix</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/2.html">Agent</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/3.html">GenServer</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/4.html">GenEvent</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/5.html">Supervisor and Application</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/6.html">ETS</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/7.html">Dependencies and umbrella apps</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/8.html">Task and gen_tcp</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/9.html">Docs, tests and pipelines</a></li>
+      <li><a class="spec" href="/getting_started/mix_otp/10.html">Distributed tasks and configuration</a></li>
+    </ol>
+  </div>
+  <div class="widget">
+    <h3 class="widget-title">Meta-programming in Elixir</h3>
+    <ol>
+      <li><a class="spec" href="/getting_started/meta/1.html">Quote and unquote</a></li>
+      <li><a class="spec" href="/getting_started/meta/2.html">Macros</a></li>
+      <li><a class="spec" href="/getting_started/meta/3.html">Domain Specific Languages</a></li>
+    </ol>
+  </div>
+
+  <div class="widget">
+  <h3 class="widget-title">Learning resources</h3>
+  <ul>
+    <li class="image"><a href="http://pragprog.com/titles/elixir" title="Programming Elixir cover"><img src="http://imagery.pragprog.com/products/361/elixir_xlargebeta.jpg?1368724397" /></a></li>
+    <li class="image"><a href="http://elixirsips.com" title="ElixirSips cover"><img src="http://elixirsips.com/images/ElixirLangAd2_190x160.png" width="190" height="160" /></a></li>
+    <li class="image"><a href="http://manning.com/juric/" title="Elixir in Action"><img src="http://manning.com/juric/juric_cover150.jpg" width="190" height="238" /></a></li>
+    <li class="image"><a href="http://www.exotpbook.com/" title="The Little Elixir and OTP Guidebook"><img src="http://i.imgur.com/G6icQmt.png" width="190" height="274" /></a></li>
+    <li class="image"><a href="http://shop.oreilly.com/product/0636920030584.do" title="Introducing Elixir"><img src="http://akamaicovers.oreilly.com/images/0636920030584/rc_cat.gif" width="190" /></a></li>
+  </ul>
+</div>
+
+  <div class="widget">
+  <h3 class="widget-title">Code editor support</h3>
+  <ul>
+    <li><a class="spec" href="https://github.com/elixir-lang/emacs-elixir">Emacs Mode</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/elixir-tmbundle">Textmate Bundle</a></li>
+    <li><a class="spec" href="https://github.com/elixir-lang/vim-elixir">Vim Elixir</a></li>
+    <li><a class="spec" href="https://github.com/SteffenBauer/elixir-gtksourceview">GtkSourceView (gedit)</a></li>
+    <li><a class="spec" href="https://github.com/lucasmazza/language-elixir">Atom Package</a></li>
+  </ul>
+</div>
+
+  <div class="widget">
+  <h3 class="widget-title">Sponsors</h3>
+  <ul>
+    <li class="image"><a href="http://plataformatec.com.br" title="Plataformatec"><img class="no-border" src="/images/logo/plataformatec.png" /></a></li>
+  </ul>
+</div>
+</div>
+
+<div id="content">
+  <article>
+    <h1 id="17-トライ，キャッチとレスキュー-try-catch-and-rescue">17 トライ，キャッチとレスキュー - try, catch and rescue</h1>
+
+<p><div class="toc"></div></p>
+
+<p>エリクサーは3つのエラー機構を持っています: エラー，スローそしてイグジットです．この章ではそれらについて，それぞれどんな時に使われるとよいかも含めて詳しくみていきましょう．</p>
+
+<p>Elixir has three error mechanisms: errors, throws and exits. In this chapter we will explore each of them and include remarks about when each should be used.</p>
+
+<h2 id="17-1-エラー-errors">17.1 エラー - Errors</h2>
+
+<p>アトムへ数を足そうとすると，エラーの例を見ることができます．</p>
+
+<p>A sample error can be retrieved by trying to add a number into an atom:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="ss">:foo</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="gr">** (ArithmeticError) bad argument in arithmetic expression</span>
+<span class="gr">     :erlang.+(:foo, 1)</span>
+</code></pre></div>
+<p>ランタイムエラーは<code>raise/1</code>マクロを使うことでいつでも起こすことができます:</p>
+
+<p>A runtime error can be raised any time by using the <code>raise/1</code> macro:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">raise</span> <span class="s2">&quot;oops&quot;</span>
+<span class="gr">** (RuntimeError) oops</span>
+</code></pre></div>
+<p>他のエラーは<code>raise/2</code>にエラーの名前とキーワード引数のリストを渡すことで起こすことができます:</p>
+
+<p>Other errors can be raised with <code>raise/2</code> passing the error name and a list of keyword arguments:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">raise</span> <span class="nc">ArgumentError</span><span class="p">,</span> <span class="ss">message</span><span class="p">:</span> <span class="s2">&quot;invalid argument foo&quot;</span>
+<span class="gr">** (ArgumentError) invalid argument foo</span>
+</code></pre></div>
+<p>モジュールを作り，その中で<code>defexception/1</code>マクロを使うと自分でエラーを定義することもできます．よくあるケースでは例外を定義するときにメッセージも入力できるようにします:</p>
+
+<p>You can also define your own errors by creating a module and use the <code>defexception/1</code> macro inside it. The most common case is to define an exception with a message field:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="kd">defmodule</span> <span class="nc">MyError</span> <span class="k">do</span>
+<span class="gp">iex&gt; </span> <span class="kd">defexception</span> <span class="ss">message</span><span class="p">:</span> <span class="s2">&quot;default message&quot;</span>
+<span class="gp">iex&gt; </span><span class="k">end</span>
+<span class="gp">iex&gt; </span><span class="k">raise</span> <span class="nc">MyError</span>
+<span class="gr">** (MyError) default message</span>
+<span class="gp">iex&gt; </span><span class="k">raise</span> <span class="nc">MyError</span><span class="p">,</span> <span class="ss">message</span><span class="p">:</span> <span class="s2">&quot;custom message&quot;</span>
+<span class="gr">** (MyError) custom message</span>
+</code></pre></div>
+<p>例外は<code>try/rescue</code>構造で拾うことができます:</p>
+
+<p>Exceptions can be rescued by using the <code>try/rescue</code> construct:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">try</span> <span class="k">do</span>
+<span class="gp">...&gt; </span>  <span class="k">raise</span> <span class="s2">&quot;oops&quot;</span>
+<span class="gp">...&gt; </span><span class="k">rescue</span>
+<span class="gp">...&gt; </span>  <span class="n">e</span> <span class="ow">in</span> <span class="nc">RuntimeError</span> <span class="p">-&gt;</span> <span class="n">e</span>
+<span class="gp">...&gt; </span><span class="k">end</span>
+<span class="go">%RuntimeError{message: &quot;oops&quot;}</span>
+</code></pre></div>
+<p>上の例ではランタイムエラーを拾い，<code>iex</code>セッションでエラーが表示されるようにエラー自身を返しています．しかし実際のところElixirを使っている開発者が<code>try/rescue</code>構造を使うことはほとんどないでしょう．例えば，多くの言語ではファイルを開けなかったときにエラーになるので，あなたがそれを拾わなければならないようになっています．一方Elixirでの関数<code>File.read/1</code>は，ファイルを開くのに成功した/失敗した情報を含んだタプルを返すようになっています:</p>
+
+<p>The example above rescues the runtime error and returns the error itself which is then printed in the <code>iex</code> session. In practice Elixir developers rarely use the <code>try/rescue</code> construct though. For example, many languages would force you to rescue an error when a file cannot open successfully. Elixir instead provides a <code>File.read/1</code> function which returns a tuple containing information if the file was opened with success or not:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">File</span><span class="p">.</span><span class="n">read</span> <span class="s2">&quot;hello&quot;</span>
+<span class="go">{:error, :enoent}</span>
+<span class="gp">iex&gt; </span><span class="nc">File</span><span class="p">.</span><span class="n">write</span> <span class="s2">&quot;hello&quot;</span><span class="p">,</span> <span class="s2">&quot;world&quot;</span>
+<span class="go">:ok</span>
+<span class="gp">iex&gt; </span><span class="nc">File</span><span class="p">.</span><span class="n">read</span> <span class="s2">&quot;hello&quot;</span>
+<span class="go">{:ok, &quot;world&quot;}</span>
+</code></pre></div>
+<p>ここには<code>try/rescue</code>が出てきません．ファイルを開くときにおこる複数の結果に対応したいときは，<code>case</code>を使ってパターンマッチングするだけです:</p>
+
+<p>There is no <code>try/rescue</code> here. In case you want to handle multiple outcomes of opening a file, you can simply use pattern matching with <code>case</code>:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">case</span> <span class="nc">File</span><span class="p">.</span><span class="n">read</span> <span class="s2">&quot;hello&quot;</span> <span class="k">do</span>
+<span class="gp">...&gt; </span>  <span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">body</span><span class="p">}</span> <span class="p">-&gt;</span> <span class="nc">IO</span><span class="p">.</span><span class="n">puts</span> <span class="s2">&quot;got ok&quot;</span>
+<span class="gp">...&gt; </span>  <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="n">body</span><span class="p">}</span> <span class="p">-&gt;</span> <span class="nc">IO</span><span class="p">.</span><span class="n">puts</span> <span class="s2">&quot;got error&quot;</span>
+<span class="gp">...&gt; </span><span class="k">end</span>
+</code></pre></div>
+<p>最終的に，ファイルを開いたときに例外にするかどうかはあなたのアプリケーションでどうするか決めることになります．なぜならElixirでは<code>File.read/1</code>や他の多くの関数が例外を押しつけてこないからです．どうすれば一番よくなるかは開発者へお任せしています．</p>
+
+<p>At the end of the day, it is up to your application to decide if an error while opening a file is exceptional or not. That&#39;s why Elixir doesn&#39;t impose exceptions on <code>File.read/1</code> and many other functions. Instead we leave it up to the developer to choose the best way to proceed.</p>
+
+<p>ファイルがあることを期待している(そしてファイルがないと本当の意味でのエラー)の場合は単に<code>File.read!/1</code>を使えます:</p>
+
+<p>For the cases where you do expect a file to exist (and the lack of a file is truly an error) you can simply use <code>File.read!/1</code>:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">File</span><span class="p">.</span><span class="n">read!</span> <span class="s2">&quot;unknown&quot;</span>
+<span class="gr">** (File.Error) could not read file unknown: no such file or directory</span>
+<span class="gr">    (elixir) lib/file.ex:305: File.read!/1</span>
+</code></pre></div>
+<p>言い変えると，<code>try/rescue</code>の利用を避けるのは<em>フロー制御のためにエラーを利用しない</em>ためです．Elixirでは，エラーを期待していない，あるいは例外的な状況のために用意しています．フロー制御構造が必要な場合，スローが使われなければなりません．次にそれを見ていきましょう．</p>
+
+<p>In other words, we avoid using <code>try/rescue</code> because <strong>we don&#39;t use errors for control flow</strong>. In Elixir, we take errors literally: they are reserved to unexpected and/or exceptional situations. In case you actually need flow control constructs, throws must be used. That&#39;s what we are going to see next.</p>
+
+<h2 id="17-2-スロー-throws">17.2 スロー - Throws</h2>
+
+<p>Elixirでは後で捕れるように値を投げることができます．<code>throw</code>と<code>catch</code>がないと値が取れないような状況のために<code>throw</code>と<code>catch</code>という言葉は予約されています．</p>
+
+<p>In Elixir, one can throw a value to be caught later. <code>throw</code> and <code>catch</code> are reserved for situations where it is not possible to retrieve a value unless by using <code>throw</code> and <code>catch</code>.</p>
+
+<p>ライブラリでふさわしいAPIが提供されていないないような場合はあまりありません．例えば<code>Enum</code>モジュールで，13の倍数となるような最初の数を見つけたいときに適切なAPIが用意されていない場合を考えてみましょう:</p>
+
+<p>Those situations are quite uncommon in practice unless when interfacing with a library that does not provide the proper APIs. For example, let&#39;s imagine the <code>Enum</code> module did not provide any API for finding a value and we need to find the first number that is a multiple of 13:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">try</span> <span class="k">do</span>
+<span class="gp">...&gt; </span>  <span class="nc">Enum</span><span class="p">.</span><span class="n">each</span> <span class="o">-</span><span class="mi">50</span><span class="p">..</span><span class="mi">50</span><span class="p">,</span> <span class="k">fn</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">-&gt;</span>
+<span class="gp">...&gt; </span>    <span class="k">if</span> <span class="n">rem</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">13</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="ss">do</span><span class="p">:</span> <span class="k">throw</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="gp">...&gt; </span>  <span class="k">end</span>
+<span class="gp">...&gt; </span>  <span class="s2">&quot;Got nothing&quot;</span>
+<span class="gp">...&gt; </span><span class="k">catch</span>
+<span class="gp">...&gt; </span>  <span class="n">x</span> <span class="p">-&gt;</span> <span class="s2">&quot;Got </span><span class="si">#{</span><span class="n">x</span><span class="si">}</span><span class="s2">&quot;</span>
+<span class="gp">...&gt; </span><span class="k">end</span>
+<span class="go">&quot;Got -39&quot;</span>
+</code></pre></div>
+<p>しかしながら実際には<code>Enum.find/2</code>を使った方がシンプルです:</p>
+
+<p>However, in practice one can simply use <code>Enum.find/2</code>:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">Enum</span><span class="p">.</span><span class="n">find</span> <span class="o">-</span><span class="mi">50</span><span class="p">..</span><span class="mi">50</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="n">rem</span><span class="p">(</span><span class="ni">&amp;1</span><span class="p">,</span> <span class="mi">13</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+<span class="go">-39</span>
+</code></pre></div>
+<h2 id="17-3-イグジット-exits">17.3 イグジット - Exits</h2>
+
+<p>全てのElixirコードは複数のプロセスの中で動いていて，お互いにやりとりしています．プロセスが死んだとき，<code>exit</code>という信号を送ります．プロセスは明示的にイグジット信号を送ることで死ぬことができます:</p>
+
+<p>Every Elixir code runs inside processes that communicates with each other. When a process dies, it sends an <code>exit</code> signal. A process can also die by explicitly sending an exit signal:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">spawn_link</span> <span class="k">fn</span> <span class="p">-&gt;</span> <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="k">end</span>
+<span class="go">#PID&lt;0.56.0&gt;</span>
+<span class="gr">** (EXIT from #PID&lt;0.56.0&gt;) 1</span>
+</code></pre></div>
+<p>上の例では，リンクしていたプロセスは<code>exit</code>信号と1という値を送って死にました．Elixirのシェルはそのメッセージを自動的に受けとって端末に表示しています．</p>
+
+<p>In the example above, the linked process died by sending an <code>exit</code> signal with value of 1. The Elixir shell automatically handles those messages and prints them to the terminal.</p>
+
+<p><code>exit</code>は<code>try/catch</code>を使うことで&quot;キャッチされ&quot;ます:</p>
+
+<p><code>exit</code> can also be &quot;caught&quot; using <code>try/catch</code>:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">try</span> <span class="k">do</span>
+<span class="gp">...&gt; </span>  <span class="n">exit</span> <span class="s2">&quot;I am exiting&quot;</span>
+<span class="gp">...&gt; </span><span class="k">catch</span>
+<span class="gp">...&gt; </span>  <span class="ss">:exit</span><span class="p">,</span> <span class="bp">_</span> <span class="p">-&gt;</span> <span class="s2">&quot;not really&quot;</span>
+<span class="gp">...&gt; </span><span class="k">end</span>
+<span class="go">&quot;not really&quot;</span>
+</code></pre></div>
+<p><code>try/catch</code>を使うことが既に珍しいですが，イグジットをキャッチするのはもっと珍しいことです．</p>
+
+<p>Using <code>try/catch</code> is already uncommon and using it to catch exits is even more rare.</p>
+
+<p><code>exit</code>シグナルはErlang VMで提供されている耐障害性において重要な部分を担っています．プロセスは通常，単にプロセスの<code>exit</code>信号を待つだけの監視プロセスを備えた監視ツリーにくみこまれて動作しています．監視プロセスがイグジット信号を受けとると，監視作戦が開始され，監視対象のプロセスは再起動させられます．</p>
+
+<p><code>exit</code> signals are an important part of the fault tolerant system provided by the Erlang VM. Processes usually run under supervision trees which are themselves processes that just wait for <code>exit</code> signals of the supervised processes. Once an exit signal is received, the supervision strategy kicks in and the supervised process is restarted.</p>
+
+<p>監視システムの構造自体が<code>try/catch</code>や<code>try/rescue</code>に似ているため，Elixirではそれらの構文があまり用いられていないのです．確実にエラーを拾うかわりに，エラーのあとに&quot;早く失敗する&quot;ことで監視ツリーがアプリケーションを既知の初期状態へと戻すことを保証しています．</p>
+
+<p>It is exactly this supervision system that makes constructs like <code>try/catch</code> and <code>try/rescue</code> so uncommon in Elixir. Instead of rescuing a certain error, we&#39;d rather &quot;fail fast&quot; since the supervision tree will guarantee our application will go back to a known initial state after the error.</p>
+
+<h2 id="17-4-アフター-after">17.4 アフター - After</h2>
+
+<p>特定の動作をした後，リソースをきれいに片付けられることを保証しなければならないことがあり，そういった場合に<code>try/after</code>が利用されます．例えばファイルを開くとき，必ず閉じることを<code>try/after</code>で保証できます:</p>
+
+<p>Sometimes it is necessary to use <code>try/after</code> to guarantee a resource is cleaned up after some particular action. For example, we can open a file and guarantee it is closed with <code>try/after</code> block:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">file</span><span class="p">}</span> <span class="p">=</span> <span class="nc">File</span><span class="p">.</span><span class="n">open</span> <span class="s2">&quot;sample&quot;</span><span class="p">,</span> <span class="p">[</span><span class="ss">:utf8</span><span class="p">,</span> <span class="ss">:write</span><span class="p">]</span>
+<span class="gp">iex&gt; </span><span class="k">try</span> <span class="k">do</span>
+<span class="gp">...&gt; </span>  <span class="nc">IO</span><span class="p">.</span><span class="n">write</span> <span class="n">file</span><span class="p">,</span> <span class="s2">&quot;olá&quot;</span>
+<span class="gp">...&gt; </span>  <span class="k">raise</span> <span class="s2">&quot;oops, something went wrong&quot;</span>
+<span class="gp">...&gt; </span><span class="k">after</span>
+<span class="gp">...&gt; </span>  <span class="nc">File</span><span class="p">.</span><span class="n">close</span><span class="p">(</span><span class="n">file</span><span class="p">)</span>
+<span class="gp">...&gt; </span><span class="k">end</span>
+<span class="gr">** (RuntimeError) oops, something went wrong</span>
+</code></pre></div>
+<h2 id="17-5-変数のスコープ-variables-scope">17.5 変数のスコープ - Variables scope</h2>
+
+<p><code>try/catch/rescue/after</code>ブロックの中で定義した変数は外では見えないことを心に留めておいてください．大事なことです．これは<code>try</code>ブロックが失敗するかもしれず，そのとき変数が最初の場所で絶対に束縛されないことがありうるためです．言い変えると，このコードは無効です:</p>
+
+<p>It is important to bear in mind that variables defined inside <code>try/catch/rescue/after</code> blocks do not leak to the outer context. This is because the <code>try</code> block may fail and as such the variables may never be bound in the first place. In other words, this code is invalid:</p>
+<div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">try</span> <span class="k">do</span>
+<span class="gp">...&gt; </span>  <span class="n">from_try</span> <span class="p">=</span> <span class="no">true</span>
+<span class="gp">...&gt; </span><span class="k">after</span>
+<span class="gp">...&gt; </span>  <span class="n">from_after</span> <span class="p">=</span> <span class="no">true</span>
+<span class="gp">...&gt; </span><span class="k">end</span>
+<span class="gp">iex&gt; </span><span class="n">from_try</span>
+<span class="gr">** (RuntimeError) undefined function: from_try/0</span>
+<span class="gp">iex&gt; </span><span class="n">from_after</span>
+<span class="gr">** (RuntimeError) undefined function: from_after/0</span>
+</code></pre></div>
+<p><code>try</code>，<code>catch</code>そして<code>rescue</code>の導入はこれで終わりです．他の言語での利用頻度よりは低いですが，目的があって&quot;規則にのっとった&quot;コードにならないようなライブラリや状況で便利に使えることがあるかもしれません．</p>
+
+<p>This finishes our introduction to <code>try</code>, <code>catch</code> and <code>rescue</code>. You will find they are used less frequently in Elixir than in other languages although they may be handy in some situations where a library or some particular code is not playing &quot;by the rules&quot;.</p>
+
+<p>次はElixirを構成している内包表記やシギルといったものについて話しましょう．</p>
+
+<p>It is time to talk about some Elixir constructs like comprehensions and sigils.</p>
+
+  </article><!-- .hfeed -->
+
+  
+  <div class="pagination loop-pagination">
+    
+      <a href="16.html" class="previous page-numbers spec">&larr; Previous</a>
+    
+      <a class="page-numbers spec" href="#container">Top</a>
+    
+      <a href="18.html" class="next page-numbers spec">Next &rarr;</a>
+    
+  </div>
+  
+</div><!-- #content -->
+
+      </div><!-- #main -->
+
+      <div class="clear">
+      </div>
+
+      <div id="copyright">
+        © 2012-2014 <a href="http://plataformatec.com.br/">Plataformatec</a>. All rights reserved.
+      </p>
+    </div><!-- .wrap -->
+  </div><!-- #container -->
+
+  <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-8268430-6']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+  <script src="/js/toc/toc.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript">
+    $(document).ready(function() {
+        $('.toc').toc({
+          title: '',
+          listType: 'ul',
+          showSpeed: 0,
+        });
+    });
+  </script>
+</body>
+</html>
+
