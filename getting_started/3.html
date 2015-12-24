@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>3 基本的な演算子 - Basic operators - Elixir</title>
+  <title>3 기본 연산자 - Basic operators - Elixir</title>
   <link href="http://feeds.feedburner.com/ElixirLang" rel="alternate" title="Elixir's Blog" type="application/atom+xml" />
   <link rel="stylesheet" type="text/css" href="/css/style.css">
   <link rel="stylesheet" type="text/css" href="/css/syntax.css">
@@ -44,6 +44,13 @@
     <div id="main">
 
 
+<div id="google_translate_element"></div><script type="text/javascript">
+function googleTranslateElementInit() {
+  new google.translate.TranslateElement({pageLanguage: 'ja', includedLanguages: 'ko', layout: google.translate.TranslateElement.InlineLayout.SIMPLE, multilanguagePage: true}, 'google_translate_element');
+}
+</script><script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+               
+         
 <div id="sidebar-primary" class="sidebar">
   <div class="widget news">
   <h3>
@@ -142,15 +149,15 @@
 
 <div id="content">
   <article>
-    <h1 id="3-基本的な演算子-basic-operators">3 基本的な演算子 - Basic operators</h1>
+    <h1 id="3-기본-연산자-basic-operators">3 기본 연산자 - Basic operators</h1>
 
 <p><div class="toc"></div></p>
 
-<p>前の章で，Elixirで算術演算子として<code>+</code>，<code>-</code>，<code>*</code>，<code>/</code>を使えるのを見ました．整数の商と余りを求めるのに<code>div/2</code>と<code>rem/2</code>があることも知りました．</p>
+<p>앞 장에서 Elixir 산술 연산자로 <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code> 를 사용할 것을 보았습니다. 정수의 몫과 나머지를 찾는데 <code>div/2</code> 와 <code>rem/2</code>가 있다는 것도 알게 되었습니다.</p>
 
 <p>In the previous chapter, we saw Elixir provides <code>+</code>, <code>-</code>, <code>*</code>, <code>/</code> as arithmetic operators, plus the functions <code>div/2</code> and <code>rem/2</code> for integer division and remainder.</p>
 
-<p>Elixirはリストを操作するのに<code>++</code>と<code>--</code>という演算子も提供しています:</p>
+<p>Elixir는 리스트를 조작 하기 위해 <code>++</code> 와 <code>--</code> 연산자를 제공 합니다:</p>
 
 <p>Elixir also provides <code>++</code> and <code>--</code> to manipulate lists:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="o">++</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
@@ -158,13 +165,13 @@
 <span class="gp">iex&gt; </span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]</span> <span class="o">--</span> <span class="p">[</span><span class="mi">2</span><span class="p">]</span>
 <span class="go">[1,3]</span>
 </code></pre></div>
-<p>文字列の結合は<code>&lt;&gt;</code>で行なえます:</p>
+<p>문자열의 결합은 <code>&lt;&gt;</code> 로 가능합니다:</p>
 
 <p>String concatenation is done with <code>&lt;&gt;</code>:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="s2">&quot;foo&quot;</span> <span class="o">&lt;&gt;</span> <span class="s2">&quot;bar&quot;</span>
 <span class="go">&quot;foobar&quot;</span>
 </code></pre></div>
-<p>Elixirには3つの論理演算子<code>or</code>，<code>and</code>と<code>not</code>があります．これらの演算子は第一引数が真理値(<code>true</code>か<code>false</code>)であることを求めています:</p>
+<p>Elixir에는 세 가지 논리 연산자 <code>or</code>, <code>and</code> 와 <code>not</code>를 제공합니다. 이러한 연산자는 첫 번째 인수가 불리언 (<code>true</code> 또는 <code>false</code>)이여야 합니다.</p>
 
 <p>Elixir also provides three boolean operators: <code>or</code>, <code>and</code> and <code>not</code>. These operators are strict in the sense that they expect a boolean (<code>true</code> or <code>false</code>) as their first argument:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="no">true</span> <span class="ow">and</span> <span class="no">true</span>
@@ -172,13 +179,13 @@
 <span class="gp">iex&gt; </span><span class="no">false</span> <span class="ow">or</span> <span class="n">is_atom</span><span class="p">(</span><span class="ss">:example</span><span class="p">)</span>
 <span class="go">true</span>
 </code></pre></div>
-<p>真理値でない場合は例外を発生させます:</p>
+<p>불리언 아닌 경우는 예외를 발생시킵니다:</p>
 
 <p>Providing a non-boolean will raise an exception:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="mi">1</span> <span class="ow">and</span> <span class="no">true</span>
 <span class="gr">** (ArgumentError) argument error</span>
 </code></pre></div>
-<p><code>or</code>と<code>and</code>は短絡演算子です．左側が条件を満たさなかった場合にのみ右側が実行されます:</p>
+<p><code>or</code> 와 <code>and</code> 는 단락 연산자입니다. 왼쪽 조건이 만족하지 않은 경우에만 오른쪽이 실행됩니다:</p>
 
 <p><code>or</code> and <code>and</code> are short-circuit operators. They only execute the right side if the left side is not enough to determine the result:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="no">false</span> <span class="ow">and</span> <span class="n">error</span><span class="p">(</span><span class="s2">&quot;This error will never be raised&quot;</span><span class="p">)</span>
@@ -188,12 +195,12 @@
 <span class="go">true</span>
 </code></pre></div>
 <blockquote>
-<p>メモ: Erlang開発者の方へ，Elixirの<code>and</code>と<code>or</code>は，Erlangの<code>andalso</code>と<code>orelse</code>とまったく同じです．</p>
+<p>참고 : Erlang 개발자 분들에게, Elixir의 <code>and</code> 와 <code>or</code> 는 Erlang의 <code>andalso</code> 와 <code>orelse</code> 동일합니다.</p>
 
 <p>Note: If you are an Erlang developer, <code>and</code> and <code>or</code> in Elixir actually map to the <code>andalso</code> and <code>orelse</code> operators in Erlang.</p>
 </blockquote>
 
-<p>これらの論理演算子と違い<code>||</code>，<code>&amp;&amp;</code>と<code>!</code>はどんな型でも受けつけます．この場合<code>false</code>と<code>nil</code>以外はtrueとして評価されます:</p>
+<p>이러한 불리언 연산자와 달리 <code>||</code>, <code>&amp;&amp;</code> 와 <code>!</code>는 어떤 타입도 허용합니다. 이 경우 <code>false</code> 와 <code>nil</code> 이외는 true로 평가됩니다:</p>
 
 <p>Besides these boolean operators, Elixir also provides <code>||</code>, <code>&amp;&amp;</code> and <code>!</code> which accept arguments of any type. For these operators, all values except <code>false</code> and <code>nil</code> will evaluate to true:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="go"># or</span>
@@ -216,11 +223,11 @@
 <span class="gp">iex&gt; </span><span class="o">!</span><span class="no">nil</span>
 <span class="go">true</span>
 </code></pre></div>
-<p>まとめると，真理値を期待している場合は<code>and</code>，<code>or</code>と<code>not</code>を使います．真理値でない引数がきてよい場合は<code>&amp;&amp;</code>，<code>||</code>や<code>!</code>を使います．</p>
+<p>정리하면, 불리언 값일때는 <code>and</code>, <code>or</code> 와 <code>not</code> 을 사용하고 만약 인수의 타입이 불리언이 아니라면 <code>&amp;&amp;</code>, <code>||</code> 와 <code>!</code> 를 사용하십시요.</p>
 
 <p>As a rule of thumb, use <code>and</code>, <code>or</code> and <code>not</code> when you are expecting booleans. If any of the arguments are non-boolean, use <code>&amp;&amp;</code>, <code>||</code> and <code>!</code>.</p>
 
-<p>Elixirは比較演算子として<code>==</code>，<code>!=</code>，<code>===</code>，<code>!==</code>，<code>&lt;=</code>，<code>&gt;=</code>，<code>&lt;</code>と<code>&gt;</code>を提供しています:</p>
+<p>Elixir는 비교 연산자로 <code>==</code>, <code>!=</code>, <code>===</code>, <code>!==</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>&lt;</code> 와 <code>&gt;</code>를 제공하고 있습니다:</p>
 
 <p>Elixir also provides <code>==</code>, <code>!=</code>, <code>===</code>, <code>!==</code>, <code>&lt;=</code>, <code>&gt;=</code>, <code>&lt;</code> and <code>&gt;</code> as comparison operators:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="mi">1</span> <span class="o">==</span> <span class="mi">1</span>
@@ -230,7 +237,7 @@
 <span class="gp">iex&gt; </span><span class="mi">1</span> <span class="o">&lt;</span> <span class="mi">2</span>
 <span class="go">true</span>
 </code></pre></div>
-<p><code>==</code>と<code>===</code>の違いは後者の方が整数と浮動小数点数の比較に厳密である点です:</p>
+<p><code>==</code> 와 <code>===</code>의 차이는 후자가 정수와 부동 소수점 비교에 엄격 하다는 점입니다:</p>
 
 <p>The difference between <code>==</code> and <code>===</code> is that the latter is more strict when comparing integers and floats:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="mi">1</span> <span class="o">==</span> <span class="mf">1.0</span>
@@ -238,22 +245,22 @@
 <span class="gp">iex&gt; </span><span class="mi">1</span> <span class="o">===</span> <span class="mf">1.0</span>
 <span class="go">false</span>
 </code></pre></div>
-<p>Elixirでは異なる型を比較することもできます:</p>
+<p>Elixir는 다른 형태를 비교할 수 있습니다:</p>
 
 <p>In Elixir, we can compare two different data types:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="mi">1</span> <span class="o">&lt;</span> <span class="ss">:atom</span>
 <span class="go">true</span>
 </code></pre></div>
-<p>便利にするために異なる型を比較できるようになっています．こうすると並べ替えアルゴリズムで異なる型同士の順序付けについて心配する必要がありません．全体の並べ替え順序は以下のように定義されています:</p>
+<p>편리를 위해 다른 타입을 비교할 수 있습니다. 이렇게 하면 정렬 알고리즘에서 다른 타입끼리의 정렬에 대해 걱정할 필요가 없습니다. 전체 정렬 순서는 다음과 같이 정의되어 있습니다:</p>
 
 <p>The reason we can compare different data types is pragmatism. Sorting algorithms don&#39;t need to worry about different data types in order to sort. The overall sorting order is defined below:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">number &lt; atom &lt; reference &lt; functions &lt; port &lt; pid &lt; tuple &lt; maps &lt; list &lt; bitstring
 </code></pre></div>
-<p>正確にこの順番を覚えておく必要はありませんが，こういった順番があることを知っておくことは大事です．</p>
+<p>정확하게 순서를 기억할 필요는 없지만, 이러한 순서가 있음을 알아야 합니다.</p>
 
 <p>You don&#39;t actually need to memorize this ordering, but it is important just to know an order exists.</p>
 
-<p>導入としてはこのくらいにしておきます．次の章では基本的な関数，型の変換やちょっとしたフロー制御について話しましょう．</p>
+<p>도입은 이 정도로 해두겠습니다. 다음 장에서는 기본적인 함수, 타입 변환이나 간단한 흐름 제어에 대해 살펴볼 것입니다.</p>
 
 <p>Well, that is it for the introduction. In the next chapter, we are going to discuss some basic functions, data type conversions and a bit of control-flow.</p>
 

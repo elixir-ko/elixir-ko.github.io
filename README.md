@@ -3,6 +3,7 @@
 일본어 사이트를 참고한 이유는 구글 번역기가 일본어를 한국어로 잘 번역하기 때문이기도 하고 이를 컴파일 하여 Github pages에 한국어 문서를 호스팅하기 위해 git repository를 사용하였습니다.
 하지만 번역기만 사용한것은 아니며 영어원문을 참고하여 재번역하였습니다.
 
+아직 번역되지 않는 페이지는 첨부된 구글 웹사이트 번역기를 통해서 볼 수 있습니다.
 
 ### Contents for Elixir website hosted at elixir-lang.org
 
