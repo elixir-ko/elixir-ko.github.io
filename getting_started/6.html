@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>6 バイナリ，文字列そして文字リスト - Binaries, strings and char lists - Elixir</title>
+  <title>6 바이너리, 문자열, 문자 리스트 - Binaries, strings and char lists - Elixir</title>
   <link href="http://feeds.feedburner.com/ElixirLang" rel="alternate" title="Elixir's Blog" type="application/atom+xml" />
   <link rel="stylesheet" type="text/css" href="/css/style.css">
   <link rel="stylesheet" type="text/css" href="/css/syntax.css">
@@ -149,11 +149,11 @@ function googleTranslateElementInit() {
 
 <div id="content">
   <article>
-    <h1 id="6-バイナリ，文字列そして文字リスト-binaries-strings-and-char-lists">6 バイナリ，文字列そして文字リスト - Binaries, strings and char lists</h1>
+    <h1 id="6-바이너리-문자열-문자-리스트-binaries-strings-and-char-lists">6 바이너리, 문자열, 문자 리스트 - Binaries, strings and char lists</h1>
 
 <p><div class="toc"></div></p>
 
-<p>&quot;基本的な型&quot;のなかで，文字列について学び，チェックするのに<code>is_binary/1</code>を使いました:</p>
+<p>&quot;기본 타입&quot;에서 문자열에 대해 배웠고 타입체크를 위해 <code>is_binary/1</code> 을 사용했습니다:</p>
 
 <p>In &quot;Basic types&quot;, we learned about strings and used the <code>is_binary/1</code> function for checks:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">string</span> <span class="p">=</span> <span class="s2">&quot;hello&quot;</span>
@@ -161,25 +161,25 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="n">is_binary</span> <span class="n">string</span>
 <span class="go">true</span>
 </code></pre></div>
-<p>この章をすすめるとバイナリとは何か，文字列とはどういう関係か，<code>&#39;このように&#39;</code>単一引用符でくくられた値はElixirではどういう意味を持つかについてわかるようになります．</p>
+<p>이 장에서는 바이너리가 무엇인지, 문자열과는 어떤 관계인지, <code>&#39;이렇게&#39;</code> 작은따옴표로 묶인 값은 Elixir 에서 어떤 의미를 가지는지에 대해 살펴볼 것입니다.</p>
 
 <p>In this chapter, we will understand what binaries are, how they associate with strings, and what a single-quoted value, <code>&#39;like this&#39;</code>, means in Elixir.</p>
 
-<h2 id="6-1-utf-8とunicode-utf-8-and-unicode">6.1 UTF-8とUnicode - UTF-8 and Unicode</h2>
+<h2 id="6-1-utf-8-와-unicode-utf-8-and-unicode">6.1 UTF-8 와 Unicode - UTF-8 and Unicode</h2>
 
-<p>文字列はUTF-8でエンコードされたバイナリです．それが実際にどういう意味なのかわかるためには，バイトとコードポイントの違いについて知らなくてはなりません．</p>
+<p>문자열은 UTF-8로 인코딩 된 바이너리입니다. 그것이 실제로 무슨 뜻인지 이해하기 위해서 바이트 및 코드 포인트의 차이를 모르면 안됩니다.</p>
 
 <p>A string is a UTF-8 encoded binary. In order to understand exactly what we mean by that, we need to understand the difference between bytes and code points.</p>
 
-<p>ユニコード標準では，コードポイントを私たちが知っている多くの文字へ割り当てています．例えば文字<code>a</code>は<code>97</code>というコードポイントを持っていますし，同じように文字<code>ł</code>は<code>322</code>というコードポイントを持っています．ディスクへ文字列<code>&quot;hełło&quot;</code>と書くとき，このコードポイントをバイトへ変換しなければなりません．もし1つのコードポイントを1バイトで表現するという方針だった場合<code>&quot;hełło&quot;</code>と書けません．なぜなら<code>ł</code>のコードポイントは<code>322</code>であり，1バイトでは<code>0</code>から<code>255</code>までしか表現できないからです．しかしあなたのスクリーンでは<code>&quot;hełło&quot;</code>が読めてますよね，それは<em>謎の技術</em>で表現されているためです ．それがエンコーディングというものができた理由です．</p>
+<p>유니 코드 표준은 우리가 알고있는 많은 문자에 코드 포인트를 할당해 두었습니다. 예를들어 문자 <code>a</code> 는 <code>97</code> 이라는 코드 포인트를 가지고 있고, 캐릭터 <code>ł</code> 는 <code>322</code> 코드 포인트를 가지고 있습니다. 디스크에 문자열 <code>&quot;hełło&quot;</code>를 쓸 때 코드 포인트를 바이트로 변환해야 합니다. 만약 하나의 코드 포인트를 1 바이트로 표현한다면 <code>&quot;hełło&quot;</code> 라고 쓸 수 없습니다. 왜냐하면 <code>ł</code> 코드 포인트는 <code>322</code> 이며, 1 바이트는 <code>0</code> 에서 <code>255</code> 까지 밖에 표현할 수 없기 때문입니다. 그러나 화면에서는 <code>&quot;hełło&quot;</code> 를 읽을 수 있지요. 그것은 <em>신비의 기술</em> 로 표현되어 있기 때문입니다. 바로 인코딩되어 있기 때문입니다.</p>
 
 <p>The Unicode standard assigns code points to many of the characters we know. For example, the letter <code>a</code> has code point <code>97</code> while the letter <code>ł</code> has code point <code>322</code>. When writing the string <code>&quot;hełło&quot;</code> to disk, we need to convert this code point to bytes. If we adopted a rule that said one byte represents one code point, we wouldn&#39;t be able to write <code>&quot;hełło&quot;</code>, because it uses the code point <code>322</code> for <code>ł</code>, and one byte can only represent a number from <code>0</code> to <code>255</code>. But of course, given you can actually read <code>&quot;hełło&quot;</code> on your screen, it must be represented <em>somehow</em>. That&#39;s where encodings come in.</p>
 
-<p>バイトでコードポイントを表現する場合，どうにかエンコードしなければなりません．ElixirではデフォルトのエンコーディングとしてUTF-8エンコーディングを選びました．文字列はUTF-8でエンコードされたバイナリであるというときに意味するところは，文字列はコードポイントをある規則にのっとって表現しているバイトの集まりであり，その規則とはUTF-8エンコーディングであるということです．</p>
+<p>바이트에서 코드 포인트를 표현하는 경우 어떻게 해서든 인코딩을 해야 합니다. Elixir는 기본 인코딩으로 UTF-8 인코딩을 선택했습니다. 문자열은 UTF-8로 인코딩 된 바이너리라고 말할 때 의미하는 바는 문자열은 코드 포인트를 규칙에 따라 표현한 바이트의 모임이며, 그 규칙은 UTF-8 로 인코딩 된다는 것입니다.</p>
 
 <p>When representing code points in bytes, we need to encode them somehow. Elixir chose the UTF-8 encoding as its main and default encoding. When we say a string is a UTF-8 encoded binary, we mean a string is a bunch of bytes organized in a way to represent certain code points, as specified by the UTF-8 encoding.</p>
 
-<p>コードポイントが<code>322</code>に割り当たっている<code>ł</code>のような場合，表現するには1バイトより多くのバイトが必要です．それが文字列を<code>byte_size/1</code>で計算したときと<code>String.length/1</code>で計算したときの違いになっています:</p>
+<p>코드 포인트가 <code>322</code> 에 할당 되어있는 <code>ł</code> 경우 표현하려면 1 바이트보다 많은 바이트가 필요합니다. 때문에 문자열을 <code>byte_size/1</code> 로 계산했을 때와 <code>String.length/1</code> 로 계산했을 때의 차이가 있습니다:</p>
 
 <p>Since we have code points like <code>ł</code> assigned to the number <code>322</code>, we actually need more than one byte to represent it. That&#39;s why we see a difference when we calculate the <code>byte_size/1</code> of a string compared to its <code>String.length/1</code>:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">string</span> <span class="p">=</span> <span class="s2">&quot;hełło&quot;</span>
@@ -189,7 +189,7 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="nc">String</span><span class="p">.</span><span class="n">length</span> <span class="n">string</span>
 <span class="go">5</span>
 </code></pre></div>
-<p>UTF-8では<code>h</code>，<code>e</code>や<code>o</code>を表現するには1バイトですみますが，<code>ł</code>を表現するには2バイト必要です．Elixirでは<code>?</code>を使うとコードポイントの値を得ることができます:</p>
+<p>UTF-8은 <code>h</code> , <code>e</code> 와 <code>o</code> 를 표현하려면 1 바이트만 들지만 <code>ł</code> 을 표현하기 위해 2 바이트 필요합니다. Elixir는 <code>?</code> 을 사용하면 코드 포인트 값을 얻을 수 있습니다:</p>
 
 <p>UTF-8 requires one byte to represent the code points <code>h</code>, <code>e</code> and <code>o</code>, but two bytes to represent <code>ł</code>. In Elixir, you can get a code point&#39;s value by using <code>?</code>:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="sc">?a</span>
@@ -197,23 +197,23 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="sc">?ł</span>
 <span class="go">322</span>
 </code></pre></div>
-<p><a href="/docs/stable/elixir/String.html"><code>String</code>モジュール</a>の関数を使うとコードポイント毎に文字を分けることもできます:</p>
+<p><a href="/docs/stable/elixir/String.html"><code>String</code> 모듈</a>의 함수를 사용하면 코드 포인트마다 문자를 나눌 수 있습니다:</p>
 
 <p>You can also use the functions in <a href="/docs/stable/elixir/String.html">the <code>String</code> module</a> to split a string in its code points:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">String</span><span class="p">.</span><span class="n">codepoints</span><span class="p">(</span><span class="s2">&quot;hełło&quot;</span><span class="p">)</span>
 <span class="go">[&quot;h&quot;, &quot;e&quot;, &quot;ł&quot;, &quot;ł&quot;, &quot;o&quot;]</span>
 </code></pre></div>
-<p>これからElixirで文字列を扱うのに素晴しいサポートがあることがわかっていくことでしょう．ユニコード文字の操作も多数サポートしています．実際，Elixirは<a href="http://mortoray.com/2013/11/27/the-string-type-is-broken/">&quot;The string type is broken&quot;</a>の記事に挙げられている例をテストして全て合格しています．</p>
+<p>앞으로 문자열을 다루기 위해 Elixir가 훌륭한 지원을 한다는 것을 알게될 것입니다. 유니 코드 문자 작업도 많이 지원합니다. 실제로 Elixir는 <a href="http://mortoray.com/2013/11/27/the-string-type-is-broken/">&quot;The string type is broken&quot;</a> 기사에 언급된 모든 테스트를 통과합니다.</p>
 
 <p>You will see that Elixir has excellent support for working with strings. It also supports many of the Unicode operations. In fact, Elixir passes all the tests showcased in the article <a href="http://mortoray.com/2013/11/27/the-string-type-is-broken/">&quot;The string type is broken&quot;</a>.</p>
 
-<p>ともあれ文字列はこの物語の一部にすぎません．文字列はバイナリであり，私たちは(文字列へ)関数<code>is_binary/1</code>を使いました，Elixirには文字列へ能力を与えている隠れた型がなくてはなりません．そして，やはりあります．さあバイナリについて話しましょう！</p>
+<p>여하튼 문자열은 스토리의 일부에 지나지 않습니다. 문자열은 바이너리이며, 우리는 (문자열) 함수 <code>is_binary/1</code> 을 사용했습니다, Elixir는 문자열에 힘을 실어 주는 근본적인 타입을 가지고 있습니다. 자 이제 바이너리 대해 살펴봅시다!</p>
 
 <p>However, strings are just part of the story. If a string is a binary, and we have used the <code>is_binary/1</code> function, Elixir must have an underlying type empowering strings. And it does. Let&#39;s talk about binaries!</p>
 
-<h2 id="6-2-バイナリ-とビット列-binaries-and-bitstrings">6.2 バイナリ(とビット列) - Binaries (and bitstrings)</h2>
+<h2 id="6-2-바이너리-와-비트문자열-binaries-and-bitstrings">6.2 바이너리(와 비트문자열) - Binaries (and bitstrings)</h2>
 
-<p>Elixirではバイナリを<code>&lt;&lt;&gt;&gt;</code>を使って定義することができます:</p>
+<p>Elxir 에서 <code>&lt;&lt;&gt;&gt;</code>로 바이너리를 정의할 수 있습니다:</p>
 
 <p>In Elixir, you can define a binary using <code>&lt;&lt;&gt;&gt;</code>:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="p">&lt;&lt;</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">&gt;&gt;</span>
@@ -221,25 +221,25 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="n">byte_size</span> <span class="p">&lt;&lt;</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">&gt;&gt;</span>
 <span class="go">4</span>
 </code></pre></div>
-<p>バイナリは単なるバイトの連なりです．もちろん，これらのバイトは何らかの方法で整理されています，文字列としては妥当ではないこともあります:</p>
+<p>바이너리는 단순한 바이트들의 연속입니다. 물론 이러한 바이트들은 어떤 방식으로든 구성될 수 있습니다. 말이 되지 않는 문장도 가능합니다.</p>
 
 <p>A binary is just a sequence of bytes. Of course, those bytes can be organized in any way, even in a sequence that does not make them a valid string:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">String</span><span class="p">.</span><span class="n">valid?</span><span class="p">(&lt;&lt;</span><span class="mi">239</span><span class="p">,</span> <span class="mi">191</span><span class="p">,</span> <span class="mi">191</span><span class="p">&gt;&gt;)</span>
 <span class="go">false</span>
 </code></pre></div>
-<p>文字列の結合操作とは実はバイナリの結合操作です:</p>
+<p>문자열 연결 작업은 사실 바이너리의 결합 입니다:</p>
 
 <p>The string concatenation operation is actually a binary concatenation operator:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="p">&lt;&lt;</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">&gt;&gt;</span> <span class="o">&lt;&gt;</span> <span class="p">&lt;&lt;</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">&gt;&gt;</span>
 <span class="go">&lt;&lt;0, 1, 2, 3&gt;&gt;</span>
 </code></pre></div>
-<p>ヌルバイト`<code>&lt;&lt;0&gt;&gt;</code>を結合させて文字列のバイナリ表現を見ることはElixirにおいて一般的な技法です:</p>
+<p>문자열의 자체 바이너리 표현을 볼 수 있는 일반적인 방법은 null 바이트 <code>&lt;&lt;0&gt;&gt;</code>를 문자열에 결합시키는 것 입니다 :</p>
 
 <p>A common trick in Elixir is to concatenate the null byte <code>&lt;&lt;0&gt;&gt;</code> to a string to see its inner binary representation:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="s2">&quot;hełło&quot;</span> <span class="o">&lt;&gt;</span> <span class="p">&lt;&lt;</span><span class="mi">0</span><span class="p">&gt;&gt;</span>
 <span class="go">&lt;&lt;104, 101, 197, 130, 197, 130, 111, 0&gt;&gt;</span>
 </code></pre></div>
-<p>バイナリに書かれているそれぞれの番号は1バイトの表現なので255まであります．(複数の)バイナリは255より大きい数を保持したり，コードポイントからUTF8表現へ変換したりできます:</p>
+<p>바이너리에 적혀있는 각각의 번호는 1 바이트의 표현이기 때문에 255까지 있습니다. 바이너리는 255보다 큰 수를 저장하거나 코드 포인트를 UTF8 표현으로 변환하기 위해 수식어를 사용할 수 있습니다.</p>
 
 <p>Each number given to a binary is meant to represent a byte and therefore must go up to 255. Binaries allow modifiers to be given to store numbers bigger than 255 or to convert a code point to its utf8 representation:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="p">&lt;&lt;</span><span class="mi">255</span><span class="p">&gt;&gt;</span>
@@ -253,7 +253,7 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="p">&lt;&lt;</span><span class="mi">256</span> <span class="p">::</span> <span class="n">utf8</span><span class="p">,</span> <span class="mi">0</span><span class="p">&gt;&gt;</span>
 <span class="go">&lt;&lt;196, 128, 0&gt;&gt;</span>
 </code></pre></div>
-<p>もしバイトが8ビットなら，1ビットを渡したらどうなるでしょうか？</p>
+<p>만약 한 바이트가 8 비트일때, 1 비트만 사용하라는 수식어를 넘기면 어떻게 될까요?</p>
 
 <p>If a byte has 8 bits, what happens if we pass a size of 1 bit?</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="p">&lt;&lt;</span><span class="mi">1</span> <span class="p">::</span> <span class="n">size</span><span class="p">(</span><span class="mi">1</span><span class="p">)&gt;&gt;</span>
@@ -267,11 +267,11 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="n">bit_size</span><span class="p">(&lt;&lt;</span> <span class="mi">1</span> <span class="p">::</span> <span class="n">size</span><span class="p">(</span><span class="mi">1</span><span class="p">)&gt;&gt;)</span>
 <span class="go">1</span>
 </code></pre></div>
-<p>値はもはやバイナリではありませんがビット列ではあります -- 単なるビットの集まり！つまりバイナリとは8で割り切れる数のビット列のことです！</p>
+<p>더 이상 바이너리 값이 아니고 비트스트링 값입니다 -- 단순한 비트들의의 모임! 즉 바이너리는 8개의 비트스트링으로 구성됩니다.</p>
 
 <p>The value is no longer a binary, but a bitstring -- just a bunch of bits! So a binary is a bitstring where the number of bits is divisible by 8!</p>
 
-<p>バイナリ/ビット列にもパターンマッチできます:</p>
+<p>바이너리와 비트스트링에도 패턴매칭이 됩니다.</p>
 
 <p>We can also pattern match on binaries / bitstrings:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="p">&lt;&lt;</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">&gt;&gt;</span> <span class="p">=</span> <span class="p">&lt;&lt;</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">&gt;&gt;</span>
@@ -281,7 +281,7 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="p">&lt;&lt;</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">&gt;&gt;</span> <span class="p">=</span> <span class="p">&lt;&lt;</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">&gt;&gt;</span>
 <span class="gr">** (MatchError) no match of right hand side value: &lt;&lt;0, 1, 2, 3&gt;&gt;</span>
 </code></pre></div>
-<p>バイナリの全てのエントリーはちょうど8bitずつを期待していることに注意してください．しかしバイナリ修飾子を使うことで「残り」へマッチさせることができます:</p>
+<p>바이너리안에 있는 각각의 값들은 정확히 8비트에 일치해야 하지만 binary 수식어를 통해 나머지 값들을 매칭 시킬수 있습니다.</p>
 
 <p>Note each entry in the binary is expected to match exactly 8 bits. However, we can match on the rest of the binary modifier:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="p">&lt;&lt;</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">x</span> <span class="p">::</span> <span class="n">binary</span><span class="p">&gt;&gt;</span> <span class="p">=</span> <span class="p">&lt;&lt;</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">&gt;&gt;</span>
@@ -289,7 +289,7 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="n">x</span>
 <span class="go">&lt;&lt;2, 3&gt;&gt;</span>
 </code></pre></div>
-<p>上のパターンは<code>&lt;&lt;&gt;&gt;</code>の最後がバイナリであるときにだけ動作します．文字列結合演算子<code>&lt;&gt;</code>の結果に似ていますね:</p>
+<p>위 패턴은 바이너리가 <code>&lt;&lt;&gt;&gt;</code> 의 끝에 있어야 동작합니다. 문자열 결합 연산자 <code>&lt;&gt;</code> 로도 유사한 결과를 얻을 수 있습니다.</p>
 
 <p>The pattern above only works if the binary is at the end of <code>&lt;&lt;&gt;&gt;</code>. Similar results can be achieved with the string concatenation operator <code>&lt;&gt;</code>:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="s2">&quot;he&quot;</span> <span class="o">&lt;&gt;</span> <span class="n">rest</span> <span class="p">=</span> <span class="s2">&quot;hello&quot;</span>
@@ -297,13 +297,13 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="n">rest</span>
 <span class="go">&quot;llo&quot;</span>
 </code></pre></div>
-<p>ビット列，バイナリや文字列をめぐる旅も終わりです．文字列はUTF-8でエンコードされたバイナリのことで，バイナリは8で割り切れる数のビット列の集まりです．ここではElixirがビットとバイトを柔軟に扱える機能を提供していることをお見せしましたが，実際にはバイナリで作業する時間のうち99%はそのままバイナリとして扱い，<code>is_binary/1</code>と<code>byte_size/1</code>の関数を使うことになるでしょう.</p>
+<p>비트스트링, 바이너리와 문자열 여행도 이제 끝입니다. 문자열은 UTF-8로 인코딩된 바이너리이며 바이너리는 8개의 비트수를 가집니다. 여기에서는 비트와 바이트를 유연하게 처리 할 수있는 기능을 Elixir가 제공하는걸 봤지만 실제로는 바이너리를 다룰때 99%의 시간은 <code>is_binary/1</code> 과 <code>byte_size/1</code> 함수를 사용하게 될 것입니다.</p>
 
 <p>This finishes our tour of bitstrings, binaries and strings. A string is a UTF-8 encoded binary, and a binary is a bitstring where the number of bits is divisible by 8. Although this shows the flexibility Elixir provides to work with bits and bytes, 99% of the time you will be working with binaries and using the <code>is_binary/1</code> and <code>byte_size/1</code> functions.</p>
 
-<h2 id="6-3-文字リスト-char-lists">6.3 文字リスト - Char lists</h2>
+<h2 id="6-3-문자-리스트-char-lists">6.3 문자 리스트 - Char lists</h2>
 
-<p>文字リストは文字のリストでしかありません:</p>
+<p>문자 리스트는 말 그대로 문자의 리스트이지 그 이상 그 이하도 아닙니다:</p>
 
 <p>A char list is nothing more than a list of characters:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="s1">&#39;hełło&#39;</span>
@@ -313,11 +313,11 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="s1">&#39;hello&#39;</span>
 <span class="go">&#39;hello&#39;</span>
 </code></pre></div>
-<p>ご覧のとおり，単一引用符で囲まれた文字列はバイト列のかわりにコードポイントのリストを含んでいます(iexではASCIIの範囲より外にある文字を含んでいると，コードポイントの数字しか表示しないことに注意してください)．二重引用符で囲まれたものは文字列(つまりバイナリ)で，単一引用符で囲まれたものは文字のリスト(つまりリスト)です．</p>
+<p>보시다시피 작은따옴표로 둘러싸인 문자리스트는 바이트 값 대신에 각 문자의 코드포인트 값을 포함합니다 (iex에서는 ASCII 범위보다 밖에있는 문자를 포함하면 코드 포인트의 값으로 표시된다는점에 주의하십시요). 큰따옴표로 묶인것은 문자열 (즉 바이너리)인 반면에 작은따옴표로 묶인 것은 문자의 리스트 입니다.</p>
 
 <p>You can see that, instead of containing bytes, a char list contains the code points of the characters between single-quotes (note that iex will only output code points if any of the chars is outside the ASCII range). So while double-quotes represent a string (i.e. a binary), single-quotes represents a char list (i.e. a list).</p>
 
-<p>実際には文字リストはほとんどErlangとのインターフェース，特にバイナリを引数に取れない古いライブラリに使われています．<code>to_string/1</code>や<code>to_char_list/1</code>関数を使うと文字リストを文字列に変換したりその逆のことができます:</p>
+<p>실제로 문자리스트는 Erlang과의 인터페이싱할때 대부분 사용됩니다. 특히, 바이너리를 인자로 허용하지 않는 오래된 라이브러리에 사용되고 있습니다. <code>to_string/1</code> 와 <code>to_char_list/1</code> 함수를 사용하면 문자리스트를 문자열로 변환하거나 그 반대로 할 수 있습니다:</p>
 
 <p>In practice, char lists are used mostly when interfacing with Erlang, in particular old libraries that do not accept binaries as arguments. You can convert a char list to a string and back by using the <code>to_string/1</code> and <code>to_char_list/1</code> functions:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">to_char_list</span> <span class="s2">&quot;hełło&quot;</span>
@@ -329,11 +329,11 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="n">to_string</span> <span class="mi">1</span>
 <span class="go">&quot;1&quot;</span>
 </code></pre></div>
-<p>それらの関数はポリモーフィックであることに注目してください．文字リストを文字列の変換だけではなく，整数から文字列，アトムから文字列などの変換にも使えます．</p>
+<p>위 함수들은 다형성 함수입니다. 문자리스트를 문자열로 변환할 뿐만 아니라 정수에서 문자열, 원자형에서 문자열등의 변환에 사용할 수 있습니다.</p>
 
 <p>Note that those functions are polymorphic. They not only convert char lists to strings, but also integers to strings, atoms to strings, and so on.</p>
 
-<p>バイナリ，文字列そして文字リストの話題から離れて，キーバリューデータ構造について話していくことにしましょう．</p>
+<p>바이너리, 문자열, 그리고 문자리스트는 여기까지입니다. 이제 키-값 데이터 구조에 대해 살펴봅시다.</p>
 
 <p>With binaries, strings, and char lists out of the way, it is time to talk about key-value data structures.</p>
 

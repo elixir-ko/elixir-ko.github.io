@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>5 case，condそしてif - case, cond and if - Elixir</title>
+  <title>5 case，cond 와 if - case, cond and if - Elixir</title>
   <link href="http://feeds.feedburner.com/ElixirLang" rel="alternate" title="Elixir's Blog" type="application/atom+xml" />
   <link rel="stylesheet" type="text/css" href="/css/style.css">
   <link rel="stylesheet" type="text/css" href="/css/syntax.css">
@@ -149,17 +149,17 @@ function googleTranslateElementInit() {
 
 <div id="content">
   <article>
-    <h1 id="5-case，condそしてif-case-cond-and-if">5 case，condそしてif - case, cond and if</h1>
+    <h1 id="5-case，cond-와-if-case-cond-and-if">5 case，cond 와 if - case, cond and if</h1>
 
 <p><div class="toc"></div></p>
 
-<p>この章では<code>case</code>，<code>cond</code>そして<code>if</code>といった処理制御構造について学んでいきます．</p>
+<p>이 장에서는 <code>case</code> , <code>cond</code> 그리고 <code>if</code> 같은 제어 구조에 대해 알아 보겠습니다.</p>
 
 <p>In this chapter, we will learn about the <code>case</code>, <code>cond</code> and <code>if</code> control-flow structures.</p>
 
 <h2 id="5-1-case-case">5.1 case - case</h2>
 
-<p><code>case</code>によってある値がいずれか一つにマッチするまで複数のパターンと比較することができるようになります:</p>
+<p>case 는 어느 하나에 매칭 할 때까지 여러 패턴과 비교해 줍니다:</p>
 
 <p><code>case</code> allows us to compare a value against many patterns until we find a matching one:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">case</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span> <span class="k">do</span>
@@ -171,7 +171,7 @@ function googleTranslateElementInit() {
 <span class="gp">...&gt; </span>    <span class="s2">&quot;This clause would match any value&quot;</span>
 <span class="gp">...&gt; </span><span class="k">end</span>
 </code></pre></div>
-<p>もし既にある変数とパターンマッチさせたい場合，<code>^</code>を使わなければなりません:</p>
+<p>만약 이미있는 변수와 패턴 매칭시키고 싶은 경우 <code>^</code> 를 사용해야합니다:</p>
 
 <p>If you want to pattern match against an existing variable, you need to use the <code>^</code> operator:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">x</span> <span class="p">=</span> <span class="mi">1</span>
@@ -181,7 +181,7 @@ function googleTranslateElementInit() {
 <span class="gp">...&gt; </span>  <span class="bp">_</span>  <span class="p">-&gt;</span> <span class="s2">&quot;Will match&quot;</span>
 <span class="gp">...&gt; </span><span class="k">end</span>
 </code></pre></div>
-<p>句では，ガード(guard)を指定することで条件を拡張することができます:</p>
+<p>절은 guards를 통해 추가 조건을 명시 할 수 있습니다:</p>
 
 <p>Clauses also allow extra conditions to be specified via guards:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">case</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span> <span class="k">do</span>
@@ -191,23 +191,23 @@ function googleTranslateElementInit() {
 <span class="gp">...&gt; </span>    <span class="s2">&quot;Won&#39;t match&quot;</span>
 <span class="gp">...&gt; </span><span class="k">end</span>
 </code></pre></div>
-<p>最初の句は<code>x</code>が正の場合にのみマッチします．</p>
+<p>첫 번째 절은 <code>x</code> 가 양수일 경우에만 매치합니다.．</p>
 
 <p>The first clause above will only match when <code>x</code> is positive.</p>
 
-<h2 id="5-2-ガード句の中の式-expressions-in-guard-clauses">5.2 ガード句の中の式 - Expressions in guard clauses.</h2>
+<h2 id="5-2-guard-절-표현식-expressions-in-guard-clauses">5.2 guard 절 표현식 - Expressions in guard clauses.</h2>
 
-<p>ErlangVMではガードで使える式に制限があります:</p>
+<p>Erlang VM은 guards에서 사용할 표현식에 제한을 둡니다:</p>
 
 <p>The Erlang VM only allows a limited set of expressions in guards:</p>
 
 <ul>
-<li>比較演算子(<code>==</code>，<code>!=</code>，<code>===</code>，<code>!==</code>，<code>&gt;</code>，<code>&lt;</code>，<code>&lt;=</code>，<code>&gt;=</code>)</li>
-<li>論理演算子(<code>and</code>，<code>or</code>)と否定演算子(<code>not</code>，<code>!</code>)</li>
-<li>算術演算子(<code>+</code>，<code>-</code>，<code>*</code>，<code>/</code>)</li>
-<li>左側がリテラルの場合の<code>&lt;&gt;</code>と<code>++</code></li>
-<li><code>in</code>演算子</li>
-<li><p>以下の全ての型チェック関数:</p>
+<li>비교 연산자 (<code>==</code>，<code>!=</code>，<code>===</code>，<code>!==</code>，<code>&gt;</code>，<code>&lt;</code>，<code>&lt;=</code>，<code>&gt;=</code>)</li>
+<li>논리연산자 (<code>and</code>，<code>or</code>) 와 부정 연산자(<code>not</code>，<code>!</code>)</li>
+<li>산술 연산자 (<code>+</code>，<code>-</code>，<code>*</code>，<code>/</code>)</li>
+<li>왼쪽이 리터럴의 경우 <code>&lt;&gt;</code> 와 <code>++</code></li>
+<li><code>in</code> 연산자</li>
+<li><p>다음의 모든 유형 검사 함수들:</p>
 
 <ul>
 <li><code>is_atom/1</code></li>
@@ -226,7 +226,7 @@ function googleTranslateElementInit() {
 <li><code>is_reference/1</code></li>
 <li><code>is_tuple/1</code></li>
 </ul></li>
-<li><p>それに加えてこれらの関数:</p>
+<li><p>추가적으로 아래 함수들:</p>
 
 <ul>
 <li><code>abs(number)</code></li>
@@ -292,7 +292,7 @@ function googleTranslateElementInit() {
 </ul></li>
 </ul>
 
-<p>ガードの中で起きたエラーは単純にガードの失敗とみなされてガードの外には影響しません:</p>
+<p>guards 에서 발생하는 에러들은 단순히 guard의 실패로 간주되며 guard 밖에 영향을 주지 않습니다:</p>
 
 <p>Keep in mind errors in guards do not leak but simply make the guard fail:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">hd</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
@@ -304,7 +304,7 @@ function googleTranslateElementInit() {
 <span class="gp">...&gt; </span><span class="k">end</span>
 <span class="go">&quot;Got 1&quot;</span>
 </code></pre></div>
-<p>もしどの句にもマッチしなければ，エラーが発生します:</p>
+<p>만약 어떤 절도 일치하지 않으면 오류가 발생합니다:</p>
 
 <p>If none of the clauses match, an error is raised:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">case</span> <span class="ss">:ok</span> <span class="k">do</span>
@@ -312,7 +312,7 @@ function googleTranslateElementInit() {
 <span class="gp">...&gt; </span><span class="k">end</span>
 <span class="gr">** (CaseClauseError) no case clause matching: :ok</span>
 </code></pre></div>
-<p>匿名関数でも句やガードを複数持つことができることに注意してください:</p>
+<p>익명 함수도 절과 guards를 여러 개 가질수 있다는 점에 유의하십시요:</p>
 
 <p>Note anonymous functions can also have multiple clauses and guards:</p>
 <div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="n">iex</span><span class="o">&gt;</span> <span class="n">f</span> <span class="p">=</span> <span class="k">fn</span>
@@ -325,13 +325,13 @@ function googleTranslateElementInit() {
 <span class="n">iex</span><span class="o">&gt;</span> <span class="n">f</span><span class="p">.(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
 <span class="o">-</span><span class="mi">3</span>
 </code></pre></div>
-<p>匿名関数の句では引数の数が同じでなければなりません，そうでない場合はエラーになります．</p>
+<p>익명 함수 절에서는 인자의 수가 동일해야합니다, 그렇지 않으면 오류가 발생합니다.</p>
 
 <p>The number of arguments in each anonymous function clause needs to be the same, otherwise an error is raised.</p>
 
 <h2 id="5-3-cond-cond">5.3 cond - cond</h2>
 
-<p><code>case</code>は異なる値に対して(1つの値を)マッチさせようとするときにはうまく使えます．しかし場合によっては最初に評価した式がtrueになるまで複数の条件をチェックしたい場合があります．そのような場合に<code>cond</code>が使えるでしょう:</p>
+<p><code>case</code> 는 서로 다른 값에 대해 일치 시키려고 할 때 유용합니다. 그러나 경우에 따라서는 먼저 평가한 식이 true 가 될 때까지 여러 조건을 확인하길 원합니다. 그런 경우 <code>cond</code> 를 사용할 것입니다:</p>
 
 <p><code>case</code> is useful when you need to match against different values. However, in many circumstances, we want to check different conditions and find the first one that evaluates to true. In such cases, one may use <code>cond</code>:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">cond</span> <span class="k">do</span>
@@ -344,11 +344,11 @@ function googleTranslateElementInit() {
 <span class="gp">...&gt; </span><span class="k">end</span>
 <span class="go">&quot;But this will&quot;</span>
 </code></pre></div>
-<p>これは命令型言語の<code>else if</code>句と同じです(それらより使う機会は少ないですが)．</p>
+<p>이것은 명령형 언어의 <code>else if</code> 절과 동일합니다 (비록 사용할 기회는 적지만).</p>
 
 <p>This is equivalent to <code>else if</code> clauses in many imperative languages (although used way less frequently here).</p>
 
-<p>もしtrueになる条件がなければ，エラーになります．そのため，条件に<code>true</code>になるものを加えて，常にマッチさせることが必要になるかもしれません:</p>
+<p>만약 true 가 되는 조건이 없으면 오류가 발생합니다. 따라서 항상 매칭이 될 수 있는 true 조건을 추가할 필요가 있을 수 있습니다:</p>
 
 <p>If none of the conditions return true, an error is raised. For this reason, it may be necessary to add a final condition, equal to <code>true</code>, which will always match:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">cond</span> <span class="k">do</span>
@@ -360,7 +360,7 @@ function googleTranslateElementInit() {
 <span class="gp">...&gt; </span>    <span class="s2">&quot;This is always true (equivalent to else)&quot;</span>
 <span class="gp">...&gt; </span><span class="k">end</span>
 </code></pre></div>
-<p>最後に<code>cond</code>では<code>nil</code>と<code>false</code>以外はどんな値でもtrueとして扱うことに気をつけてください:</p>
+<p>마지막으로 <code>cond</code> 는 <code>nil</code> 과 <code>false</code> 이외의 어떤 값도 true 로 고려한다는것에 주의하십시요:</p>
 
 <p>Finally, note <code>cond</code> considers any value besides <code>nil</code> and <code>false</code> to be true:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">cond</span> <span class="k">do</span>
@@ -369,9 +369,9 @@ function googleTranslateElementInit() {
 <span class="gp">...&gt; </span><span class="k">end</span>
 <span class="go">&quot;1 is considered as true&quot;</span>
 </code></pre></div>
-<h2 id="5-4-ifとunless-if-and-unless">5.4 ifとunless - if and unless</h2>
+<h2 id="5-4-if-와-unless-if-and-unless">5.4 if 와 unless - if and unless</h2>
 
-<p><code>case</code>や<code>cond</code>とは違い，一つだけ条件をチェックしたい場合に便利な<code>if/2</code>や<code>unless/2</code>といったマクロも提供しています．</p>
+<p><code>case</code> 와 <code>cond</code> 와 달리 한가지 조건을 확인하고 싶은 경우에 편리한 <code>if/2</code> 와 <code>unless/2</code> 매크로도 제공합니다.</p>
 
 <p>Besides <code>case</code> and <code>cond</code>, Elixir also provides the macros <code>if/2</code> and <code>unless/2</code> which are useful when you need to check for just one condition:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">if</span> <span class="no">true</span> <span class="k">do</span>
@@ -383,11 +383,11 @@ function googleTranslateElementInit() {
 <span class="gp">...&gt; </span><span class="k">end</span>
 <span class="go">nil</span>
 </code></pre></div>
-<p>もし<code>if/2</code>に渡した条件が<code>false</code>か<code>nil</code>で返ってきた場合，<code>do/end</code>で囲まれた部分は実行されず，単に<code>nil</code>が返ります．その逆になるのが<code>unless/2</code>です．</p>
+<p>만약 <code>if/2</code> 가 <code>false</code> 또는 <code>nil</code> 을 리턴하면 <code>do/end</code> 로 묶인 부분은 실행되지 않고 단순히 <code>nil</code> 이 리턴됩니다. 그 반대가 되는 것이 <code>unless/2</code> 입니다.</p>
 
 <p>If the condition given to <code>if/2</code> returns <code>false</code> or <code>nil</code>, the body given between <code>do/end</code> is not executed and it simply returns <code>nil</code>. The opposite happens with <code>unless/2</code>.</p>
 
-<p>これらでは<code>else</code>ブロックも使えます:</p>
+<p>else 블록도 사용할 수 있습니다:</p>
 
 <p>They also support <code>else</code> blocks:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">if</span> <span class="no">nil</span> <span class="k">do</span>
@@ -398,20 +398,20 @@ function googleTranslateElementInit() {
 <span class="go">&quot;This will&quot;</span>
 </code></pre></div>
 <blockquote>
-<p>メモ: この言語で<code>if/2</code>や<code>unless/2</code>がマクロとして実装されているのがおもしろい点です;これらは他の様々な言語でそうであるような特別な言語構造ではありません．<a href="/docs/stable/elixir/Kernel.html">モジュール<code>Kernel</code>のドキュメント</a>で<code>if/2</code>のドキュメントやソースを調べることができます．モジュール<code>Kernel</code>には他にも演算子<code>+/2</code>や関数<code>is_function/2</code>といったような，あなたがコードを書くときにデフォルトで自動importされて使えるようになっているものが定義されています．</p>
+<p>참고 : 언어에서 <code>if/2</code> 와 <code>unless/2</code> 가 매크로로 구현되는 것이 재미있는 점입니다; 이들은 다른 다양한 언어들이 그렇듯이 특별한 언어 구조가 없습니다. <a href="/docs/stable/elixir/Kernel.html">Kernel 모듈 문서</a>에서 <code>if/2</code> 의 문서와 소스를 확인할 수 있습니다. 모듈 <code>Kernel</code> 에는 연산자 <code>+/2</code> 와 함수 <code>is_function/2</code> 와 같이 코드를 작성할 때 기본적으로 자동 import되어 사용할 수 있는것들이 정의되어 있습니다.</p>
 
 <p>Note: An interesting note regarding <code>if/2</code> and <code>unless/2</code> is that they are implemented as macros in the language; they aren&#39;t special language constructs as they would be in many languages. You can check the documentation and the source of <code>if/2</code> in <a href="/docs/stable/elixir/Kernel.html">the <code>Kernel</code> module docs</a>. The <code>Kernel</code> module is also where operators like <code>+/2</code> and functions like <code>is_function/2</code> are defined, all automatically imported and available in your code by default.</p>
 </blockquote>
 
-<h2 id="5-5-doブロック-do-blocks">5.5 <code>do</code>ブロック - <code>do</code> blocks</h2>
+<h2 id="5-5-do-블록-do-blocks">5.5 <code>do</code> 블록 - <code>do</code> blocks</h2>
 
-<p>ここまでで，私たちは4つの制御構造<code>case</code>，<code>cond</code>，<code>if</code>そして<code>unless</code>を学びました，そしてこれらは全て<code>do</code>/<code>end</code>ブロックで囲まれていました．実は<code>if</code>を以下のようにも書けます:</p>
+<p>지금까지 우리는 4 개의 제어 구조 <code>case</code> , <code>cond</code> , <code>if</code> 그리고 <code>unless</code> 를 배웠습니다: 그리고 이것들은 모두 <code>do</code>/<code>end</code> 블록에 둘러싸여 있었습니다. 사실 <code>if</code> 를 다음과 같이 쓸 수도 있습니다:</p>
 
 <p>At this point, we have learned four control structures: <code>case</code>, <code>cond</code>, <code>if</code> and <code>unless</code>, and they were all wrapped in <code>do</code>/<code>end</code> blocks. It happens we could also write <code>if</code> as follows:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">if</span> <span class="no">true</span><span class="p">,</span> <span class="ss">do</span><span class="p">:</span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span>
 <span class="go">3</span>
 </code></pre></div>
-<p>Elixirでは，<code>do</code>/<code>end</code>ブロックは式のまとまりを簡単に<code>do:</code>へ渡すためのものです．これらは同じことを表しています:</p>
+<p>Elixir에서 <code>do</code>/<code>end</code> 블록은 표현식들을 쉽게 <code>do:</code>에 전달하기 위한 것입니다. 이것들은 동일합니다:</p>
 
 <p>In Elixir, <code>do</code>/<code>end</code> blocks are a convenience for passing a group of expressions to <code>do:</code>. These are equivalent:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">if</span> <span class="no">true</span> <span class="k">do</span>
@@ -425,27 +425,27 @@ function googleTranslateElementInit() {
 <span class="gp">...&gt; </span><span class="p">)</span>
 <span class="go">13</span>
 </code></pre></div>
-<p>2番目の構文は<strong>キーワードリスト</strong>を使っていると言っています．<code>else</code>も同じ構文で渡せます:</p>
+<p>두 번째 구문은 <strong>키워드 리스트</strong>를 사용하고 있다고 말합니다. <code>else</code> 같은 구문으로 넘길 수 있습니다:</p>
 
 <p>We say the second syntax is using <strong>keyword lists</strong>. We can pass <code>else</code> using this syntax:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">if</span> <span class="no">false</span><span class="p">,</span> <span class="ss">do</span><span class="p">:</span> <span class="ss">:this</span><span class="p">,</span> <span class="ss">else</span><span class="p">:</span> <span class="ss">:that</span>
 <span class="go">:that</span>
 </code></pre></div>
-<p><code>do</code>/<code>end</code>ブロックを使う際には一つ気をつけることがあります．ブロックは常に一番遠くの関数呼び出しに束縛されます．例えば，以下の式:</p>
+<p><code>do</code>/<code>end</code> 블록을 사용시에는 한가지 명심할 점이 있습니다. 블록은 항상 가장 바깥쪽 함수 호출에 바인딩 됩니다. 예를 들어, 아래식은:</p>
 
 <p>One thing to keep in mind when using <code>do</code>/<code>end</code> blocks is they are always bound to the outermost function call. For example, the following expression:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">is_number</span> <span class="k">if</span> <span class="no">true</span> <span class="k">do</span>
 <span class="gp">...&gt; </span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span>
 <span class="gp">...&gt; </span><span class="k">end</span>
 </code></pre></div>
-<p>はこのように解釈されます:</p>
+<p>이렇게 파싱됩니다:</p>
 
 <p>Would be parsed as:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">is_number</span><span class="p">(</span><span class="k">if</span> <span class="no">true</span><span class="p">)</span> <span class="k">do</span>
 <span class="gp">...&gt; </span> <span class="mi">1</span> <span class="o">+</span> <span class="mi">2</span>
 <span class="gp">...&gt; </span><span class="k">end</span>
 </code></pre></div>
-<p>そうするとElixirは<code>is_number/2</code>を呼び出そうとして未定義関数エラーになります．あいまいさを解消するのには明示的に括弧を追加すると良いです:</p>
+<p>그러면 Elixir는 <code>is_number/2</code> 를 호출하려고 하고 정의되지 않은 함수 오류를 발생시킬것입니다. 모호성을 해소하려면 명시적으로 괄호를 추가하면 좋습니다:</p>
 
 <p>Which leads to an undefined function error as Elixir attempts to invoke <code>is_number/2</code>. Adding explicit parentheses is enough to resolve the ambiguity:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">is_number</span><span class="p">(</span><span class="k">if</span> <span class="no">true</span> <span class="k">do</span>
@@ -453,7 +453,7 @@ function googleTranslateElementInit() {
 <span class="gp">...&gt; </span><span class="k">end</span><span class="p">)</span>
 <span class="go">true</span>
 </code></pre></div>
-<p>キーワードリストはこの言語においてとても重要な役割を担っており，様々な関数やマクロにおいてあたりまえの存在です．後の章でこのことをもう少し詳しくみていきます．今は&quot;バイナリ，文字列そして文字リスト&quot;について話していきましょう．</p>
+<p>키워드 리스트는 언어에서 매우 중요한 역할을 담당하고 있으며, 다양한 함수와 매크로에서 당연한 존재입니다. 이후 장에서는 이 점을 좀 더 자세히 살펴 볼것입니다. 지금은 &quot;바이너리, 문자열 그리고 문자 리스트&quot;에 대해 이야기하겠습니다.</p>
 
 <p>Keyword lists play an important role in the language and are quite common in many functions and macros. We will explore them a bit more in a future chapter. Now it is time to talk about &quot;Binaries, strings and char lists&quot;.</p>
 
