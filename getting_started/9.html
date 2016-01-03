@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>9 再帰 - Recursion - Elixir</title>
+  <title>9 재귀 - Recursion - Elixir</title>
   <link href="http://feeds.feedburner.com/ElixirLang" rel="alternate" title="Elixir's Blog" type="application/atom+xml" />
   <link rel="stylesheet" type="text/css" href="/css/style.css">
   <link rel="stylesheet" type="text/css" href="/css/syntax.css">
@@ -149,18 +149,18 @@ function googleTranslateElementInit() {
 
 <div id="content">
   <article>
-    <h1 id="9-再帰-recursion">9 再帰 - Recursion</h1>
+    <h1 id="9-재귀-recursion">9 재귀 - Recursion</h1>
 
 <p><div class="toc"></div></p>
 
-<p>イミュータブル(不変)という性質を持つため，Elixir(や関数型言語)でのループは従来の手続き型言語とは異なる書き方をします．例えば，手続き型ではこんな感じで書くでしょう:</p>
+<p>불변성 때문에 Elixir(그리고 함수형 언어)에서 루프는 기존의 절차적 언어와는 다른 방식으로 작성합니다. 예를들어, 절차적 언어에서는 이런 식으로 작성됩니다:</p>
 
 <p>Due to immutability, loops in Elixir (and in functional programming languages) are written differently from conventional imperative languages. For example, in an imperative language, one would write:</p>
 <div class="highlight"><pre><code class="language-c" data-lang="c"><span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">array</span><span class="p">.</span><span class="n">length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
   <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">array</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span>
 <span class="p">}</span>
 </code></pre></div>
-<p>上の例では配列と補助変数<code>i</code>を変化させています．Elixirではこうできません．そのかわり関数型言語は再帰に頼ります: 関数は再帰的に呼び出され，停止の条件になるまで，動作し続けます．任意の回数文字を出力する以下の例を考えてみましょう:</p>
+<p>위의 예제는 배열과 보조 변수 <code>i</code> 를 변화시키고 있습니다. Elixir에서는 저렇게 할 수 없습니다. 대신 함수형 언어는 재귀에 의존합니다: 함수는 재귀적으로 호출되어 정지 조건이 될 때까지 계속 작동합니다. 임의의 횟수만큼 문자를 출력하는 다음예를 살펴 봅시다:</p>
 
 <p>In the example above, we are mutating the array and the helper variable <code>i</code>. That&#39;s not possible in Elixir. Instead, functional languages rely on recursion: a function is called recursively until a condition is reached that stops the recursive action from continuing. Consider the example below that prints a string an arbitrary amount of times:</p>
 <div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">Recursion</span> <span class="k">do</span>
@@ -179,31 +179,31 @@ function googleTranslateElementInit() {
 <span class="c1"># Hello!</span>
 <span class="c1"># Hello!</span>
 </code></pre></div>
-<p>caseと似たように，関数は複数の句を持つことができます．関数へ渡した引数が句のパターンとマッチし，ガードが<code>true</code>と評価される，特定の1つの句が実行されます．</p>
+<p>case와 유사하게 함수는 여러 절을 가질 수 있습니다. 함수에 전달된 인자가 절의 인자패턴과 일치하고 가드(guard)가 <code>true</code> 로 평가(evaluates)되는 특정 1개의 절이 실행됩니다.</p>
 
 <p>Similar to case, a function may have many clauses. A particular clause is executed when the arguments passed to the function match the clause&#39;s argument patterns and its guard evaluates to <code>true</code>.</p>
 
-<p>上の<code>print_multiple_times/2</code>が最初に呼ばれたとき，引数<code>n</code>は<code>3</code>になっています．</p>
+<p>위 <code>print_multiple_times/2</code> 가 처음 호출 될 때 인자 <code>n</code> 은 <code>3</code> 이 되고 있습니다.</p>
 
 <p>Above when <code>print_multiple_times/2</code> is initially called, the argument <code>n</code> is equal to <code>3</code>.</p>
 
-<p>最初の句は<code>n</code>が<code>1</code>と同じか小さいときにこの定義を使ってくださいというガードを持っています．そうではないため，Elixirは次の句の定義へと移ります．</p>
+<p>첫 번째 절은 <code>n</code> 이 <code>1</code> 과 같거나 작을 때 사용할 수있는 가드(guard)를 가지고 있습니다. 때문에 Elixir는 다음 절의 정의로 이동합니다.</p>
 
 <p>The first clause has a guard which says use this definition if and only if <code>n</code> is less than or equal to <code>1</code>. Since this is not the case, Elixir proceeds to the next clause&#39;s definition.</p>
 
-<p>2番目の定義はパターンにマッチし，ガードもありませんので，これが実行されます．最初に<code>msg</code>を表示し，次に2番目の引数へ<code>n-1</code>(<code>2</code>)を渡して自分自身を呼び出します．そうすると<code>msg</code>が表示され，再び<code>print_multiple_times/2</code>が呼び出されます．このとき2番目の引数は<code>1</code>になります．</p>
+<p>두 번째 정의는 패턴과 일치하고 가드(guard)도 없기 때문에 실행됩니다. 먼저 <code>msg</code> 를 출력한 다음 두 번째 인자로 <code>n - 1</code> (<code>2</code>)을 전달하여 호출합니다. 그러면 <code>msg</code> 가 출력되고 다시 <code>print_multiple_times/2</code>가 호출됩니다. 이 때 두 번째 인자는 <code>1</code> 이됩니다.</p>
 
 <p>The second definition matches the pattern and has no guard so it will be executed. It first prints our <code>msg</code> and then calls itself passing <code>n - 1</code> (<code>2</code>) as the second argument. Our <code>msg</code> is printed and <code>print_multiple_times/2</code> is called again this time with the second argument set to <code>1</code>.</p>
 
-<p><code>n</code>が<code>1</code>になったことにより，<code>print_multiple_times/2</code>にある1番目の定義のガードが真と評価されるので，この定義を実行します．<code>msg</code>が表示され，あとは何もすることが残っていません．</p>
+<p><code>n</code> 이 <code>1</code>이기 때문에, <code>print_multiple_times/2</code>의 첫 번째 정의의 가드(guard)가 참으로 평가되어 이를 실행합니다. <code>msg</code> 가 출력되고 더이상 실행할 것이 없게됩니다.</p>
 
 <p>Because <code>n</code> is now set to <code>1</code>, the guard to our first definition of <code>print_multiple_times/2</code> evaluates to true, and we execute this particular definition. The <code>msg</code> is printed, and there is nothing left to execute.</p>
 
-<p>引数の2番目へどんな数を渡されても，1番目の定義(&quot;ベースケース&quot;と呼ばれています)，あるいはベースケースへ確実に1歩近づくような2番目の定義，のどちらかが呼ばれる<code>print_multiple_times/2</code>を定義しました．</p>
+<p>두번째 인자가 어떤값이던지 첫번째 정의(&quot;베이스 케이스&quot;라고 합니다)를 호출(trigger)하던지 두번째 정의를 호출하는(trigger) <code>print_multuple_times/2</code>를 정의했습니다.</p>
 
 <p>We defined <code>print_multiple_times/2</code> so that no matter what number is passed as the second argument it either triggers our first definition (known as a &quot;base case&quot;) or it triggers our second definition which will ensure that we get exactly 1 step closer to our base case.</p>
 
-<p>リストにある数の合計を求めるときに再帰の力をどう使えるか見てみましょう:</p>
+<p>리스트에있는 숫자의 합을 구할 때 재귀의 힘을 어떻게 사용하는지를 살펴 봅시다:</p>
 
 <p>Let&#39;s now see how we can use the power of recursion to sum a list of numbers:</p>
 <div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">Math</span> <span class="k">do</span>
@@ -218,11 +218,11 @@ function googleTranslateElementInit() {
 
 <span class="nc">Math</span><span class="p">.</span><span class="n">sum_list</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="mi">0</span><span class="p">)</span> <span class="c1">#=&gt; 6</span>
 </code></pre></div>
-<p><code>sum_list</code>へ引数としてリスト<code>[1,2,3]</code>と初期値<code>0</code>を渡して呼び出しています．パターンマッチングのルールと一致するものが見つかるまで，それぞれの句へマッチを試みていきます．この場合だとリスト<code>[1,2,3]</code>は<code>[head|tail]</code>へマッチし，<code>head = 1</code>と<code>tail = [2,3]</code>，<code>accumulator</code>は<code>0</code>へと割り当てられます．</p>
+<p><code>sum_list</code>에 인자로 리스트 <code>[1,2,3]</code>과 초기값 <code>0</code> 을 전달하여 호출합니다. 패턴 매칭 규칙과 일치하는것을 찾을때까지 각 절에 매칭를 시도하고 있습니다. 이 경우 리스트 <code>[1,2,3]</code> 은 <code>[head|tail]</code>에 매치하고 <code>head = 1</code> 과 <code>tail = [2,3]</code> , <code>accumulator</code> 는 <code>0</code> 으로 할당됩니다.</p>
 
 <p>We invoke <code>sum_list</code> with a list <code>[1,2,3]</code> and the initial value <code>0</code> as arguments. We will try each clause until we find one that matches according to the pattern matching rules. In this case, the list <code>[1,2,3]</code> matches against <code>[head|tail]</code> which assigns <code>head = 1</code> and <code>tail = [2,3]</code> while <code>accumulator</code> is set to <code>0</code>.</p>
 
-<p>次にリストの先端(head)とアキュムレーターを足し(<code>head + accumulator</code>)，リストの残り(tail)を1番目の引数として渡して<code>sum_list</code>を再帰的に呼び出します．リストの残りは再び<code>[head|tail]</code>へマッチし，リストが空になるまで以下のように続きます:</p>
+<p>그런다음 리스트의 head값을 누적변수에 <code>head + accumulator</code> 더한다음 리스트의 tail을 첫번째 인자로로 전달하는 <code>sum_list</code>를 재귀적으로 호출합니다. 리스트의 나머지는 전체 리스트가 비어질때까지 <code>[head|tail]</code>에 일치시키며 다음과 같이 계속됩니다:</p>
 
 <p>Then, we add the head of the list to the accumulator <code>head + accumulator</code> and call <code>sum_list</code> again, recursively, passing the tail of the list as its first argument. The tail will once again match <code>[head|tail]</code> until the list is empty, as seen below:</p>
 <div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="n">sum_list</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="mi">0</span>
@@ -230,15 +230,15 @@ function googleTranslateElementInit() {
 <span class="n">sum_list</span> <span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="mi">3</span>
 <span class="n">sum_list</span> <span class="p">[],</span> <span class="mi">6</span>
 </code></pre></div>
-<p>リストが空になると，最後の句にマッチし最終結果の<code>6</code>が返ります．</p>
+<p>리스트가 비어 있으면, 마지막 절에 매치되어 최종 결과 <code>6</code> 이 리턴됩니다.</p>
 
 <p>When the list is empty, it will match the final clause which returns the final result of <code>6</code>.</p>
 
-<p>このリストをとって一つの値へ&quot;減らしていく(reducing)&quot;という手法は&quot;reduce&quot;アルゴリズムと呼ばれており，関数型プログラミングの中心をなしています．</p>
+<p>리스트를 취하고 하나의 값으로 &quot;줄여 나간다 (reducing)&quot;라는 과정은 &quot;reduce&quot; 알고리즘이라고하고 함수형 프로그래밍의 중심을 이루고 있습니다.</p>
 
 <p>The process of taking a list and &quot;reducing&quot; it down to one value is known as a &quot;reduce&quot; algorithm and is central to functional programming.</p>
 
-<p>もしリストの全ての値を2倍にしたければ何をすればよいでしょう？</p>
+<p>만약 리스트의 모든 값을 두배로하고 싶다면 어떻게 해야할까요?</p>
 
 <p>What if we instead want to double all of the values in our list?</p>
 <div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">Math</span> <span class="k">do</span>
@@ -253,15 +253,15 @@ function googleTranslateElementInit() {
 
 <span class="nc">Math</span><span class="p">.</span><span class="n">double_each</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span> <span class="c1">#=&gt; [2, 4, 6]</span>
 </code></pre></div>
-<p>リストを再帰的にたどり，全ての要素を2倍にし，新しいリストを返しています．この，リストをとって&quot;写しとる(mapping)&quot;手法は&quot;map&quot;アルゴリズムと呼ばれています．</p>
+<p>모든 요소를 2배로 하고 새로운 리스트를 리턴하기 위해 재귀를 사용했습니다. 이렇게 리스트를 취하고 &quot;mapping&quot; 하는 기법은 &quot;map&quot; 알고리즘이라고합니다.</p>
 
 <p>Here we have used recursion to traverse a list doubling each element and returning a new list. The process of taking a list and &quot;mapping&quot; over it is known as a &quot;map&quot; algorithm.</p>
 
-<p>再帰と末尾呼び出し最適化はElixirの重要な部分で，ループを作るのによく利用されています．しかしElixirでプログラミングしているときにリストの操作に上でやったような再帰を使うことはほとんどないでしょう．</p>
+<p>재귀와 꼬리(tail) 호출 최적화는 Elixir의 중요한 부분으로 루프를 만드는 데 자주 이용되고 있습니다. 그러나 Elixir로 프로그래밍 할 때 위에서 그랬던 것처럼 리스트를 조작할때 재귀를 사용할 일은 거의 없을 것입니다.</p>
 
 <p>Recursion and tail call optimization are an important part of Elixir and are commonly used to create loops. However, when programming Elixir you will rarely use recursion as above to manipulate lists.</p>
 
-<p>次の章で学ぶ<a href="/docs/stable/elixir/Enum.html"><code>Enum</code>モジュール</a>は既にリストを扱うのに便利な様々なものを提供しています．例えば上の例は次のように書けてしまいます:</p>
+<p>다음 장에서 배울 <a href="/docs/stable/elixir/Enum.html"><code>Enum</code> module</a>은 이미 리스트을 다루는데 여러가지 편리한것들을 제공합니다. 위 예는 다음과 같이 작성될수 있습니다:</p>
 
 <p>The <a href="/docs/stable/elixir/Enum.html"><code>Enum</code> module</a>, which we are going to study in the next chapter, already provides many conveniences for working with lists. For instance, the examples above could be written as:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">Enum</span><span class="p">.</span><span class="n">reduce</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="k">fn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">acc</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="n">acc</span> <span class="k">end</span><span class="p">)</span>
@@ -269,7 +269,7 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="nc">Enum</span><span class="p">.</span><span class="n">map</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="k">fn</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span> <span class="k">end</span><span class="p">)</span>
 <span class="go">[2, 4, 6]</span>
 </code></pre></div>
-<p>あるいはキャプチャー構文を使えばこのように:</p>
+<p>또는 캡쳐(capture) 문법을 사용하면:</p>
 
 <p>Or, using the capture syntax:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">Enum</span><span class="p">.</span><span class="n">reduce</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="o">&amp;+/</span><span class="mi">2</span><span class="p">)</span>
@@ -277,7 +277,7 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="nc">Enum</span><span class="p">.</span><span class="n">map</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="o">&amp;</span><span class="p">(</span><span class="ni">&amp;1</span> <span class="o">*</span> <span class="mi">2</span><span class="p">))</span>
 <span class="go">[2, 4, 6]</span>
 </code></pre></div>
-<p>それではEnumerableとStreamについてもっと詳しくみていきましょう．</p>
+<p>그래서 Enumerable와 Stream에 대해 좀 더 자세히 살펴 보겠습니다.</p>
 
 <p>So let&#39;s take a deeper look at Enumerables and Streams.</p>
 

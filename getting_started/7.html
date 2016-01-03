@@ -153,17 +153,18 @@ function googleTranslateElementInit() {
 
 <p><div class="toc"></div></p>
 
-<p>ある値(あるいは複数の値)をキーにできるデータ構造，すなわち連想データ構造のことについてはまだ何も話していませんね．他の言語では例えばディクショナリ，ハッシュ，連想配列，マップなどと呼ばれているもののことです．</p>
+<p>아직까지는  연관 데이터 구조에 대해 논의하지 않았습니다. 데이터구조는 키에 한개 또는 한개 이상의 값을 연관지을수 있습니다.
+다른 언어에서는 다른말로 딕셔너리, 해쉬, 연관 배열, 맵, 기타등등으로 말하기도 합니다.</p>
 
 <p>So far we haven&#39;t discussed any associative data structures, i.e. data structures that are able to associate a certain value (or multiple values) to a key. Different languages call these different names like dictionaries, hashes, associative arrays, maps, etc.</p>
 
-<p>Elixirにはキーワードリストとマップという2つの主な連想データ構造があります．これからそれらについて学んでいきましょう！</p>
+<p>Elixir에는 키워드 리스트와 맵이라는 두 가지 주된 연관 데이터 구조가 있습니다. 이것들에 대해 배울 시간입니다!</p>
 
 <p>In Elixir, we have two main associative data structures: keyword lists and maps. It&#39;s time to learn more about them!</p>
 
-<h2 id="7-1-キーワードリスト-keyword-lists">7.1 キーワードリスト - Keyword lists</h2>
+<h2 id="7-1-키워드-리스트-keyword-lists">7.1 키워드 리스트 - Keyword lists</h2>
 
-<p>多くの関数型言語では，連想データ構造の表現を2要素のタプルをリストにしたものを使うことが一般的です．Elixirでは，最初の要素(つまりキー)がアトムとなっているタプルのリストがある場合に，それをキーワードリストと呼びます:</p>
+<p>많은 함수형 언어에서는 연관 데이터 구조의 표현으로 2-item 튜플을 가지는 리스트를 사용하는 것이 일반적입니다. Elixir는 첫 번째 요소가 원자형이고 튜플을 가지는 리스트의 경우 키워드 리스트라고 합니다:</p>
 
 <p>In many functional programming languages, it is common to use a list of 2-item tuples as the representation of an associative data structure. In Elixir, when we have a list of tuples and the first item of the tuple (i.e. the key) is an atom, we call it a keyword list:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">list</span> <span class="p">=</span> <span class="p">[{</span><span class="ss">:a</span><span class="p">,</span> <span class="mi">1</span><span class="p">},</span> <span class="p">{</span><span class="ss">:b</span><span class="p">,</span> <span class="mi">2</span><span class="p">}]</span>
@@ -173,11 +174,11 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="n">list</span><span class="p">[</span><span class="ss">:a</span><span class="p">]</span>
 <span class="go">1</span>
 </code></pre></div>
-<p>上で見たように，エリクサーはこのようなリストを定義するのに特別な構文をサポートしており，裏ではタプルのリストへと変えています．これらは単なるリストなので，キーワードリストはリストへ行う操作がどれも可能で，また性能の特徴も同じです．</p>
+<p>위와 같이, Elixir는 이러한 리스트를 정의하는 데 특별한 문법을 지원하고 있으며, 뒤에서는 단순히 튜플을 가지는 리스트로 매핑하고 있습니다. 이것들은 그냥 리스트이므로, 리스트의 성능특징을 포함한 모든 가능한 operations들을 키워드 리스트에도 적용할 수 있습니다.</p>
 
 <p>As you can see above, Elixir supports a special syntax for defining such lists, and underneath they just map to a list of tuples. Since they are simply lists, all operations available to lists, including their performance characteristics, also apply to keyword lists.</p>
 
-<p>例えば<code>++</code>を使ってキーワードリストへ新しい値を追加することができます:</p>
+<p>예를들어, 키워드 리스트에 새로운 값을 넣고 싶으면 <code>++</code> 를 사용할 수 있습니다.</p>
 
 <p>For example, we can use <code>++</code> to add new values to a keyword list:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">list</span> <span class="o">++</span> <span class="p">[</span><span class="ss">c</span><span class="p">:</span> <span class="mi">3</span><span class="p">]</span>
@@ -185,7 +186,7 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="p">[</span><span class="ss">a</span><span class="p">:</span> <span class="mi">0</span><span class="p">]</span> <span class="o">++</span> <span class="n">list</span>
 <span class="go">[a: 0, a: 1, b: 2]</span>
 </code></pre></div>
-<p>値を取るときは前にある方が取得されることに注意してください:</p>
+<p>검색할때는 동일키값이 여러개 일때 제일 앞에 있는 값을 가져온다는 점에 주의하십시요:</p>
 
 <p>Note that values added to the front are the ones fetched on lookup:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">new_list</span> <span class="p">=</span> <span class="p">[</span><span class="ss">a</span><span class="p">:</span> <span class="mi">0</span><span class="p">]</span> <span class="o">++</span> <span class="n">list</span>
@@ -193,18 +194,18 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="n">new_list</span><span class="p">[</span><span class="ss">:a</span><span class="p">]</span>
 <span class="go">0</span>
 </code></pre></div>
-<p>キーワードリストは2つの特別な特徴があるため重要です:</p>
+<p>키워드 리스트는 2가지 특징때문에 중요합니다.</p>
 
 <p>Keyword lists are important because they have two special characteristics:</p>
 
 <ul>
-<li>キーの順序を開発者が指定したとおりに保持する</li>
-<li><p>キーを複数回与えることができる</p></li>
+<li>개발자가 지정한대로 키값이 정렬됩니다.</li>
+<li><p>한 개 이상의 동일 키값을 허용합니다.</p></li>
 <li><p>They keep the keys ordered, as specified by the developer.</p></li>
 <li><p>They allow a key to be given more than once.</p></li>
 </ul>
 
-<p>例えば，<a href="https://github.com/elixir-lang/ecto">Ectoライブラリ</a>ではデータベースクエリーを洗練されたDSLで書けるようにするために2つの機能両方を使っています:</p>
+<p>예를들어, <a href="https://github.com/elixir-lang/ecto">Ecto 라이브러리</a>는 이러한 특징을 사용하여 데이터베이스 쿼리 작성을 위해 우아한 DSL(역자: Domain Specific Language)를 제공합니다.</p>
 
 <p>For example, <a href="https://github.com/elixir-lang/ecto">the Ecto library</a> makes use of both features to provide an elegant DSL for writing database queries:</p>
 <div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="n">query</span> <span class="p">=</span> <span class="n">from</span> <span class="n">w</span> <span class="ow">in</span> <span class="nc">Weather</span><span class="p">,</span>
@@ -212,27 +213,27 @@ function googleTranslateElementInit() {
       <span class="ss">where</span><span class="p">:</span> <span class="n">w</span><span class="p">.</span><span class="n">temp</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="p">,</span>
      <span class="ss">select</span><span class="p">:</span> <span class="n">w</span>
 </code></pre></div>
-<p>この特徴があるため，キーワードリストは関数へオプションを渡すためのデフォルトのメカニズムとなっています．5章では<code>if/2</code>マクロについて話しましたね，以下のような構文をサポートしていたのでした:</p>
+<p>이 특징 때문에 키워드 리스트는 함수에 옵션값 전달을 위해 사용하는 기본 메커니즘이 됩니다. 5장에서 <code>if/2</code> 매크로에 대해 말할때 다음과 같은 구문을 지원했었습니다:</p>
 
 <p>Those features are what prompted keyword lists to be the default mechanism for passing options to functions in Elixir. In chapter 5, when we discussed the <code>if/2</code> macro, we mentioned the following syntax is supported:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">if</span> <span class="no">false</span><span class="p">,</span> <span class="ss">do</span><span class="p">:</span> <span class="ss">:this</span><span class="p">,</span> <span class="ss">else</span><span class="p">:</span> <span class="ss">:that</span>
 <span class="go">:that</span>
 </code></pre></div>
-<p><code>do</code>と<code>else</code>の組はキーワードリストです！事実この呼び出しは次と同じです:</p>
+<p><code>do:</code> 와 <code>else:</code>의 페어는 키워드 리스트입니다! 사실, 위의 코드는 아래와 동등합니다:</p>
 
 <p>The <code>do:</code> and <code>else:</code> pairs are keyword lists! In fact, the call above is equivalent to:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">if</span><span class="p">(</span><span class="no">false</span><span class="p">,</span> <span class="p">[</span><span class="ss">do</span><span class="p">:</span> <span class="ss">:this</span><span class="p">,</span> <span class="ss">else</span><span class="p">:</span> <span class="ss">:that</span><span class="p">])</span>
 <span class="go">:that</span>
 </code></pre></div>
-<p>一般的に，キーワードリストは関数の引数の最後にあり，角括弧はつけてもつけなくてもいいです．</p>
+<p>일반적으로 함수의 마지막 인자가 키워드 리스트이면 대괄호는 써도 그만 안써도 그만입니다.</p>
 
 <p>In general, when the keyword list is the last argument of a function, the square brackets are optional.</p>
 
-<p>キーワードリストを操作するために，Elixirは<a href="/docs/stable/elixir/Keyword.html"><code>Keyword</code>モジュール</a>を提供しています．キーワードリストは単にリストであることを思い出してください，そのためリストと同じ線形の性能特性をもっています．より長いリストは，キーを見つけるのがより長くなり，要素を数えるのがより長くなり，などなど．そのため，キーワードリストは主にオプションとして使われています．もし沢山の要素を保持しなければならなかったり，1つのキーが多くとも1つの値しか持たないことが保証したいなら，かわりにマップを使うべきです．</p>
+<p>키워드 리스트를 조작하기 위해 Elixir는 <a href="/docs/stable/elixir/Keyword.html">the <code>Keyword</code> module</a>을 제공합니다. 키워드 리스트는 단순히 리스트임을 명심하세요. 따라서 리스트와 같은 선형 성능 특징(긴 리스트에서 키를 찾는 것이나 item수를 찾는것 등등)을 제공합니다. 이러한 이유 때문에 키워드 리스트는 주로 옵션값으로 사용되고 있습니다. 만약 많은 item을 유지하거나 1개의 키가 1개의 값만 갖도록 guarantee 하고 싶을때는 맵을 사용해야합니다.</p>
 
 <p>In order to manipulate keyword lists, Elixir provides <a href="/docs/stable/elixir/Keyword.html">the <code>Keyword</code> module</a>. Remember though keyword lists are simply lists, and as such they provide the same linear performance characteristics as lists. The longer the list, the longer it will take to find a key, to count the number of items, and so on. For this reason, keyword lists are used in Elixir mainly as options. If you need to store many items or guarantee one-key associates with at maximum one-value, you should use maps instead.</p>
 
-<p>キーワードリストにもパターンマッチできます:</p>
+<p>키워드 리스트 또한 패턴 매칭이 가능합니다:</p>
 
 <p>Note we can also pattern match on keyword lists:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="p">[</span><span class="ss">a</span><span class="p">:</span> <span class="n">a</span><span class="p">]</span> <span class="p">=</span> <span class="p">[</span><span class="ss">a</span><span class="p">:</span> <span class="mi">1</span><span class="p">]</span>
@@ -244,13 +245,13 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="p">[</span><span class="ss">b</span><span class="p">:</span> <span class="n">b</span><span class="p">,</span> <span class="ss">a</span><span class="p">:</span> <span class="n">a</span><span class="p">]</span> <span class="p">=</span> <span class="p">[</span><span class="ss">a</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="ss">b</span><span class="p">:</span> <span class="mi">2</span><span class="p">]</span>
 <span class="gr">** (MatchError) no match of right hand side value: [a: 1, b: 2]</span>
 </code></pre></div>
-<p>ともあれ，パターンマッチにアイテムの数やマッチの順番を必要とするようなリストへパターンマッチすることはほとんどないでしょう．</p>
+<p>하여간 실전에서는 리스트의 item개수를 찾거나 리스트의 순서를 매칭시키기 위해 패턴 매칭을 쓸일은 거의 없습니다.</p>
 
 <p>However this is rarely done in practice since pattern matching on lists require the number of items and their order to match.</p>
 
-<h2 id="7-2-マップ-maps">7.2 マップ - Maps</h2>
+<h2 id="7-2-맵-maps">7.2 맵 - Maps</h2>
 
-<p>あなたがキーバリューストアを必要とするとき，マップはElixirにおける&quot;go to&quot;データ構造です．マップは<code>%{}</code>を使うと作ることができます:</p>
+<p>키-값 저장이 필요할때마다 맵은 &quot;go to&quot; 데이터 구조입니다. 맵은 <code>%{}</code> 문법으로 생성됩니다:</p>
 
 <p>Whenever you need a key-value store, maps are the &quot;go to&quot; data structure in Elixir. A map is created using the <code>%{}</code> syntax:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">map</span> <span class="p">=</span> <span class="p">%{</span><span class="ss">:a</span> <span class="p">=&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="p">=&gt;</span> <span class="ss">:b</span><span class="p">}</span>
@@ -260,30 +261,30 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="n">map</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
 <span class="go">:b</span>
 </code></pre></div>
-<p>キーワードリストに比べて，すでに2つ違う点がありますね:</p>
+<p>키워드 리스트에 비해 2가지 차이점을 이미 살펴봤습니다.</p>
 
 <p>Compared to keyword lists, we can already see two differences:</p>
 
 <ul>
-<li>マップはキーをどんな値にもできる</li>
-<li><p>マップのキーは順番通りにならない</p></li>
+<li>맵은 어떤 값이라도 키로 사용할 수 있습니다.</li>
+<li><p>맵의 키들은 어떤 순서도 따르지 않습니다.</p></li>
 <li><p>Maps allow any value as a key.</p></li>
 <li><p>Maps&#39; keys do not follow any ordering.</p></li>
 </ul>
 
-<p>もしマップを作るときに同じキーを渡すと，最後の一つが勝ちます:</p>
+<p>만약 맵을 생성할때 중복 키를 넘기면 마지막것이 리턴됩니다:</p>
 
 <p>If you pass duplicate keys when creating a map, the last one wins:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="p">%{</span><span class="mi">1</span> <span class="p">=&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span> <span class="p">=&gt;</span> <span class="mi">2</span><span class="p">}</span>
 <span class="go">%{1 =&gt; 2}</span>
 </code></pre></div>
-<p>マップのキーが全てアトムの場合は便利なキーワード構文を使うことができます:</p>
+<p>맵안의 코든 키들이 아톰형일때는 편리하게 키워드 문법을 사용할 수 있습니다:</p>
 
 <p>When all the keys in a map are atoms, you can use the keyword syntax for convenience:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">map</span> <span class="p">=</span> <span class="p">%{</span><span class="ss">a</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="ss">b</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
 <span class="go">%{a: 1, b: 2}</span>
 </code></pre></div>
-<p>キーワードリストとは対照的に，マップはパターンマッチングに使いやすいです:</p>
+<p>키워드 리스트와는 대조적으로 맵은 패턴매칭과 함께쓸때 유용합니다:</p>
 
 <p>In contrast to keyword lists, maps are very useful with pattern matching:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="p">%{}</span> <span class="p">=</span> <span class="p">%{</span><span class="ss">:a</span> <span class="p">=&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="p">=&gt;</span> <span class="ss">:b</span><span class="p">}</span>
@@ -295,11 +296,11 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="p">%{</span><span class="ss">:c</span> <span class="p">=&gt;</span> <span class="n">c</span><span class="p">}</span> <span class="p">=</span> <span class="p">%{</span><span class="ss">:a</span> <span class="p">=&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="p">=&gt;</span> <span class="ss">:b</span><span class="p">}</span>
 <span class="gr">** (MatchError) no match of right hand side value: %{2 =&gt; :b, :a =&gt; 1}</span>
 </code></pre></div>
-<p>上でみたように，マップは与えられたマップのキーがある部分にだけマッチします．したがって，空のマップは全てのマップにマッチします．</p>
+<p>위와 같이, 맵은 주어진맵에 주어진 키가 존재하는한 매칭합니다. 그래서, 빈 맵도 모든 맵을 매칭합니다.</p>
 
 <p>As shown above, a map matches as long as the given keys exist in the given map. Therefore, an empty map matches all maps.</p>
 
-<p>マップの興味深い特質に更新やアトムのキーにアクセスするための特定の構文が提供されているところがあります:</p>
+<p>맵에서 한가지 흥미로운 속성은 아톰형 키값을 업데이트하거나 accessing 하기 위해 특별 문법을 제공합니다.</p>
 
 <p>One interesting property about maps is that they provide a particular syntax for updating and accessing atom keys:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">map</span> <span class="p">=</span> <span class="p">%{</span><span class="ss">:a</span> <span class="p">=&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span> <span class="p">=&gt;</span> <span class="ss">:b</span><span class="p">}</span>
@@ -311,31 +312,32 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="p">%{</span><span class="n">map</span> <span class="p">|</span> <span class="ss">:c</span> <span class="p">=&gt;</span> <span class="mi">3</span><span class="p">}</span>
 <span class="gr">** (ArgumentError) argument error</span>
 </code></pre></div>
-<p>上にあるアクセスと更新のどちらの構文でも既にあるキーを必要とします．例えば最後の行ではマップに<code>c</code>がないので失敗しています．これはマップに既にキーがあることをあなたが期待している場合にすごく便利に使うことができます．</p>
+<p>액세스와 업데이트 문법은 이미 존재하는 키에 대해서만 동작합니다. 예를들어, 마지막 코드는 맵에 <code>:c</code>가 없어서 실패했습니다. 이것은 맵을 다룰때 키가 있는 없는지 확인할 때 유용합니다.</p>
 
 <p>Both access and update syntaxes above require the given keys to exist. For example, the last line failed because there is no <code>:c</code> in the map. This is very useful when you are working with maps where you only expect certain keys to exist.</p>
 
-<p>後の章で，私たちはコンパイル時の保証やエリクサーのポリモーフィズムの基礎となる構造体について学びます．構造体は上で書いたような更新の保証が便利であることがわかっているマップの上に構築されています．</p>
+<p>다음 장에서는 컴파일시간을 보장하고 다형성 기초를 제공하는 구조체에 대해 배울것입니다.
+구조체는 업데이트가 보장되는 맵 위에서 구현되어 매우 유용합니다.</p>
 
 <p>In future chapters, we will also learn about structs, which provide compile-time guarantees and the foundation for polymorphism in Elixir. Structs are built on top of maps where the update guarantees above are proven to be quite useful.</p>
 
-<p>マップを操作するには<a href="/docs/stable/elixir/Map.html"><code>Map</code>モジュール</a>を使います，APIは<code>Keyword</code>モジュールに良く似ています．どちらも<code>Dict</code>という振舞いを実装しているためです．</p>
+<p>맵을 조작하려면 <a href="/docs/stable/elixir/Map.html">the <code>Map</code> module</a>을 사용합니다, API는 <code>Keyword</code> 모듈과 비슷합니다. 모두 <code>Dict</code> behaviour를 구현하고 있기 때문입니다.</p>
 
 <p>Manipulating maps is done via <a href="/docs/stable/elixir/Map.html">the <code>Map</code> module</a>, it provides a very similar API to the <code>Keyword</code> module. This is because both modules implement the <code>Dict</code> behaviour.</p>
 
 <blockquote>
-<p>メモ: マップは最近<a href="http://www.erlang.org/eeps/eep-0043.html">EEP 43</a>でErlang VMに導入されました．Erlang 17はEEPの実装の一部，&quot;small maps&quot;だけのサポートを提供しています．これは最大数ダース程度のキーを持つマップの場合にだけ性能が良いことを意味しています．この溝を埋めるため，Elixirでは数十万のキーでも性能が良いアルゴリズムを利用する<a href="/docs/stable/elixir/HashDict.html"><code>HashDict</code>モジュール</a>も提供しています．</p>
+<p>참고: 맵은 <a href="http://www.erlang.org/eeps/eep-0043.html">EEP 43</a>구현을 통해 최근에 Erlang VM에 도입되었습니다. Erlang 17 버전은 EEP 구현의 일부인 &quot;small maps&quot; 만 지원합니다. 20~30개의 키를 maximum으로 저장할때만 성능이 좋다는걸 의미합니다. 이런 빈틈을 메꾸기 위해 Elixir는 수십만의 키에도 끄덕없는 <a href="/docs/stable/elixir/HashDict.html">the <code>HashDict</code> module</a>도 제공합니다.</p>
 
 <p>Note: Maps were recently introduced into the Erlang VM with <a href="http://www.erlang.org/eeps/eep-0043.html">EEP 43</a>. Erlang 17 provides a partial implementation of the EEP, where only &quot;small maps&quot; are supported. This means maps have good performance characteristics only when storing at maximum a couple of dozens keys. To fill in this gap, Elixir also provides <a href="/docs/stable/elixir/HashDict.html">the <code>HashDict</code> module</a> which uses a hashing algorithm to provide a dictionary that supports hundreds of thousands keys with good performance.</p>
 </blockquote>
 
-<h2 id="7-3-ディクショナリ-dicts">7.3 ディクショナリ - Dicts</h2>
+<h2 id="7-3-딕셔너리-dicts">7.3 딕셔너리 - Dicts</h2>
 
-<p>エリクサーではキーワードリストとマップのどちらもディクショナリと呼ばれています．言いかえると，ディクショナリはインターフェースのようなもの(Elixirではビヘイビアと呼んでいます)で，キーワードリストもマップのどちらのモジュールもこのインターフェースを実装しています．</p>
+<p>Elixir에서는 키워드 리스트와 맵을 모두 딕셔너리라고 부릅니다. 다시 말해서 맵은 인터페이스의 일종 (Elixir에서는 behaviours 라고 부릅니다)이고 키워드 리스트와 맵 모듈은 이 인터페이스를 구현하고 있습니다.</p>
 
 <p>In Elixir, both keyword lists and maps are called dictionaries. In other words, a dictionary is like an interface (we call them behaviours in Elixir) and both keyword lists and maps modules implement this interface.</p>
 
-<p>このインターフェースはAPIを提供(実際の実装は移譲)している<a href="/docs/stable/elixir/Dict.html"><code>Dict</code>モジュール</a>で定義されています．</p>
+<p><a href="/docs/stable/elixir/Dict.html">the <code>Dict</code> module</a>에 정의된 인터페이스는 내부 구현을 위임하는 API도 제공합니다.</p>
 
 <p>This interface is defined in the <a href="/docs/stable/elixir/Dict.html">the <code>Dict</code> module</a> module which also provides an API that delegates to the underlying implementations:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">keyword</span> <span class="p">=</span> <span class="p">[]</span>
@@ -347,19 +349,19 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="nc">Dict</span><span class="p">.</span><span class="n">put</span><span class="p">(</span><span class="n">map</span><span class="p">,</span> <span class="ss">:a</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 <span class="go">%{a: 1}</span>
 </code></pre></div>
-<p><code>Dict</code>モジュールは，開発者が<code>Dict</code>の特徴を持った実装を行え，既存のElixirコードで使えるようにします．<code>Dict</code>モジュールは他のディクショナリ同士でも動作するような関数も提供しています．例えば<code>Dict.equal?/2</code>はどんな種類の2つのディクショナリであっても比較できます．</p>
+<p><code>Dict</code> 모듈은 개발자가 <code>Dict</code>의 특징을 가진 own variation을 구현할 수 있고 기존 Elixir 코드를 후킹할 수 있게 해줍니다. <code>Dict</code> 모듈은 다른 딕셔너리들끼리 다루는 함수도 제공합니다. 예를들어 <code>Dict.equal?/2</code>는 어떤 종류의 2개의 딕셔너리도 비교할 수 있습니다.</p>
 
 <p>The <code>Dict</code> module allows any developer to implement their own variation of <code>Dict</code>, with specific characteristics, and hook into existing Elixir code. The <code>Dict</code> module also provides functions that are meant to work across dictionaries. For example, <code>Dict.equal?/2</code> can compare two dictionaries of any kind.</p>
 
-<p>そうすると，<code>Keyword</code>，<code>Map</code>や<code>Dict</code>のどのモジュールを使うべきなのかなあ？と思うでしょう．答えは: 場合によるです．</p>
+<p>그렇다면 도대체 <code>Keyword</code>，<code>Map</code> 또는 <code>Dict</code> 중에서 뭘 써야할까? 라는 고민이 생길 것입니다. 정답은 그때 그때 다릅니다.</p>
 
 <p>that said, you may be wondering, which of <code>Keyword</code>, <code>Map</code> or <code>Dict</code> modules should you use in your code? The answer is: it depends.</p>
 
-<p>もしあなたのコードが引数としてキーワードを期待しているなら，明示的に<code>Keyword</code>モジュールを使いましょう．もしあなたがmapを操作するなら<code>Map</code>モジュールを使いましょう．しかしながら，どのディクショナリでも動作するようなAPIの場合は<code>Dict</code>モジュールを使いましょう(そして異なるディクショナリ実装を引数に渡してテストをパスすることも確かめておきましょう)．</p>
+<p>만약 인자로 키워드를 사용하고 싶다면 <code>Keyword</code> 모듈을 사용하면됩니다. 만약 맵을 조작하고 싶다면 <code>Map</code> 모듈을 사용하면 되고 어떤한 딕셔너리를 다룰때는 <code>Dict</code> 모듈을 사용하면 됩니다.(그리고 다른 딕셔너리 구현체를 인자로 전달하는 테스트를 작성하는것도 잊지 마세요)</p>
 
 <p>If your code is expecting a keyword as an argument, explicitly use the <code>Keyword</code> module. If you want to manipulate a map, use the <code>Map</code> module. However, if your API is meant to work with any dictionary, use the <code>Dict</code> module (and make sure to write tests that pass different dict implementations as arguments).</p>
 
-<p>Elixirでの関連データ構造の説明はおしまいです．あなたはこれで連想データ構造を必要とする問題に取り組むための適切なツール，キーワードリストとマップを持つことになりました．</p>
+<p>Elixir에서 연관 데이터 구조 설명은 여기서 마칩니다. 이제 연관 데이터 구조를 통해 문제를 해결하기 위해 키워드 리스트와 맵을 사용할 수 있을 것입니다.</p>
 
 <p>This concludes our introduction to associative data structures in Elixir. You will find out that given keyword lists and maps, you will always have the right tool to tackle problems that require associative data structures in Elixir.</p>
 

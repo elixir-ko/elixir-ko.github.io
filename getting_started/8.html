@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>8 モジュール - Modules - Elixir</title>
+  <title>8 모듈 - Modules - Elixir</title>
   <link href="http://feeds.feedburner.com/ElixirLang" rel="alternate" title="Elixir's Blog" type="application/atom+xml" />
   <link rel="stylesheet" type="text/css" href="/css/style.css">
   <link rel="stylesheet" type="text/css" href="/css/syntax.css">
@@ -149,17 +149,17 @@ function googleTranslateElementInit() {
 
 <div id="content">
   <article>
-    <h1 id="8-モジュール-modules">8 モジュール - Modules</h1>
+    <h1 id="8-모듈-modules">8 모듈 - Modules</h1>
 
 <p><div class="toc"></div></p>
 
-<p>Elixirではモジュールのなかに複数の関数を入れてグループ化します．以前の章で既にいくつものモジュールを使ってきました．例えば<a href="/docs/stable/elixir/String.html"><code>String</code>モジュール</a>をこんな感じに:</p>
+<p>Elixir는 모듈안에 여러 함수를 그룹화합니다. 이전 장에서 이미 <a href="/docs/stable/elixir/String.html">the <code>String</code> module</a>와 같은 여러 모듈을 사용해 왔습니다:</p>
 
 <p>In Elixir we group several functions into modules. We&#39;ve already used many different modules in the previous chapters like <a href="/docs/stable/elixir/String.html">the <code>String</code> module</a>:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">String</span><span class="p">.</span><span class="n">length</span> <span class="s2">&quot;hello&quot;</span>
 <span class="go">5</span>
 </code></pre></div>
-<p>自分達でモジュールを作るには<code>defmodule</code>マクロを使います．そのマクロの中で<code>def</code>マクロを使って関数を定義します:</p>
+<p>모듈을 생성하기 위해서는 <code>defmodule</code> 매크로를 사용합니다. 모듈안에 함수를 정의하기 위해 <code>def</code> 매크로를 사용합니다.</p>
 
 <p>In order to create our own modules in Elixir, we use the <code>defmodule</code> macro. We use the <code>def</code> macro to define functions in that module:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="kd">defmodule</span> <span class="nc">Math</span> <span class="k">do</span>
@@ -171,13 +171,13 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="nc">Math</span><span class="p">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="go">3</span>
 </code></pre></div>
-<p>この後の節では例がもうちょっと複雑になり，シェルから入力するにはすごく注意しなければなりません．この機会に，どうやってElixirのコードをコンパイルするか，どうやってElixirのスクリプトを実行するかを学びましょう．</p>
+<p>다음 절에서는 예제가 좀 복잡해서 쉘에서 입력하려면 주의해야합니다. 이 참에 어떻게 Elixir 코드를 컴파일하거나 어떻게 Elixir 스크립트를 실행하는지 배워 봅시다.</p>
 
 <p>In the following sections, our examples are going to get a bit more complex, and it can be tricky to type them all in the shell. It&#39;s about time for us to learn how to compile Elixir code and also how to run Elixir scripts.</p>
 
-<h2 id="8-1-コンパイル-compilation">8.1 コンパイル - Compilation</h2>
+<h2 id="8-1-컴파일-compilation">8.1 컴파일 - Compilation</h2>
 
-<p>モジュールをファイルへ書くことの便利さの多くは，それがコンパイルできて再利用できるところにあります．今，ファイルの名前が<code>math.ex</code>で，以下の内容が書いてあるとしましょう:</p>
+<p>모듈을 파일에 코딩하는것은 컴파일하거나 재사용 할 수 있기 때문에 편리합니다. <code>math.ex</code> 파일에 아래 내용을 코딩해봅시다:</p>
 
 <p>Most of the time it is convenient to write modules into files so they can be compiled and reused. Let&#39;s assume we have a file named <code>math.ex</code> with the following contents:</p>
 <div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">Math</span> <span class="k">do</span>
@@ -186,37 +186,37 @@ function googleTranslateElementInit() {
   <span class="k">end</span>
 <span class="k">end</span>
 </code></pre></div>
-<p>このファイルは<code>elixirc</code>を使ってコンパイルできます:</p>
+<p><code>elixirc</code>을 사용하여 컴파일 해봅시다:</p>
 
 <p>This file can be compiled using <code>elixirc</code>:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">$ elixirc math.ex
 </code></pre></div>
-<p>こうすると，定義されたモジュールのバイトコードを含む<code>Elixir.Math.beam</code>という名前のファイルが生成されるでしょう．もう一度<code>iex</code>を開始すると，定義したモジュールが使えるようになっています(<code>iex</code>が開始したときに同じディレクトリにあるバイトコードファイルは自動的に読み込まれます):</p>
+<p>컴파일러는 바이트코드를 포함하고 있는 <code>Elixir.Math.beam</code> 파일을 만듭니다. 만약 <code>iex</code>를 다시 시작하면 작성했던 모듈 코드를 사용할 수 있습니다(단, 모듈파일과 같은 디렉토리에서 <code>iex</code>를 실행해야 합니다):</p>
 
 <p>This will generate a file named <code>Elixir.Math.beam</code> containing the bytecode for the defined module. If we start <code>iex</code> again, our module definition will be available (provided that <code>iex</code> is started in the same directory the bytecode file is in):</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">Math</span><span class="p">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 <span class="go">3</span>
 </code></pre></div>
-<p>Elixirは通常3つのディレクトリを備えています:</p>
+<p>Elixir 프로젝트는 대부분 3개의 디렉토리로 구성됩니다.</p>
 
 <p>Elixir projects are usually organized into three directories:</p>
 
 <ul>
-<li>ebin - コンパイルされたバイトコードが入っています</li>
-<li>lib - Elixirのコードが入っています(たいてい<code>.ex</code>というファイルです)</li>
-<li><p>test - テストが入っています(たいてい<code>.exs</code>というファイルです)</p></li>
+<li>ebin - 컴파일된 바이트코드를 포함함</li>
+<li>lib - elixir 코드를 포함함(대부분 <code>.ex</code> 파일들)</li>
+<li><p>test - 테스트 파일들을 포함함(대부분 <code>.exs</code> 파일들)</p></li>
 <li><p>ebin - contains the compiled bytecode</p></li>
 <li><p>lib - contains elixir code (usually <code>.ex</code> files)</p></li>
 <li><p>test - contains tests (usually <code>.exs</code> files)</p></li>
 </ul>
 
-<p>実際のプロジェクトでは，<code>mix</code>というビルドツールがコンパイルと適切なパスのセッティングをうまくやってくれます．学習目的のため，Elixirではコンパイル成果物を作らずに融通がきくスクリプトモードというものを使えます．</p>
+<p>실제 프로젝트에서는 <code>mix</code> 라는 빌드 툴이 컴파일 및 적절한 경로를 세팅 해줍니다. 학습 목적을 위해서 Elixir는 컴파일 결과물을 만들지 않고 좀 더 유연한 스크립트 모드를 지원합니다.</p>
 
 <p>When working on actual projects, the build tool called <code>mix</code> will be responsible for compiling and setting up the proper paths for you. For learning purposes, Elixir also supports a scripted mode which is more flexible and does not generate any compiled artifacts.</p>
 
-<h2 id="8-2-スクリプトモード-scripted-mode">8.2 スクリプトモード - Scripted mode</h2>
+<h2 id="8-2-스크립트-모드-scripted-mode">8.2 스크립트 모드 - Scripted mode</h2>
 
-<p><code>.ex</code>というElixirの拡張子の他に，スクリプティング用に<code>.exs</code>というファイルも使えます．Elixirは2つのファイルを同じように扱います，違いは意図だけです．<code>.ex</code>ファイルはコンパイルされることを意図しています，一方<code>.exs</code>はコンパイル不要でスクリプティングに使われます．例えば<code>math.exs</code>と呼ばれているファイルを作ることができ:</p>
+<p><code>.ex</code> 확장자 말고도 스크립트용으로 <code>.exs</code> 확장자를 지원합니다. Elixir는 둘다 동일하게 처리하지만 차이라곤 <code>.ex</code> 파일은 컴파일되는 반면에 <code>.exs</code> 파일은 컴파일없이 스크립트용으로 사용됩니다. 예를들어 <code>math.exs</code> 파일을 만들수 있습니다:</p>
 
 <p>In addition to the Elixir file extension <code>.ex</code>, Elixir also supports <code>.exs</code> files for scripting. Elixir treats both files exactly the same way, the only difference is in intention. <code>.ex</code> files are meant to be compiled while <code>.exs</code> files are used for scripting, without the need for compilation. For instance, we can create a file called <code>math.exs</code>:</p>
 <div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">Math</span> <span class="k">do</span>
@@ -227,18 +227,18 @@ function googleTranslateElementInit() {
 
 <span class="nc">IO</span><span class="p">.</span><span class="n">puts</span> <span class="nc">Math</span><span class="p">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
 </code></pre></div>
-<p>そしてこのように実行できます:</p>
+<p>실행해보면:</p>
 
 <p>And execute it as:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">$ elixir math.exs
 </code></pre></div>
-<p>ファイルはメモリ内でコンパイルされ，実行され，結果として3を表示します．バイトコードファイルは作られません．今後の例では，上で見たようにスクリプトファイルへコードを書いて実行することをおすすめします．</p>
+<p>이 파일은 메모리에서 컴파일되고 실행되고 &quot;3&quot;을 결과로 출력합니다. 어떤 바이트코드도 만들어지지 않습니다. 앞으로 예제는 스크립트 파일에 코딩할 것을 추천합니다.</p>
 
 <p>The file will be compiled in memory and executed, printing &quot;3&quot; as the result. No bytecode file will be created. In the following examples, we recommend you write your code into script files and execute them as shown above.</p>
 
-<h2 id="8-3-名前付き関数-named-functions">8.3 名前付き関数 - Named functions</h2>
+<h2 id="8-3-명명-named-함수-named-functions">8.3 명명(Named) 함수 - Named functions</h2>
 
-<p>モジュールのなかで，<code>def/2</code>を使って関数を定義したり<code>defp/2</code>を使ってプライベート関数を定義できます．<code>def/2</code>で定義した関数は別のモジュールから呼び出せるのに対し，プライベート関数はモジュールの中だけでしか呼び出せません．</p>
+<p>모듈속에서 <code>def/2</code>로 함수를 정의하고 <code>defp/2</code>로 private 함수를 정의합니다. <code>def/2</code>로 정된 함수는 외부모듈에서 호출 될수 있고 private 함수는 모듈안에서만 호출할 수 있습니다.</p>
 
 <p>Inside a module, we can define functions with <code>def/2</code> and private functions with <code>defp/2</code>. A function defined with <code>def/2</code> can be invoked from other modules while a private function can only be invoked locally.</p>
 <div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">Math</span> <span class="k">do</span>
@@ -254,7 +254,7 @@ function googleTranslateElementInit() {
 <span class="nc">Math</span><span class="p">.</span><span class="n">sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>    <span class="c1">#=&gt; 3</span>
 <span class="nc">Math</span><span class="p">.</span><span class="n">do_sum</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="c1">#=&gt; ** (UndefinedFunctionError)</span>
 </code></pre></div>
-<p>関数宣言はガードと複数句に対応しています．もし関数に複数の句がある場合，Elixirはマッチする句があるまで順番に試していきます．引数が0かそうではないかをチェックする関数はこうなります:</p>
+<p>함수선언은 가드와 다중(multiple)절을 지원합니다. 만약 함수가 여러절을 가지고 있으면 각 절이 매칭될때까지 계속 확인합니다. 인수가 0인지 아닌지 확인하는 코드는 아래와 같습니다:</p>
 
 <p>Function declarations also support guards and multiple clauses. If a function has several clauses, Elixir will try each clause until it finds one that matches. Here is an implementation of a function that checks if the given number is zero or not:</p>
 <div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">Math</span> <span class="k">do</span>
@@ -273,13 +273,13 @@ function googleTranslateElementInit() {
 <span class="nc">Math</span><span class="p">.</span><span class="n">zero?</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>
 <span class="c1">#=&gt; ** (FunctionClauseError)</span>
 </code></pre></div>
-<p>引数がどの句にもマッチしなかった場合はエラーが発生します．</p>
+<p>인자가 어느 절과도 일치하지 않으면 오류가 발생합니다.</p>
 
 <p>Giving an argument that does not match any of the clauses raises an error.</p>
 
-<h2 id="8-4-関数のキャプチャ-function-capturing">8.4 関数のキャプチャ - Function capturing</h2>
+<h2 id="8-4-함수-캡쳐링-capturing-function-capturing">8.4 함수 캡쳐링(capturing) - Function capturing</h2>
 
-<p>このチュートリアルのあいだ，関数を指すのに<code>name/arity</code>という記法を使ってきました．実はこの記法を名前付き関数の型として使うこともできます．<code>iex</code>を開始して上で定義した<code>math.exs</code>を動かしてみましょう:</p>
+<p>튜토리얼을 진행하면서 함수를 참고하기 위해 <code>함수이름/인자의개수</code> 표기법을 사용해 왔습니다. 이러한 표기법은 명명(Named) 함수를 검색하는데도 사용할 수 있습니다. <code>iex</code> 로 위에서 정의한 <code>math.exs</code> 실행시켜 봅시다:</p>
 
 <p>Throughout this tutorial, we have been using the notation <code>name/arity</code> to refer to functions. It happens that this notation can actually be used to retrieve a named function as a function type. Let&#39;s start <code>iex</code> and run the <code>math.exs</code> file defined above:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">$ iex math.exs
@@ -292,7 +292,7 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="n">fun</span><span class="p">.(</span><span class="mi">0</span><span class="p">)</span>
 <span class="go">true</span>
 </code></pre></div>
-<p><code>is_function/1</code>のような，ローカルな関数やインポートされた関数はモジュールをつけなくてもキャプチャできます:</p>
+<p><code>is_function/1</code>와 같은 로컬함수, 임포트(imported) 된 함수는 모듈명없이 캡쳐링 할 수 있습니다:</p>
 
 <p>Local or imported functions, like <code>is_function/1</code>, can be captured without the module:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="o">&amp;</span><span class="n">is_function</span><span class="o">/</span><span class="mi">1</span>
@@ -300,7 +300,7 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="p">(</span><span class="o">&amp;</span><span class="n">is_function</span><span class="o">/</span><span class="mi">1</span><span class="p">).(</span><span class="n">fun</span><span class="p">)</span>
 <span class="go">true</span>
 </code></pre></div>
-<p>キャプチャ構文は関数を作るときのショートカットとしても使えます:</p>
+<p>캡쳐 문법은 함수를 만들때 단축키로 사용할 수 있습니다:</p>
 
 <p>Note the capture syntax can also be used as a shortcut for creating functions:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">fun</span> <span class="p">=</span> <span class="o">&amp;</span><span class="p">(</span><span class="ni">&amp;1</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
@@ -308,13 +308,13 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="n">fun</span><span class="p">.(</span><span class="mi">1</span><span class="p">)</span>
 <span class="go">2</span>
 </code></pre></div>
-<p><code>&amp;1</code>は関数に渡された最初の引数を表します．上の<code>&amp;(&amp;1+1)</code>は<code>fn x -&gt; x + 1 end</code>と同じです．この構文は短い関数定義をするのに便利です．キャプチャ演算子<code>&amp;</code>については<a href="/docs/stable/elixir/Kernel.SpecialForms.html"><code>Kernel.SpecialForms</code>のドキュメント</a>で詳しく読むことができます．</p>
+<p><code>&amp;1</code> 은 함수에 전달된 첫 번째 인자를 나타냅니다. 위의 <code>&amp;(&amp;1+1)</code>은 <code>fn x -&gt; x + 1 end</code> 와 같습니다. 이 문법은 짧은 함수를 정의할때 편리합니다. 캡처 연산자 <code>&amp;</code> 대해서는 <a href="/docs/stable/elixir/Kernel.SpecialForms.html">the <code>Kernel.SpecialForms</code> documentation</a>에서 자세히 볼 수 있습니다.</p>
 
 <p>The <code>&amp;1</code> represents the first argument passed into the function. <code>&amp;(&amp;1+1)</code> above is exactly the same as <code>fn x -&gt; x + 1 end</code>. The syntax above is useful for short function definitions. You can read more about the capture operator <code>&amp;</code> in <a href="/docs/stable/elixir/Kernel.SpecialForms.html">the <code>Kernel.SpecialForms</code> documentation</a>.</p>
 
-<h2 id="8-5-デフォルト引数-default-arguments">8.5 デフォルト引数 - Default arguments</h2>
+<h2 id="8-5-기본-인자-default-arguments">8.5 기본 인자 - Default arguments</h2>
 
-<p>名前つき関数ではデフォルト引数も使えます:</p>
+<p>명명(Named) 함수는 기본 인수를 사용할 수 있습니다:</p>
 
 <p>Named functions in Elixir also support default arguments:</p>
 <div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">Concat</span> <span class="k">do</span>
@@ -326,7 +326,7 @@ function googleTranslateElementInit() {
 <span class="nc">IO</span><span class="p">.</span><span class="n">puts</span> <span class="nc">Concat</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">,</span> <span class="s2">&quot;world&quot;</span><span class="p">)</span>      <span class="c1">#=&gt; Hello world</span>
 <span class="nc">IO</span><span class="p">.</span><span class="n">puts</span> <span class="nc">Concat</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">,</span> <span class="s2">&quot;world&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span> <span class="c1">#=&gt; Hello_world</span>
 </code></pre></div>
-<p>デフォルト値としてどんな式も用意しておけますが，関数定義のときには評価されません; 後で使うため単に保存します．関数が呼び出され，その関数のデフォルト値が利用されるたび，デフォルト値の式が評価されます．</p>
+<p>기본값으로 어떤 표현식도 허용하지만, 함수 정의의 경우는 평가되지 않습니다; 나중에 사용하기 위해 단순히 저장만합니다. 함수를 호출하고 함수의 기본값이 이용 될 때마다 기본값식이 평가(evaluated) 됩니다.</p>
 
 <p>Any expression is allowed to serve as a default value, but it won&#39;t be evaluated during the function definition; it will simply be stored for later use. Every time the function is invoked and any of its default values have to be used, the expression for that default value will be evaluated:</p>
 <div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">DefaultTest</span> <span class="k">do</span>
@@ -340,7 +340,7 @@ function googleTranslateElementInit() {
 <span class="go">hello</span>
 <span class="go">:ok</span>
 </code></pre></div>
-<p>もしデフォルト値つきの関数に複数の句がある場合，デフォルト値を宣言する(動作内容を含めない)ヘッダ部分を分けて作っておくことをおすすめします:</p>
+<p>만약 함수의 기본값에 다중(multiple)절이 있는 경우, 기본값 선언만 하는 함수 헤드(head) 부분만 만드는 것을 권장합니다:</p>
 
 <p>If a function with default values has multiple clauses, it is recommended to create a function head (without an actual body), just for declaring defaults:</p>
 <div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">Concat</span> <span class="k">do</span>
@@ -359,7 +359,7 @@ function googleTranslateElementInit() {
 <span class="nc">IO</span><span class="p">.</span><span class="n">puts</span> <span class="nc">Concat</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">,</span> <span class="s2">&quot;world&quot;</span><span class="p">,</span> <span class="s2">&quot;_&quot;</span><span class="p">)</span> <span class="c1">#=&gt; Hello_world</span>
 <span class="nc">IO</span><span class="p">.</span><span class="n">puts</span> <span class="nc">Concat</span><span class="p">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;Hello&quot;</span><span class="p">)</span>               <span class="c1">#=&gt; Hello</span>
 </code></pre></div>
-<p>もしデフォルト値を使うなら，関数定義の上書きについてだけは十分に注意しなければなりません．以下の例を考えてみましょう:</p>
+<p>기본값을 사용할때, 함수정의를 덮어쓰는(overlapping)것에 대해서만은 주의해야합니다. 다음의 예를 생각해 봅시다:</p>
 
 <p>When using default values, one must be careful to avoid overlapping function definitions. Consider the following example:</p>
 <div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">Concat</span> <span class="k">do</span>
@@ -374,12 +374,12 @@ function googleTranslateElementInit() {
   <span class="k">end</span>
 <span class="k">end</span>
 </code></pre></div>
-<p>上のコードを&quot;concat.ex&quot;というファイル名でセーブしコンパイルすると，Elixirは以下の警告を出力するでしょう:</p>
+<p>위의 코드를 &quot;concat.ex&quot;라는 파일명으로 저장하고 컴파일하면 Elixir는 다음과 같은 경고를 출력 할 것입니다:</p>
 
 <p>If we save the code above in a file named &quot;concat.ex&quot; and compile it, Elixir will emit the following warning:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">concat.ex:7: this clause cannot match because a previous clause at line 2 always matches
 </code></pre></div>
-<p>2引数の<code>join</code>関数は常に最初の<code>join</code>定義を呼び出すことになり，一方2番目のものは3つの引数が渡されたときにしか呼び出されませんということをコンパイラが私たちへ教えてくれています:</p>
+<p>2인자를 가지는 <code>join</code> 함수호출은 항상 첫 번째 <code>join</code> 정의를 호출하며, 두 번째 것은 3개의 인자가 전달 된 경우에만 호출할 수 있음을 컴파일러가 알려줍니다:</p>
 
 <p>The compiler is telling us that invoking the <code>join</code> function with two arguments will always choose the first definition of <code>join</code> whereas the second one will only be invoked when three arguments are passed:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">$ iex concat.exs
@@ -390,7 +390,7 @@ function googleTranslateElementInit() {
 <span class="go">***Second join</span>
 <span class="go">&quot;Hello_world&quot;</span>
 </code></pre></div>
-<p>モジュールの簡単な導入はおしまいです．次の章では名前つき関数を再帰に使うにはどうすればよいか学び，他のモジュールから関数を導入するのに使われるレキシカルディレクティブを調査し，モジュールの属性について話すことにします．</p>
+<p>모듈의 간단한 소개는 여기까지 입니다. 다음 장에서는 명명(Named)함수를 어떻게 재귀로 사용하면 좋은지 배울것이며 다른 모듈에서 함수를 임포트(import)하는 데 사용되는 어휘 지시문(directives)를 살펴보고 모듈의 속성에 대해 논의할것입니다.</p>
 
 <p>This finishes our short introduction to modules. In the next chapters, we will learn how to use named functions for recursion, explore Elixir lexical directives that can be used for importing functions from other modules and discuss module attributes.</p>
 
