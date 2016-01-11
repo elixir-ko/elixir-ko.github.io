@@ -153,15 +153,15 @@ function googleTranslateElementInit() {
 
 <p><div class="toc"></div></p>
 
-<p>プロトコルはElixirで多態を生み出すための機構です．プロトコルの処理は，どんなデータ型に対しても，そのデータ型がそのプロトコルを実装さえしていれば処理できます．例を見てみましょう．</p>
+<p>프로토콜은 다형성을 위한 메커니즘입니다. 프로토콜이 구현되어 있는 동안에는 어떠한 데이터 타입도 디스패칭할 수 있습니다. 예제를 살펴봅시다.</p>
 
 <p>Protocols are a mechanism to achieve polymorphism in Elixir. Dispatching on a protocol is available to any data type as long as it implements the protocol. Let&#39;s see an example.</p>
 
-<p>Elixirでは<code>false</code>と<code>nil</code>だけがfalseとして扱われます．他の全てはtrueと評価されます．アプリケーションによっては，それがブランクであると考えられるべきときに真偽値を返すような<code>blank?</code>プロトコルを規定することが重要になるかもしれません．</p>
+<p>Elixir에서는 <code>false</code>와 <code>nil</code>은 false로 처리됩니다. 그렇지 않는것들은 모두 true입니다. 어떠한 데이터 타입대해서도 값이 비어있는지 확인하기 위해 <code>blank?</code>라는 프로토콜이 필요한 어플케이션이 있다고 해봅시다. 예를들어, 비어있는 리스트 또는 비어있는 바이너리는 비어있다고 할 수 있습니다.</p>
 
 <p>In Elixir, only <code>false</code> and <code>nil</code> are treated as false. Everything else evaluates to true. Depending on the application, it may be important to specify a <code>blank?</code> protocol that returns a boolean for other data types that should be considered blank. For instance, an empty list or an empty binary could be considered blanks.</p>
 
-<p>以下のようにプロトコルを定義できます:</p>
+<p>이 프로토콜은 아래와 같이 정의 할 수 있습니다:</p>
 
 <p>We could define this protocol as follows:</p>
 <div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defprotocol</span> <span class="nc">Blank</span> <span class="k">do</span>
@@ -169,21 +169,21 @@ function googleTranslateElementInit() {
   <span class="kd">def</span> <span class="n">blank?</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 <span class="k">end</span>
 </code></pre></div>
-<p>このプロトコルは<code>blank?</code>と呼ばれる，一つの引数を取る関数が実装されることを期待しています．このプロトコルを別のElixirデータ型で以下のように実装してみましょう:</p>
+<p>하나의 인자를 받는 <code>blank?</code>라는 함수를 프로토콜로 정의했습니다. 이제 Elixir의 다른 데이터타입에 대해서도 아래와 같이 프로토콜을 구현할 수 있습니다:</p>
 
 <p>The protocol expects a function called <code>blank?</code> that receives one argument to be implemented. We can implement this protocol for different Elixir data types as follows:</p>
-<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="c1"># 整数は決してブランクにならない - Integers are never blank</span>
+<div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="c1"># Integers are never blank</span>
 <span class="kd">defimpl</span> <span class="nc">Blank</span><span class="p">,</span> <span class="ss">for</span><span class="p">:</span> <span class="nc">Integer</span> <span class="k">do</span>
   <span class="kd">def</span> <span class="n">blank?</span><span class="p">(</span><span class="bp">_</span><span class="p">),</span> <span class="ss">do</span><span class="p">:</span> <span class="no">false</span>
 <span class="k">end</span>
 
-<span class="c1"># 空リストのときだけブランクになる - Just empty list is blank</span>
+<span class="c1"># Just empty list is blank</span>
 <span class="kd">defimpl</span> <span class="nc">Blank</span><span class="p">,</span> <span class="ss">for</span><span class="p">:</span> <span class="nc">List</span> <span class="k">do</span>
   <span class="kd">def</span> <span class="n">blank?</span><span class="p">([]),</span> <span class="ss">do</span><span class="p">:</span> <span class="no">true</span>
   <span class="kd">def</span> <span class="n">blank?</span><span class="p">(</span><span class="bp">_</span><span class="p">),</span>  <span class="ss">do</span><span class="p">:</span> <span class="no">false</span>
 <span class="k">end</span>
 
-<span class="c1"># 空のマップのときだけブランクになる - Just empty map is blank</span>
+<span class="c1"># Just empty map is blank</span>
 <span class="kd">defimpl</span> <span class="nc">Blank</span><span class="p">,</span> <span class="ss">for</span><span class="p">:</span> <span class="nc">Map</span> <span class="k">do</span>
   <span class="c1"># Keep in mind we could not pattern match on %{} because</span>
   <span class="c1"># it matches on all maps. We can however check if the size</span>
@@ -191,14 +191,14 @@ function googleTranslateElementInit() {
   <span class="kd">def</span> <span class="n">blank?</span><span class="p">(</span><span class="n">map</span><span class="p">),</span> <span class="ss">do</span><span class="p">:</span> <span class="n">map_size</span><span class="p">(</span><span class="n">map</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span>
 <span class="k">end</span>
 
-<span class="c1"># アトムがfalseとnilのときだけブランクになる - Just the atoms false and nil are blank</span>
+<span class="c1"># Just the atoms false and nil are blank</span>
 <span class="kd">defimpl</span> <span class="nc">Blank</span><span class="p">,</span> <span class="ss">for</span><span class="p">:</span> <span class="nc">Atom</span> <span class="k">do</span>
   <span class="kd">def</span> <span class="n">blank?</span><span class="p">(</span><span class="no">false</span><span class="p">),</span> <span class="ss">do</span><span class="p">:</span> <span class="no">true</span>
   <span class="kd">def</span> <span class="n">blank?</span><span class="p">(</span><span class="no">nil</span><span class="p">),</span>   <span class="ss">do</span><span class="p">:</span> <span class="no">true</span>
   <span class="kd">def</span> <span class="n">blank?</span><span class="p">(</span><span class="bp">_</span><span class="p">),</span>     <span class="ss">do</span><span class="p">:</span> <span class="no">false</span>
 <span class="k">end</span>
 </code></pre></div>
-<p>元々ある全てのデータ型について同じようにしていきます．型はこれだけあります:</p>
+<p>그리고 모든 네이티브 데이터 타입에도 쓸 수 있습니다. 사용할 수 있는 타입들은:</p>
 
 <p>And we would do so for all native data types. The types available are:</p>
 
@@ -216,7 +216,7 @@ function googleTranslateElementInit() {
 <li><code>Tuple</code></li>
 </ul>
 
-<p>今，手元でプロトコルが定義され，実装もしました．すると呼び出すことができます:</p>
+<p>이제 구현된 프로토콜이 있으니 호출할 수 있습니다:</p>
 
 <p>Now with the protocol defined and implementations in hand, we can invoke it:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">Blank</span><span class="p">.</span><span class="n">blank?</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
@@ -226,19 +226,19 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="nc">Blank</span><span class="p">.</span><span class="n">blank?</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
 <span class="go">false</span>
 </code></pre></div>
-<p>プロトコルを実装していないデータ型を渡すとエラーが発生します:</p>
+<p>구현되지 않는 데이터 타입의 프로토콜은 에러를 던집니다:</p>
 
 <p>Passing a data type that does not implement the protocol raises an error:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">Blank</span><span class="p">.</span><span class="n">blank?</span><span class="p">(</span><span class="s2">&quot;hello&quot;</span><span class="p">)</span>
 <span class="gr">** (Protocol.UndefinedError) protocol Blank not implemented for &quot;hello&quot;</span>
 </code></pre></div>
-<h2 id="16-1-プロトコルと構造体-protocols-and-structs">16.1 プロトコルと構造体 - Protocols and structs</h2>
+<h2 id="16-1-프로토콜과-구조체-protocols-and-structs">16.1 프로토콜과 구조체 - Protocols and structs</h2>
 
-<p>Elixirの拡張性はプロトコルと構造体が一緒に使われたときに効果を発揮します．</p>
+<p>프로토콜과 구조체가 함께할때 Elixir의 확장성의 파워를 가질수 있습니다.</p>
 
 <p>The power of Elixir&#39;s extensibility comes when protocols and structs are used together.</p>
 
-<p>前の章で，構造体はマップであるけれども，プロトコルの実装はマップと共有していないということを学びました．前の章にあった<code>User</code>という構造体を定義してみましょう:</p>
+<p>이전 장에서 구조체는 맵의 프로토콜 구현을 가지지 않는 맵이라고 배웠습니다. 이전 장에서의 <code>User</code>를 다시 정의해봅시다:</p>
 
 <p>In the previous chapter, we have learned that although structs are maps, they do not share protocol implementations with maps. Let&#39;s define a <code>User</code> struct as in the previous chapter:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="kd">defmodule</span> <span class="nc">User</span> <span class="k">do</span>
@@ -247,7 +247,7 @@ function googleTranslateElementInit() {
 <span class="go">{:module, User,</span>
 <span class="go"> &lt;&lt;70, 79, 82, ...&gt;&gt;, {:__struct__, 0}}</span>
 </code></pre></div>
-<p>そして確かめます:</p>
+<p>그리고 나서 확인해보면:</p>
 
 <p>And then check:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">Blank</span><span class="p">.</span><span class="n">blank?</span><span class="p">(%{})</span>
@@ -255,18 +255,19 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="nc">Blank</span><span class="p">.</span><span class="n">blank?</span><span class="p">(%</span><span class="nc">User</span><span class="p">{})</span>
 <span class="gr">** (Protocol.UndefinedError) protocol Blank not implemented for %User{age: 27, name: &quot;john&quot;}</span>
 </code></pre></div>
-<p>構造体は，マップとプロトコルの実装を共有するのではなく，自身でプロトコルを実装することを求めます．</p>
+<p>맵의 프로토콜 구현을 가지는것 대신에 구조체는 자기자신만의 프로토콜 구현을 가질 수 있습니다:</p>
 
 <p>Instead of sharing protocol implementation with maps, structs require their own protocol implementation:</p>
 <div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defimpl</span> <span class="nc">Blank</span><span class="p">,</span> <span class="ss">for</span><span class="p">:</span> <span class="nc">User</span> <span class="k">do</span>
   <span class="kd">def</span> <span class="n">blank?</span><span class="p">(</span><span class="bp">_</span><span class="p">),</span> <span class="ss">do</span><span class="p">:</span> <span class="no">false</span>
 <span class="k">end</span>
 </code></pre></div>
-<p>必要に応じて，ユーザーがブランクであるという独自の意味を持たせることができます．それだけではなく，構造体をもっと堅牢な，たとえばキューのようなデータ型を構築するのに使うことができます，そしてそのようなデータ型のために，関連した全てのプロトコル，例えば<code>Enumerable</code>やおそらく<code>Blank</code>を実装する必要があります．</p>
+<p>필요하다면 비어있는 User에 대해 독자적인 의미를 부여할수도 있습니다. 뿐만 아니라 큐와같이 좀 더 탄탄한 구조체를 만들거나 <code>Enumerable</code>과 <code>Blank</code>같은 관련있는 모든 프로토콜 구현하기위해 구조체를 사용할 수 있습니다.</p>
 
 <p>If desired, you could come up with your own semantics for a user being blank. Not only that, you could use structs to build more robust data types, like queues, and implement all relevant protocols, such as <code>Enumerable</code> and possibly <code>Blank</code>, for this data type.</p>
 
-<p>わかりきったプロトコル実装を全ての構造体へ行うのは面倒ですから．開発者は手動で実装していない構造体へ使うデフォルト実装を用意したくなります，</p>
+<p>그러나 대부분의 경우, 개발자는 모든 구조체에 구현을 명시하는 지루함보다 기본 구현을 제공하길 원할것입니다.
+그럴때는 Any 데이터 타입으로 falling back 하는게 도움이 됩니다.</p>
 
 <p>In many cases though, developers may want to provide a default implementation for structs, as explicitly implementing the protocol for all structs can be tedious. That&#39;s when falling back to Any comes in handy.</p>
 

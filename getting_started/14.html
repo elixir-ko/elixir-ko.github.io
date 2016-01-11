@@ -153,56 +153,59 @@ function googleTranslateElementInit() {
 
 <p><div class="toc"></div></p>
 
-<p>モジュールのアトリビュートには3つの目的があります:</p>
+<p>모듈속성은 3가지 목적을 제공합니다:</p>
 
 <p>Module attributes in Elixir serve three purposes:</p>
 
 <ol>
-<li>注釈をモジュールへつけます．ユーザーやVMが利用できるような情報のことが多いです</li>
-<li>定数として利用します</li>
-<li><p>コンパイルの際にモジュールの一時的な保管場所として利用します</p></li>
-<li><p>They serve to annotate the module, often with information to be used by the user or the VM.</p></li>
-<li><p>They work as constants.</p></li>
-<li><p>They work as a temporary module storage to be used during compilation.</p></li>
+<li>모듈에 주석을 달수 있고 사용자와 VM에게 정보를 제공합니다.</li>
+<li>상수로 사용할 수 있습니다.</li>
+<li>컴파일시 모듈의 임시 저장소로 사용될수 있습니다.</li>
 </ol>
 
-<p>それぞれの場合を一つずつみていきましょう．</p>
+<ol>
+<li>They serve to annotate the module, often with information to be used by the user or the VM.</li>
+<li>They work as constants.</li>
+<li>They work as a temporary module storage to be used during compilation.</li>
+</ol>
+
+<p>각각의 경우를 하나씩 살펴 봅시다.</p>
 
 <p>Let&#39;s check each case, one by one.</p>
 
-<h2 id="14-1-注釈として-as-annotations">14.1 注釈として - As annotations</h2>
+<h2 id="14-1-주석으로-as-annotations">14.1 주석으로 - As annotations</h2>
 
-<p>ElixirはモジュールアトリビュートのコンセプトをErlangから持ってきています．例えば:</p>
+<p>Elixir는 모듈 속성 개념을 Erlang에서 가져왔습니다. 예를들면 :</p>
 
 <p>Elixir brings the concept of module attributes from Erlang. For example:</p>
 <div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">MyServer</span> <span class="k">do</span>
   <span class="na">@vsn</span> <span class="mi">2</span>
 <span class="k">end</span>
 </code></pre></div>
-<p>上の例では，モジュールのバージョンアトリビュートを明示的に設定しています．<code>@vsn</code>はモジュールがアップデートされたかをErlangVMでのコード再読み込みの仕組みでチェックするのに使っています．もしバージョンを指定していなければ，モジュール関数のMD5チェックサムがバージョンへセットされます．</p>
+<p>위의 예에서 모듈의 버전 속성을 명시적으로 설정하고 있습니다. <code>@vsn</code>는 모듈이 업데이트되었는지 확인하기 위해 Erlang VM에 있는 코드 리로딩(reloading) 메카니즘에 의해 사용됩니다. 만약 버전을 지정하지 않으면 모듈 함수의 MD5 체크섬이 버전으로 설정됩니다.</p>
 
 <p>In the example above, we are explicitly setting the version attribute for that module. <code>@vsn</code> is used by the code reloading mechanism in the Erlang VM to check if a module has been updated or not. If no version is specified, the version is set to the MD5 checksum of the module functions.</p>
 
-<p>エリクサーには予約済のアトリビュートが少しだけあります．(訳注:種類は)少ししかありませんが頻繁に使われています:</p>
+<p>Elixir에는 몇안되는 예약된 속성이 있습니다. 조금 밖에 없지만 자주 사용되고 있습니다:</p>
 
 <p>Elixir has a handful of reserved attributes. Here are just a few of them, the most commonly used ones:</p>
 
 <ul>
-<li><code>@moduledoc</code> - このモジュールのドキュメントを提供します．</li>
-<li><code>@doc</code> - この印の次にある関数やマクロのドキュメントを提供します．</li>
-<li><code>@behaviour</code> - (つづりがイギリス式であることに注意してください)ユーザーが定義した振舞いなのか，OTPが定義した振舞いなのか区別します．</li>
-<li><p><code>@before_compile</code> - モジュールがコンパイルされる前に実行されるフックを提供します．コンパイル直前にモジュールへ関数を注入することができるようになります．</p></li>
+<li><code>@moduledoc</code> - 현재 모듈에 대한 문서를 제공합니다.</li>
+<li><code>@doc</code> - 함수 또는 매크로에 대한 문서를 제공합니다.</li>
+<li><code>@behaviour</code> - (철자가 영국식인것에 주의하십시요) 사용자가 정의한 행동인지, OTP가 정의한 행동인지 구별합니다.</li>
+<li><p><code>@before_compile</code> - 모듈이 컴파일되기 전에 실행되는 훅을 제공합니다. 컴파일 직전에 모듈에 함수를 주입 할 수 있습니다.</p></li>
 <li><p><code>@moduledoc</code> - provides documentation for the current module.</p></li>
 <li><p><code>@doc</code> - provides documentation for the function or macro that follows the attribute.</p></li>
 <li><p><code>@behaviour</code> - (notice the British spelling) used for specifying an OTP or user-defined behaviour.</p></li>
 <li><p><code>@before_compile</code> - provides a hook that will be invoked before the module is compiled. This makes it possible to inject functions inside the module exactly before compilation.</p></li>
 </ul>
 
-<p><code>@moduledoc</code>と<code>@doc</code>は最も良く使われているアトリビュートで，あなたにも沢山使ってもらえることを願っています．Elixirではドキュメントを大事にしており，ドキュメントへアクセスするための関数もたくさん提供しています．</p>
+<p><code>@moduledoc</code>と<code>@doc</code> 가장 자주 사용되는 속성들이며, 개발자들도 많이 사용해 줬으면 좋겠습니다. Elixir는 문서를 소중하게 다루고 문서에 액세스 할 수 있는 기능도 많이 제공하고 있습니다.</p>
 
 <p><code>@moduledoc</code> and <code>@doc</code> are by far the most used attributes, and we expect you to use them a lot. Elixir treats documentation as first-class and provides many functions to access documentation.</p>
 
-<p>前の章で定義した<code>Math</code>モジュールに立ち返ってみましょう，ファイル<code>math.ex</code>へいくつかドキュメントを追加して保存します:</p>
+<p>앞 장에서 정의한 <code>Math</code>모듈로 되돌아가서 파일 <code>math.ex</code>에 여러 문서를 추가하고 저장해봅시다:</p>
 
 <p>Let&#39;s go back to the <code>Math</code> module defined in the previous chapters, add some documentation and save it to the <code>math.ex</code> file:</p>
 <div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">Math</span> <span class="k">do</span>
@@ -222,7 +225,7 @@ function googleTranslateElementInit() {
   <span class="kd">def</span> <span class="n">sum</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">),</span> <span class="ss">do</span><span class="p">:</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
 <span class="k">end</span>
 </code></pre></div>
-<p>Elixirでは読みやすいドキュメントを書くためヒアドキュメントでマークダウンを使うようにしています．ヒアドキュメントとは，最初と最後を3つの引用符でくくり，くくった中のテキストのフォーマットを崩さない，複数行の文字列のことです．コンパイルされたどんなモジュールでも IEx から直接ドキュメントへアクセスすることができます:</p>
+<p>Elixir는 가독성 좋은 문서를 작성하기 위해 heredocs와 마크다운을 사용하길 권장합니다. heardoc은 시작과 끝을 삼중따옴표로 묶어, 텍스트의 포맷을 유지할수있는 여러줄의 문자열입니다. IEx에서 컴파일된 어떤 문서에도 직접 액세스 할 수 있습니다:</p>
 
 <p>Elixir promotes the use of markdown with heredocs to write readable documentation. Heredocs are multiline strings, they start and end with triple quotes, keeping the formatting of the inner text. We can access the documentation of any compiled module directly from IEx:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">$ elixirc math.ex
@@ -232,20 +235,20 @@ iex&gt; h Math # Access the docs for the module Math
 iex&gt; h Math.sum # Access the docs for the sum function
 ...
 </code></pre></div>
-<p><a href="https://github.com/elixir-lang/ex_doc">ExDoc</a>と呼ばれているドキュメントからHTMLページを生成するためのツールも提供しています．</p>
+<p>문서에서 HTML 페이지를 생성하기 위한 <a href="https://github.com/elixir-lang/ex_doc">ExDoc</a>도구도 제공합니다.</p>
 
 <p>We also provide a tool called <a href="https://github.com/elixir-lang/ex_doc">ExDoc</a> which is used to generate HTML pages from the documentation.</p>
 
-<p><a href="/docs/stable/elixir/Module.html">Module</a>でサポートしているアトリビュートの一覧を見ることができます．Elixirでは<a href="/docs/stable/elixir/Kernel.Typespec.html">typespecs</a>を定義するのにも以下のようなアトリビュートを使っています:</p>
+<p>지원하는 속성 목록을 <a href="/docs/stable/elixir/Module.html">Module</a>에서 볼 수 있습니다. Elixir는 <a href="/docs/stable/elixir/Kernel.Typespec.html">typespecs</a>을 정의하는 데에도 다음과 같은 속성을 사용하고 있습니다:</p>
 
 <p>You can take a look at the docs for <a href="/docs/stable/elixir/Module.html">Module</a> for a complete list of supported attributes. Elixir also uses attributes to define <a href="/docs/stable/elixir/Kernel.Typespec.html">typespecs</a>, via:</p>
 
 <ul>
-<li><code>@spec</code> - 関数の仕様を提供します．</li>
-<li><code>@callback</code> - behaviorのコールバック仕様を提供します．</li>
-<li><code>@type</code> - <code>@spec</code>の中で型を定義します．</li>
-<li><code>@typep</code> - <code>@spec</code>の中でプライベートな型を定義します．</li>
-<li><p><code>@opaque</code> - <code>@spec</code>の中で未確定な型を定義します．</p></li>
+<li><code>@spec</code> - 함수에 대한 스펙을 제공합니다.</li>
+<li><code>@callback</code> - behavior 콜백 스펙을 제공합니다.</li>
+<li><code>@type</code> - <code>@spec</code>에서 사용될 타입을 정의합니다.</li>
+<li><code>@typep</code> - <code>@spec</code>에서 사용될 private 타입을 정의합니다.</li>
+<li><p><code>@opaque</code> - <code>@spec</code>에서 사용될 opaque 타입을 정의합니다.</p></li>
 <li><p><code>@spec</code> - provides a specification for a function.</p></li>
 <li><p><code>@callback</code> - provides a specification for the behaviour callback.</p></li>
 <li><p><code>@type</code> - defines a type to be used in <code>@spec</code>.</p></li>
@@ -253,13 +256,13 @@ iex&gt; h Math.sum # Access the docs for the sum function
 <li><p><code>@opaque</code> - defines an opaque type to be used in <code>@spec</code>.</p></li>
 </ul>
 
-<p>このセクションでは組み込み済のアトリビュートについて触れました．しかしそれだけではなく，アトリビュートは開発者に利用されたり，カスタムした振舞いをサポートするためライブラリで拡張されたりもします．</p>
+<p>이 섹션에서는 내장된 속성을 언급했습니다. 그러나 속성은 개발자가 사용하거나 custom behaviour를 위해 확장할 수 있습니다.</p>
 
 <p>This section covers built-in attributes. However, attributes can also be used by developers or extended by libraries to support custom behaviour.</p>
 
-<h2 id="14-2-定数として-as-constants">14.2 定数として - As constants</h2>
+<h2 id="14-2-상수로-as-constants">14.2 상수로 - As constants</h2>
 
-<p>Elixir開発者はしばしばモジュールのアトリビュートを定数として使います:</p>
+<p>Elixir 개발자들은 종종 모듈 속성을 상수로 사용합니다:</p>
 
 <p>Elixir developers will often use module attributes to be used as constants:</p>
 <div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">MyServer</span> <span class="k">do</span>
@@ -268,12 +271,12 @@ iex&gt; h Math.sum # Access the docs for the sum function
 <span class="k">end</span>
 </code></pre></div>
 <blockquote>
-<p>メモ: Erlangとちがい，ユーザーが定義したアトリビュートはデフォルトではモジュールに保存されません．値はコンパイル時にのみ存在します．開発者は<a href="/docs/stable/elixir/Module.html#register_attribute/3"><code>Module.register_attribute/3</code></a>を呼び出すことにより，Erlangと似たような属性の振舞を設定をすることができます．</p>
+<p>참고: Erlang과 달리 사용자가 정의한 속성은 기본적으로 모듈에 저장되지 않습니다. 값은 컴파일 타임에만 존재합니다. 개발자는 <a href="/docs/stable/elixir/Module.html#register_attribute/3"><code>Module.register_attribute/3</code></a>을 호출하여 Erlang과 유사한 특성의 행동을 설정을 할 수 있습니다.</p>
 
 <p>Note: Unlike Erlang, user defined attributes are not stored in the module by default. The value exists only during compilation time. A developer can configure an attribute to behave closer to Erlang by calling <a href="/docs/stable/elixir/Module.html#register_attribute/3"><code>Module.register_attribute/3</code></a>.</p>
 </blockquote>
 
-<p>定義されていないアトリビュートへアクセスしてみるとワーニングが表示されるはずです:</p>
+<p>정의되지 않은 속성에 접근해 보면 경고가 나타날 것입니다:</p>
 
 <p>Trying to access an attribute that was not defined will print a warning:</p>
 <div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">MyServer</span> <span class="k">do</span>
@@ -281,7 +284,7 @@ iex&gt; h Math.sum # Access the docs for the sum function
 <span class="k">end</span>
 <span class="ss">warning</span><span class="p">:</span> <span class="n">undefined</span> <span class="n">module</span> <span class="n">attribute</span> <span class="na">@unknown</span><span class="p">,</span> <span class="n">please</span> <span class="n">remove</span> <span class="n">access</span> <span class="n">to</span> <span class="na">@unknown</span> <span class="ow">or</span> <span class="n">explicitly</span> <span class="n">set</span> <span class="n">it</span> <span class="n">to</span> <span class="no">nil</span> <span class="n">before</span> <span class="n">access</span>
 </code></pre></div>
-<p>最後に，アトリビュートは関数の中でも読めます:</p>
+<p>마지막으로, 속성은 함수안에서도 읽을 수 있습니다:</p>
 
 <p>Finally, attributes can also be read inside functions:</p>
 <div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">MyServer</span> <span class="k">do</span>
@@ -294,17 +297,17 @@ iex&gt; h Math.sum # Access the docs for the sum function
 <span class="nc">MyServer</span><span class="p">.</span><span class="n">first_data</span> <span class="c1">#=&gt; 14</span>
 <span class="nc">MyServer</span><span class="p">.</span><span class="n">second_data</span> <span class="c1">#=&gt; 13</span>
 </code></pre></div>
-<p>関数の内部でアリビュートを読むときには現在のスナップショットの値を取ることに注意してください．言いかえると，値は実際に動かすときではなく，コンパイルするときに読み込まれます．これから見るように，アトリビュートによる貯蔵はモジュールをコンパイルするときに便利です．</p>
+<p>함수안에서 속성을 읽을 때는 현재 스냅샷된 값을 가지고 오게 됩니다. 다시 말해서, 값은 실제로 런타임이 아닌 컴파일타임때의 값이 읽힙니다. 앞으로 살펴보겠지만 이러한 속성때문에 모듈을 컴파일할때 저장소로 사용할 수 있습니다.</p>
 
 <p>Notice that reading an attribute inside a function takes a snapshot of its current value. In other words, the value is read at compilation time and not at runtime. As we are going to see, this makes attributes useful to be used as storage during module compilation.</p>
 
-<h2 id="14-3-一時的な貯蔵-as-temporary-storage">14.3 一時的な貯蔵 - As temporary storage</h2>
+<h2 id="14-3-임시저장소로-as-temporary-storage">14.3 임시저장소로 - As temporary storage</h2>
 
-<p>Elixir organizationのプロジェクトの一つが<a href="https://github.com/elixir-lang/plug"><code>Plug</code>プロジェクト</a>で，Elixirでwebライブラリやフレームワークを構築するための共通の基盤になることを意図しています．</p>
+<p>Elixir organization의 여러프로젝트중 하나이며 웹 라이브러리와 프레임워크를 만들때 기초가 되는 <a href="https://github.com/elixir-lang/plug">the <code>Plug</code> project</a>프로젝트가 있습니다.</p>
 
 <p>One of the projects in the Elixir organization is <a href="https://github.com/elixir-lang/plug">the <code>Plug</code> project</a>, which is meant to be a common foundation for building web libraries and frameworks in Elixir.</p>
 
-<p>Plugライブラリではウェブサーバーの中で自身のプラグを定義できます．</p>
+<p>개발자는 Plug 라이브러리로 웹서버에서 동작하는 자신의 플러그를 정의 할 수 있습니다.</p>
 
 <p>The Plug library also allows developers to define their own plugs which can be run in a web server:</p>
 <div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">MyPlug</span> <span class="k">do</span>
@@ -325,15 +328,15 @@ iex&gt; h Math.sum # Access the docs for the sum function
 <span class="nc">IO</span><span class="p">.</span><span class="n">puts</span> <span class="s2">&quot;Running MyPlug with Cowboy on http://localhost:4000&quot;</span>
 <span class="nc">Plug.Adapters.Cowboy</span><span class="p">.</span><span class="n">http</span> <span class="nc">MyPlug</span><span class="p">,</span> <span class="p">[]</span>
 </code></pre></div>
-<p>上の例ではウェブリクエストが来たときに呼ばれる関数へと繋げるために<code>plug/1</code>マクロを使いました．内部的には，<code>plug/1</code>を呼ぶたび，Plugライブラリは与えられた引数を<code>@plugs</code>属性の中に貯蔵します．モジュールがコンパイルされる直前に，Plugはあらかじめ定義されているhttpリクエストを取り扱うメソッド(<code>call/2</code>)をコールバックします．そのメソッドは<code>@plugs</code>の中の全てのplugを順番に実行します．</p>
+<p>위의 예는 웹 요청이 왔을 때 호출되는 함수로 연결하려고 <code>plug/1</code>매크로를 사용했습니다. 내부적으로는 <code>plug/1</code>을 호출할때마다, Plug 라이브러리는 주어진 인자를 <code>@plugs</code>속성에 저장합니다. Plug는 모듈이 컴파일되기 직전에 http 요청을 처리하는 메소드를 (<code>call/2</code>) 정의하고 있는 콜백을 실행시킵니다. 이 방법은 <code>@plugs</code>안에 있는 모든 plugs들을 순서대로 실행시킵니다.</p>
 
 <p>In the example above, we have used the <code>plug/1</code> macro to connect functions that will be invoked when there is a web request. Internally, every time you call <code>plug/1</code>, the Plug library stores the given argument in a <code>@plugs</code> attribute. Just before the module is compiled, Plug runs a callback that defines a method (<code>call/2</code>) which handles http requests. This method will run all plugs inside <code>@plugs</code> in order.</p>
 
-<p>このコードの裏側を理解するためには，マクロが必要です，そこでこのパターンはメタプログラミングガイドで再び眺めることにします．しかしここでは開発者がDSLを作るためにモジュールアトリビュートをストレージとしてどう使ったらよいか明確にすることへ焦点をあてます．</p>
+<p>이러한 비밀을 이해하기 위해서는 매크로가 필요합니다, 그래서 메타 프로그래밍 가이드에서 이 패턴을 다시 살펴볼것입니다. 그러나 여기에서는 개발자가 DSL을 만들기 위해 모듈 속성을 스토리지로 어떻게 사용하는지에 초점을 맞춥니다.</p>
 
 <p>In order to understand the underlying code, we&#39;d need macros, so we will revisit this pattern in the meta-programming guide. However the focus here is exactly on how using module attributes as storage allow developers to create DSLs.</p>
 
-<p>モジュールアトリビュートをアノテーションとストレージに利用している別の例がExUnitにあります:</p>
+<p>주석과 저장소로써 모듈 속성을 사용하고 있는 또다른 예가 ExUnit입니다:</p>
 
 <p>Another example comes from the ExUnit framework which uses module attributes as annotation and storage:</p>
 <div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">MyTest</span> <span class="k">do</span>
@@ -345,15 +348,15 @@ iex&gt; h Math.sum # Access the docs for the sum function
   <span class="k">end</span>
 <span class="k">end</span>
 </code></pre></div>
-<p>ExUnitのタグはテストに注釈を付けるのに使われています．タグはテストをフィルターするのに使われています．例えば遅くて他のサービスに依存しているような外部のテストを自分のマシンで行うことを避けられます，そしてビルドシステムでは依然として有効にしておくことができます．</p>
+<p>테스트에 주석을 달기 위해 ExUnit 태그를 사용합니다. 테스트를 필터링하기 위해 나중에 태그를 사용할수도 있습니다. 예를들어 외부에 의존하고 느린 테스트를 생략할수도 있습니다. 반면에 빌드시스템에서는 여전히 활성화될수 있습니다.</p>
 
 <p>Tags in ExUnit are used to annotate tests. Tags can be later used to filter tests. For example, you can avoid running external tests on your machine because they are slow and dependent on other services, while they can still be enabled in your build system.</p>
 
-<p>Elixirがどうやってメタプログラミングをサポートしているか，そしてモジュールアトリビュートがどうやってその重要な役割を担っているか，このセクションで多少でもわかるといいなと考えています．</p>
+<p>Elixir가 어떻게 메타 프로그래밍을 지원하고 있는지, 그리고 모듈 속성이 어떻게 중요한 역할을 담당하고 있는지,이 섹션에서 조금이라도 얻어 갔으면 좋겠습니다.</p>
 
 <p>We hope this section shines some light on how Elixir supports meta-programming and how module attributes play an important role when doing so.</p>
 
-<p>次の章では，例外処理やsigil，内包表記などをやる前に，構造やプロトコルについて調べていくことにします．</p>
+<p>다음 장에서는 예외를 처리하는법이나 sigils와 comprehensions을 살펴보기전에 구조체와 프로토콜에대해 알아보겠습니다.</p>
 
 <p>In the next chapters we&#39;ll explore structs and protocols before moving to exception handling and other constructs like sigils and comprehensions.</p>
 

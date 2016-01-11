@@ -153,7 +153,7 @@ function googleTranslateElementInit() {
 
 <p><div class="toc"></div></p>
 
-<p>以前の章でマップについて学びました:</p>
+<p>앞선 장에서는 맵에 대해 배웠습니다:</p>
 
 <p>In earlier chapters, we learned about maps:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">map</span> <span class="p">=</span> <span class="p">%{</span><span class="ss">a</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="ss">b</span><span class="p">:</span> <span class="mi">2</span><span class="p">}</span>
@@ -163,11 +163,11 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="p">%{</span><span class="n">map</span> <span class="p">|</span> <span class="ss">a</span><span class="p">:</span> <span class="mi">3</span><span class="p">}</span>
 <span class="go">%{a: 3, b: 2}</span>
 </code></pre></div>
-<p>構造体は，初期値，コンパイル時の保証および多態をElixirへもたらす，マップを利用した拡張です．</p>
+<p>구조체는 컴파일시간을 보장하고 기본값과 다형성을 가지는 맵의 확장판입니다.</p>
 
 <p>Structs are extensions on top of maps that bring default values, compile-time guarantees and polymorphism into Elixir.</p>
 
-<p>構造体を定義するには，モジュールの中で単に<code>defstruct/1</code>を呼びます:</p>
+<p>구조체를 정의하기 위해서는 모듈에서 단순히 <code>defstruct/1</code>를 호출하면 됩니다:</p>
 
 <p>To define a struct, we just need to call <code>defstruct/1</code> inside a module:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="kd">defmodule</span> <span class="nc">User</span> <span class="k">do</span>
@@ -176,7 +176,7 @@ function googleTranslateElementInit() {
 <span class="go">{:module, User,</span>
 <span class="go"> &lt;&lt;70, 79, 82, ...&gt;&gt;, {:__struct__, 0}}</span>
 </code></pre></div>
-<p>すると<code>%User{}</code>構文を使って構造体の&quot;インスタンス&quot;が作れるようになります:</p>
+<p><code>%User{}</code>문법을 사용하여 구조체의 &quot;instances&quot;를 생설할수 있습니다:</p>
 
 <p>We can now create &quot;instances&quot; of this struct by using the <code>%User{}</code> syntax:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="p">%</span><span class="nc">User</span><span class="p">{}</span>
@@ -186,13 +186,13 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="n">is_map</span><span class="p">(%</span><span class="nc">User</span><span class="p">{})</span>
 <span class="go">true</span>
 </code></pre></div>
-<p>構造体は，用意しているフィールドが存在することをコンパイル時に保証します．</p>
+<p>구조체는 컴파일시간에 제공된 필드만 사용할 수 있습니다:</p>
 
 <p>Structs give compile-time guarantees that the provided fields exist in the struct:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="p">%</span><span class="nc">User</span><span class="p">{</span><span class="ss">oops</span><span class="p">:</span> <span class="ss">:field</span><span class="p">}</span>
 <span class="gr">** (CompileError) iex:3: unknown key :oops for struct User</span>
 </code></pre></div>
-<p>マップについて話したとき，既にあるマップのフィールドに対してアクセスやアップデートをできることを示しました．同じことを構造体にもやってみましょう:</p>
+<p>맵을 다뤘을때 어떻게 존재하는 필드에 대해 접근하고 업데이트하는지 보여줬습니다. 구조체도 동일하게 적용됩니다:</p>
 
 <p>When discussing maps, we demonstrated how we can access and update existing fields of a map. The same applies to structs:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">john</span> <span class="p">=</span> <span class="p">%</span><span class="nc">User</span><span class="p">{}</span>
@@ -204,11 +204,11 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="p">%{</span><span class="n">meg</span> <span class="p">|</span> <span class="ss">oops</span><span class="p">:</span> <span class="ss">:field</span><span class="p">}</span>
 <span class="gr">** (ArgumentError) argument error</span>
 </code></pre></div>
-<p>アップデートの構文を使うと，VMはマップ/構造体へ新しいキーが何も追加されないことを認識し，マップがメモリ内で構造を共有できるようにします．上の例だと，<code>john</code>と<code>meg</code>はどちらも同じキーを共有しています．</p>
+<p>업데이트 문법을 사용함으로써 새로운 키는 맵/구조체에 추가되지 않을것이며 메모리에 있는 맵의 구조를 공유할 수 있습니다. 위의 예제에서 <code>john</code>과 <code>meg</code>는 메모리에 있는 동일 키 구조를 공유합니다.</p>
 
 <p>By using the update syntax, the VM is aware no new keys will be added to the map/struct, allowing the maps to share their structure in memory. In the example above, both <code>john</code> and <code>meg</code> share the same key structure in memory.</p>
 
-<p>構造体はパターンマッチングでもよく用いられ，構造体の型が同じであることを保証します:</p>
+<p>구조체는 동일 타입의 구조체를 패턴매칭할때도 사용할 수 있습니다:</p>
 
 <p>Structs can also be used in pattern matching and they guarantee the structs are of the same type:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="p">%</span><span class="nc">User</span><span class="p">{</span><span class="ss">name</span><span class="p">:</span> <span class="n">name</span><span class="p">}</span> <span class="p">=</span> <span class="n">john</span>
@@ -218,13 +218,13 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="p">%</span><span class="nc">User</span><span class="p">{}</span> <span class="p">=</span> <span class="p">%{}</span>
 <span class="gr">** (MatchError) no match of right hand side value: %{}</span>
 </code></pre></div>
-<p>マッチングが動作するのは構造体がマップの中に<code>__struct__</code>というフィールドを保存しているからです:</p>
+<p>맵안에 <code>__struct__</code> 필드 네임을 저장하기 때문에 구조체를 매칭 시킬수 있습니다:</p>
 
 <p>Matching works because structs store a field named <code>__struct__</code> inside the map:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">john</span><span class="p">.</span><span class="n">__struct__</span>
 <span class="go">User</span>
 </code></pre></div>
-<p>全体として，構造体は単にデフォルトのフィールドがあるだけの剥き出しのマップです．剥き出しのマップと言ったところに注目してください．マップは構造体のために何のプロトコルも実装していません．例えば構造体を列挙するようなアクセスはできません:</p>
+<p>전반적으로 구조체는 단지 디폴트 필드를 가지는 bare 맵입니다. 맵에서는 사용할 수 있는 구현된 프로토콜이 없기 때문에 bare 맵이라고 할 수 있습니다. 예를들어, 구조체를 열거할수도 접근할수도 없습니다:</p>
 
 <p>Overall, a struct is just a bare map with default fields. Notice we say it is a bare map because none of the protocols implemented for maps are available for structs. For example, you can&#39;t enumerate nor access a struct:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">user</span> <span class="p">=</span> <span class="p">%</span><span class="nc">User</span><span class="p">{}</span>
@@ -232,19 +232,21 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="n">user</span><span class="p">[</span><span class="ss">:name</span><span class="p">]</span>
 <span class="gr">** (Protocol.UndefinedError) protocol Access not implemented for %User{age: 27, name: &quot;john&quot;}</span>
 </code></pre></div>
-<p>構造体ディクショナリでもないので，<code>Dict</code>モジュールからも使えません:</p>
+<p>구조체는 딕셔너리도 아니기 때문에 <code>Dict</code>모듈로도 사용할 수 없습니다:</p>
 
 <p>A struct also is not a dictionary and therefore can&#39;t be used with the <code>Dict</code> module:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">Dict</span><span class="p">.</span><span class="n">get</span><span class="p">(%</span><span class="nc">User</span><span class="p">{},</span> <span class="ss">:name</span><span class="p">)</span>
 <span class="gr">** (ArgumentError) unsupported dict: %User{name: &quot;john&quot;, age: 27}</span>
 </code></pre></div>
+<p>구조체는 단순히 맵이기 때문에 <code>Map</code>모듈로만 사용할 수 있습니다:</p>
+
 <p>Since structs are just maps, they will work with the <code>Map</code> module:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">Map</span><span class="p">.</span><span class="n">put</span><span class="p">(%</span><span class="nc">User</span><span class="p">{},</span> <span class="ss">:name</span><span class="p">,</span> <span class="s2">&quot;kurt&quot;</span><span class="p">)</span>
 <span class="go">%User{age: 27, name: &quot;kurt&quot;}</span>
 <span class="gp">iex&gt; </span><span class="nc">Map</span><span class="p">.</span><span class="n">merge</span><span class="p">(%</span><span class="nc">User</span><span class="p">{</span><span class="ss">age</span><span class="p">:</span> <span class="mi">27</span><span class="p">},</span> <span class="p">%</span><span class="nc">User</span><span class="p">{</span><span class="ss">name</span><span class="p">:</span> <span class="s2">&quot;takashi&quot;</span><span class="p">})</span>
 <span class="go">%User{age: 27, name: &quot;takashi&quot;}</span>
 </code></pre></div>
-<p>次の章でどうやって構造体がプロトコルを使ってやりとりするか見ていきます．</p>
+<p>다음장에서는 구조체가 어떻게 프로토콜하고 상호작용하는지 살펴 볼 것입니다.</p>
 
 <p>We will cover how structs interacts with protocols in the next chapter.</p>
 

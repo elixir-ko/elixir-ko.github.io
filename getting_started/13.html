@@ -153,20 +153,20 @@ function googleTranslateElementInit() {
 
 <p><div class="toc"></div></p>
 
-<p>ソフトウェアの再利用を行いやすくするために，Elixirは3つのディレクティブを用意しています．これから見ていくように，<em>レキシカルスコープ</em>を持っているのでディレクティブと呼ばれています．</p>
+<p>소프트웨어 재사용을 용이하게하기 위해 Elixir는 3개의 지시어(directives)를 제공합니다. 밑에서 살펴보겠지만 <strong>lexical scope</strong>를 가지고 있어 지시어(directives)라고 합니다.</p>
 
 <p>In order to facilitate software reuse, Elixir provides three directives. As we are going to see below, they are called directives because they have <strong>lexical scope</strong>.</p>
 
 <h2 id="13-1-alias-alias">13.1 alias - alias</h2>
 
-<p><code>alias</code>によって，与えられたモジュールの名前へ別名をつけることができます．<code>Math</code>モジュールが数学に特化した操作のため，特別なリストの実装を使うことを想像してみてください:</p>
+<p><code>alias</code>로 어떤 모듈에도 별명을 붙일 수 있습니다. <code>Math</code>모듈이 수학에 특화된 오퍼레이션을 위해 특별한 리스트의 구현을 사용한다고 가정해봅시다:</p>
 
 <p><code>alias</code> allows you to set up aliases for any given module name. Imagine our <code>Math</code> module uses a special list implementation for doing math specific operations:</p>
 <div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">Math</span> <span class="k">do</span>
   <span class="kn">alias</span> <span class="nc">Math.List</span><span class="p">,</span> <span class="ss">as</span><span class="p">:</span> <span class="nc">List</span>
 <span class="k">end</span>
 </code></pre></div>
-<p>ここから，どんな<code>List</code>の参照でも自動的に<code>Math.List</code>へと展開されます．オリジナルの<code>List</code>へアクセスしたい場合，<code>Elixir</code>からモジュールへとアクセスできます．</p>
+<p>이제부터 <code>List</code>의 모든 참조는 <code>Math.List</code>로 확장됩니다. 오리지날 <code>List</code>에 접근하려면 <code>Elixir</code> 모듈을 통해 접근하게 됩니다:</p>
 
 <p>From now on, any reference to <code>List</code> will automatically expand to <code>Math.List</code>. In case one wants to access the original <code>List</code>, it can be done by accessing the module via <code>Elixir</code>:</p>
 <div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="nc">List</span><span class="p">.</span><span class="n">flatten</span>             <span class="c1">#=&gt; uses Math.List.flatten</span>
@@ -174,22 +174,22 @@ function googleTranslateElementInit() {
 <span class="nc">Elixir.Math.List</span><span class="p">.</span><span class="n">flatten</span> <span class="c1">#=&gt; uses Math.List.flatten</span>
 </code></pre></div>
 <blockquote>
-<p>メモ: Elixirの中で定義されている全てのモジュールはElixir名前空間の中に定義されています．しかし，利便性のため，参照するときには&quot;Elixir.&quot;を省略することができます．</p>
+<p>주의: Elixir에 정의된 모든 모듈은 Elixir 네임스페이스에 정의되어 있습니다. 그러나 편의를 위해 참조 할 때 &quot;Elixir&quot;를 생략 할 수 있습니다.</p>
 
 <p>Note: All modules defined in Elixir are defined inside a main Elixir namespace. However, for convenience, you can omit &quot;Elixir.&quot; when referencing them.</p>
 </blockquote>
 
-<p>Aliasはショートカットを定義するのに良く使われます．実際，<code>:as</code>オプションをつけないで<code>alias</code>を呼ぶと，モジュール名の最後の部分を自動的に設定します．例えば:</p>
+<p>Alias는 숏컷(shortcuts)을 정의하는데 자주 사용됩니다. 사실 <code>:as</code>옵션 없이 <code>alias</code>를 호출하면 모듈 이름의 마지막 부분을 자동으로 별칭(alias)으로 설정합니다. 예를들면:</p>
 
 <p>Aliases are frequently used to define shortcuts. In fact, calling <code>alias</code> without an <code>:as</code> option sets the alias automatically to the last part of the module name, for example:</p>
 <div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kn">alias</span> <span class="nc">Math.List</span>
 </code></pre></div>
-<p>は以下と同じです:</p>
+<p>다음과 같습니다:</p>
 
 <p>Is the same as:</p>
 <div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kn">alias</span> <span class="nc">Math.List</span><span class="p">,</span> <span class="ss">as</span><span class="p">:</span> <span class="nc">List</span>
 </code></pre></div>
-<p><code>alias</code>は<strong>lexically scoped</strong>であることに注意してください，特定の関数の中で別名をセットすることもできます:</p>
+<p><code>alias</code>는 <strong>lexical scope</strong> 하기 때문에 특정 함수안에서도 별칭(alias)을 설정 할 수 있습니다:</p>
 
 <p>Note that <code>alias</code> is <strong>lexically scoped</strong>, which allows you to set aliases inside specific functions:</p>
 <div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">Math</span> <span class="k">do</span>
@@ -203,17 +203,17 @@ function googleTranslateElementInit() {
   <span class="k">end</span>
 <span class="k">end</span>
 </code></pre></div>
-<p>上の例のように，<code>alias</code>を関数<code>plus/2</code>の中で呼び出しても，別名は関数<code>plus/2</code>の内部でのみ有効で，<code>minus/2</code>へは全く影響しません．</p>
+<p>위의 예와 같이 <code>alias</code>를 함수 <code>plus/2</code>에서 호출해도, 별칭(alias)은 함수 <code>plus/2</code>내에서만 유효하며 <code>minus/2</code>에 전혀 영향을주지 않습니다.</p>
 
 <p>In the example above, since we are invoking <code>alias</code> inside the function <code>plus/2</code>, the alias will just be valid inside the function <code>plus/2</code>. <code>minus/2</code> won&#39;t be affected at all.</p>
 
 <h2 id="13-2-require-require">13.2 require - require</h2>
 
-<p>Elixirはメタプログラミング(コードを生成するコードを書く)のためのメカニズムとしてマクロを用意しています．</p>
+<p>Elixir는 메타 프로그래밍(코드를 생성하는 코드를 작성)을위한 메커니즘으로 매크로를 제공합니다.</p>
 
 <p>Elixir provides macros as a mechanism for meta-programming (writing code that generates code).</p>
 
-<p>マクロとはコンパイル時に実行して展開されるコード片のことです．つまり，マクロを使うために，コンパイル時にそのモジュールと実装が用意されている保証が必要になります．<code>require</code>ディレクティブを使うとそのようにできます:</p>
+<p>매크로는 실행 및 컴파일시에 확장되는 코드의 덩어리입니다. 이 말은 매크로를 사용하기 위해서는 모듈의 구현이 컴파일 중에 있어야 한다는 의미입니다. <code>require</code> 지시어(directives)를 사용하면 매크로를 컴파일하고 이후에 사용할 수 있습니다:</p>
 
 <p>Macros are chunks of code that are executed and expanded at compilation time. This means, in order to use a macro, we need to guarantee its module and implementation are available during compilation. This is done with the <code>require</code> directive:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">Integer</span><span class="p">.</span><span class="n">is_odd</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
@@ -223,17 +223,17 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="nc">Integer</span><span class="p">.</span><span class="n">is_odd</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 <span class="go">true</span>
 </code></pre></div>
-<p>Elixirでは<code>Integer.is_odd?/1</code>はマクロとして定義されているのでガードとして利用できます．つまり<code>Integer.is_odd?/1</code>を実行するためには，まず<code>Integer</code>モジュールが必要です．</p>
+<p>Elixir에서 <code>Integer.is_odd?/1</code>는 매크로로 정의되어 있기 때문에 가드(guard)로 사용할 수 있습니다. 즉, <code>Integer.is_odd?/1</code>을 실행하기 위해서는 먼저 <code>Integer</code> 모듈이 필요합니다.</p>
 
 <p>In Elixir, <code>Integer.is_odd/1</code> is defined as a macro so it can be used as guards. This means that, in order to invoke <code>Integer.is_odd/1</code>, we need to first require the <code>Integer</code> module.</p>
 
-<p>一般的に，そのモジュールにあるマクロを使おうとする場合以外では，利用前にモジュールが必要とされることはありません，ロードされていないマクロを呼び出そうとした場合はエラーになります．<code>alias</code>ディレクティブと同じように，<code>require</code>もレキシカルスコープであることに着目してください．マクロについては後の章でまた詳しく話します．</p>
+<p>일반적으로 모듈의 매크로를 사용하는 경우를 제외하고는 사용하기 전에 모듈을 require할 필요가 없습니다. 로드되지 않은 매크로를 호출하려고 하면 오류가 발생합니다. <code>alias</code> 지시어(directives)와 마찬가지로 <code>require</code>도 lexically scoped인 것에 주목하십시오. 매크로에 대해서는 이후의 장에서 다시 자세히 이야기 할것입니다.</p>
 
 <p>In general a module does not need to be required before usage, except if we want to use the macros available in that module. An attempt to call a macro that was not loaded will raise an error. Note that like the <code>alias</code> directive, <code>require</code> is also lexically scoped. We will talk more about macros in a later chapter.</p>
 
 <h2 id="13-3-import-import">13.3 import - import</h2>
 
-<p>他のモジュールの関数かマクロへ修飾名をつけず簡単にアクセスしたいときに<code>import</code>を使います．例えば<code>List</code>の<code>duplicate</code>関数を何回も使いたい場合，単にインポートできます:</p>
+<p>규정된 이름을 사용하지 않고 다른 모듈의 함수 또는 매크로에 쉽게 접근하고 싶을 때 <code>import</code>를 사용합니다. 예를들어 <code>List</code>의 <code>duplicate</code>함수를 여러 번 사용하려면 그냥 import 하면 됩니다:</p>
 
 <p>We use <code>import</code> whenever we want to easily access functions or macros from other modules without using the qualified name. For instance, if we want to use the <code>duplicate</code> function from <code>List</code> several times, we can simply import it:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="kn">import</span> <span class="nc">List</span><span class="p">,</span> <span class="ss">only</span><span class="p">:</span> <span class="p">[</span><span class="ss">duplicate</span><span class="p">:</span> <span class="mi">2</span><span class="p">]</span>
@@ -241,21 +241,21 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="n">duplicate</span> <span class="ss">:ok</span><span class="p">,</span> <span class="mi">3</span>
 <span class="go">[:ok, :ok, :ok]</span>
 </code></pre></div>
-<p>このケースでは，<code>List</code>から関数<code>duplicate</code>(引数が2のもの)だけをインポートしています．<code>:only</code>は省略可能ですが，つけることが推奨されています．<code>:except</code>もオプションとして与えることができます．</p>
+<p>이 경우, <code>List</code>에서 <code>duplicate</code>(인자가 2개인것)함수만 가져올 수 있습니다. 비록 <code>:only</code>는 옵션이지만 사용을 권장하고 있습니다. <code>:except</code>도 옵션으로 제공됩니다.</p>
 
 <p>In this case, we are importing only the function <code>duplicate</code> (with arity 2) from <code>List</code>. Although <code>:only</code> is optional, its usage is recommended. <code>:except</code> could also be given as an option.</p>
 
-<p><code>import</code>では<code>:only</code>へ<code>:macros</code>と<code>:functions</code>を渡すこともできます．例えば全てのマクロをインポートしたい場合はこのように書けます:</p>
+<p><code>import</code>는 <code>:only</code>옵션으로 <code>:macros</code>와 <code>:functions</code>을 전달할 수도 있습니다. 예를들어 모든 매크로를 가져 오려면 이렇게 쓸 수 있습니다:</p>
 
 <p><code>import</code> also supports <code>:macros</code> and <code>:functions</code> to be given to <code>:only</code>. For example, to import all macros, one could write:</p>
 <div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kn">import</span> <span class="nc">Integer</span><span class="p">,</span> <span class="ss">only</span><span class="p">:</span> <span class="ss">:macros</span>
 </code></pre></div>
-<p>あるいは全ての関数をインポートしてい場合はこのように書けます:</p>
+<p>또는 모든 함수를 가져오려면 이렇게 쓸 수 있습니다:</p>
 
 <p>Or to import all functions, you could write:</p>
 <div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kn">import</span> <span class="nc">Integer</span><span class="p">,</span> <span class="ss">only</span><span class="p">:</span> <span class="ss">:functions</span>
 </code></pre></div>
-<p><code>import</code>もまた<strong>lexically scoped</strong>であることに注意してください，これは特定の関数の中で特定のマクロをインポートできることを意味しています．</p>
+<p>import 또한 <strong>lexically scoped</strong>인 점에 유의하십시오, 이 말은 특정 함수에서 특정 매크로를 가져올 수 있다는 것을 의미합니다:</p>
 
 <p>Note that <code>import</code> is also <strong>lexically scoped</strong>, this means we can import specific macros inside specific functions:</p>
 <div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">Math</span> <span class="k">do</span>
@@ -265,21 +265,21 @@ function googleTranslateElementInit() {
   <span class="k">end</span>
 <span class="k">end</span>
 </code></pre></div>
-<p>上の例ではインポートされた<code>List.duplicate/2</code>は特定の関数内からしか見えません．<code>duplicate/2</code>はそのモジュールの他のどの関数からも(もちろん他のモジュールからも)使えません．</p>
+<p>위의 예에서 <code>List.duplicate/2</code>는 특정 함수 내에서만 보입니다. <code>duplicate/2</code>는 모듈의 다른 어떤 함수에서도 (물론 다른 모듈에서도)사용할 수 없습니다.</p>
 
 <p>In the example above, the imported <code>List.duplicate/2</code> is only visible within that specific function. <code>duplicate/2</code> won&#39;t be available in any other function in that module (or any other module for that matter).</p>
 
-<p>モジュールをimportすると自動的にrequireすることに注意してください．</p>
+<p>모듈을 import하면 자동으로 require한다는 점에 유의하십시오.</p>
 
 <p>Note that importing a module automatically requires it.</p>
 
 <h2 id="13-4-alias-aliases">13.4 Alias - Aliases</h2>
 
-<p>ここでもしかしたらElixirのエイリアスとは実際には何で，どのように表現されているのか？ということが気になってきたかもしれません．</p>
+<p>이 시점즈음에는 도대체 Elixir의 별칭(alias)은 실제로 무엇이며 어떻게 표현되고 있는지 궁금해하고 있을것입니다.</p>
 
 <p>At this point, you may be wondering, what exactly an Elixir alias is and how it is represented?</p>
 
-<p>Elixirのエイリアスは(<code>String</code>，<code>Keyword</code>などのような)大文字始まりの識別子でコンパイル時にatomへと変換されます．例えば<code>String</code>エイリアスはデフォルトではatom<code>:&quot;Elixir.String&quot;</code>へと変換されます:</p>
+<p>Elixir의 별칭(alias)은 (String, Keyword등과 같은) 컴파일하는 동안 원자형으로 변환되는 대문자로 시작하는(capitalized) 식별자입니다. 예를들어 <code>String</code>별칭(alias)은 기본적으로 원자형 <code>:&quot;Elixir.String&quot;</code>로 변환됩니다:</p>
 
 <p>An alias in Elixir is a capitalized identifier (like <code>String</code>, <code>Keyword</code>, etc) which is converted to an atom during compilation. For instance, the <code>String</code> alias translates by default to the atom <code>:&quot;Elixir.String&quot;</code>:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">is_atom</span><span class="p">(</span><span class="nc">String</span><span class="p">)</span>
@@ -289,17 +289,17 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="ss">:&quot;Elixir.String&quot;</span>
 <span class="go">String</span>
 </code></pre></div>
-<p><code>alias/2</code>ディレクティブを使うことで，単にエイリアスを何へと変換するかだけを変えています．</p>
+<p><code>alias/2</code>지시어(directive)를 사용하면 단순히 어떤 별칭(alias)으로 바꾸고 있습니다.</p>
 
 <p>By using the <code>alias/2</code> directive, we are simply changing what an alias translates to.</p>
 
-<p>詳しく書くと，Erlang VMの中では(つまりElixirでも)モジュールがatomで表現されているのでエイリアスがうまく動きます．例えばErlangのモジュールを使うときのメカニズムはこうです:</p>
+<p>정확히 말하면 Erlang VM에서 (즉 Elixir도) 모듈이 원자형으로 표현되기 때문에 별칭(alias)이 동작할 수 있는 것입니다. 예를들어 Erlang 모듈을 사용할 때의 메커니즘은 이렇습니다:</p>
 
 <p>Aliases work as described because in the Erlang VM (and consequently Elixir), modules are represented by atoms. For example, that&#39;s the mechanism we use to call Erlang modules:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="ss">:lists</span><span class="p">.</span><span class="n">flatten</span><span class="p">([</span><span class="mi">1</span><span class="p">,[</span><span class="mi">2</span><span class="p">],</span><span class="mi">3</span><span class="p">])</span>
 <span class="go">[1, 2, 3]</span>
 </code></pre></div>
-<p>これがモジュールの内部で与えられた関数を動的に呼び出すことができるメカニズムです:</p>
+<p>모듈의 내부의 함수를 동적으로 호출 할 수있는 메커니즘입니다:</p>
 
 <p>This is also the mechanism that allows us to dynamically call a given function in a module:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">mod</span> <span class="p">=</span> <span class="ss">:lists</span>
@@ -307,13 +307,13 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="n">mod</span><span class="p">.</span><span class="n">flatten</span><span class="p">([</span><span class="mi">1</span><span class="p">,[</span><span class="mi">2</span><span class="p">],</span><span class="mi">3</span><span class="p">])</span>
 <span class="go">[1,2,3]</span>
 </code></pre></div>
-<p>言いかえると，<code>:lists</code>というアトムにある関数<code>flatten</code>を単に呼び出しているだけです．</p>
+<p>다시 말해서, 원자형 <code>:lists</code>의 함수 <code>flatten</code>를 단순히 호출하고 있을뿐입니다.</p>
 
 <p>In other words, we are simply calling the function <code>flatten</code> on the atom <code>:lists</code>.</p>
 
-<h2 id="13-5-ネスト-nesting">13.5 ネスト - Nesting</h2>
+<h2 id="13-5-중첩-nesting">13.5 중첩 - Nesting</h2>
 
-<p>ここでエイリアスについて話してきました，Elixirでのネストがどのように動作するかについても話しましょう．以下の例で考えてみます:</p>
+<p>지금까지는 별칭(alias)에 대해 얘기했습니다, Elixir에서 중첩이 어떻게 작동하는지에 대해서도 말씀 드리겠습니다. 다음의 예를 살펴 봅시다:</p>
 
 <p>Now that we have talked about aliases, we can talk about nesting and how it works in Elixir. Consider the following example:</p>
 <div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">Foo</span> <span class="k">do</span>
@@ -321,11 +321,11 @@ function googleTranslateElementInit() {
   <span class="k">end</span>
 <span class="k">end</span>
 </code></pre></div>
-<p>この例は<code>Foo</code>と<code>Foo.Bar</code>という2つのモジュールを定義しています． 後者，<code>Foo</code>の中の<code>Bar</code>は(<code>Foo</code>と)同じレキシカルスコープの中にいます．もし開発者が後で<code>Bar</code>を他のファイルへと移動したら，参照するためには，フルネーム(<code>Foo.Bar</code>)か上で話していたような<code>alias</code>デイレクティブを使ってセットすることが必要になります．</p>
+<p>위의 예는 <code>Foo</code>와 <code>Foo.Bar</code> 두 개의 모듈을 정의하고 있습니다. <code>Foo</code>안의 <code>Bar</code>가 같은 lexical scope안에 있는 동안은 <code>Bar</code>만으로도 접근할 수 있습니다. 만약 개발자가 나중에 <code>Bar</code>를 다른 파일로 옮기고 이를 참조하기 위해서는 풀네임(<code>Foo.Bar</code>)을 쓰거나 별칭(alias)이 설정되야 합니다.</p>
 
 <p>The example above will define two modules <code>Foo</code> and <code>Foo.Bar</code>. The second can be accessed as <code>Bar</code> inside <code>Foo</code> as long as they are in the same lexical scope. If later the developer decides to move <code>Bar</code> to another file, it will need to be referenced by its full name (<code>Foo.Bar</code>) or an alias needs to be set using the <code>alias</code> directive discussed above.</p>
 
-<p>言いかえると上のコードは以下と同じです:</p>
+<p>다시 말해서 위의 코드는 다음과 같습니다:</p>
 
 <p>In other words, the code above is exactly the same as:</p>
 <div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defmodule</span> <span class="nc">Elixir.Foo</span> <span class="k">do</span>
@@ -334,7 +334,7 @@ function googleTranslateElementInit() {
   <span class="kn">alias</span> <span class="nc">Elixir.Foo.Bar</span><span class="p">,</span> <span class="ss">as</span><span class="p">:</span> <span class="nc">Bar</span>
 <span class="k">end</span>
 </code></pre></div>
-<p>後の章で見るように，エイリアスはマクロにおいてのとても重要な役割，健全性の保証を担います．Elixirのモジュールについてはほとんど見て回りました．最後にモジュールの属性について見ていきましょう．</p>
+<p>이후 장에서 보겠지만 별칭(alias)은 매크로에서 매우 중요한 역할을 담당합니다. Elixir 모듈에 대해서는 거의 끝나갑니다. 마지막으로 모듈의 특성에 대해 살펴 보겠습니다.</p>
 
 <p>As we will see in later chapters, aliases also play a crucial role in macros, to guarantee they are hygienic. With this we are almost finishing our tour about Elixir modules, the last topic to cover is module attributes.</p>
 
