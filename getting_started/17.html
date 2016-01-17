@@ -153,32 +153,33 @@ function googleTranslateElementInit() {
 
 <p><div class="toc"></div></p>
 
-<p>エリクサーは3つのエラー機構を持っています: エラー，スローそしてイグジットです．この章ではそれらについて，それぞれどんな時に使われるとよいかも含めて詳しくみていきましょう．</p>
+<p>Elixir는 3가지(errors, throws and exits)에러 메커니즘을 가지고 있습니다.
+이 장에서는 각각에 대해 어떨때 사용하면 좋은지 살펴보겠습니다.</p>
 
 <p>Elixir has three error mechanisms: errors, throws and exits. In this chapter we will explore each of them and include remarks about when each should be used.</p>
 
-<h2 id="17-1-エラー-errors">17.1 エラー - Errors</h2>
+<h2 id="17-1-에러-errors">17.1 에러 - Errors</h2>
 
-<p>アトムへ数を足そうとすると，エラーの例を見ることができます．</p>
+<p>원자형에 숫자를 더하려고 하면 샘플오류가 발생합니다:</p>
 
 <p>A sample error can be retrieved by trying to add a number into an atom:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="ss">:foo</span> <span class="o">+</span> <span class="mi">1</span>
 <span class="gr">** (ArithmeticError) bad argument in arithmetic expression</span>
 <span class="gr">     :erlang.+(:foo, 1)</span>
 </code></pre></div>
-<p>ランタイムエラーは<code>raise/1</code>マクロを使うことでいつでも起こすことができます:</p>
+<p><code>raise/1</code>매크로를 사용하여 언제든지 런타임 오류를 발생시킬 수 있습니다:</p>
 
 <p>A runtime error can be raised any time by using the <code>raise/1</code> macro:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">raise</span> <span class="s2">&quot;oops&quot;</span>
 <span class="gr">** (RuntimeError) oops</span>
 </code></pre></div>
-<p>他のエラーは<code>raise/2</code>にエラーの名前とキーワード引数のリストを渡すことで起こすことができます:</p>
+<p><code>raise/2</code>에 에러이름과 키워드 인자리스트를 넘겨서 다른에러들을 발생시킬 수 있습니다:</p>
 
 <p>Other errors can be raised with <code>raise/2</code> passing the error name and a list of keyword arguments:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">raise</span> <span class="nc">ArgumentError</span><span class="p">,</span> <span class="ss">message</span><span class="p">:</span> <span class="s2">&quot;invalid argument foo&quot;</span>
 <span class="gr">** (ArgumentError) invalid argument foo</span>
 </code></pre></div>
-<p>モジュールを作り，その中で<code>defexception/1</code>マクロを使うと自分でエラーを定義することもできます．よくあるケースでは例外を定義するときにメッセージも入力できるようにします:</p>
+<p>자체오류들을 정의하는 모듈을 생성할수도 있고 <code>defexception/1</code>매크로를 집어 넣을수 있습니다. 가장 일반적인 케이스는 메시지 필드와 함께 예외를 정의하는것입니다:</p>
 
 <p>You can also define your own errors by creating a module and use the <code>defexception/1</code> macro inside it. The most common case is to define an exception with a message field:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="kd">defmodule</span> <span class="nc">MyError</span> <span class="k">do</span>
@@ -189,7 +190,7 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="k">raise</span> <span class="nc">MyError</span><span class="p">,</span> <span class="ss">message</span><span class="p">:</span> <span class="s2">&quot;custom message&quot;</span>
 <span class="gr">** (MyError) custom message</span>
 </code></pre></div>
-<p>例外は<code>try/rescue</code>構造で拾うことができます:</p>
+<p><code>try/rescue</code>구조를 사용하여 예외를 처리할수있습니다:</p>
 
 <p>Exceptions can be rescued by using the <code>try/rescue</code> construct:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">try</span> <span class="k">do</span>
@@ -199,7 +200,7 @@ function googleTranslateElementInit() {
 <span class="gp">...&gt; </span><span class="k">end</span>
 <span class="go">%RuntimeError{message: &quot;oops&quot;}</span>
 </code></pre></div>
-<p>上の例ではランタイムエラーを拾い，<code>iex</code>セッションでエラーが表示されるようにエラー自身を返しています．しかし実際のところElixirを使っている開発者が<code>try/rescue</code>構造を使うことはほとんどないでしょう．例えば，多くの言語ではファイルを開けなかったときにエラーになるので，あなたがそれを拾わなければならないようになっています．一方Elixirでの関数<code>File.read/1</code>は，ファイルを開くのに成功した/失敗した情報を含んだタプルを返すようになっています:</p>
+<p>위의 예제는 런타임에러를 처리하고 <code>iex</code>세션에서 에러자체를 출력하기 위해 리턴합니다. 그러나 실제로 Elixir를 사용하는 개발자는 <code>try/rescue</code>구조를 사용하는일은 거의 없습니다. 예를들어, 많은 언어에서 파일을 열 수 없을때 에러를 처리하도록 강제하고 있습니다. 한편 Elixir에서는 파일이 성공적으로 오픈됐는지 아닌지를 가지고 있는 튜플을 리턴하는 <code>File.read/1</code>함수를 제공합니다:</p>
 
 <p>The example above rescues the runtime error and returns the error itself which is then printed in the <code>iex</code> session. In practice Elixir developers rarely use the <code>try/rescue</code> construct though. For example, many languages would force you to rescue an error when a file cannot open successfully. Elixir instead provides a <code>File.read/1</code> function which returns a tuple containing information if the file was opened with success or not:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">File</span><span class="p">.</span><span class="n">read</span> <span class="s2">&quot;hello&quot;</span>
@@ -209,7 +210,7 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="nc">File</span><span class="p">.</span><span class="n">read</span> <span class="s2">&quot;hello&quot;</span>
 <span class="go">{:ok, &quot;world&quot;}</span>
 </code></pre></div>
-<p>ここには<code>try/rescue</code>が出てきません．ファイルを開くときにおこる複数の結果に対応したいときは，<code>case</code>を使ってパターンマッチングするだけです:</p>
+<p>여기에서는 <code>try/rescue</code>가 없습니다. 파일을 열때 발생하는 여러결과에 대해 처리하고 싶을때는 <code>case</code>를 사용하여 패턴매칭을 하면됩니다:</p>
 
 <p>There is no <code>try/rescue</code> here. In case you want to handle multiple outcomes of opening a file, you can simply use pattern matching with <code>case</code>:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">case</span> <span class="nc">File</span><span class="p">.</span><span class="n">read</span> <span class="s2">&quot;hello&quot;</span> <span class="k">do</span>
@@ -217,28 +218,28 @@ function googleTranslateElementInit() {
 <span class="gp">...&gt; </span>  <span class="p">{</span><span class="ss">:error</span><span class="p">,</span> <span class="n">body</span><span class="p">}</span> <span class="p">-&gt;</span> <span class="nc">IO</span><span class="p">.</span><span class="n">puts</span> <span class="s2">&quot;got error&quot;</span>
 <span class="gp">...&gt; </span><span class="k">end</span>
 </code></pre></div>
-<p>最終的に，ファイルを開いたときに例外にするかどうかはあなたのアプリケーションでどうするか決めることになります．なぜならElixirでは<code>File.read/1</code>や他の多くの関数が例外を押しつけてこないからです．どうすれば一番よくなるかは開発者へお任せしています．</p>
+<p>마지막으로, 파일을 열 때 발생하는 에러의 예외 여부는 어플리케이션에서 어떻게 할지 결정하면 됩니다. 왜냐하면 Elixir는 <code>File.read/1</code>과 다른 많은 함수가 예외를 강요하지 않기 때문입니다. 대신에 어떻게하면 가장 좋을지는 개발자에게 맡겨둡니다.</p>
 
 <p>At the end of the day, it is up to your application to decide if an error while opening a file is exceptional or not. That&#39;s why Elixir doesn&#39;t impose exceptions on <code>File.read/1</code> and many other functions. Instead we leave it up to the developer to choose the best way to proceed.</p>
 
-<p>ファイルがあることを期待している(そしてファイルがないと本当の意味でのエラー)の場合は単に<code>File.read!/1</code>を使えます:</p>
+<p>파일의 존재유무만 판단하려면 단순히 <code>File.read!/1</code>을 사용할 수 있습니다:</p>
 
 <p>For the cases where you do expect a file to exist (and the lack of a file is truly an error) you can simply use <code>File.read!/1</code>:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">File</span><span class="p">.</span><span class="n">read!</span> <span class="s2">&quot;unknown&quot;</span>
 <span class="gr">** (File.Error) could not read file unknown: no such file or directory</span>
 <span class="gr">    (elixir) lib/file.ex:305: File.read!/1</span>
 </code></pre></div>
-<p>言い変えると，<code>try/rescue</code>の利用を避けるのは<em>フロー制御のためにエラーを利用しない</em>ためです．Elixirでは，エラーを期待していない，あるいは例外的な状況のために用意しています．フロー制御構造が必要な場合，スローが使われなければなりません．次にそれを見ていきましょう．</p>
+<p>한마디로 얘기해서 <strong>제어흐름을 위해 에러를 사용하지 않기때문에</strong> <code>try/rescue</code>를 사용하지 않습니다. Elixir는 에러를 문자 그대로 취합니다. 하지만 예외적인 상황을 위해서 try/rescue를 사용할수 있습니다. 흐름 제어 구조가 필요한경우에는 throw를 사용해야 합니다. 다음에서 살펴봅시다.</p>
 
 <p>In other words, we avoid using <code>try/rescue</code> because <strong>we don&#39;t use errors for control flow</strong>. In Elixir, we take errors literally: they are reserved to unexpected and/or exceptional situations. In case you actually need flow control constructs, throws must be used. That&#39;s what we are going to see next.</p>
 
-<h2 id="17-2-スロー-throws">17.2 スロー - Throws</h2>
+<h2 id="17-2-throws">17.2 Throws</h2>
 
-<p>Elixirでは後で捕れるように値を投げることができます．<code>throw</code>と<code>catch</code>がないと値が取れないような状況のために<code>throw</code>と<code>catch</code>という言葉は予約されています．</p>
+<p>Elixir에서는 필요한 변수를 throw 할수 있습니다. <code>throw</code>와 <code>catch</code>를 사용하지 않으면 값을 찾을할수 없는 경우를 위해 <code>throw</code>와 <code>catch</code>를 사용할수 있습니다.</p>
 
 <p>In Elixir, one can throw a value to be caught later. <code>throw</code> and <code>catch</code> are reserved for situations where it is not possible to retrieve a value unless by using <code>throw</code> and <code>catch</code>.</p>
 
-<p>ライブラリでふさわしいAPIが提供されていないないような場合はあまりありません．例えば<code>Enum</code>モジュールで，13の倍数となるような最初の数を見つけたいときに適切なAPIが用意されていない場合を考えてみましょう:</p>
+<p>적절한 API를 제공하지 않는 라이브러리와 인터페이스 하지 않는 이상 이러한 상황은 실제로는 매우 드뭅니다. 예를들어 13의 배수가되는 첫번째 숫자를 찾고자 할 때 <code>Enum</code>모듈이 적절한 API를 제공하지 않은 경우를 생각해 봅시다:</p>
 
 <p>Those situations are quite uncommon in practice unless when interfacing with a library that does not provide the proper APIs. For example, let&#39;s imagine the <code>Enum</code> module did not provide any API for finding a value and we need to find the first number that is a multiple of 13:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">try</span> <span class="k">do</span>
@@ -251,26 +252,26 @@ function googleTranslateElementInit() {
 <span class="gp">...&gt; </span><span class="k">end</span>
 <span class="go">&quot;Got -39&quot;</span>
 </code></pre></div>
-<p>しかしながら実際には<code>Enum.find/2</code>を使った方がシンプルです:</p>
+<p>그러나 실제로는 <code>Enum.find/2</code>를 사용하는것이 간단합니다:</p>
 
 <p>However, in practice one can simply use <code>Enum.find/2</code>:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">Enum</span><span class="p">.</span><span class="n">find</span> <span class="o">-</span><span class="mi">50</span><span class="p">..</span><span class="mi">50</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">(</span><span class="n">rem</span><span class="p">(</span><span class="ni">&amp;1</span><span class="p">,</span> <span class="mi">13</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
 <span class="go">-39</span>
 </code></pre></div>
-<h2 id="17-3-イグジット-exits">17.3 イグジット - Exits</h2>
+<h2 id="17-3-exits">17.3 Exits</h2>
 
-<p>全てのElixirコードは複数のプロセスの中で動いていて，お互いにやりとりしています．プロセスが死んだとき，<code>exit</code>という信号を送ります．プロセスは明示的にイグジット信号を送ることで死ぬことができます:</p>
+<p>모든 Elixir 코드는 여러 프로세스에서 동작하고 서로 통신하고 있습니다. 프로세스가 죽었을때는 <code>exit</code> 신호를 보냅니다. 프로세스는 명시 적으로 exit 신호를 보냄으로써 죽을 수도 있습니다:</p>
 
 <p>Every Elixir code runs inside processes that communicates with each other. When a process dies, it sends an <code>exit</code> signal. A process can also die by explicitly sending an exit signal:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">spawn_link</span> <span class="k">fn</span> <span class="p">-&gt;</span> <span class="n">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="k">end</span>
 <span class="go">#PID&lt;0.56.0&gt;</span>
 <span class="gr">** (EXIT from #PID&lt;0.56.0&gt;) 1</span>
 </code></pre></div>
-<p>上の例では，リンクしていたプロセスは<code>exit</code>信号と1という値を送って死にました．Elixirのシェルはそのメッセージを自動的に受けとって端末に表示しています．</p>
+<p>위의 예제에서는 <code>exit</code>신호를 1과함께 보냄으로써 링크된 프로세스가 죽었습니다. Elixir쉘은 자동으로 이 메시지들을 처리하고 터미널에 출력합니다.</p>
 
 <p>In the example above, the linked process died by sending an <code>exit</code> signal with value of 1. The Elixir shell automatically handles those messages and prints them to the terminal.</p>
 
-<p><code>exit</code>は<code>try/catch</code>を使うことで&quot;キャッチされ&quot;ます:</p>
+<p><code>exit</code>은 <code>try/catch</code>로도 catch할 수 있습니다:</p>
 
 <p><code>exit</code> can also be &quot;caught&quot; using <code>try/catch</code>:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">try</span> <span class="k">do</span>
@@ -280,21 +281,21 @@ function googleTranslateElementInit() {
 <span class="gp">...&gt; </span><span class="k">end</span>
 <span class="go">&quot;not really&quot;</span>
 </code></pre></div>
-<p><code>try/catch</code>を使うことが既に珍しいですが，イグジットをキャッチするのはもっと珍しいことです．</p>
+<p><code>try/catch</code>를 사용하는 것은 일반적이지 않고 exits을 catch하기 위해 이것을 사용하는것은 훨씬 더 드문일입니다.</p>
 
 <p>Using <code>try/catch</code> is already uncommon and using it to catch exits is even more rare.</p>
 
-<p><code>exit</code>シグナルはErlang VMで提供されている耐障害性において重要な部分を担っています．プロセスは通常，単にプロセスの<code>exit</code>信号を待つだけの監視プロセスを備えた監視ツリーにくみこまれて動作しています．監視プロセスがイグジット信号を受けとると，監視作戦が開始され，監視対象のプロセスは再起動させられます．</p>
+<p><code>exit</code>신호는 Erlang VM에서 제공하는 복원력에 중요한 부분을 담당하고 있습니다. 프로세스들은 일반적으로 감독되고 있는 프로세스들의 <code>exit</code>신호를 기다리는 감독트리(supervision tress)의 프로세스 아래에서 동작합니다. 일단 exit 신호가 오면 supervision strategy가 시작되고 감독되고 있는 프로세스가 재시작됩니다.</p>
 
 <p><code>exit</code> signals are an important part of the fault tolerant system provided by the Erlang VM. Processes usually run under supervision trees which are themselves processes that just wait for <code>exit</code> signals of the supervised processes. Once an exit signal is received, the supervision strategy kicks in and the supervised process is restarted.</p>
 
-<p>監視システムの構造自体が<code>try/catch</code>や<code>try/rescue</code>に似ているため，Elixirではそれらの構文があまり用いられていないのです．確実にエラーを拾うかわりに，エラーのあとに&quot;早く失敗する&quot;ことで監視ツリーがアプリケーションを既知の初期状態へと戻すことを保証しています．</p>
+<p>supervision system자체가 <code>try/catch</code>와 <code>try/rescue</code>를 닮았기 때문에 Elixir에서는 이 구문들이 별로 사용되지 않는 것입니다. supervision tree가 응용 프로그램의 초기화 상태로 돌려놓는것을 보장하기 때문에 명백한 에러를 rescue하는것보다 &quot;빠른 실패&quot;를 선호합니다.</p>
 
 <p>It is exactly this supervision system that makes constructs like <code>try/catch</code> and <code>try/rescue</code> so uncommon in Elixir. Instead of rescuing a certain error, we&#39;d rather &quot;fail fast&quot; since the supervision tree will guarantee our application will go back to a known initial state after the error.</p>
 
-<h2 id="17-4-アフター-after">17.4 アフター - After</h2>
+<h2 id="17-4-after">17.4 After</h2>
 
-<p>特定の動作をした後，リソースをきれいに片付けられることを保証しなければならないことがあり，そういった場合に<code>try/after</code>が利用されます．例えばファイルを開くとき，必ず閉じることを<code>try/after</code>で保証できます:</p>
+<p>때로는 특정 동작후에 리소스가 깨끗하게 정리될 수 있도록 <code>try/after</code>가 필요합니다. 예를들어 파일을 열고나서 <code>try/after</code>블록으로 감싸면 파일이 닫히는게 보장됩니다:</p>
 
 <p>Sometimes it is necessary to use <code>try/after</code> to guarantee a resource is cleaned up after some particular action. For example, we can open a file and guarantee it is closed with <code>try/after</code> block:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="p">{</span><span class="ss">:ok</span><span class="p">,</span> <span class="n">file</span><span class="p">}</span> <span class="p">=</span> <span class="nc">File</span><span class="p">.</span><span class="n">open</span> <span class="s2">&quot;sample&quot;</span><span class="p">,</span> <span class="p">[</span><span class="ss">:utf8</span><span class="p">,</span> <span class="ss">:write</span><span class="p">]</span>
@@ -306,9 +307,9 @@ function googleTranslateElementInit() {
 <span class="gp">...&gt; </span><span class="k">end</span>
 <span class="gr">** (RuntimeError) oops, something went wrong</span>
 </code></pre></div>
-<h2 id="17-5-変数のスコープ-variables-scope">17.5 変数のスコープ - Variables scope</h2>
+<h2 id="17-5-변수-범위-variables-scope">17.5 변수 범위 - Variables scope</h2>
 
-<p><code>try/catch/rescue/after</code>ブロックの中で定義した変数は外では見えないことを心に留めておいてください．大事なことです．これは<code>try</code>ブロックが失敗するかもしれず，そのとき変数が最初の場所で絶対に束縛されないことがありうるためです．言い変えると，このコードは無効です:</p>
+<p><code>try/catch/rescue/after</code>블록에서 정의한 변수는 외부에서 보이지 않는다는것을 명심해야 합니다. <code>try</code>블록이 실패 할수도 있고 변수들을 정의한 곳에 바인딩 되지 않기 때문입니다. 한마디로 말해서, 이 코드는 유효하지 않습니다.</p>
 
 <p>It is important to bear in mind that variables defined inside <code>try/catch/rescue/after</code> blocks do not leak to the outer context. This is because the <code>try</code> block may fail and as such the variables may never be bound in the first place. In other words, this code is invalid:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">try</span> <span class="k">do</span>
@@ -321,11 +322,11 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="n">from_after</span>
 <span class="gr">** (RuntimeError) undefined function: from_after/0</span>
 </code></pre></div>
-<p><code>try</code>，<code>catch</code>そして<code>rescue</code>の導入はこれで終わりです．他の言語での利用頻度よりは低いですが，目的があって&quot;規則にのっとった&quot;コードにならないようなライブラリや状況で便利に使えることがあるかもしれません．</p>
+<p>이것으로 <code>try</code>，<code>catch</code>와 <code>rescue</code>에 대한 소개를 마칩니다. Elixir에서는 다른언어들보다 이런것들이 잘 사용되지않는것을 알게되겠지만 규칙을 따르지 않는 라이브러리나 특정 코드에서는 유용할수도 있을것입니다.</p>
 
 <p>This finishes our introduction to <code>try</code>, <code>catch</code> and <code>rescue</code>. You will find they are used less frequently in Elixir than in other languages although they may be handy in some situations where a library or some particular code is not playing &quot;by the rules&quot;.</p>
 
-<p>次はElixirを構成している内包表記やシギルといったものについて話しましょう．</p>
+<p>자 이제 Elixir를 구성하고 있는 comprehensions and sigils같은 것들에 대해 이야기 할 시간입니다.</p>
 
 <p>It is time to talk about some Elixir constructs like comprehensions and sigils.</p>
 

@@ -3,7 +3,7 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <title>19 Sigils - Sigils - Elixir</title>
+  <title>19 시길 - Sigils - Elixir</title>
   <link href="http://feeds.feedburner.com/ElixirLang" rel="alternate" title="Elixir's Blog" type="application/atom+xml" />
   <link rel="stylesheet" type="text/css" href="/css/style.css">
   <link rel="stylesheet" type="text/css" href="/css/syntax.css">
@@ -149,25 +149,25 @@ function googleTranslateElementInit() {
 
 <div id="content">
   <article>
-    <h1 id="19-sigils-sigils">19 Sigils - Sigils</h1>
+    <h1 id="19-시길-sigils">19 시길 - Sigils</h1>
 
 <p><div class="toc"></div></p>
 
-<p>ダブルクォートでくくられた文字列とシングルクォートでくくられた文字のリストをElixirが提供していることはすでに学びましたね．しかしこれはこの言語の文字表現の構造を表面的にカバーしただけです．他の構造物，例えばアトムは，<code>:atom</code>という表現で作られます．</p>
+<p>우리는 이미 큰따옴표로 둘러싸인 문자열과 작은따옴표로 둘러싸인 문자리스트에 대해 배웠습니다. 그러나 이것은 언어의 문자 표현 구조의 표면만 살펴보았을 뿐입니다. 예를들어 원자형은 <code>:atom</code>표현으로 생성됩니다.</p>
 
 <p>We have already learned Elixir provides double-quoted strings and single-quoted char lists. However, this only covers the surface of structures that have textual representation in the language. Atoms are, for example, another structure which are mostly created via the <code>:atom</code> representation.</p>
 
-<p>Elixirの目標の一つに拡張性があります: 開発者は目的のドメインに応じて言語を拡張できるべきです．コンピューターサイエンスでは言語のコアとなる部分だけで対処するのは不可能なほど沢山の広い領域を扱います．そこで，最善の策として言語を拡張できるように作りました，開発者や企業やコミュニティは関わっているドメインに応じて言語を拡張できます．</p>
+<p>Elixir의 목표 중 하나는 확장성에 있습니다: 개발자는 특정 도메인에 따라 언어를 확장할수 있습니다. 컴퓨터 과학이 넓은 영역을 다루긴 하지만 하나의 언어가 핵심이 되어 모든 영역을 다루기는 불가능합니다. 그래서 최선의 방법은 언어를 확장 할 수 있도록 만들었으며 개발자와 기업과 커뮤니티들이 관련있는 도메인에 따라 언어를 확장 할 수 있습니다.</p>
 
 <p>One of Elixir&#39;s goals is extensibility: developers should be able to extend the language to particular domains. Computer science has become such a wide field that it is impossible for a language to tackle many fields as part of its core. Our best bet is to rather make the language extensible, so developers, companies and communities can extend the language to their relevant domains.</p>
 
-<p>この章では，言語によって提供されている機能で，文字表現として動作するシギルについて調べていきます．</p>
+<p>이번장에서는 텍스트 표현과 함께 동작하는 언어가 제공하는 메커니즘 중 하나인 시길(sigils)를 살펴볼것입니다.</p>
 
 <p>In the chapter, we are going to explore sigils, which are one of the mechanisms provided by the language for working with textual representations.</p>
 
-<h2 id="19-1-正規表現-regular-expressions">19.1 正規表現 - Regular expressions</h2>
+<h2 id="19-1-정규표현-regular-expressions">19.1 정규표현 - Regular expressions</h2>
 
-<p>シギルは波(<code>~</code>)文字から始まり次に文字，その次にセパレータと続きます．Elixirで一番よく使われているシギルは<a href="https://en.wikipedia.org/wiki/Regular_Expressions">正規表現</a>のための<code>~r</code>です:</p>
+<p>시길(sigil)은 물결표시(<code>~</code>)로 시작하고 특정문자가 따라오고 나면 구분자가 옵니다. 정규표현식<a href="https://en.wikipedia.org/wiki/Regular_Expressions">regular expressions</a>을 위한 가장 일반적인 sigil은 <code>~r</code>입니다:</p>
 
 <p>Sigils start with the tilde (<code>~</code>) character which is followed by a letter and then a separator. The most common sigil in Elixir is <code>~r</code> for <a href="https://en.wikipedia.org/wiki/Regular_Expressions">regular expressions</a>:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="go"># A regular expression that returns true if the text has foo or bar</span>
@@ -178,7 +178,7 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="s2">&quot;bat&quot;</span> <span class="o">=~</span> <span class="n">regex</span>
 <span class="go">false</span>
 </code></pre></div>
-<p>Elixirは<a href="http://www.pcre.org/">PCRE</a>ライブラリで実装されているPerl互換正規表現(regexes)を提供しています．正規表現はモディファイヤもサポートしています．例えば<code>i</code>モディファイヤを使うと正規表現の大小文字を区別しません:</p>
+<p>Elixir는 <a href="http://www.pcre.org/">PCRE</a> 라이브러로 구현된 Perl-compatible 정규표현식(regexes)을 제공합니다. Regexes는 수정자도 제공합니다. 예를들어 <code>i</code>수정자는 정규표현식을 case insensitive로 만듭니다:</p>
 
 <p>Elixir provides Perl-compatible regular expressions (regexes), as implemented by the <a href="http://www.pcre.org/">PCRE</a> library. Regexes also support modifiers. For example, the <code>i</code> modifier makes a regular expression case insensitive:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="s2">&quot;HELLO&quot;</span> <span class="o">=~</span> <span class="sx">~r/hello/</span>
@@ -186,11 +186,11 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="s2">&quot;HELLO&quot;</span> <span class="o">=~</span> <span class="sx">~r/hello/i</span>
 <span class="go">true</span>
 </code></pre></div>
-<p>正規表現でサポートしている他のモディファイアや演算子については<a href="/docs/stable/elixir/Regex.html"><code>Regex</code>モジュール</a>を見てください．</p>
+<p>다른 수정자와 정규표현식을 지원되는 오퍼레이션들에대해 좀 더 알고 싶다면 <a href="/docs/stable/elixir/Regex.html"><code>Regex</code> module</a>를 확인해보시면 됩니다.</p>
 
 <p>Check out the <a href="/docs/stable/elixir/Regex.html"><code>Regex</code> module</a> for more information on other modifiers and the supported operations with regular expressions.</p>
 
-<p>ここまで，正規表現の全ての例では<code>/</code>を区切りとして使っていました．しかしシギルでは8つの別のセパレータをサポートしています:</p>
+<p>아직까지는 정규표현식의 모든 예제에서 <code>/</code>를 구분자로 사용했습니다. 하지만 시길(sigil)은 8가지 다른 구분자도 지원하고 있습니다:</p>
 
 <p>So far, all examples have used <code>/</code> to delimit a regular expression. However sigils support 8 different separators:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">~r/hello/
@@ -202,41 +202,41 @@ function googleTranslateElementInit() {
 ~r{hello}
 ~r&lt;hello&gt;
 </code></pre></div>
-<p>異なる演算子をサポートした理由は異なるシギルで便利に使えるようにするためです．例えば，正規表現を区切るのに括弧を使うと正規表現の中にある括弧と混じってしまい混乱を招きます．しかし次の章で見るように，括弧は他のシギルにおいては便利です．</p>
+<p>다른 오퍼레이터를 지원하는 이유는 다른 시길(sigil)에서는 다른 구분자들이 편리할수도 있기 때문입니다. 예를들어, 정규식안에 괄호를 섞어서 사용할때 이 괄호는 구분자와 헷갈릴수 있습니다. 그러나 다음 장에서 보시는 바와 같이 괄호는 다른 시길(sigil)들을 위해 편리합니다.</p>
 
 <p>The reasoning in supporting different operators is that different separators can be more convenient to different sigils. For example, using parentheses for regular expressions may be a confusing choice as they can get mixed with the parentheses inside the regex. However, parentheses can be handy for other sigils, as we will see in the next section.</p>
 
-<h2 id="19-2-文字列，文字リストして語句のシギル-strings-char-lists-and-words-sigils">19.2 文字列，文字リストして語句のシギル - Strings, char lists and words sigils</h2>
+<h2 id="19-2-문자열-문자-리스트와-워드-시길-sigil-strings-char-lists-and-words-sigils">19.2 문자열, 문자 리스트와 워드 시길(sigil) - Strings, char lists and words sigils</h2>
 
-<p>正規表現に加えて，Elixirはその他に3つのシギルを提供しています．</p>
+<p>정규식 이외에 Elixir는 3개의 시길(sigil)을 제공합니다.</p>
 
 <p>Besides regular expressions, Elixir ships with three other sigils.</p>
 
-<p><code>~s</code>シギルは文字列を生成するのに使われ，ダブルクォートするのに似ています:</p>
+<p><code>~s</code>시길(sigil)은 큰따옴와 유사한 문자열을 생성하는게 사용합니다: </p>
 
 <p>The <code>~s</code> sigil is used to generate strings, similar to double quotes:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="sx">~s(this is a string with &quot;quotes&quot;)</span>
 <span class="go">&quot;this is a string with \&quot;quotes\&quot;&quot;</span>
 </code></pre></div>
-<p><code>~c</code>シギルは文字リストを生成するのに使われます:</p>
+<p>반면에 <code>~c</code>는 문자 리스트를 생성하는데 사용합니다:</p>
 
 <p>While <code>~c</code> is used to generate char lists:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="sx">~c(this is a string with &quot;quotes&quot;)</span>
 <span class="go">&#39;this is a string with &quot;quotes&quot;&#39;</span>
 </code></pre></div>
-<p><code>~w</code>シギルはスペースで区切られた語句からリストを生成するのに使われます:</p>
+<p><code>~w</code>시길(sigil)은 공백문자로 분리된 문자 리스트를 생성하는데 사용합니다:</p>
 
 <p>The <code>~w</code> sigil is used to generate a list of words separated by white space:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="sx">~w(foo bar bat)</span>
 <span class="go">[&quot;foo&quot;, &quot;bar&quot;, &quot;bat&quot;]</span>
 </code></pre></div>
-<p><code>~w</code>シギルは結果のフォーマットを選ぶのに<code>c</code>，<code>s</code>や<code>a</code>モディファイア(それぞれ文字リスト<code>char list</code>，文字列<code>s</code>，アトム<code>a</code>に対応)を受けつけます:</p>
+<p><code>~w</code>시길은 그 결과의 포맷을 선택하기 위해 각각 문자 리스트, 문자열과 원자형을위해 <code>c</code>, <code>s</code>와 <code>a</code>수정자를 사용할 있습니다:</p>
 
 <p>The <code>~w</code> sigil also accepts the <code>c</code>, <code>s</code> and <code>a</code> modifiers (for char lists, strings and atoms, respectively) to choose the format of the result:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="sx">~w(foo bar bat)a</span>
 <span class="go">[:foo, :bar, :bat]</span>
 </code></pre></div>
-<p>小文字でのシギルに加えて，Elixirは大文字のシギルにも対応しています．<code>~s</code>と<code>~S</code>どちらも文字列を返し，はじめのものはエスケープコードや文字列の挿入ができ，二番目のものはできません:</p>
+<p>소문자 시길(sigil)이외에 Elixir는 대문자시길(sigil)도 지원합니다. <code>~s</code>와 <code>~S</code>는 모두 문자열을 반환하지만 <code>~s</code>는 이스케이프 코드와 치환을 허용하지만 <code>S</code>는 그렇지 않습니다:</p>
 
 <p>Besides lowercase sigils, Elixir supports uppercase sigils. While both <code>~s</code> and <code>~S</code> will return strings, the first one allows escape codes and interpolation while the second does not:</p>
 <div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="n">iex</span><span class="o">&gt;</span> <span class="sx">~s(String with escape codes \x26 interpolation)</span>
@@ -244,46 +244,30 @@ function googleTranslateElementInit() {
 <span class="n">iex</span><span class="o">&gt;</span> <span class="sx">~S(String without escape codes and without #{interpolation})</span>
 <span class="s2">&quot;String without escape codes and without \#{interpolation}&quot;</span>
 </code></pre></div>
-<p>以下のエスケープコードは文字列と文字リストで使うことができます:</p>
+<p>다음 이스케이프 코드는 문자열과 문자 리스트에서 사용할 수 있습니다:</p>
 
 <p>The following escape codes can be used in strings and char lists:</p>
 
 <ul>
-<li><code>\&quot;</code> – ダブルクォート</li>
-<li><code>\&#39;</code> – シングルクォート</li>
-<li><code>\\</code> – バックスラッシュ</li>
-<li><code>\a</code> – ベル/アラート</li>
-<li><code>\b</code> – バックスペース</li>
-<li><code>\d</code> - 削除</li>
-<li><code>\e</code> - エスケープ</li>
-<li><code>\f</code> - フォームフィード</li>
-<li><code>\n</code> – 新しいライン</li>
-<li><code>\r</code> – キャリッジリターン</li>
-<li><code>\s</code> – スペース</li>
-<li><code>\t</code> – タブ</li>
-<li><code>\v</code> – 垂直タブ</li>
-<li><code>\DDD</code>, <code>\DD</code>, <code>\D</code> - 8進数での文字表現 DDD, DD か D (例: <code>\377</code>)</li>
-<li><code>\xDD</code> - 16進数での文字表現 DD (例: <code>\x13</code>)</li>
-<li><p><code>\x{D...}</code> - 1から複数桁の16進数での文字表現 (例: <code>\x{abc13}</code>)</p></li>
-<li><p><code>\&quot;</code> – double quote</p></li>
-<li><p><code>\&#39;</code> – single quote</p></li>
-<li><p><code>\\</code> – single backslash</p></li>
-<li><p><code>\a</code> – bell/alert</p></li>
-<li><p><code>\b</code> – backspace</p></li>
-<li><p><code>\d</code> - delete</p></li>
-<li><p><code>\e</code> - escape</p></li>
-<li><p><code>\f</code> - form feed</p></li>
-<li><p><code>\n</code> – newline</p></li>
-<li><p><code>\r</code> – carriage return</p></li>
-<li><p><code>\s</code> – space</p></li>
-<li><p><code>\t</code> – tab</p></li>
-<li><p><code>\v</code> – vertical tab</p></li>
-<li><p><code>\DDD</code>, <code>\DD</code>, <code>\D</code> - character with octal representation DDD, DD or D (example: <code>\377</code>)</p></li>
-<li><p><code>\xDD</code> - character with hexadecimal representation DD (example: <code>\x13</code>)</p></li>
-<li><p><code>\x{D...}</code> - character with hexadecimal representation with one or more hexadecimal digits (example: <code>\x{abc13}</code>)</p></li>
+<li><code>\&quot;</code> – double quote</li>
+<li><code>\&#39;</code> – single quote</li>
+<li><code>\\</code> – single backslash</li>
+<li><code>\a</code> – bell/alert</li>
+<li><code>\b</code> – backspace</li>
+<li><code>\d</code> - delete</li>
+<li><code>\e</code> - escape</li>
+<li><code>\f</code> - form feed</li>
+<li><code>\n</code> – newline</li>
+<li><code>\r</code> – carriage return</li>
+<li><code>\s</code> – space</li>
+<li><code>\t</code> – tab</li>
+<li><code>\v</code> – vertical tab</li>
+<li><code>\DDD</code>, <code>\DD</code>, <code>\D</code> - character with octal representation DDD, DD or D (example: <code>\377</code>)</li>
+<li><code>\xDD</code> - character with hexadecimal representation DD (example: <code>\x13</code>)</li>
+<li><code>\x{D...}</code> - character with hexadecimal representation with one or more hexadecimal digits (example: <code>\x{abc13}</code>)</li>
 </ul>
 
-<p>シギルは3つ連続したダブル/シングルクォートで区切られたヒアドキュメントにも対応しています:</p>
+<p>시길(sigil)은 구분자로써 3개의 따옴표 또는 따옴표를 사용할때 heredocs를 지원합니다:</p>
 
 <p>Sigils also support heredocs, which is when triple double- or single-quotes are used as separators:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="sx">~s</span><span class="sh">&quot;&quot;&quot;</span>
@@ -291,7 +275,7 @@ function googleTranslateElementInit() {
 <span class="gp">...&gt; </span><span class="sh">a heredoc string</span>
 <span class="gp">...&gt; </span><span class="sh">&quot;&quot;&quot;</span>
 </code></pre></div>
-<p>ドキュメントを書くときにシギルのヒアドキュメントが良く使われます．例えばドキュメントの中でエスケープ文字を書きたい場合，いくつかの文字で二重にエスケープが必要になるためミスしやすいです．</p>
+<p>문서를 작성할 때 시길의 heredoc이 많이 사용됩니다. 예를들어 문서에서 이스케이프 문자를 쓰려면 몇가지 문자는 더블 이스케이프를 해야되기 때문에 실수하기 쉽습니다:</p>
 
 <p>The most common case for heredoc sigils is when writing documentation. For example, if you need to write escape characters in your documentation, it can become error prone as we would need to double-escape some characters:</p>
 <div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="na">@doc</span> <span class="sh">&quot;&quot;&quot;</span>
@@ -305,7 +289,7 @@ function googleTranslateElementInit() {
 <span class="sh">&quot;&quot;&quot;</span>
 <span class="kd">def</span> <span class="n">convert</span><span class="p">(...)</span>
 </code></pre></div>
-<p>しかし<code>~S</code>を使えば，問題を完全に避けられます:</p>
+<p>그러나 <code>~S</code>를 사용하면 이러한 문제를 피할수 있습니다:</p>
 
 <p>By using using <code>~S</code>, we can avoid this problem altogether:</p>
 <div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="na">@doc</span> <span class="sx">~S</span><span class="sh">&quot;&quot;&quot;</span>
@@ -319,21 +303,21 @@ function googleTranslateElementInit() {
 <span class="sh">&quot;&quot;&quot;</span>
 <span class="kd">def</span> <span class="n">convert</span><span class="p">(...)</span>
 </code></pre></div>
-<h2 id="19-3-カスタムシギル-custom-sigils">19.3 カスタムシギル - Custom sigils</h2>
+<h2 id="19-3-커스텀-시길-sigil-custom-sigils">19.3 커스텀 시길(sigil) - Custom sigils</h2>
 
-<p>この章の最初に示唆したように，Elixirでのシギルは拡張可能です．実際，シギル<code>~r/foo/i</code>は関数<code>sigil_r</code>を2つの引数と共に呼び出しているのと同じことをしています:</p>
+<p>이 장의 처음에 제시한것처럼 Elixir에서 시길(sigil)은 확장 가능합니다. 실제로 시길(sigil) <code>~r/foo/i</code>은 <code>sigil_r</code>함수를 2개의 인자와 함께 호출하는 것은 같습니다:</p>
 
 <p>As hinted at the beginning of this chapter, sigils in Elixir are extensible. In fact, the sigil <code>~r/foo/i</code> is equivalent to calling the <code>sigil_r</code> function with two arguments:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">sigil_r</span><span class="p">(&lt;&lt;</span><span class="s2">&quot;foo&quot;</span><span class="p">&gt;&gt;,</span> <span class="s1">&#39;i&#39;</span><span class="p">)</span>
 <span class="go">~r&quot;foo&quot;i</span>
 </code></pre></div>
-<p>つまり，<code>~r</code>シギルについてのドキュメントは関数<code>sigil_r</code>を通じてアクセスすることができます:</p>
+<p>즉, <code>~r</code>시길(sigil)에 관한 문서는 <code>sigil_r</code>함수를 통해 접근 할 수 있습니다:</p>
 
 <p>That said, we can access the documentation for the <code>~r</code> sigil via the <code>sigil_r</code> function:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">h</span> <span class="n">sigil_r</span>
 <span class="go">...</span>
 </code></pre></div>
-<p>自分達のシギルを特定の関数を実装することで用意できます．例えば数値が返る<code>~i(13)</code>シギルを実装してみましょう:</p>
+<p>적절한 함수를 구현하면 자체 시길(sigil)을 사용할 수 있습니다. 예를들어 정수를 반환하는 <code>~i(13)</code>시길(sigil)을 구현해봅시다:</p>
 
 <p>We can also provide our own sigils by simply implementing the proper function. For example, let&#39;s implement the <code>~i(13)</code> sigil that returns an integer:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="kd">defmodule</span> <span class="nc">MySigils</span> <span class="k">do</span>
@@ -343,7 +327,7 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="sx">~i(13)</span>
 <span class="go">13</span>
 </code></pre></div>
-<p>シギルはマクロの助けを借りてコンパイル時に使われることもできます．例えばElixirの正規表現はソースコードのコンパル時に効率のよい形へとコンパイルされます，そうすると動作時にそのステップを省略できます．もしこの内容に興味があるなら，マクロについてもっと知り，<code>Kernel</code>モジュールでシギルがどうやって実装されているか調べてみることをおすすめします．</p>
+<p>또한 시길(sigil)은 매크로의 도움으로 컴파일 작업을 수행하는 데 사용할 수 있습니다. 예를들어 Elixir 정규 표현식은 소스 코드를 컴파일할때  효율적인 형태로 컴파일됩니다, 그러면 런타임시에 이 단계를 생략 할 수 있습니다. 만약이 이런 주제에 관심이 있다면 매크로에 대해 좀 더 배우고 <code>Kernel</code>모듈에 시길(sigil)이 어떻게 구현되어 있는지 알아보시기 바랍니다.</p>
 
 <p>Sigils can also be used to do compile-time work with the help of macros. For example, regular expressions in Elixir are compiled into efficient representation during compilation of the source code, therefore skipping this step at runtime. If you have interest in the subject, we recommend you to learn more about macros and check how those sigils are implemented in the <code>Kernel</code> module.</p>
 

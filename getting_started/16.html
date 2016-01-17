@@ -271,9 +271,9 @@ function googleTranslateElementInit() {
 
 <p>In many cases though, developers may want to provide a default implementation for structs, as explicitly implementing the protocol for all structs can be tedious. That&#39;s when falling back to Any comes in handy.</p>
 
-<h2 id="16-2-何かに立ち戻る-falling-back-to-any">16.2 何かに立ち戻る -  Falling back to Any</h2>
+<h2 id="16-2-falling-back-to-any">16.2 Falling back to Any</h2>
 
-<p>全ての型のためのデフォルトの実装が用意されていれば便利ですよね．プロトコル定義の中で<code>@fallback_to_any</code>を<code>true</code>に設定するとできるようになります:</p>
+<p>모든 타입에 대해 기본 구현이 제공되면 편할것입니다. 이를 위해서는 프로토콜 정의에 <code>@fallback_to_any</code>를 <code>true</code>로 설정하면 됩니다.</p>
 
 <p>It may be convenient to provide a default implementation for all types. This can be achieved by setting <code>@fallback_to_any</code> to <code>true</code> in the protocol definition:</p>
 <div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defprotocol</span> <span class="nc">Blank</span> <span class="k">do</span>
@@ -281,20 +281,20 @@ function googleTranslateElementInit() {
   <span class="kd">def</span> <span class="n">blank?</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
 <span class="k">end</span>
 </code></pre></div>
-<p>そしてこのように実装できます:</p>
+<p>이와같이 구현할수 있습니다:</p>
 
 <p>Which can now be implemented as:</p>
 <div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="kd">defimpl</span> <span class="nc">Blank</span><span class="p">,</span> <span class="ss">for</span><span class="p">:</span> <span class="nc">Any</span> <span class="k">do</span>
   <span class="kd">def</span> <span class="n">blank?</span><span class="p">(</span><span class="bp">_</span><span class="p">),</span> <span class="ss">do</span><span class="p">:</span> <span class="no">false</span>
 <span class="k">end</span>
 </code></pre></div>
-<p>今，<code>Blank</code>プロトコルを実装していない，全ての(構造体を含む)データ型は「ブランクではない」と考えられることになりました．</p>
+<p>이제 구현하지 않은 (구조체를 포함하여) 모든 데이터 타입의 <code>Blank</code>프로토콜은 non-blank로 간주됩니다.</p>
 
 <p>Now all data types (including structs) that we have not implemented the <code>Blank</code> protocol for will be considered non-blank.</p>
 
-<h2 id="16-3-組み込みプロトコル-built-in-protocols">16.3 組み込みプロトコル - Built-in protocols</h2>
+<h2 id="16-3-내장된-프로토콜-built-in-protocols">16.3 내장된 프로토콜 - Built-in protocols</h2>
 
-<p>Elixirにはいくつか組み込みのプロトコルがあります．以前の章で<code>Enumerable</code>プロトコルを実装しているならどんなデータ構造であっても動作する関数を沢山用意している<code>Enum</code>モジュールについてお話ししましたね:</p>
+<p>Elixir에는 일부 내장된 프로토콜이 있습니다. 이전 장에서 <code>Enumerable</code>프로토콜을 구현한 어떤 데이터 구조라도 다룰수 있는 <code>Enum</code>모듈에 대해 살펴봤습니다:</p>
 
 <p>Elixir ships with some built-in protocols. In previous chapters, we have discussed the <code>Enum</code> module which provides many functions that work with any data structure that implements the <code>Enumerable</code> protocol:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="nc">Enum</span><span class="p">.</span><span class="n">map</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="k">fn</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">x</span> <span class="o">*</span> <span class="mi">2</span> <span class="k">end</span>
@@ -302,19 +302,19 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="nc">Enum</span><span class="p">.</span><span class="n">reduce</span> <span class="mi">1</span><span class="p">..</span><span class="mi">3</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">fn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">acc</span><span class="p">)</span> <span class="p">-&gt;</span> <span class="n">x</span> <span class="o">+</span> <span class="n">acc</span> <span class="k">end</span>
 <span class="go">6</span>
 </code></pre></div>
-<p>その他便利な例として，文字のあるデータ構造をどのように文字列に変換するかを規定した<code>String.Chars</code>プロトコルがあります，関数<code>to_string</code>で使っています:</p>
+<p>또다른 유용한 예로 문자 데이터 구조를 어떻게 문자열로 변환하는지 명시하는 <code>String.Chars</code>프로토콜이 있습니다. <code>to_string</code>함수에서 사용하고 있습니다:</p>
 
 <p>Another useful example is the <code>String.Chars</code> protocol, which specifies how to convert a data structure with characters to a string. It&#39;s exposed via the <code>to_string</code> function:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">to_string</span> <span class="ss">:hello</span>
 <span class="go">&quot;hello&quot;</span>
 </code></pre></div>
-<p>Elixirの埋め込み文字列でも関数<code>to_string</code>を呼んでいることを覚えておいてください:</p>
+<p>문자열 interpolation도 <code>to_string</code>함수를 호출합니다:</p>
 
 <p>Notice that string interpolation in Elixir calls the <code>to_string</code> function:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="s2">&quot;age: </span><span class="si">#{</span><span class="mi">25</span><span class="si">}</span><span class="s2">&quot;</span>
 <span class="go">&quot;age: 25&quot;</span>
 </code></pre></div>
-<p>上の例は数値が<code>String.Chars</code>プロトコルを実装しているの動作しています．例えばタプルを渡すとエラーになります:</p>
+<p>위의 예는 숫자형이 <code>String.Chars</code>프로토콜을 구현하기때문에 동작합니다. 예를들어,튜플은 에러가 납니다:</p>
 
 <p>The snippet above only works because numbers implement the <code>String.Chars</code> protocol. Passing a tuple, for example, will lead to an error:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">tuple</span> <span class="p">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span>
@@ -322,13 +322,13 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="s2">&quot;tuple: </span><span class="si">#{</span><span class="n">tuple</span><span class="si">}</span><span class="s2">&quot;</span>
 <span class="gr">** (Protocol.UndefinedError) protocol String.Chars not implemented for {1, 2, 3}</span>
 </code></pre></div>
-<p>もっと複雑な&quot;表示&quot;が必要な場合，単に<code>Inspect</code>プロトコルによってできている関数<code>inspect</code>を利用するという方法もあります:</p>
+<p>더 복잡한 데이터 구조를 &quot;출력&quot;할 필요가 있는 경우 단순히 <code>Inspect</code>프로토콜의 <code>inspect</code>함수를 사용하면 됩니다:</p>
 
 <p>When there is a need to &quot;print&quot; a more complex data structure, one can simply use the <code>inspect</code> function, based on the <code>Inspect</code> protocol:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="s2">&quot;tuple: </span><span class="si">#{</span><span class="n">inspect</span> <span class="n">tuple</span><span class="si">}</span><span class="s2">&quot;</span>
 <span class="go">&quot;tuple: {1, 2, 3}&quot;</span>
 </code></pre></div>
-<p><code>Inspect</code>プロトコルはデータ構造を読むことができるテキスト表現へと変換します．IExで結果を表示するのにも使っています:</p>
+<p><code>Inspect</code>프로토콜은 어떠한 데이터 구조라도 읽을 수 있는 텍스트 표현으로 변환시켜줍니다. IEx에서 결과를 표시하는 데에도 사용하고 있습니다:</p>
 
 <p>The <code>Inspect</code> protocol is the protocol used to transform any data structure into a readable textual representation. This is what tools like IEx use to print results:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span>
@@ -336,13 +336,13 @@ function googleTranslateElementInit() {
 <span class="gp">iex&gt; </span><span class="p">%</span><span class="nc">User</span><span class="p">{}</span>
 <span class="go">%User{name: &quot;john&quot;, age: 27}</span>
 </code></pre></div>
-<p>評価された値が<code>#</code>から始まるときは，エリクサーの構文ではない方法でデータ構造を表しているという意味を表すならわしになっていることを覚えておいてください．つまり検査したプロトコルの情報が一部失われることがあるためにその情報からは元に戻せないということです:</p>
+<p>inspect된 값이 <code>#</code>로 시작되는것들은 유효하지 않는 Elixir문법입니다. 이 말은 inspect된 프로토콜이 다시 돌이킬수 없는 정보라는 뜻입니다.</p>
 
 <p>Keep in mind that, by convention, whenever the inspected value starts with <code>#</code>, it is representing a data structure in non-valid Elixir syntax. This means the inspect protocol is not reversible as information may be lost along the way:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">inspect</span> <span class="o">&amp;</span><span class="p">(</span><span class="ni">&amp;1</span><span class="o">+</span><span class="mi">2</span><span class="p">)</span>
 <span class="go">&quot;#Function&lt;6.71889879/1 in :erl_eval.expr/5&gt;&quot;</span>
 </code></pre></div>
-<p>Elixirには他のプロトコルもありますが，最も共通しているものについてはカバーしました．次の章ではElixirにおいての例外とエラーハンドリングについて学びましょう．</p>
+<p>Elixir에는 다른 프로토콜도 있지만 가장 일반적인것들에 대해 살펴보았습니다. 다음 장에서는 에러 핸들링과 예외에 대해 배울것입니다.</p>
 
 <p>There are other protocols in Elixir but this covers the most common ones. In the next chapter we will learn a bit more about error handling and exceptions in Elixir.</p>
 

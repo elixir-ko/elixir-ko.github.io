@@ -153,60 +153,56 @@ function googleTranslateElementInit() {
 
 <p><div class="toc"></div></p>
 
-<p>もっと知りたいですか？こちらをご覧ください！</p>
+<p>좀더 배우길 학수고대 하시나요? 그럼 계속 읽어보세요!</p>
 
 <p>Eager to learn more? Keep on reading!</p>
 
-<h2 id="20-1-あなたの始めてのelixirプジェクトを作ってみましょう-build-your-first-elixir-project">20.1 あなたの始めてのElixirプジェクトを作ってみましょう - Build your first Elixir project</h2>
+<h2 id="20-1-build-your-first-elixir-project">20.1 Build your first Elixir project</h2>
 
-<p>あなたの最初のプロジェクトを始めるのにあたり，ElixirはMixと呼ばれているビルドツールを提供しています．以下のように実行すれば簡単に新しいプロジェクトを始められます:</p>
+<p>처음 프로젝트를 시작하기 위해서 Elixir는 Mix빌드 툴을 함께 제공합니다. 다음과 같이 간단한 명령을 수행하는것만으로도 새로운 프로젝트를 생성할 수 있습니다:</p>
 
 <p>In order to get your first project started, Elixir ships with a build tool called Mix. You can get your new project started by simply running:</p>
 <div class="highlight"><pre><code class="language-text" data-lang="text">mix new path/to/new/project
 </code></pre></div>
-<p>私たちはどうやってElixirのアプリケーションを構築するか，スーパーバイザーの連なり，設定，テストなどなどについて触れたガイドを書いています．アプリケーションはキーとバリューのペアをバケツに入れ，複数のノードにわたってバケツを分散させる分散キーバリューストアとして動作します．</p>
+<p>우리는 어떻게 자체 감독트리, 환경설정, 테스트등을 가지는 Elixir 어플리케이션을 만들수 있는지 대해 가이드를 썻습니다. 어플리케이션은 키-밸류 쌍을 버킷에 넣고 여러 노드에 걸쳐 버킷을 분산시키는 분산 키-밸류 저장소로 동작합니다.</p>
 
 <p>We have written a guide that covers how to build an Elixir application, with its own supervision tree, configuration, tests and more. The application works as a distributed key-value store where we organize key-value pairs into buckets and distribute those buckets across multiple nodes:</p>
 
 <ul>
-<li><p><a href="/getting_started/mix_otp/1.html">MixとOTP</a></p></li>
-<li><p><a href="/getting_started/mix_otp/1.html">Mix and OTP</a></p></li>
+<li><a href="/getting_started/mix_otp/1.html">Mix and OTP</a></li>
 </ul>
 
-<h2 id="20-2-コミュニティと他のリソース-community-and-other-resources">20.2 コミュニティと他のリソース - Community and other resources</h2>
+<h2 id="20-2-community-and-other-resources">20.2 Community and other resources</h2>
 
-<p>サイドバーをみるといくつかのElixirの本やスクリーンキャストへのリンクを見つけられるでしょう．そこにはコミュニティによって作られている，カンファレンスの発表，オープンソースプロジェクト，そしてその他学習用の素材といった，Elixirのリソースが沢山あります．</p>
+<p>사이드 바를 보면 몇 가지 Elixir 책과 스크린 캐스트 링크가 있습니다. 거기에는 커뮤니티에서 만든 컨퍼런스의 발표, 오픈 소스 프로젝트 및 기타 학습 자료와 같은 Elixir 리소스들이 많이 있습니다.</p>
 
 <p>On the sidebar, you can find the link to some Elixir books and screencasts. There are plenty of Elixir resources out there, like conference talks, open source projects, and other learning materials produced by the community.</p>
 
-<p>何か難しい問題にあたったとき，いつでも<strong>irc.freenode.net</strong>にある<strong>#elixir-lang</strong>チャンネルに行ったり，<a href="http://groups.google.com/group/elixir-lang-talk">メーリングリスト</a>にメッセージを送ることができることを覚えていてください．そうすると誰かがきっと助けてくれるでしょう．そして最新のニュースやお知らせは，<a href="http://elixir-lang.org/blog/">blog</a>や言語開発者向け<a href="http://groups.google.com/group/elixir-lang-core">elixir-coreメーリングリスト</a>を見てください．</p>
+<p>다른 어려움이 있을때는 <strong>irc.freenode.net</strong>의 <strong>#elixir-lang</strong> 채널 또는 <a href="http://groups.google.com/group/elixir-lang-talk">mailing list</a>에 메시지를 보내시면 됩니다. 반드시 누군가가 기꺼이 도와줄것입니다. 그리고 최신 뉴스와 발표는 <a href="http://elixir-lang.org/blog/">blog</a>에서 확인 가능하며 <a href="http://groups.google.com/group/elixir-lang-core">elixir-core mailing list</a>에서 언어 개발에 관련된 정보를 알수 있습니다.</p>
 
 <p>Remember that in case of any difficulties, you can always visit the <strong>#elixir-lang</strong> channel on <strong>irc.freenode.net</strong> or send a message to the <a href="http://groups.google.com/group/elixir-lang-talk">mailing list</a>. You can be sure that there will be someone willing to help. And to keep posted on the latest news and announcements, follow the <a href="http://elixir-lang.org/blog/">blog</a> and follow language developments on the <a href="http://groups.google.com/group/elixir-lang-core">elixir-core mailing list</a>.</p>
 
-<p><a href="https://github.com/elixir-lang/elixir">いつでもElixirのソースコードが見られる</a>ことを忘れないでください，ほとんどElixirで書かれています(主に<code>lib</code>ディレクトリ)，あるいは<a href="http://elixir-lang.org/docs.html">Elixirのドキュメントも探索してみてください</a>．</p>
+<p>주로 <code>lib</code>디렉토리에 Elixir로 쓰여진 <a href="https://github.com/elixir-lang/elixir">you can also check the source code of Elixir itself</a> 또는 <a href="http://elixir-lang.org/docs.html">explore Elixir&#39;s documentation</a> 저장소도 잊지 마세요.</p>
 
 <p>Don&#39;t forget <a href="https://github.com/elixir-lang/elixir">you can also check the source code of Elixir itself</a>, which is mostly written in Elixir (mainly the <code>lib</code> directory), or <a href="http://elixir-lang.org/docs.html">explore Elixir&#39;s documentation</a>.</p>
 
-<h2 id="20-3-erlangのバイト-a-byte-of-erlang">20.3 Erlangのバイト - A Byte of Erlang</h2>
+<h2 id="20-3-erlang바이트-코드-a-byte-of-erlang">20.3 Erlang바이트 코드 - A Byte of Erlang</h2>
 
-<p>このサイトのメインページに以下のように書きました:</p>
+<p>이 사이트의 메인 페이지가 말하듯이:</p>
 
 <p>As the main page of this site puts it:</p>
 
 <blockquote>
-<p>ElixirはErlangVM上に構築したプログラミング言語です．</p>
+<p>Elixir는 ErlangVM에 구축한 프로그래밍 언어입니다.</p>
 
 <p>Elixir is a programming language built on top of the Erlang VM.</p>
 </blockquote>
 
-<p>すぐにでも，Elixir開発者は既にあるErlangのライブラリとのインターフェースが欲しくなるでしょう．ここにErlangの基本的なことやもうちょっと進んだ特徴についてのオンラインで参照できるリソースのリストを置きます:</p>
+<p>당장이라도, Elixir 개발자는 Erlang 라이브러리와 인터페이스 하기를 원할것입니다. Erlang의 기초나 고급 특징들에 대해 얘기하는 온라인 리소스들도 여기 있습니다:</p>
 
 <p>Sooner or later, an Elixir developer will want to interface with existing Erlang libraries. Here&#39;s a list of online resources that cover Erlang&#39;s fundamentals and its more advanced features:</p>
 
 <ul>
-<li><p><a href="http://elixir-lang.org/crash-course.html">Erlangの構文: 速修講座</a>ではErlangの構文についての簡潔な入門を用意しています．どのコード片もElixirで等しいコードと対に書かれています．これはErlangの構文を知るだけではなく，今まで学んだことを見直すよい機会になるでしょう．</p></li>
-<li><p>Erlangの公式ウェブサイトには画像つきの短い<a href="http://www.erlang.org/course/concurrent_programming.html">チュートリアル</a>があり，簡潔にErlangにおいての並行プログラミングでの基本が記述されています．</p></li>
-<li><p><a href="http://learnyousomeerlang.com/">Learn You Some Erlang for Great Good!</a>はErlangの考えかた，標準ライブラリ，ベストプラクティスなどなどを知ることのできる素晴しい入門です．もしElixirについて真剣に取り組むなら，Erlangの考えかたをしっかりと知っておく必要があります．上に書いたクラッシュの原因を読んだなら，主に構文について書かれているこの本の最初のいくつかの章は飛ばしてかまいません．あなたが心底楽しめるような内容は<a href="http://learnyousomeerlang.com/the-hitchhikers-guide-to-concurrency">The Hitchhiker&#39;s Guide to Concurrency</a>の章から始まります．</p></li>
 <li><p>This <a href="http://elixir-lang.org/crash-course.html">Erlang Syntax: A Crash Course</a> provides a concise intro to Erlang&#39;s syntax. Each code snippet is accompanied by equivalent code in Elixir. This is an opportunity for you to not only get some exposure to Erlang&#39;s syntax but also review some of the things you have learned in this guide.</p></li>
 <li><p>Erlang&#39;s official website has a short <a href="http://www.erlang.org/course/concurrent_programming.html">tutorial</a> with pictures that briefly describe Erlang&#39;s primitives for concurrent programming.</p></li>
 <li><p><a href="http://learnyousomeerlang.com/">Learn You Some Erlang for Great Good!</a> is an excellent introduction to Erlang, its design principles, standard library, best practices and much more. If you are serious about Elixir, you&#39;ll want to get a solid understanding of Erlang principles. Once you have read through the crash course mentioned above, you&#39;ll be able to safely skip the first couple of chapters in the book that mostly deal with the syntax. When you reach <a href="http://learnyousomeerlang.com/the-hitchhikers-guide-to-concurrency">The Hitchhiker&#39;s Guide to Concurrency</a> chapter, that&#39;s where the real fun starts.</p></li>

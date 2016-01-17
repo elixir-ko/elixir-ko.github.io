@@ -153,47 +153,47 @@ function googleTranslateElementInit() {
 
 <p><div class="toc"></div></p>
 
-<p>Elixirでは，列挙を繰り返すこと，結果をフィルタリングすること，そして別の値のリストへとマッピングすることをよく行います．内包表記はそうした構造の構文糖衣となっており，<code>for</code>というスペシャルフォームでそれらの一般的なタスクをまとめています．</p>
+<p>Elixir에서는 열거형에서 값을 하나씩 빼고 종종 결과를 필터링하며 다른 변수리스트에 매핑하는것이 일반적입니다. Comprehensions은 이와같은 것들을 구성하고 공통적인 태스크들을 <code>for</code>스페셜 폼안에 그룹핑 하기위한 문법 sugar입니다.</p>
 
 <p>In Elixir, it is common to loop over Enumerables, often filtering some results, and mapping to another list of values. Comprehensions are syntax sugar for such constructs, grouping those common tasks into the <code>for</code> special form.</p>
 
-<p>例えば，以下のようにリストの要素の2乗を求めることができます:</p>
+<p>예를들어 리스트안의 각 값들의 배수값을 아래와 같이 구할수 있습니다:</p>
 
 <p>For example, we can get all the square values of elements in a list as follows:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">for</span> <span class="n">n</span> <span class="p">&lt;-</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span> <span class="ss">do</span><span class="p">:</span> <span class="n">n</span> <span class="o">*</span> <span class="n">n</span>
 <span class="go">[1, 4, 9, 16]</span>
 </code></pre></div>
-<p>リスト内包表記は3つの部品，生成器，フィルタ，収集品からできています．</p>
+<p>comprehension은 3가지(generators, filters and collectables)부분으로 이루어져있습니다.</p>
 
 <p>A comprehension is made of three parts: generators, filters and collectables.</p>
 
-<h2 id="18-1-生成器とフィルタ-generators-and-filters">18.1 生成器とフィルタ - Generators and filters</h2>
+<h2 id="18-1-generators-and-filters">18.1 Generators and filters</h2>
 
-<p>上の式での<code>n &lt;- [1, 2, 3, 4]</code>が生成器です．これは文字通りリスト内包表記で使われる値を生成します．列挙可能なものなら何でも生成器の右側の式へ渡せます:</p>
+<p>위의 식에서 <code>n &lt;- [1, 2, 3, 4]</code>는 제너레이터입니다. 문자그대로 comprehensions안에 있는 값들을 하나씩 제너레이팅합니다. 어떠한 열거형이라도 제너레이터 식의 오른쪽에 사용할수있습니다: </p>
 
 <p>In the expression above, <code>n &lt;- [1, 2, 3, 4]</code> is the generator. It is literally generating values to be used in the comprehensions. Any enumerable can be passed in the right-hand side the generator expression:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">for</span> <span class="n">n</span> <span class="p">&lt;-</span> <span class="mi">1</span><span class="p">..</span><span class="mi">4</span><span class="p">,</span> <span class="ss">do</span><span class="p">:</span> <span class="n">n</span> <span class="o">*</span> <span class="n">n</span>
 <span class="go">[1, 4, 9, 16]</span>
 </code></pre></div>
-<p>生成器はパターンマッチングにも対応しており，マッチしなかった全てのパターンを無視します．範囲のかわりに，キーがアトムで<code>:good</code>か<code>:bad</code>となっているキーワードリストを持っていて，goodとなっているものの値だけを二乗したい場合を考えてみましょう:</p>
+<p>제너레이터 식들은 패턴매칭도 지원합니다. 레인지 대신에 키가 <code>:good</code>또는 <code>:bad</code> 원자형이고 good값의 배수값만 계산하길 원한다고 하면:</p>
 
 <p>Generator expressions also support pattern matching, ignoring all non-matching patterns. Imagine that instead of a range, we have a keyword list where the key is the atom <code>:good</code> or <code>:bad</code> and we only want to calculate the square of the good values:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">values</span> <span class="p">=</span> <span class="p">[</span><span class="ss">good</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="ss">good</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="ss">bad</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span> <span class="ss">good</span><span class="p">:</span> <span class="mi">4</span><span class="p">]</span>
 <span class="gp">iex&gt; </span><span class="k">for</span> <span class="p">{</span><span class="ss">:good</span><span class="p">,</span> <span class="n">n</span><span class="p">}</span> <span class="p">&lt;-</span> <span class="n">values</span><span class="p">,</span> <span class="ss">do</span><span class="p">:</span> <span class="n">n</span> <span class="o">*</span> <span class="n">n</span>
 <span class="go">[1, 4, 16]</span>
 </code></pre></div>
-<p>代わりに，幾つか目的にあった要素だけを通すのにフィルターを利用することもできます．例えば奇数の二乗だけを入手できます:</p>
+<p>특정 엘리먼트를 필터링 하기 위해 필터를 사용할수도 있습니다. 예를들어 오로지 홀수의 배수만 가져온다고 하면:</p>
 
 <p>Alternatively, filters can be used to filter some particular elements out. For example, we can get the square of only odd numbers:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="kn">require</span> <span class="nc">Integer</span>
 <span class="gp">iex&gt; </span><span class="k">for</span> <span class="n">n</span> <span class="p">&lt;-</span> <span class="mi">1</span><span class="p">..</span><span class="mi">4</span><span class="p">,</span> <span class="nc">Integer</span><span class="p">.</span><span class="n">is_odd</span><span class="p">(</span><span class="n">n</span><span class="p">),</span> <span class="ss">do</span><span class="p">:</span> <span class="n">n</span> <span class="o">*</span> <span class="n">n</span>
 <span class="go">[1, 9]</span>
 </code></pre></div>
-<p>フィルターは<code>nil</code>か<code>false</code>以外の全ての値を通します．</p>
+<p>필터는 <code>nil</code> 또는 <code>false</code>를 제외한 모든값들을 넣습니다.</p>
 
 <p>A filter will keep all values except <code>nil</code> or <code>false</code>.</p>
 
-<p>一般的に内包表記は<code>Enum</code>や<code>Stream</code>モジュールにある同じ効果を持つ関数を使うより簡潔な表現を提供します．そのうえ，内包表記には複数の生成器とフィルターを与えることができます．ディレクトリのリストを受けとって，それらのディレクトリにある全てのファイルを削除する例がこちらです:</p>
+<p>일반적으로 comprehension은 <code>Enum</code>과 <code>Stream</code>모듈에서 동일한 효과를 가지는 함수를 사용하는 것보다 간결한 표현을 제공합니다. 게다가 comprehensions는 여러 제너레이터 및 필터를 사용할 수 있습니다. 디렉토리 목록을 받아 그 디렉토리에있는 모든 파일을 삭제하는 예제가 여기 있습니다:</p>
 
 <p>Comprehensions in general provide a much more concise representation than using the equivalent functions from the <code>Enum</code> and <code>Stream</code> modules. Furthermore, comprehensions also allow multiple generators and filters to be given. Here is an example that receives a list of directories and deletes all files in those directories:</p>
 <div class="highlight"><pre><code class="language-elixir" data-lang="elixir"><span class="k">for</span> <span class="n">dir</span>  <span class="p">&lt;-</span> <span class="n">dirs</span><span class="p">,</span>
@@ -203,40 +203,40 @@ function googleTranslateElementInit() {
   <span class="nc">File</span><span class="p">.</span><span class="n">rm!</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
 <span class="k">end</span>
 </code></pre></div>
-<p>リスト内包表記の中の変数割り当てについて覚えておいてください．生成器，フィルター，あるいはブロックの内にあるものはリスト内包表記の外側には影響を及ぼしません．</p>
+<p>comprehension안에서 할당된 변수는 제너레이터, 필터 또는 블록에서만 유효하며 바깥에서는 사용할수 없습니다.</p>
 
 <p>Keep in mind that variable assignments inside the comprehension, be it in generators, filters or inside the block, are not reflected outside of the comprehension.</p>
 
-<h2 id="18-2-bitstring生成器-bitstring-generators">18.2 Bitstring生成器 - Bitstring generators</h2>
+<h2 id="18-2-bitstring-generators">18.2 Bitstring generators</h2>
 
-<p>Bitstring生成器も使えます．bitstringのstreamを用意したいときにとても便利です．以下はそれぞれ赤，緑，青の値を表すピクセルのリストをバイナリで受け取ってタプルへと変換する例です:</p>
+<p>비트스트링 발생기는 비트스트링 스트림을 구성하고자 할때 매유 유용합니다. 아래예제는 각각 빨강,녹색과 파란색 바이너리값의 픽셀 리스트를 받아서 3개씩 그룹핑하는것을 보여줍니다:</p>
 
 <p>Bitstring generators are also supported and are very useful when you need to organize bitstring streams. The example below receives a list of pixels from a binary with their respective red, green and blue values and convert them into triplets:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">pixels</span> <span class="p">=</span> <span class="p">&lt;&lt;</span><span class="mi">213</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">132</span><span class="p">,</span> <span class="mi">64</span><span class="p">,</span> <span class="mi">76</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">76</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">234</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">15</span><span class="p">&gt;&gt;</span>
 <span class="gp">iex&gt; </span><span class="k">for</span> <span class="p">&lt;&lt;</span><span class="n">r</span><span class="p">::</span><span class="mi">8</span><span class="p">,</span> <span class="n">g</span><span class="p">::</span><span class="mi">8</span><span class="p">,</span> <span class="n">b</span><span class="p">::</span><span class="mi">8</span> <span class="p">&lt;-</span> <span class="n">pixels</span><span class="p">&gt;&gt;,</span> <span class="ss">do</span><span class="p">:</span> <span class="p">{</span><span class="n">r</span><span class="p">,</span> <span class="n">g</span><span class="p">,</span> <span class="n">b</span><span class="p">}</span>
 <span class="go">[{213,45,132},{64,76,32},{76,0,0},{234,32,15}]</span>
 </code></pre></div>
-<p>Bitstring生成器は&quot;普通の&quot;enumerable生成器と混ぜられ，フィルタもうまく動きます．</p>
+<p>Bitstring 제너레이터는 일반적인 열거형 제너레이터 뿐만아니라 필터도 사용할수 있습니다.</p>
 
 <p>A bitstring generator can be mixed with the &quot;regular&quot; enumerable generators and provide filters as well.</p>
 
-<h2 id="18-3-into-into">18.3 Into - Into</h2>
+<h2 id="18-3-into">18.3 Into</h2>
 
-<p>上の例のように，内包表記は結果としてリストを返します．</p>
+<p>위의 예제는 comprehension이 결과로써 리스트를 반환합니다.</p>
 
 <p>In the examples above, the comprehension returned a list as a result.</p>
 
-<p>しかし，<code>:into</code>オプションを渡すことで，内包表記の結果を異なるデータ型へと挿入することができます．例えば，全ての空白を簡単に削除するのにbitstring生成器と<code>:into</code>オプションを使うことができます:</p>
+<p>그러나 comprehension의 결과는 <code>:into</code>옵션을 사용하여 다른 데이터 구조로도 삽입될수있습니다. 예를들어 비트스트링 제너레이터를 <code>:into</code>옵션과 함께 사용하면 스트링의 모든 공백을 쉽게 제거할 수 있습니다:</p>
 
 <p>However, the result of a comprehension can be inserted into different data structures by passing the <code>:into</code> option. For example, we can use bitstring generators with the <code>:into</code> option to easily remove all spaces in a string:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="k">for</span> <span class="p">&lt;&lt;</span><span class="n">c</span> <span class="p">&lt;-</span> <span class="s2">&quot; hello world &quot;</span><span class="p">&gt;&gt;,</span> <span class="n">c</span> <span class="o">!=</span> <span class="sc">?</span><span class="se">\s</span><span class="p">,</span> <span class="ss">into</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="ss">do</span><span class="p">:</span> <span class="p">&lt;&lt;</span><span class="n">c</span><span class="p">&gt;&gt;</span>
 <span class="go">&quot;helloworld&quot;</span>
 </code></pre></div>
-<p>セット，マップそして他のディクショナリも<code>:into</code>オプションに渡せます．たいていの場合，<code>:into</code>は<code>Collectable</code>プロトコルを実装してさえいればどんなものでも受けつけます．</p>
+<p>Sets, maps과 다른 딕셔너리에도 <code>:into</code>옵션을 사용할수 있습니다. 일반적으로 <code>:into</code>는 <code>Collectable</code>프로토콜만 구현하는 어떠한 구조체라도 받아 들입니다.</p>
 
 <p>Sets, maps and other dictionaries can also be given with the <code>:into</code> option. In general, the <code>:into</code> accepts any structure as long as it implements the <code>Collectable</code> protocol.</p>
 
-<p>例えば<code>IO</code>モジュールはストリームを提供します．ストリームは<code>Enumerable</code>でかつ<code>Collectable</code>です．内包表記を使って何でもタイプしたものを大文字にして返すエコー端末を実装することができます:</p>
+<p>예를들어 <code>IO</code>모듈은 <code>Enumerable</code>과 <code>Collectable</code>스트림을 제공합니다. comprehension을 사용하여 어떠한 문자도 대문자로 바꿔주는 echo terminal을 구현할수 있습니다.</p>
 
 <p>For example, the <code>IO</code> module provides streams, that are both <code>Enumerable</code> and <code>Collectable</code>. You can implement an echo terminal that returns whatever is typed, but in upcase, using comprehensions:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">stream</span> <span class="p">=</span> <span class="nc">IO</span><span class="p">.</span><span class="n">stream</span><span class="p">(</span><span class="ss">:stdio</span><span class="p">,</span> <span class="ss">:line</span><span class="p">)</span>
@@ -244,7 +244,7 @@ function googleTranslateElementInit() {
 <span class="gp">...&gt; </span>  <span class="nc">String</span><span class="p">.</span><span class="n">upcase</span><span class="p">(</span><span class="n">line</span><span class="p">)</span> <span class="o">&lt;&gt;</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
 <span class="gp">...&gt; </span><span class="k">end</span>
 </code></pre></div>
-<p>ターミナルに何か文字を打つと同じ値が大文字になって表示されるのを見られるでしょう．不幸なことにこの例はシェルを内包表記にとじこめてしまいます，そこから出るには<code>Ctrl+C</code>を二回押さなければなりません．:)</p>
+<p>이제 터미널에 어떤 스트링이라도 타이핑하면 대문자로 출력됩니다. 불행하게도 이 예제는 comprehension에 걸려있어 빠져나오려면 <code>Ctrl+C</code>를 두번 눌러야 합니다.</p>
 
 <p>Now type any string into the terminal and you will see the same value will be printed in upcase. Unfortunately, this example also got your shell stuck in the comprehension, so you will need to hit <code>Ctrl+C</code> twice to get out of it. :)</p>
 
