@@ -171,7 +171,7 @@
 <span class="gp">iex&gt; </span><span class="mi">10</span> <span class="o">/</span> <span class="mi">2</span>
 <span class="go">5.0</span>
 </code></pre></div>
-<p><code>10 / 2</code> 가 정수 <code>5</code> 가 아닌 부동 소수점 <code>5.0</code> 을 리턴하는 것에 주의하십시요. 이것은 의도된것입니다. Elixir에서는 <code>/</code> 연산자는 항상 부동 소수점을 반환합니다. 만약 정수의 몫과 나머지가 필요한 경우 함수 <code>div</code> 과 <code>rem</code> 를 호출하면 됩니다:</p>
+<p><code>10 / 2</code>가 정수 <code>5</code>가 아닌 부동 소수점 <code>5.0</code>을 리턴하는 것에 주의하십시요. 이것은 의도된것입니다. Elixir에서 <code>/</code>연산자는 항상 부동 소수점을 반환합니다. 만약 정수의 몫과 나머지가 필요한 경우 함수 <code>div</code>과 <code>rem</code>를 호출하면 됩니다:</p>
 
 <p>Notice that <code>10 / 2</code> returned a float <code>5.0</code> instead of an integer <code>5</code>. This is expected. In Elixir, the operator <code>/</code> always returns a float. If you want to do integer division or get the division remainder, you can invoke the <code>div</code> and <code>rem</code> functions:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">div</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
@@ -195,7 +195,7 @@
 <span class="gp">iex&gt; </span><span class="mh">0x1F</span>
 <span class="go">31</span>
 </code></pre></div>
-<p>부동 소수점은 적어도 하나 이상의 숫자 뒤에 점이 필요하며 지수로 <code>e</code> 를 사용할 수 있습니다:</p>
+<p>부동 소수점은 적어도 하나 이상의 숫자 뒤에 점이 필요하며 지수로 <code>e</code>를 사용할 수 있습니다:</p>
 
 <p>Float numbers require a dot followed by at least one digit and also support <code>e</code> for the exponent number:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="mf">1.0</span>
@@ -207,7 +207,7 @@
 
 <p>Floats in Elixir are 64 bit double precision.</p>
 
-<p>주어진 부동 소수점에 가까운 정수 값을 가져 오는 함수 <code>round</code> 를 또한 부동 소수점의 정수 부분을 얻을 수있는 함수 <code>trunc</code> 를 호출 할 수 있습니다.</p>
+<p>주어진 부동 소수점에 가까운 정수 값을 가져 오는 함수 <code>round</code>를 또한 부동 소수점의 정수 부분을 얻을 수있는 함수 <code>trunc</code> 를 호출 할 수 있습니다.</p>
 
 <p>You can invoke the <code>round</code> function to get the closest integer to a given float, or the <code>trunc</code> function to get the integer part of a float.</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="n">round</span> <span class="mf">3.58</span>
@@ -217,7 +217,7 @@
 </code></pre></div>
 <h2 id="2-2-불리언-booleans">2.2 불리언 - Booleans</h2>
 
-<p>Elixir는 불리언으로 <code>true</code> 와 <code>false</code> 을 사용할 수 있습니다 :</p>
+<p>Elixir는 불리언으로 <code>true</code>와 <code>false</code>를 사용할 수 있습니다 :</p>
 
 <p>Elixir supports <code>true</code> and <code>false</code> as booleans:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="no">true</span>
@@ -259,7 +259,7 @@
 <span class="gp">iex&gt; </span><span class="ss">:hello</span> <span class="o">==</span> <span class="ss">:world</span>
 <span class="go">false</span>
 </code></pre></div>
-<p>사실, 불리언 <code>true</code> 와 <code>false</code> 는 원자형입니다:</p>
+<p>사실, 불리언 <code>true</code>와 <code>false</code>는 원자형입니다:</p>
 
 <p>The booleans <code>true</code> and <code>false</code> are, in fact, atoms:</p>
 <div class="highlight"><pre><code class="language-iex" data-lang="iex"><span class="gp">iex&gt; </span><span class="no">true</span> <span class="o">==</span> <span class="ss">:true</span>
